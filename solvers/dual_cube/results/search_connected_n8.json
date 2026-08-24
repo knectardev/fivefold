@@ -1,0 +1,96 @@
+{
+  "savedAt": "2026-08-23T01:36:28.682Z",
+  "N": 8,
+  "pieceCount": 8,
+  "radius": 0,
+  "note": "candidate_N8_P8.json is a disconnected regression fixture and is not overwritten. Best connected so far is candidate_N8_P8_connected.json (seed 61559712, minVol 4.7%, cadEligible false).",
+  "foundConnected": true,
+  "foundCadEligible": false,
+  "bestConnected": {
+    "seed": 61559712,
+    "jobIndex": 4127,
+    "minVol": 0.046875,
+    "minCells": 24,
+    "needCells": 26,
+    "counts": [163, 59, 24, 55, 56, 57, 24, 74],
+    "cadQueue": "rejected-undersized"
+  },
+  "totals": {
+    "exact": 6800,
+    "connected": 65,
+    "cadEligible": 0
+  },
+  "campaigns": [
+    {
+      "campaignSeed": 20260822,
+      "workers": 8,
+      "mode": "all",
+      "sets": 800,
+      "offset": 0,
+      "passes": [
+        {
+          "label": "coherent-default",
+          "exact": 800,
+          "connected": 6,
+          "cadEligible": 0,
+          "connectedMinVolMax": 0.033203125
+        },
+        {
+          "label": "balance-32-rounds-8",
+          "exact": 800,
+          "connected": 11,
+          "cadEligible": 0,
+          "connectedMinVolMax": 0.037109375
+        },
+        {
+          "label": "balance-48-rounds-10",
+          "exact": 800,
+          "connected": 11,
+          "cadEligible": 0,
+          "connectedMinVolMax": 0.041015625
+        }
+      ]
+    },
+    {
+      "campaignSeed": 20260823,
+      "workers": 8,
+      "mode": "balance",
+      "sets": 1200,
+      "offset": 2400,
+      "passes": [
+        {
+          "label": "balance-32-rounds-8",
+          "exact": 1200,
+          "connected": 10,
+          "cadEligible": 0,
+          "connectedMinVolMax": 0.033203125
+        },
+        {
+          "label": "balance-48-rounds-10",
+          "exact": 1200,
+          "connected": 7,
+          "cadEligible": 0,
+          "connectedMinVolMax": 0.046875,
+          "bestConnectedSeed": 61559712
+        }
+      ]
+    },
+    {
+      "campaignSeed": 20260824,
+      "workers": 14,
+      "mode": "volume",
+      "sets": 2000,
+      "offset": 0,
+      "passes": [
+        {
+          "label": "balance-72-rounds-14",
+          "wallMs": 177961.8203,
+          "exact": 2000,
+          "connected": 20,
+          "cadEligible": 0,
+          "connectedMinVolMax": 0.041015625
+        }
+      ]
+    }
+  ]
+}

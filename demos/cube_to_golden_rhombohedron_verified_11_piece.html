@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Verified 11-Piece Cube ⇄ Golden Rhombohedron Dissection</title>
+<style>
+:root {
+  color-scheme: light;
+  --panel: #f7f7f7;
+  --ink: #171717;
+  --muted: #777;
+  --line: #d6d6d6;
+  --blue: #5599ec;
+}
+* { box-sizing: border-box; }
+html,body { margin:0; width:100%; height:100%; overflow:hidden; background:#efefef; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; color:var(--ink); }
+#app { display:grid; grid-template-columns:390px 1fr; width:100%; height:100%; }
+#panel { padding:25px 26px 20px; overflow:auto; background:rgba(250,250,250,.97); border-right:1px solid #ddd; z-index:2; }
+h1 { margin:0 0 8px; font-size:23px; line-height:1.15; }
+.subtitle { margin:0 0 17px; font-size:13px; line-height:1.45; color:#4f4f4f; }
+.status {
+  margin:0 0 18px; padding:11px 13px; border-radius:13px;
+  background:#eaf4e8; border:1px solid #b8d9b2; color:#31582d;
+  font-size:12px; line-height:1.45;
+}
+.tabs { display:flex; gap:9px; flex-wrap:wrap; margin-bottom:18px; }
+button {
+  border:2px solid #ddd; border-radius:22px; padding:9px 17px;
+  background:white; font-size:16px; cursor:pointer;
+}
+button.active { color:white; background:#111; border-color:#111; }
+.control { margin:17px 0; }
+.controlHead { display:flex; justify-content:space-between; font-size:18px; margin-bottom:8px; }
+.controlHead span:last-child { color:#888; }
+input[type="range"] { width:100%; accent-color:#1677df; }
+.switches { display:flex; gap:22px; flex-wrap:wrap; margin:20px 0; }
+.switchLabel { display:flex; align-items:center; gap:9px; font-size:17px; }
+.switch { width:53px; height:31px; border-radius:20px; background:#ddd; position:relative; cursor:pointer; }
+.switch::after { content:""; position:absolute; width:25px; height:25px; left:3px; top:3px; border-radius:50%; background:#fff; box-shadow:0 1px 4px rgba(0,0,0,.25); transition:.18s; }
+.switch.on { background:var(--blue); }
+.switch.on::after { left:25px; }
+.card { margin-top:18px; padding:16px; border:1px solid #d7d7d7; border-radius:22px; background:white; }
+.badge { display:inline-block; padding:7px 12px; border-radius:18px; background:#e1efff; color:#4a91df; font-size:14px; margin-bottom:12px; }
+.metrics { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.metric { padding:9px; border-radius:11px; background:#f4f4f4; }
+.metric b { display:block; color:#7e8790; font-size:10px; margin-bottom:3px; }
+.metric span { font-size:12px; font-variant-numeric:tabular-nums; }
+.method { margin-top:13px; font-size:11px; line-height:1.48; color:#666; }
+#view { position:relative; min-width:0; }
+canvas { width:100%; height:100%; display:block; touch-action:none; }
+#hint { position:absolute; left:18px; bottom:17px; padding:8px 12px; border-radius:16px; background:rgba(255,255,255,.88); color:#555; font-size:12px; }
+#pieceInfo { position:absolute; right:18px; bottom:17px; padding:8px 12px; border-radius:16px; background:rgba(255,255,255,.88); color:#555; font-size:12px; }
+@media (max-width:850px) {
+  #app { grid-template-columns:1fr; grid-template-rows:auto 1fr; }
+  #panel { padding:12px 14px; max-height:48vh; border-right:0; border-bottom:1px solid #ddd; }
+  h1 { font-size:19px; }
+  .subtitle,.status,.card { display:none; }
+  .control { margin:9px 0; }
+  .switches { margin:10px 0; }
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <aside id="panel">
+    <h1>Cube ⇄ Golden Rhombohedron</h1>
+    <p class="subtitle">A genuine rigid-piece construction generated from five exact planar shear dissections and their common refinement.</p>
+    <div class="status"><b>Verified construction:</b> 14 convex refinement cells reduce to <b>11 connected convex pieces</b> because three cell-pairs share both a boundary and the same final rigid motion. The browser geometry uses double-precision coefficients.</div>
+
+    <div class="tabs">
+      <button id="inventoryButton">Inventory</button>
+      <button id="cubeButton" class="active">Cube</button>
+      <button id="targetButton">Golden rhombohedron</button>
+    </div>
+
+    <div class="control">
+      <div class="controlHead"><span>Rearrangement</span><span id="progressValue">0%</span></div>
+      <input id="progress" type="range" min="0" max="1" value="0" step="0.001">
+    </div>
+
+    <div class="control">
+      <div class="controlHead"><span>Separation</span><span id="separationValue">14%</span></div>
+      <input id="separation" type="range" min="0" max="0.8" value="0.14" step="0.001">
+    </div>
+
+    <div class="control">
+      <div class="controlHead"><span>Opacity</span><span id="opacityValue">94%</span></div>
+      <input id="opacity" type="range" min="0.2" max="1" value="0.94" step="0.001">
+    </div>
+
+    <div class="switches">
+      <div class="switchLabel"><span id="guideSwitch" class="switch on"></span><span>Guide</span></div>
+      <div class="switchLabel"><span id="rotateSwitch" class="switch"></span><span>Auto rotate</span></div>
+    </div>
+
+    <div class="card">
+      <div class="badge" id="stateBadge">11-piece cube cut</div>
+      <div class="metrics">
+        <div class="metric"><b>PIECES</b><span>11 rigid convex</span></div>
+        <div class="metric"><b>SHEAR STAGES</b><span>5 planar</span></div>
+        <div class="metric"><b>SOURCE VOLUME</b><span>1.000000000000</span></div>
+        <div class="metric"><b>TARGET VOLUME</b><span>1.000000000000</span></div>
+        <div class="metric"><b>GOLDEN FACE ANGLE</b><span>63.434948823°</span></div>
+        <div class="metric"><b>GRAM RESIDUAL</b><span>0.00e+00</span></div>
+      </div>
+      <div class="method">
+        Shear factorization:
+        E<sub>31</sub>(-0.283322182),
+        E<sub>32</sub>(-0.447073161),
+        E<sub>13</sub>(-0.187984986),
+        E<sub>23</sub>(0.839658350),
+        E<sub>31</sub>(0.763947618).
+        Each stage cuts off a wedge and translates it by one current edge vector. The displayed intermediate animation is a collision-unchecked rigid-motion interpolation; the cube and rhombohedron endpoints are the verified assemblies.
+      </div>
+    </div>
+  </aside>
+
+  <main id="view">
+    <canvas id="canvas"></canvas>
+    <div id="hint">Drag to orbit · wheel to zoom · use Separation to inspect the cuts</div>
+    <div id="pieceInfo">11 pieces · total volume 1</div>
+  </main>
+</div>
+
+<script type="importmap">
+{"imports":{
+  "three":"https://cdn.jsdelivr.net/npm/three@0.164/build/three.module.js",
+  "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.164/examples/jsm/"
+}}
+</script>
+
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+const DATA = {"pieces":[{"id":1,"color":"#5DBB63","vertices":[[-0.47668695175,-0.331538813875,0.493578773677],[-0.47668695175,-0.331538813875,-0.506421226323],[-0.47668695175,0.508119536474,0.118190060712],[0.335328061877,-0.331538813875,0.263516907928],[0.379702365748,-0.331538813875,0.014892301011],[0.335328061877,0.508119536474,-0.111871805037],[0.379702365748,0.309916182552,-0.271885011968]],"faces":[[2,1,0],[6,4,1],[3,1,4],[3,0,1],[3,2,0],[3,5,2],[6,3,4],[6,5,3],[6,2,5],[6,1,2]],"sourcePosition":[-0.02331304825,-0.168461186125,0.006421226323],"targetPosition":[0.127565556924,0.108168694572,-0.175059399573],"inventoryPosition":[-2.175,1.42,0.0],"volume":0.285541784595},{"id":2,"color":"#4D7FE2","vertices":[[0.353499929349,0.378436810797,-0.521710959621],[0.353499929349,-0.621563189203,-0.074637798485],[-0.646500070651,0.378436810797,-0.238388777288],[-0.646500070651,-0.621563189203,0.208684383849],[0.223139602915,0.378436810797,0.208684383849],[0.087930668745,0.378436810797,0.208684383849],[0.274930010944,-0.270620864779,0.208684383849]],"faces":[[6,3,1],[3,0,1],[3,2,0],[5,2,3],[4,1,0],[4,6,1],[4,0,2],[4,2,5],[4,5,3],[4,3,6]],"sourcePosition":[0.146500070651,0.121563189203,0.291315616151],"targetPosition":[0.27705194369,-0.021226863731,0.207074828602],"inventoryPosition":[-0.725,1.42,0.0],"volume":0.270327426434},{"id":3,"color":"#EC9447","vertices":[[-0.452359933516,0.186580922542,-0.244858788984],[-0.452359933516,0.186580922542,0.30806804988],[-0.452359933516,-0.813419077458,-0.244858788984],[-0.452359933516,0.026239272891,0.379752498051],[0.28207080588,0.186580922542,-0.244858788984],[0.35965508011,0.186580922542,0.078006184132],[0.404029383981,0.186580922542,-0.170618422786],[0.35965508011,0.026239272891,0.149690632303],[0.404029383981,-0.171964081032,-0.010322574629]],"faces":[[4,2,0],[1,2,3],[1,0,2],[7,3,2],[7,2,8],[7,1,3],[7,5,1],[6,0,1],[6,4,0],[6,1,5],[6,7,8],[6,5,7],[6,8,2],[6,2,4]],"sourcePosition":[-0.047640066484,0.313419077458,-0.255141211016],"targetPosition":[-0.155142459404,-0.363960226506,-0.200050459901],"inventoryPosition":[0.725,1.42,0.0],"volume":0.183767867988},{"id":4,"color":"#7957D9","vertices":[[-0.71672832392,-0.19847946417,-0.151169948338],[0.232704579089,-0.19847946417,-0.151169948338],[0.139660993578,-0.19847946417,0.370143578996],[0.204701757675,0.152462860254,-0.151169948338],[0.139660993578,0.442975532257,0.083366266017]],"faces":[[2,0,1],[2,4,0],[3,1,0],[3,0,4],[3,4,2],[3,2,1]],"sourcePosition":[0.21672832392,-0.30152053583,-0.348830051662],"targetPosition":[0.651122736346,0.420380609882,0.30917968317],"inventoryPosition":[2.175,1.42,0.0],"volume":0.065939357453},{"id":5,"color":"#D2AA3F","vertices":[[-0.183607684849,0.25,0.111768290284],[-0.183607684849,0.25,-0.335304870852],[-0.183607684849,-0.75,0.111768290284],[0.550823054547,0.25,0.111768290284]],"faces":[[2,3,0],[1,0,3],[1,2,0],[1,3,2]],"sourcePosition":[-0.316392315151,0.25,0.388231709716],"targetPosition":[-0.478752971702,-0.104150535507,-0.37670771282],"inventoryPosition":[-2.175,0.0,0.0],"volume":0.054724045383},{"id":6,"color":"#55BFC9","vertices":[[0.063138373518,-0.301390754977,-0.277806809738],[0.063138373518,-0.301390754977,0.438871007928],[0.063138373518,0.079476259715,-0.277806809738],[0.063138373518,0.538267595372,0.063482294963],[0.012571276527,-0.301390754977,-0.277806809738],[-0.124846612856,-0.301390754977,0.492131324513],[-0.015431544887,0.049551569448,-0.277806809738],[-0.124846612856,0.538267595372,0.116742611548]],"faces":[[3,5,1],[3,7,5],[4,1,5],[4,0,1],[6,5,7],[6,4,5],[2,3,1],[2,1,0],[2,0,4],[2,4,6],[2,7,3],[2,6,7]],"sourcePosition":[0.436861626482,-0.198609245023,-0.222193190262],"targetPosition":[-0.300418319397,0.266425259153,0.120064113996],"inventoryPosition":[-0.725,0.0,0.0],"volume":0.050363354163},{"id":7,"color":"#C866BC","vertices":[[-0.706379854925,-0.665399553475,-0.051462763425],[0.163259818641,0.334600446525,-0.051462763425],[0.02805088447,0.334600446525,-0.051462763425],[0.150009462572,0.334600446525,0.022777602772],[0.21505022667,-0.314457229051,-0.051462763425],[0.150009462572,-0.023944557048,0.183073450929]],"faces":[[5,0,4],[3,1,2],[2,1,4],[2,4,0],[3,4,1],[3,5,4],[3,2,0],[3,0,5]],"sourcePosition":[0.206379854925,0.165399553475,-0.448537236575],"targetPosition":[0.405237953063,-0.159286534233,0.401218146833],"inventoryPosition":[0.725,0.0,0.0],"volume":0.029973379683},{"id":8,"color":"#7CC46B","vertices":[[0.034821707473,0.378031776814,-0.561442422503],[0.034821707473,-0.621968223186,-0.114369261367],[0.034821707473,0.378031776814,0.168952920967],[0.034821707473,-0.241101208494,0.168952920967],[-0.095538618961,0.378031776814,0.168952920967],[-0.043748210932,-0.271025898762,0.168952920967]],"faces":[[3,5,1],[2,0,4],[5,4,0],[5,0,1],[3,0,2],[3,1,0],[3,2,4],[3,4,5]],"sourcePosition":[0.465178292527,0.121968223186,0.331047079033],"targetPosition":[-0.676080144564,-0.239355858535,-0.135827586968],"inventoryPosition":[2.175,0.0,0.0],"volume":0.022161520954},{"id":9,"color":"#5D8BE5","vertices":[[0.073112527198,0.198609245023,-0.166038519454],[0.073112527198,0.198609245023,0.103566137076],[0.073112527198,-0.420523740285,-0.166038519454],[0.073112527198,0.038267595372,0.175250585247],[-0.057247799235,0.198609245023,-0.166038519454],[-0.114872459176,0.198609245023,0.156826453661],[-0.005457391207,-0.450448430552,-0.166038519454],[-0.114872459176,0.038267595372,0.228510901832]],"faces":[[4,1,0],[4,5,1],[4,7,5],[4,6,7],[3,1,5],[3,5,7],[2,4,0],[2,6,4],[2,0,1],[2,1,3],[2,7,6],[2,3,7]],"sourcePosition":[0.426887472802,0.301390754977,-0.333961480546],"targetPosition":[-0.529221419095,-0.282515241901,0.21409766123],"inventoryPosition":[-2.175,-1.42,0.0],"volume":0.019216584383},{"id":10,"color":"#E3A064","vertices":[[0.282284253849,-0.087735581106,-0.21249163675],[-0.717715746151,-0.087735581106,0.070830545583],[0.231717156858,-0.087735581106,0.070830545583],[0.203714335444,0.263206743318,0.070830545583]],"faces":[[3,0,1],[2,1,0],[2,3,1],[2,0,3]],"sourcePosition":[0.217715746151,-0.412264418894,0.429169454417],"targetPosition":[0.539510432682,0.46445572468,0.092040373356],"inventoryPosition":[-0.725,-1.42,0.0],"volume":0.015733645276},{"id":11,"color":"#9D79D7","vertices":[[0.025827403079,-0.146361867823,0.056664436467],[0.025827403079,-0.146361867823,-0.226657745867],[0.025827403079,0.234505146869,0.056664436467],[-0.024739693912,-0.146361867823,0.056664436467],[-0.052742515326,0.204580456601,0.056664436467]],"faces":[[1,4,2],[1,2,0],[3,4,1],[3,1,0],[3,0,2],[3,2,4]],"sourcePosition":[0.474172596921,-0.353638132177,0.443335563533],"targetPosition":[-0.433646897364,0.32743015803,-0.220267529009],"inventoryPosition":[0.725,-1.42,0.0],"volume":0.002251033687}],"rotation":[[0.781813824277198,0.585596262834854,0.214112496419324],[-0.390906912138599,0.727876006567928,-0.563372261568664],[-0.485756039809417,0.356754167483127,0.797977151159163]],"cubeGuideVertices":[[-0.5,-0.5,-0.5],[-0.5,-0.5,0.5],[-0.5,0.5,-0.5],[-0.5,0.5,0.5],[0.5,-0.5,-0.5],[0.5,-0.5,0.5],[0.5,0.5,-0.5],[0.5,0.5,0.5]],"targetGuideVertices":[[-1.037566207434,-0.641251181772,-0.465896254691],[-0.547693895212,-0.338493442672,0.465896254691],[-0.547693895212,0.338493442672,-0.465896254691],[-0.05782158299,0.641251181772,0.465896254691],[0.05782158299,-0.641251181772,-0.465896254691],[0.547693895212,-0.338493442672,0.465896254691],[0.547693895212,0.338493442672,-0.465896254691],[1.037566207434,0.641251181772,0.465896254691]],"guideFaces":[[0,4,6,2],[1,3,7,5],[0,1,5,4],[2,6,7,3],[0,2,3,1],[4,5,7,6]],"coefficients":[-0.2833221823339402,-0.44707316113612566,-0.18798498637386818,0.8396583503492914,0.7639476176946507],"gramError":0.0,"orthogonalityError":4.440892098500626e-16,"detError":0.0,"mergeVolumeError":1.734723475976807e-17,"pieceVolumeSum":0.9999999999999999};
+
+const canvas = document.getElementById("canvas");
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled = true;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xf2f2f2);
+
+const camera = new THREE.PerspectiveCamera(40,1,.1,100);
+camera.position.set(4.6,3.6,6.4);
+
+const controls = new OrbitControls(camera,canvas);
+controls.enableDamping = true;
+controls.target.set(0,0,0);
+
+scene.add(new THREE.HemisphereLight(0xffffff,0xaeb9c5,2.15));
+const key = new THREE.DirectionalLight(0xffffff,2.2);
+key.position.set(6,8,5);
+key.castShadow = true;
+scene.add(key);
+
+const floor = new THREE.Mesh(
+  new THREE.PlaneGeometry(24,24),
+  new THREE.MeshStandardMaterial({color:0xe8e8e8,roughness:1})
+);
+floor.rotation.x = -Math.PI/2;
+floor.position.y = -1.65;
+floor.receiveShadow = true;
+scene.add(floor);
+
+const grid = new THREE.GridHelper(24,24,0xcbcbcb,0xe0e0e0);
+grid.position.y = -1.64;
+scene.add(grid);
+
+const assembly = new THREE.Group();
+assembly.position.y = .15;
+scene.add(assembly);
+
+function geometryFromData(vertices,faces){
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position",new THREE.Float32BufferAttribute(vertices.flat(),3));
+  geometry.setIndex(faces.flat());
+  geometry.computeVertexNormals();
+  return geometry;
+}
+
+function guideGeometry(vertices,faces){
+  return geometryFromData(vertices,faces.map(face=>[
+    face[0],face[1],face[2],
+    face[0],face[2],face[3]
+  ]).flat());
+}
+
+const cubeGuideGeometry = guideGeometry(DATA.cubeGuideVertices,DATA.guideFaces);
+const targetGuideGeometry = guideGeometry(DATA.targetGuideVertices,DATA.guideFaces);
+
+function makeGuide(geometry){
+  const group = new THREE.Group();
+  const fill = new THREE.Mesh(
+    geometry,
+    new THREE.MeshBasicMaterial({
+      color:0x8fb4d3,transparent:true,opacity:.09,
+      side:THREE.DoubleSide,depthWrite:false
+    })
+  );
+  const edges = new THREE.LineSegments(
+    new THREE.EdgesGeometry(geometry,15),
+    new THREE.LineBasicMaterial({color:0x7598b6,transparent:true,opacity:.48})
+  );
+  group.add(fill,edges);
+  return group;
+}
+
+const cubeGuide = makeGuide(cubeGuideGeometry);
+const targetGuide = makeGuide(targetGuideGeometry);
+assembly.add(cubeGuide,targetGuide);
+
+const qTarget = new THREE.Quaternion();
+const qIdentity = new THREE.Quaternion();
+const qMatrix = new THREE.Matrix4();
+const R = DATA.rotation;
+qMatrix.set(
+  R[0][0],R[0][1],R[0][2],0,
+  R[1][0],R[1][1],R[1][2],0,
+  R[2][0],R[2][1],R[2][2],0,
+  0,0,0,1
+);
+qTarget.setFromRotationMatrix(qMatrix);
+
+const pieceObjects = DATA.pieces.map(piece=>{
+  const geometry = geometryFromData(piece.vertices,piece.faces);
+  const material = new THREE.MeshStandardMaterial({
+    color:piece.color,roughness:.58,metalness:.02,
+    transparent:true,opacity:.94,flatShading:true,
+    side:THREE.DoubleSide
+  });
+  const mesh = new THREE.Mesh(geometry,material);
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
+
+  const edges = new THREE.LineSegments(
+    new THREE.EdgesGeometry(geometry,8),
+    new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:.56})
+  );
+  mesh.add(edges);
+  assembly.add(mesh);
+
+  return {
+    mesh,
+    edges,
+    source:new THREE.Vector3(...piece.sourcePosition),
+    target:new THREE.Vector3(...piece.targetPosition),
+    inventory:new THREE.Vector3(...piece.inventoryPosition),
+    volume:piece.volume
+  };
+});
+
+let inventoryMode = false;
+let progress = 0;
+let separation = .14;
+let opacity = .94;
+let guideVisible = true;
+let autoRotate = false;
+
+const temporaryPosition = new THREE.Vector3();
+const targetPosition = new THREE.Vector3();
+const temporaryQuaternion = new THREE.Quaternion();
+const desiredQuaternion = new THREE.Quaternion();
+
+function interpolatedBase(piece){
+  if(inventoryMode) return piece.inventory.clone();
+  return piece.source.clone().lerp(piece.target,progress);
+}
+
+function desiredPose(piece){
+  const base = interpolatedBase(piece);
+  const direction = base.clone();
+  if(direction.lengthSq()<1e-9) direction.set(0,1,0);
+  direction.normalize();
+
+  const explodeAmount = inventoryMode ? separation*.45 : separation;
+  targetPosition.copy(base).addScaledVector(direction,explodeAmount);
+
+  if(inventoryMode){
+    desiredQuaternion.identity();
+  } else {
+    desiredQuaternion.copy(qIdentity).slerp(qTarget,progress);
+  }
+  return {position:targetPosition.clone(),quaternion:desiredQuaternion.clone()};
+}
+
+function updateGuides(){
+  const visible = guideVisible && !inventoryMode;
+  cubeGuide.visible = visible;
+  targetGuide.visible = visible;
+
+  const cubeOpacity = Math.max(0,1-progress);
+  const targetOpacity = Math.max(0,progress);
+  cubeGuide.children[0].material.opacity = .09*cubeOpacity;
+  cubeGuide.children[1].material.opacity = .48*cubeOpacity;
+  targetGuide.children[0].material.opacity = .09*targetOpacity;
+  targetGuide.children[1].material.opacity = .48*targetOpacity;
+}
+
+function updateLabels(){
+  document.getElementById("progressValue").textContent = Math.round(progress*100)+"%";
+  document.getElementById("separationValue").textContent = Math.round(separation*100)+"%";
+  document.getElementById("opacityValue").textContent = Math.round(opacity*100)+"%";
+
+  const badge = document.getElementById("stateBadge");
+  if(inventoryMode) badge.textContent = "11-piece inventory";
+  else if(progress<.001) badge.textContent = "11-piece cube cut";
+  else if(progress>.999) badge.textContent = "11-piece golden rhombohedron";
+  else badge.textContent = "Rigid-piece rearrangement";
+
+  document.getElementById("inventoryButton").classList.toggle("active",inventoryMode);
+  document.getElementById("cubeButton").classList.toggle("active",!inventoryMode && progress<.001);
+  document.getElementById("targetButton").classList.toggle("active",!inventoryMode && progress>.999);
+}
+
+function setProgress(value){
+  inventoryMode = false;
+  progress = value;
+  document.getElementById("progress").value = value;
+  updateLabels();
+  updateGuides();
+}
+
+document.getElementById("inventoryButton").onclick=()=>{
+  inventoryMode=true;
+  updateLabels();
+  updateGuides();
+};
+document.getElementById("cubeButton").onclick=()=>setProgress(0);
+document.getElementById("targetButton").onclick=()=>setProgress(1);
+
+document.getElementById("progress").oninput=event=>setProgress(+event.target.value);
+document.getElementById("separation").oninput=event=>{
+  separation=+event.target.value;
+  updateLabels();
+};
+document.getElementById("opacity").oninput=event=>{
+  opacity=+event.target.value;
+  updateLabels();
+};
+
+document.getElementById("guideSwitch").onclick=event=>{
+  guideVisible=!guideVisible;
+  event.currentTarget.classList.toggle("on",guideVisible);
+  updateGuides();
+};
+document.getElementById("rotateSwitch").onclick=event=>{
+  autoRotate=!autoRotate;
+  event.currentTarget.classList.toggle("on",autoRotate);
+};
+
+function resize(){
+  const view=document.getElementById("view");
+  renderer.setSize(view.clientWidth,view.clientHeight,false);
+  camera.aspect=view.clientWidth/view.clientHeight;
+  camera.updateProjectionMatrix();
+}
+addEventListener("resize",resize);
+resize();
+updateLabels();
+updateGuides();
+
+for(const piece of pieceObjects){
+  const pose=desiredPose(piece);
+  piece.mesh.position.copy(pose.position);
+  piece.mesh.quaternion.copy(pose.quaternion);
+}
+
+let previous=performance.now();
+function animate(now){
+  requestAnimationFrame(animate);
+  const dt=Math.min(.05,(now-previous)/1000);
+  previous=now;
+
+  if(autoRotate) assembly.rotation.y += dt*.38;
+
+  for(const piece of pieceObjects){
+    const pose=desiredPose(piece);
+    piece.mesh.position.lerp(pose.position,.13);
+    piece.mesh.quaternion.slerp(pose.quaternion,.13);
+    piece.mesh.material.opacity=opacity;
+    piece.edges.material.opacity=Math.min(.78,.35+opacity*.35);
+  }
+
+  controls.update();
+  renderer.render(scene,camera);
+}
+animate(performance.now());
+</script>
+</body>
+</html>

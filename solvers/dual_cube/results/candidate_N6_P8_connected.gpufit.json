@@ -1,0 +1,1671 @@
+{
+  "schema": "dual-cube-gpu-fit-report",
+  "version": 1,
+  "input": "solvers/dual_cube/results/candidate_N6_P8_connected.json",
+  "cadEligible": true,
+  "backend": "cpu",
+  "gpu": {
+    "ok": false,
+    "reason": "navigator.gpu is not available"
+  },
+  "gpuFit": {
+    "backend": "cpu",
+    "engine": "batched",
+    "openings": 25,
+    "jobs": 255,
+    "selected": 11,
+    "inserted": 11,
+    "rolledBack": 0,
+    "note": "Packed opening × family × initialization residuals. CPU inserts carriers transactionally. WebGPU scores the same buffer when navigator.gpu is present; CPU is the oracle."
+  },
+  "insertion": {
+    "proposedCount": 11,
+    "acceptedCount": 11,
+    "rejectedCount": 0,
+    "accepted": [
+      "S70",
+      "S96",
+      "S59",
+      "S6",
+      "S66",
+      "S49",
+      "S71",
+      "S80",
+      "S81",
+      "S13",
+      "S56"
+    ],
+    "rejected": [],
+    "baseline": {
+      "openEdges": 144,
+      "nonmanifold": 0,
+      "duplicateEdges": 0,
+      "shells": 39,
+      "unresolved": 25,
+      "fitted": 0
+    },
+    "final": {
+      "openEdges": 86,
+      "nonmanifold": 0,
+      "duplicateEdges": 0,
+      "shells": 22,
+      "unresolved": 14,
+      "fitted": 11
+    },
+    "openEdges": {
+      "openEdges": 86,
+      "explainedByUnresolvedOpening": 86,
+      "explainedByFittedUntrimmed": 0,
+      "unexplainedCount": 0,
+      "byOpening": {
+        "S4": 7,
+        "S9": 7,
+        "S7": 10,
+        "S19": 7,
+        "S21": 6,
+        "S35": 7,
+        "S41": 6,
+        "S45": 6,
+        "S50": 6,
+        "S74": 7,
+        "S84": 7,
+        "S92": 3,
+        "S99": 6,
+        "S91": 6
+      },
+      "byFittedUntrimmed": {},
+      "unexplained": [],
+      "fittedUntrimmed": []
+    },
+    "carrierStatus": [
+      {
+        "patch": "S6",
+        "piece": 1,
+        "type": "cylinder",
+        "acceptedGeometry": true,
+        "trimComplete": true,
+        "unmatchedCount": 0
+      },
+      {
+        "patch": "S13",
+        "piece": 1,
+        "type": "generalQuadric",
+        "acceptedGeometry": true,
+        "trimComplete": true,
+        "unmatchedCount": 0
+      },
+      {
+        "patch": "S49",
+        "piece": 4,
+        "type": "generalQuadric",
+        "acceptedGeometry": true,
+        "trimComplete": true,
+        "unmatchedCount": 0
+      },
+      {
+        "patch": "S56",
+        "piece": 5,
+        "type": "generalQuadric",
+        "acceptedGeometry": true,
+        "trimComplete": true,
+        "unmatchedCount": 0
+      },
+      {
+        "patch": "S59",
+        "piece": 5,
+        "type": "cylinder",
+        "acceptedGeometry": true,
+        "trimComplete": true,
+        "unmatchedCount": 0
+      },
+      {
+        "patch": "S66",
+        "piece": 6,
+        "type": "cone",
+        "acceptedGeometry": true,
+        "trimComplete": true,
+        "unmatchedCount": 0
+      },
+      {
+        "patch": "S70",
+        "piece": 6,
+        "type": "cylinder",
+        "acceptedGeometry": true,
+        "trimComplete": true,
+        "unmatchedCount": 0
+      },
+      {
+        "patch": "S71",
+        "piece": 6,
+        "type": "generalQuadric",
+        "acceptedGeometry": true,
+        "trimComplete": true,
+        "unmatchedCount": 0
+      },
+      {
+        "patch": "S80",
+        "piece": 7,
+        "type": "generalQuadric",
+        "acceptedGeometry": true,
+        "trimComplete": true,
+        "unmatchedCount": 0
+      },
+      {
+        "patch": "S81",
+        "piece": 7,
+        "type": "generalQuadric",
+        "acceptedGeometry": true,
+        "trimComplete": true,
+        "unmatchedCount": 0
+      },
+      {
+        "patch": "S96",
+        "piece": 8,
+        "type": "cylinder",
+        "acceptedGeometry": true,
+        "trimComplete": true,
+        "unmatchedCount": 0
+      }
+    ],
+    "trimRepair": {
+      "overrides": {
+        "S2|S6": "S6__plane_S2__generator_0__forward__aabb_clip",
+        "S3|S6": "S6__plane_S3__seed_polyline__forward__none",
+        "S5|S6": "S6__plane_S5__numerical__forward__none",
+        "S6|S8": "S6__plane_S8__generator_1__forward__aabb_clip",
+        "S15|S6": "S6__plane_S15__seed_polyline__forward__none",
+        "S14|S6": "S6__plane_S14__seed_polyline__forward__none",
+        "S93|S96": "S96__plane_S93__seed_polyline__forward__none",
+        "S94|S96": "S96__plane_S94__numerical__forward__none"
+      },
+      "baseline": {
+        "openEdges": 94,
+        "nonmanifold": 0,
+        "duplicateEdges": 0,
+        "shells": 23,
+        "unresolved": 14,
+        "fitted": 11
+      },
+      "chosen": {
+        "openEdges": 86,
+        "nonmanifold": 0,
+        "duplicateEdges": 0,
+        "shells": 22,
+        "unresolved": 14,
+        "fitted": 11
+      },
+      "cubeB": {
+        "rms": 0.0024744721794408603,
+        "max": 0.009735770094130753
+      },
+      "diagnostics": [
+        {
+          "patch": "S6",
+          "family": "cylinder",
+          "incidentPlanarIds": [
+            "S2",
+            "S3",
+            "S5",
+            "S8",
+            "S14",
+            "S15",
+            "S20"
+          ],
+          "fittedUntrimmed": 6,
+          "adjacencies": [
+            {
+              "planeId": "S2",
+              "missing": true,
+              "selectedBranchId": null,
+              "rejected": [
+                {
+                  "adjacency": "S2|S6",
+                  "reason": "trim-interval-clip-or-wrong-generator"
+                }
+              ],
+              "branches": [
+                {
+                  "id": "S6__plane_S2__generator_0__forward__aabb_clip",
+                  "component": "generator_0",
+                  "orientation": "forward",
+                  "clip": "aabb_clip",
+                  "accept": true,
+                  "reason": "interval-clip-degenerate",
+                  "voxelScore": 0.12197851328079964,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S2__generator_0__reverse__aabb_clip",
+                  "component": "generator_0",
+                  "orientation": "reverse",
+                  "clip": "aabb_clip",
+                  "accept": true,
+                  "reason": "interval-clip-degenerate",
+                  "voxelScore": 0.12197851328079964,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S2__generator_1__forward__aabb_clip",
+                  "component": "generator_1",
+                  "orientation": "forward",
+                  "clip": "aabb_clip",
+                  "accept": false,
+                  "reason": "trim-interval-clip-removed-segment",
+                  "voxelScore": 0.2190933765284936,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S2__numerical__forward__none",
+                  "component": "numerical",
+                  "orientation": "forward",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.12114676643151788,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S2__numerical__reverse__none",
+                  "component": "numerical",
+                  "orientation": "reverse",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.12114676643151788,
+                  "matchedEndpoints": 0
+                }
+              ]
+            },
+            {
+              "planeId": "S3",
+              "missing": true,
+              "selectedBranchId": null,
+              "rejected": [
+                {
+                  "adjacency": "S3|S6",
+                  "reason": "legacy-selector-missed-branch"
+                }
+              ],
+              "branches": [
+                {
+                  "id": "S6__plane_S3__numerical__forward__none",
+                  "component": "numerical",
+                  "orientation": "forward",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection",
+                  "voxelScore": 0.14750811060107444,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S3__numerical__reverse__none",
+                  "component": "numerical",
+                  "orientation": "reverse",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection",
+                  "voxelScore": 0.14750811060107444,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S3__seed_polyline__forward__none",
+                  "component": "seed_polyline",
+                  "orientation": "forward",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection-used-seed-polyline",
+                  "voxelScore": 0.11279837864936233,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S3__seed_polyline__reverse__none",
+                  "component": "seed_polyline",
+                  "orientation": "reverse",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection-used-seed-polyline",
+                  "voxelScore": 0.11279837864936233,
+                  "matchedEndpoints": 0
+                }
+              ]
+            },
+            {
+              "planeId": "S5",
+              "missing": true,
+              "selectedBranchId": null,
+              "rejected": [
+                {
+                  "adjacency": "S5|S6",
+                  "reason": "legacy-selector-missed-branch"
+                }
+              ],
+              "branches": [
+                {
+                  "id": "S6__plane_S5__numerical__forward__none",
+                  "component": "numerical",
+                  "orientation": "forward",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection",
+                  "voxelScore": 0.2110981984889713,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S5__numerical__reverse__none",
+                  "component": "numerical",
+                  "orientation": "reverse",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection",
+                  "voxelScore": 0.2110981984889713,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S5__seed_polyline__forward__none",
+                  "component": "seed_polyline",
+                  "orientation": "forward",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection-used-seed-polyline",
+                  "voxelScore": 0.2110981984889713,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S5__seed_polyline__reverse__none",
+                  "component": "seed_polyline",
+                  "orientation": "reverse",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection-used-seed-polyline",
+                  "voxelScore": 0.2110981984889713,
+                  "matchedEndpoints": 0
+                }
+              ]
+            },
+            {
+              "planeId": "S8",
+              "missing": true,
+              "selectedBranchId": null,
+              "rejected": [
+                {
+                  "adjacency": "S6|S8",
+                  "reason": "trim-interval-clip-or-wrong-generator"
+                }
+              ],
+              "branches": [
+                {
+                  "id": "S6__plane_S8__generator_0__forward__aabb_clip",
+                  "component": "generator_0",
+                  "orientation": "forward",
+                  "clip": "aabb_clip",
+                  "accept": false,
+                  "reason": "trim-interval-clip-removed-segment",
+                  "voxelScore": 0.20430840423831784,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S8__generator_1__forward__aabb_clip",
+                  "component": "generator_1",
+                  "orientation": "forward",
+                  "clip": "aabb_clip",
+                  "accept": true,
+                  "reason": "interval-clip-degenerate",
+                  "voxelScore": 0.11583506175907711,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S8__generator_1__reverse__aabb_clip",
+                  "component": "generator_1",
+                  "orientation": "reverse",
+                  "clip": "aabb_clip",
+                  "accept": true,
+                  "reason": "interval-clip-degenerate",
+                  "voxelScore": 0.11583506175907711,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S8__numerical__forward__none",
+                  "component": "numerical",
+                  "orientation": "forward",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.11562823280687043,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S8__numerical__reverse__none",
+                  "component": "numerical",
+                  "orientation": "reverse",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.11562823280687043,
+                  "matchedEndpoints": 0
+                }
+              ]
+            },
+            {
+              "planeId": "S14",
+              "missing": true,
+              "selectedBranchId": null,
+              "rejected": [
+                {
+                  "adjacency": "S14|S6",
+                  "reason": "legacy-selector-missed-branch"
+                }
+              ],
+              "branches": [
+                {
+                  "id": "S6__plane_S14__numerical__forward__none",
+                  "component": "numerical",
+                  "orientation": "forward",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection",
+                  "voxelScore": 0.11499796095028955,
+                  "matchedEndpoints": 2
+                },
+                {
+                  "id": "S6__plane_S14__numerical__reverse__none",
+                  "component": "numerical",
+                  "orientation": "reverse",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection",
+                  "voxelScore": 0.11499796095028955,
+                  "matchedEndpoints": 2
+                },
+                {
+                  "id": "S6__plane_S14__seed_polyline__forward__none",
+                  "component": "seed_polyline",
+                  "orientation": "forward",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection-used-seed-polyline",
+                  "voxelScore": 0.055432675893083275,
+                  "matchedEndpoints": 2
+                },
+                {
+                  "id": "S6__plane_S14__seed_polyline__reverse__none",
+                  "component": "seed_polyline",
+                  "orientation": "reverse",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection-used-seed-polyline",
+                  "voxelScore": 0.055432675893083275,
+                  "matchedEndpoints": 2
+                }
+              ]
+            },
+            {
+              "planeId": "S15",
+              "missing": true,
+              "selectedBranchId": null,
+              "rejected": [
+                {
+                  "adjacency": "S15|S6",
+                  "reason": "legacy-selector-missed-branch"
+                }
+              ],
+              "branches": [
+                {
+                  "id": "S6__plane_S15__numerical__forward__none",
+                  "component": "numerical",
+                  "orientation": "forward",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection",
+                  "voxelScore": 0.14481744281128026,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S15__numerical__reverse__none",
+                  "component": "numerical",
+                  "orientation": "reverse",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection",
+                  "voxelScore": 0.14481744281128026,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S15__seed_polyline__forward__none",
+                  "component": "seed_polyline",
+                  "orientation": "forward",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection-used-seed-polyline",
+                  "voxelScore": 0.11034940643243686,
+                  "matchedEndpoints": 1
+                },
+                {
+                  "id": "S6__plane_S15__seed_polyline__reverse__none",
+                  "component": "seed_polyline",
+                  "orientation": "reverse",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection-used-seed-polyline",
+                  "voxelScore": 0.11034940643243686,
+                  "matchedEndpoints": 1
+                }
+              ]
+            },
+            {
+              "planeId": "S20",
+              "missing": false,
+              "selectedBranchId": null,
+              "rejected": [],
+              "branches": [
+                {
+                  "id": "S6__plane_S20__covering_arc__forward__seed_clip",
+                  "component": "covering_arc",
+                  "orientation": "forward",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.11266868446875666,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S20__covering_arc__reverse__seed_clip",
+                  "component": "covering_arc",
+                  "orientation": "reverse",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.11266868446875666,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S20__complementary_arc__forward__seed_clip",
+                  "component": "complementary_arc",
+                  "orientation": "forward",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.11392497589091355,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S6__plane_S20__complementary_arc__reverse__seed_clip",
+                  "component": "complementary_arc",
+                  "orientation": "reverse",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.11392497589091355,
+                  "matchedEndpoints": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "patch": "S96",
+          "family": "cylinder",
+          "incidentPlanarIds": [
+            "S88",
+            "S93",
+            "S94",
+            "S97",
+            "S98",
+            "S100"
+          ],
+          "fittedUntrimmed": 2,
+          "adjacencies": [
+            {
+              "planeId": "S88",
+              "missing": false,
+              "selectedBranchId": "S96__plane_S88__generator_0__forward__seed_clip",
+              "rejected": [],
+              "branches": [
+                {
+                  "id": "S96__plane_S88__generator_0__forward__seed_clip",
+                  "component": "generator_0",
+                  "orientation": "forward",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.11642382568051454,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S96__plane_S88__generator_0__reverse__seed_clip",
+                  "component": "generator_0",
+                  "orientation": "reverse",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.11642382568051454,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S96__plane_S88__generator_1__forward__seed_clip",
+                  "component": "generator_1",
+                  "orientation": "forward",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.41262778366217423,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S96__plane_S88__generator_1__reverse__seed_clip",
+                  "component": "generator_1",
+                  "orientation": "reverse",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.41262778366217423,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S96__plane_S88__numerical__forward__none",
+                  "component": "numerical",
+                  "orientation": "forward",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.11672168448313068,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S96__plane_S88__numerical__reverse__none",
+                  "component": "numerical",
+                  "orientation": "reverse",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.11672168448313068,
+                  "matchedEndpoints": 0
+                }
+              ]
+            },
+            {
+              "planeId": "S93",
+              "missing": true,
+              "selectedBranchId": null,
+              "rejected": [
+                {
+                  "adjacency": "S93|S96",
+                  "reason": "legacy-selector-missed-branch"
+                }
+              ],
+              "branches": [
+                {
+                  "id": "S96__plane_S93__numerical__forward__none",
+                  "component": "numerical",
+                  "orientation": "forward",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection",
+                  "voxelScore": 0.13946548087090394,
+                  "matchedEndpoints": 2
+                },
+                {
+                  "id": "S96__plane_S93__numerical__reverse__none",
+                  "component": "numerical",
+                  "orientation": "reverse",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection",
+                  "voxelScore": 0.13946548087090394,
+                  "matchedEndpoints": 2
+                },
+                {
+                  "id": "S96__plane_S93__seed_polyline__forward__none",
+                  "component": "seed_polyline",
+                  "orientation": "forward",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection-used-seed-polyline",
+                  "voxelScore": 0.12269286914800835,
+                  "matchedEndpoints": 2
+                },
+                {
+                  "id": "S96__plane_S93__seed_polyline__reverse__none",
+                  "component": "seed_polyline",
+                  "orientation": "reverse",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": "no-geometric-intersection-used-seed-polyline",
+                  "voxelScore": 0.12269286914800835,
+                  "matchedEndpoints": 2
+                }
+              ]
+            },
+            {
+              "planeId": "S94",
+              "missing": true,
+              "selectedBranchId": null,
+              "rejected": [
+                {
+                  "adjacency": "S94|S96",
+                  "reason": "trim-interval-clip-or-wrong-generator"
+                }
+              ],
+              "branches": [
+                {
+                  "id": "S96__plane_S94__generator_0__forward__aabb_clip",
+                  "component": "generator_0",
+                  "orientation": "forward",
+                  "clip": "aabb_clip",
+                  "accept": false,
+                  "reason": "trim-interval-clip-removed-segment",
+                  "voxelScore": 0.2709021494700315,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S96__plane_S94__generator_1__forward__aabb_clip",
+                  "component": "generator_1",
+                  "orientation": "forward",
+                  "clip": "aabb_clip",
+                  "accept": false,
+                  "reason": "trim-interval-clip-removed-segment",
+                  "voxelScore": 0.18583940790274533,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S96__plane_S94__numerical__forward__none",
+                  "component": "numerical",
+                  "orientation": "forward",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.1721454476535895,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S96__plane_S94__numerical__reverse__none",
+                  "component": "numerical",
+                  "orientation": "reverse",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.1721454476535895,
+                  "matchedEndpoints": 0
+                }
+              ]
+            },
+            {
+              "planeId": "S97",
+              "missing": false,
+              "selectedBranchId": "S96__plane_S97__generator_0__forward__seed_clip",
+              "rejected": [],
+              "branches": [
+                {
+                  "id": "S96__plane_S97__generator_0__forward__seed_clip",
+                  "component": "generator_0",
+                  "orientation": "forward",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.3867014737512311,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S96__plane_S97__generator_0__reverse__seed_clip",
+                  "component": "generator_0",
+                  "orientation": "reverse",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.3867014737512311,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S96__plane_S97__generator_1__forward__seed_clip",
+                  "component": "generator_1",
+                  "orientation": "forward",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.09531164983867628,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S96__plane_S97__generator_1__reverse__seed_clip",
+                  "component": "generator_1",
+                  "orientation": "reverse",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.09531164983867628,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S96__plane_S97__numerical__forward__none",
+                  "component": "numerical",
+                  "orientation": "forward",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.09567525823778719,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S96__plane_S97__numerical__reverse__none",
+                  "component": "numerical",
+                  "orientation": "reverse",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.09567525823778719,
+                  "matchedEndpoints": 0
+                }
+              ]
+            },
+            {
+              "planeId": "S98",
+              "missing": false,
+              "selectedBranchId": null,
+              "rejected": [],
+              "branches": [
+                {
+                  "id": "S96__plane_S98__covering_arc__forward__seed_clip",
+                  "component": "covering_arc",
+                  "orientation": "forward",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.09508323177882876,
+                  "matchedEndpoints": 2
+                },
+                {
+                  "id": "S96__plane_S98__covering_arc__reverse__seed_clip",
+                  "component": "covering_arc",
+                  "orientation": "reverse",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.09508323177882876,
+                  "matchedEndpoints": 2
+                },
+                {
+                  "id": "S96__plane_S98__complementary_arc__forward__seed_clip",
+                  "component": "complementary_arc",
+                  "orientation": "forward",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.0956540115187601,
+                  "matchedEndpoints": 2
+                },
+                {
+                  "id": "S96__plane_S98__complementary_arc__reverse__seed_clip",
+                  "component": "complementary_arc",
+                  "orientation": "reverse",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.0956540115187601,
+                  "matchedEndpoints": 2
+                }
+              ]
+            },
+            {
+              "planeId": "S100",
+              "missing": false,
+              "selectedBranchId": "S96__plane_S100__generator_0__forward__seed_clip",
+              "rejected": [],
+              "branches": [
+                {
+                  "id": "S96__plane_S100__generator_0__forward__seed_clip",
+                  "component": "generator_0",
+                  "orientation": "forward",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.3867014737512311,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S96__plane_S100__generator_0__reverse__seed_clip",
+                  "component": "generator_0",
+                  "orientation": "reverse",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.3867014737512311,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S96__plane_S100__generator_1__forward__seed_clip",
+                  "component": "generator_1",
+                  "orientation": "forward",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.09531164983867628,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S96__plane_S100__generator_1__reverse__seed_clip",
+                  "component": "generator_1",
+                  "orientation": "reverse",
+                  "clip": "seed_clip",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.09531164983867628,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S96__plane_S100__numerical__forward__none",
+                  "component": "numerical",
+                  "orientation": "forward",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.09567525823778719,
+                  "matchedEndpoints": 0
+                },
+                {
+                  "id": "S96__plane_S100__numerical__reverse__none",
+                  "component": "numerical",
+                  "orientation": "reverse",
+                  "clip": "none",
+                  "accept": true,
+                  "reason": null,
+                  "voxelScore": 0.09567525823778719,
+                  "matchedEndpoints": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "junctionByCarrierCount": {
+    "1": {
+      "count": 14,
+      "rms": 0.00003247625906480759,
+      "max": 0.00004417398715310383
+    },
+    "2": {
+      "count": 78,
+      "rms": 0.04928361645754116,
+      "max": 0.5182257174921572
+    },
+    "3": {
+      "count": 67,
+      "rms": 0.11138182297144225,
+      "max": 1.0596918421965875
+    },
+    "4": {
+      "count": 1,
+      "rms": 0.48970618775002756,
+      "max": 0.9722647146424979
+    }
+  },
+  "junctionNewlyFitted": {
+    "count": 73,
+    "rms": 0.12885822334887204,
+    "max": 1.0596918421965875
+  },
+  "compared": false,
+  "cpuGpuMatch": null,
+  "gpuMs": null,
+  "cpuMs": null,
+  "openings": 25,
+  "jobs": 255,
+  "selected": 11,
+  "inserted": 11,
+  "rolledBack": 0,
+  "baseline": {
+    "openEdges": 144,
+    "nonmanifold": 0,
+    "duplicateEdges": 0,
+    "shells": 39,
+    "unresolved": 25,
+    "fitted": 0
+  },
+  "final": {
+    "openEdges": 86,
+    "nonmanifold": 0,
+    "duplicateEdges": 0,
+    "shells": 22,
+    "unresolved": 14,
+    "fitted": 11
+  },
+  "openEdges": {
+    "openEdges": 86,
+    "explainedByUnresolvedOpening": 86,
+    "explainedByFittedUntrimmed": 0,
+    "unexplainedCount": 0,
+    "byOpening": {
+      "S4": 7,
+      "S9": 7,
+      "S7": 10,
+      "S19": 7,
+      "S21": 6,
+      "S35": 7,
+      "S41": 6,
+      "S45": 6,
+      "S50": 6,
+      "S74": 7,
+      "S84": 7,
+      "S92": 3,
+      "S99": 6,
+      "S91": 6
+    },
+    "byFittedUntrimmed": {},
+    "unexplained": [],
+    "fittedUntrimmed": []
+  },
+  "junctions": {
+    "rms": 0.08875740835983134,
+    "max": 1.0596918421965875,
+    "byCarrierCount": {
+      "1": {
+        "count": 14,
+        "rms": 0.00003247625906480759,
+        "max": 0.00004417398715310383
+      },
+      "2": {
+        "count": 78,
+        "rms": 0.04928361645754116,
+        "max": 0.5182257174921572
+      },
+      "3": {
+        "count": 67,
+        "rms": 0.11138182297144225,
+        "max": 1.0596918421965875
+      },
+      "4": {
+        "count": 1,
+        "rms": 0.48970618775002756,
+        "max": 0.9722647146424979
+      }
+    },
+    "newlyFitted": {
+      "count": 73,
+      "rms": 0.12885822334887204,
+      "max": 1.0596918421965875
+    }
+  },
+  "fitted": 11,
+  "unfitted": 14,
+  "families": {
+    "cylinder": 4,
+    "generalQuadric": 6,
+    "cone": 1
+  },
+  "pieces": [
+    {
+      "piece": 1,
+      "shells": 5,
+      "openEdges": 29,
+      "connectedSolid": false,
+      "openings": 4
+    },
+    {
+      "piece": 2,
+      "shells": 2,
+      "openEdges": 6,
+      "connectedSolid": false,
+      "openings": 1
+    },
+    {
+      "piece": 3,
+      "shells": 3,
+      "openEdges": 12,
+      "connectedSolid": false,
+      "openings": 2
+    },
+    {
+      "piece": 4,
+      "shells": 3,
+      "openEdges": 11,
+      "connectedSolid": false,
+      "openings": 2
+    },
+    {
+      "piece": 5,
+      "shells": 1,
+      "openEdges": 0,
+      "connectedSolid": true,
+      "openings": 0
+    },
+    {
+      "piece": 6,
+      "shells": 2,
+      "openEdges": 7,
+      "connectedSolid": false,
+      "openings": 1
+    },
+    {
+      "piece": 7,
+      "shells": 2,
+      "openEdges": 7,
+      "connectedSolid": false,
+      "openings": 1
+    },
+    {
+      "piece": 8,
+      "shells": 4,
+      "openEdges": 14,
+      "connectedSolid": false,
+      "openings": 3
+    }
+  ],
+  "metrics": {
+    "discreteMateIdentity": {
+      "checked": 109,
+      "mismatches": 0,
+      "exact": true
+    },
+    "carrierIncidence": {
+      "rms": 0.08875740835983134,
+      "max": 1.0596918421965875
+    },
+    "continuousTrimMismatch": {
+      "rms": 0.0024744721794408603,
+      "max": 0.009735770094130753,
+      "initialRms": 0.00992641739016676,
+      "initialMax": 0.029481627480661455
+    },
+    "shellClosure": {
+      "openEdges": 86,
+      "nonmanifoldAfterDissolve": 0,
+      "nonmanifoldBeforeDissolve": 7,
+      "diagnosis": [
+        {
+          "piece": 1,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 30,
+          "shellCount": 5,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 16,
+              "signedVolume": -0.28395061728395066,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0.16666666666666666,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  1,
+                  1,
+                  1
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 1,
+              "signedVolume": -0.0632716049382716,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.16666666666666666,
+                  0.5,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  0.6666666666666666,
+                  1,
+                  0.6666666666666666
+                ]
+              }
+            },
+            {
+              "id": 3,
+              "patches": 1,
+              "signedVolume": -0.0447530864197531,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0.16666666666666666,
+                  0.5
+                ],
+                "hi": [
+                  0.6666666666666666,
+                  0.5,
+                  1
+                ]
+              }
+            },
+            {
+              "id": 4,
+              "patches": 1,
+              "signedVolume": -0.021604938271604934,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0.16666666666666666,
+                  0.5
+                ],
+                "hi": [
+                  0.3333333333333333,
+                  0.3333333333333333,
+                  1
+                ]
+              }
+            },
+            {
+              "id": 5,
+              "patches": 1,
+              "signedVolume": -0.09567901234567906,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0.5,
+                  0.6666666666666666
+                ],
+                "hi": [
+                  1,
+                  1,
+                  0.8333333333333334
+                ]
+              }
+            }
+          ],
+          "interpretation": "reconstruction-topology-defect"
+        },
+        {
+          "piece": 2,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 36,
+          "shellCount": 2,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 1,
+              "signedVolume": -0.04783950617283952,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.5,
+                  0,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  1,
+                  0.5,
+                  0.5
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 12,
+              "signedVolume": -0.37191358024691396,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  1,
+                  0.6666666666666666,
+                  1
+                ]
+              }
+            }
+          ],
+          "interpretation": "weak-edge-or-point-connection"
+        },
+        {
+          "piece": 3,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 15,
+          "shellCount": 3,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 9,
+              "signedVolume": -0.0771604938271605,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  0.5,
+                  0.5,
+                  1
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 1,
+              "signedVolume": -0.021604938271604937,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  0.5,
+                  0.5,
+                  0.5
+                ]
+              }
+            },
+            {
+              "id": 3,
+              "patches": 1,
+              "signedVolume": -0.020061728395061724,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.16666666666666666,
+                  0.16666666666666666,
+                  0.5
+                ],
+                "hi": [
+                  0.3333333333333333,
+                  0.5,
+                  1
+                ]
+              }
+            }
+          ],
+          "interpretation": "reconstruction-topology-defect"
+        },
+        {
+          "piece": 4,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 30,
+          "shellCount": 3,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 1,
+              "signedVolume": -0.05709876543209878,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0,
+                  0
+                ],
+                "hi": [
+                  0.6666666666666666,
+                  0.5,
+                  0.5
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 8,
+              "signedVolume": -0.25617283950617303,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0,
+                  0
+                ],
+                "hi": [
+                  1,
+                  1,
+                  0.5
+                ]
+              }
+            },
+            {
+              "id": 3,
+              "patches": 1,
+              "signedVolume": -0.04783950617283951,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.5,
+                  0,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  1,
+                  0.5,
+                  0.5
+                ]
+              }
+            }
+          ],
+          "interpretation": "reconstruction-topology-defect"
+        },
+        {
+          "piece": 5,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 27,
+          "shellCount": 1,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 10,
+              "signedVolume": -0.5262345679012355,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0.3333333333333333,
+                  0.6666666666666666
+                ],
+                "hi": [
+                  1,
+                  1,
+                  1
+                ]
+              }
+            }
+          ],
+          "interpretation": "single-shell"
+        },
+        {
+          "piece": 6,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 32,
+          "shellCount": 2,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 13,
+              "signedVolume": -0.15123456790123468,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0,
+                  0
+                ],
+                "hi": [
+                  0.6666666666666666,
+                  0.6666666666666666,
+                  0.5
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 1,
+              "signedVolume": -0.012345679012345678,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0.3333333333333333,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  0.5,
+                  0.6666666666666666,
+                  0.5
+                ]
+              }
+            }
+          ],
+          "interpretation": "weak-edge-or-point-connection"
+        },
+        {
+          "piece": 7,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 23,
+          "shellCount": 2,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 8,
+              "signedVolume": -0.22376543209876565,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0.5,
+                  0
+                ],
+                "hi": [
+                  0.6666666666666666,
+                  1,
+                  0.6666666666666666
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 1,
+              "signedVolume": -0.046296296296296294,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.16666666666666666,
+                  0.5,
+                  0.5
+                ],
+                "hi": [
+                  0.5,
+                  1,
+                  0.6666666666666666
+                ]
+              }
+            }
+          ],
+          "interpretation": "weak-edge-or-point-connection"
+        },
+        {
+          "piece": 8,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 23,
+          "shellCount": 4,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 11,
+              "signedVolume": -0.23765432098765443,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0.5,
+                  0
+                ],
+                "hi": [
+                  1,
+                  1,
+                  0.6666666666666666
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 1,
+              "signedVolume": -0.06327160493827161,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.5,
+                  0.5,
+                  0
+                ],
+                "hi": [
+                  1,
+                  1,
+                  0.3333333333333333
+                ]
+              }
+            },
+            {
+              "id": 3,
+              "patches": 1,
+              "signedVolume": -0.026234567901234563,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0.8333333333333334,
+                  0
+                ],
+                "hi": [
+                  0.6666666666666666,
+                  1,
+                  0.5
+                ]
+              }
+            },
+            {
+              "id": 4,
+              "patches": 1,
+              "signedVolume": -0.029320987654320993,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.5,
+                  0.6666666666666666,
+                  0.5
+                ],
+                "hi": [
+                  1,
+                  1,
+                  0.6666666666666666
+                ]
+              }
+            }
+          ],
+          "interpretation": "reconstruction-topology-defect"
+        }
+      ],
+      "openEdgeAttribution": {
+        "openEdges": 86,
+        "explainedByUnresolvedOpening": 86,
+        "explainedByFittedUntrimmed": 0,
+        "unexplainedCount": 0,
+        "byOpening": {
+          "S4": 7,
+          "S9": 7,
+          "S7": 10,
+          "S19": 7,
+          "S21": 6,
+          "S35": 7,
+          "S41": 6,
+          "S45": 6,
+          "S50": 6,
+          "S74": 7,
+          "S84": 7,
+          "S92": 3,
+          "S99": 6,
+          "S91": 6
+        },
+        "byFittedUntrimmed": {},
+        "unexplained": [],
+        "fittedUntrimmed": []
+      }
+    }
+  },
+  "note": "Topology and shell stitching stay on the CPU. WebGPU scores batched sphere/cylinder/cone/quadric residuals. Search matching is not GPU-accelerated."
+}

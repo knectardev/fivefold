@@ -1,0 +1,1455 @@
+{
+  "schema": "dual-cube-n8-contradiction-triage",
+  "version": 1,
+  "gridResolution": 8,
+  "cadEligible": true,
+  "budget": {
+    "maxChildrenPerCarrier": 3,
+    "maxNewCarriers": 8,
+    "minChildFaces": 3,
+    "maxNewGeneralQuadrics": 2
+  },
+  "counts": {
+    "patches": 70,
+    "rejected": 0,
+    "curved": 30,
+    "planarMate": 31,
+    "cubeExterior": 9,
+    "byKind": {
+      "cube-exterior": 9,
+      "curved": 30,
+      "planar-mate": 31
+    },
+    "accepted": 70,
+    "planar": 31,
+    "exterior": 9,
+    "partnerSignatureSplits": 13
+  },
+  "neighborhoods": [
+    {
+      "patch": "S2",
+      "piece": 1,
+      "areaFaces": 38,
+      "reason": "curved-without-unique-mate-patch",
+      "cubeA": {
+        "mate": 6,
+        "matePatch": null,
+        "mateOverlap": 12,
+        "unique": true
+      },
+      "cubeB": {
+        "mate": 4,
+        "matePatch": null,
+        "unique": true,
+        "distinctPartners": 1
+      },
+      "patchesInvolved": [
+        "S2",
+        "S53",
+        "S50",
+        "S51",
+        "S55"
+      ],
+      "category": "D",
+      "localSplit": true,
+      "additionalCarriers": 3,
+      "additionalType": "multi-child-split",
+      "minChildFaces": 4,
+      "newGeneralQuadrics": 2,
+      "preservesCorrespondenceTopology": false,
+      "mirroredAcrossMate": true,
+      "family": null,
+      "familyRms": 0.08658330685052003,
+      "planeRMS": 0.08658330685052003,
+      "oppositeBuckets": [
+        {
+          "id": "S53",
+          "piece": 6,
+          "kind": "curved",
+          "faces": 12,
+          "cubeA": 1,
+          "cubeB": 2
+        },
+        {
+          "id": "S50",
+          "piece": 6,
+          "kind": "curved",
+          "faces": 11,
+          "cubeA": 1,
+          "cubeB": 7
+        },
+        {
+          "id": "S51",
+          "piece": 6,
+          "kind": "curved",
+          "faces": 11,
+          "cubeA": 1,
+          "cubeB": 1
+        },
+        {
+          "id": "S55",
+          "piece": 6,
+          "kind": "planar-mate",
+          "faces": 4,
+          "cubeA": 1,
+          "cubeB": 8
+        }
+      ],
+      "leftoverFaces": 0,
+      "leftoverComponents": [],
+      "unmatchedFaces": 0,
+      "childEstimates": [
+        {
+          "matePatch": "S53",
+          "faces": 12,
+          "kind": "curved",
+          "family": "generalQuadric",
+          "rms": 0.013294161646603516
+        },
+        {
+          "matePatch": "S50",
+          "faces": 11,
+          "kind": "curved",
+          "family": "cylinder",
+          "rms": 0.018193238689968607
+        },
+        {
+          "matePatch": "S51",
+          "faces": 11,
+          "kind": "curved",
+          "family": "generalQuadric",
+          "rms": 0.00690653815045733
+        },
+        {
+          "matePatch": "S55",
+          "faces": 4,
+          "kind": "planar-mate",
+          "family": null,
+          "rms": 3.469446951953614e-18
+        }
+      ],
+      "adjacentPlanes": [
+        {
+          "id": "S1",
+          "kind": "cube-exterior",
+          "areaFaces": 89,
+          "sharedEdges": 17,
+          "cubeA": "exterior",
+          "cubeB": "exterior"
+        },
+        {
+          "id": "S5",
+          "kind": "planar-mate",
+          "areaFaces": 1,
+          "sharedEdges": 3,
+          "cubeA": 6,
+          "cubeB": 5
+        }
+      ],
+      "incompatiblePlaneContacts": [
+        "S5"
+      ],
+      "notes": "Would require 4 children (cap 3)."
+    },
+    {
+      "patch": "S4",
+      "piece": 1,
+      "areaFaces": 30,
+      "reason": "curved-without-unique-mate-patch",
+      "cubeA": {
+        "mate": 7,
+        "matePatch": null,
+        "mateOverlap": 19,
+        "unique": true
+      },
+      "cubeB": {
+        "mate": 3,
+        "matePatch": null,
+        "unique": true,
+        "distinctPartners": 1
+      },
+      "patchesInvolved": [
+        "S4",
+        "S57",
+        "S59"
+      ],
+      "category": "B",
+      "localSplit": true,
+      "additionalCarriers": 1,
+      "additionalType": "paired-split",
+      "minChildFaces": 11,
+      "newGeneralQuadrics": 1,
+      "preservesCorrespondenceTopology": true,
+      "mirroredAcrossMate": true,
+      "family": null,
+      "familyRms": 0.08299508590466032,
+      "planeRMS": 0.08299508590466032,
+      "oppositeBuckets": [
+        {
+          "id": "S57",
+          "piece": 7,
+          "kind": "curved",
+          "faces": 19,
+          "cubeA": 1,
+          "cubeB": 1
+        },
+        {
+          "id": "S59",
+          "piece": 7,
+          "kind": "curved",
+          "faces": 11,
+          "cubeA": 1,
+          "cubeB": 6
+        }
+      ],
+      "leftoverFaces": 0,
+      "leftoverComponents": [],
+      "unmatchedFaces": 0,
+      "childEstimates": [
+        {
+          "matePatch": "S57",
+          "faces": 19,
+          "kind": "curved",
+          "family": null,
+          "rms": 0.029493007655376137
+        },
+        {
+          "matePatch": "S59",
+          "faces": 11,
+          "kind": "curved",
+          "family": "generalQuadric",
+          "rms": 0.004737337592296058
+        }
+      ],
+      "adjacentPlanes": [
+        {
+          "id": "S1",
+          "kind": "cube-exterior",
+          "areaFaces": 89,
+          "sharedEdges": 15,
+          "cubeA": "exterior",
+          "cubeB": "exterior"
+        }
+      ],
+      "incompatiblePlaneContacts": [],
+      "notes": "Local paired split into 2 children (min 11 faces)."
+    },
+    {
+      "patch": "S7",
+      "piece": 1,
+      "areaFaces": 16,
+      "reason": "curved-without-unique-mate-patch",
+      "cubeA": {
+        "mate": 2,
+        "matePatch": null,
+        "mateOverlap": 9,
+        "unique": true
+      },
+      "cubeB": {
+        "mate": 6,
+        "matePatch": null,
+        "unique": true,
+        "distinctPartners": 1
+      },
+      "patchesInvolved": [
+        "S7",
+        "S13",
+        "S14",
+        "S18"
+      ],
+      "category": "B",
+      "localSplit": true,
+      "additionalCarriers": 1,
+      "additionalType": "paired-split",
+      "minChildFaces": 5,
+      "newGeneralQuadrics": 0,
+      "preservesCorrespondenceTopology": false,
+      "mirroredAcrossMate": true,
+      "family": "generalQuadric",
+      "familyRms": 0.026907407042306004,
+      "planeRMS": 0.033677803091310715,
+      "oppositeBuckets": [
+        {
+          "id": "S13",
+          "piece": 2,
+          "kind": "curved",
+          "faces": 9,
+          "cubeA": 1,
+          "cubeB": 8
+        },
+        {
+          "id": "S14",
+          "piece": 2,
+          "kind": "curved",
+          "faces": 5,
+          "cubeA": 1,
+          "cubeB": 6
+        },
+        {
+          "id": "S18",
+          "piece": 2,
+          "kind": "planar-mate",
+          "faces": 2,
+          "cubeA": 1,
+          "cubeB": 1
+        }
+      ],
+      "leftoverFaces": 2,
+      "leftoverComponents": [
+        2
+      ],
+      "unmatchedFaces": 0,
+      "childEstimates": [
+        {
+          "matePatch": "S13",
+          "faces": 9,
+          "kind": "curved",
+          "family": "sphere",
+          "rms": 0.012850213448685052
+        },
+        {
+          "matePatch": "S14",
+          "faces": 5,
+          "kind": "curved",
+          "family": "sphere",
+          "rms": 0.00666514960752382
+        }
+      ],
+      "adjacentPlanes": [
+        {
+          "id": "S1",
+          "kind": "cube-exterior",
+          "areaFaces": 89,
+          "sharedEdges": 4,
+          "cubeA": "exterior",
+          "cubeB": "exterior"
+        }
+      ],
+      "incompatiblePlaneContacts": [],
+      "notes": "Local paired split into 2 children (min 5 faces)."
+    },
+    {
+      "patch": "S8",
+      "piece": 1,
+      "areaFaces": 32,
+      "reason": "curved-without-unique-mate-patch",
+      "cubeA": {
+        "mate": 3,
+        "matePatch": null,
+        "mateOverlap": 19,
+        "unique": true
+      },
+      "cubeB": {
+        "mate": 7,
+        "matePatch": null,
+        "unique": true,
+        "distinctPartners": 1
+      },
+      "patchesInvolved": [
+        "S8",
+        "S22",
+        "S25"
+      ],
+      "category": "B",
+      "localSplit": true,
+      "additionalCarriers": 1,
+      "additionalType": "paired-split",
+      "minChildFaces": 13,
+      "newGeneralQuadrics": 1,
+      "preservesCorrespondenceTopology": true,
+      "mirroredAcrossMate": true,
+      "family": "generalQuadric",
+      "familyRms": 0.030863968809601086,
+      "planeRMS": 0.04062097723567093,
+      "oppositeBuckets": [
+        {
+          "id": "S22",
+          "piece": 3,
+          "kind": "curved",
+          "faces": 19,
+          "cubeA": 1,
+          "cubeB": 1
+        },
+        {
+          "id": "S25",
+          "piece": 3,
+          "kind": "curved",
+          "faces": 13,
+          "cubeA": 1,
+          "cubeB": 8
+        }
+      ],
+      "leftoverFaces": 0,
+      "leftoverComponents": [],
+      "unmatchedFaces": 0,
+      "childEstimates": [
+        {
+          "matePatch": "S22",
+          "faces": 19,
+          "kind": "curved",
+          "family": null,
+          "rms": 0.02949300765537614
+        },
+        {
+          "matePatch": "S25",
+          "faces": 13,
+          "kind": "curved",
+          "family": "generalQuadric",
+          "rms": 0.01880300198822865
+        }
+      ],
+      "adjacentPlanes": [
+        {
+          "id": "S1",
+          "kind": "cube-exterior",
+          "areaFaces": 89,
+          "sharedEdges": 14,
+          "cubeA": "exterior",
+          "cubeB": "exterior"
+        }
+      ],
+      "incompatiblePlaneContacts": [],
+      "notes": "Local paired split into 2 children (min 13 faces)."
+    },
+    {
+      "patch": "S9",
+      "piece": 1,
+      "areaFaces": 13,
+      "reason": "curved-without-unique-mate-patch",
+      "cubeA": {
+        "mate": 5,
+        "matePatch": null,
+        "mateOverlap": 9,
+        "unique": true
+      },
+      "cubeB": {
+        "mate": 2,
+        "matePatch": null,
+        "unique": true,
+        "distinctPartners": 1
+      },
+      "patchesInvolved": [
+        "S9",
+        "S46",
+        "S45"
+      ],
+      "category": "C",
+      "localSplit": false,
+      "additionalCarriers": 0,
+      "additionalType": "correspondence-revision",
+      "minChildFaces": 4,
+      "newGeneralQuadrics": 0,
+      "preservesCorrespondenceTopology": true,
+      "mirroredAcrossMate": false,
+      "family": null,
+      "familyRms": 0.07511440415998823,
+      "planeRMS": 0.07511440415998823,
+      "oppositeBuckets": [
+        {
+          "id": "S46",
+          "piece": 5,
+          "kind": "planar-mate",
+          "faces": 9,
+          "cubeA": 1,
+          "cubeB": 6
+        },
+        {
+          "id": "S45",
+          "piece": 5,
+          "kind": "planar-mate",
+          "faces": 4,
+          "cubeA": 1,
+          "cubeB": 1
+        }
+      ],
+      "leftoverFaces": 0,
+      "leftoverComponents": [],
+      "unmatchedFaces": 0,
+      "childEstimates": [
+        {
+          "matePatch": "S46",
+          "faces": 9,
+          "kind": "planar-mate",
+          "family": null,
+          "rms": 0
+        },
+        {
+          "matePatch": "S45",
+          "faces": 4,
+          "kind": "planar-mate",
+          "family": null,
+          "rms": 3.469446951953614e-18
+        }
+      ],
+      "adjacentPlanes": [
+        {
+          "id": "S1",
+          "kind": "cube-exterior",
+          "areaFaces": 89,
+          "sharedEdges": 6,
+          "cubeA": "exterior",
+          "cubeB": "exterior"
+        }
+      ],
+      "incompatiblePlaneContacts": [],
+      "notes": "Opposite side is planar. Revise mate assignment rather than adding curved carriers."
+    },
+    {
+      "patch": "S10",
+      "piece": 2,
+      "areaFaces": 13,
+      "reason": "curved-without-unique-mate-patch",
+      "cubeA": {
+        "mate": 4,
+        "matePatch": null,
+        "mateOverlap": 9,
+        "unique": true
+      },
+      "cubeB": {
+        "mate": 8,
+        "matePatch": null,
+        "unique": true,
+        "distinctPartners": 1
+      },
+      "patchesInvolved": [
+        "S10",
+        "S33",
+        "S30"
+      ],
+      "category": "C",
+      "localSplit": false,
+      "additionalCarriers": 0,
+      "additionalType": "correspondence-revision",
+      "minChildFaces": 4,
+      "newGeneralQuadrics": 0,
+      "preservesCorrespondenceTopology": true,
+      "mirroredAcrossMate": false,
+      "family": "cylinder",
+      "familyRms": 0.028322705939151104,
+      "planeRMS": 0.057490439405447215,
+      "oppositeBuckets": [
+        {
+          "id": "S33",
+          "piece": 4,
+          "kind": "planar-mate",
+          "faces": 9,
+          "cubeA": 2,
+          "cubeB": 5
+        },
+        {
+          "id": "S30",
+          "piece": 4,
+          "kind": "planar-mate",
+          "faces": 4,
+          "cubeA": 2,
+          "cubeB": 1
+        }
+      ],
+      "leftoverFaces": 0,
+      "leftoverComponents": [],
+      "unmatchedFaces": 0,
+      "childEstimates": [
+        {
+          "matePatch": "S33",
+          "faces": 9,
+          "kind": "planar-mate",
+          "family": null,
+          "rms": 0
+        },
+        {
+          "matePatch": "S30",
+          "faces": 4,
+          "kind": "planar-mate",
+          "family": "sphere",
+          "rms": 8.874191536472157e-16
+        }
+      ],
+      "adjacentPlanes": [
+        {
+          "id": "S11",
+          "kind": "planar-mate",
+          "areaFaces": 1,
+          "sharedEdges": 2,
+          "cubeA": 6,
+          "cubeB": 5
+        },
+        {
+          "id": "S12",
+          "kind": "cube-exterior",
+          "areaFaces": 50,
+          "sharedEdges": 9,
+          "cubeA": "exterior",
+          "cubeB": "exterior"
+        },
+        {
+          "id": "S15",
+          "kind": "planar-mate",
+          "areaFaces": 4,
+          "sharedEdges": 2,
+          "cubeA": 8,
+          "cubeB": 8
+        },
+        {
+          "id": "S16",
+          "kind": "planar-mate",
+          "areaFaces": 2,
+          "sharedEdges": 1,
+          "cubeA": 5,
+          "cubeB": 3
+        }
+      ],
+      "incompatiblePlaneContacts": [
+        "S11",
+        "S15",
+        "S16"
+      ],
+      "notes": "Opposite side is planar. Revise mate assignment rather than adding curved carriers."
+    },
+    {
+      "patch": "S24",
+      "piece": 3,
+      "areaFaces": 11,
+      "reason": "curved-without-unique-mate-patch",
+      "cubeA": {
+        "mate": 2,
+        "matePatch": null,
+        "mateOverlap": 7,
+        "unique": true
+      },
+      "cubeB": {
+        "mate": 1,
+        "matePatch": "S4",
+        "unique": true,
+        "distinctPartners": 1
+      },
+      "patchesInvolved": [
+        "S24",
+        "S17",
+        "S20",
+        "S21"
+      ],
+      "category": "C",
+      "localSplit": false,
+      "additionalCarriers": 0,
+      "additionalType": "correspondence-revision",
+      "minChildFaces": 4,
+      "newGeneralQuadrics": 0,
+      "preservesCorrespondenceTopology": true,
+      "mirroredAcrossMate": false,
+      "family": "generalQuadric",
+      "familyRms": 0.02740093494346716,
+      "planeRMS": 0.033575317481932904,
+      "oppositeBuckets": [
+        {
+          "id": "S17",
+          "piece": 2,
+          "kind": "planar-mate",
+          "faces": 7,
+          "cubeA": 3,
+          "cubeB": 6
+        },
+        {
+          "id": "S20",
+          "piece": 2,
+          "kind": "planar-mate",
+          "faces": 2,
+          "cubeA": 3,
+          "cubeB": 1
+        },
+        {
+          "id": "S21",
+          "piece": 2,
+          "kind": "planar-mate",
+          "faces": 2,
+          "cubeA": 3,
+          "cubeB": 7
+        }
+      ],
+      "leftoverFaces": 4,
+      "leftoverComponents": [
+        4
+      ],
+      "unmatchedFaces": 0,
+      "childEstimates": [
+        {
+          "matePatch": "S17",
+          "faces": 7,
+          "kind": "planar-mate",
+          "family": "cylinder",
+          "rms": 7.064972125178941e-15
+        },
+        {
+          "matePatch": "S20+S21",
+          "faces": 4,
+          "kind": "leftover",
+          "family": null,
+          "rms": 3.469446951953614e-18
+        }
+      ],
+      "adjacentPlanes": [
+        {
+          "id": "S23",
+          "kind": "cube-exterior",
+          "areaFaces": 27,
+          "sharedEdges": 8,
+          "cubeA": "exterior",
+          "cubeB": "exterior"
+        },
+        {
+          "id": "S26",
+          "kind": "planar-mate",
+          "areaFaces": 2,
+          "sharedEdges": 1,
+          "cubeA": 5,
+          "cubeB": 2
+        }
+      ],
+      "incompatiblePlaneContacts": [
+        "S26"
+      ],
+      "notes": "Opposite side is planar. Revise mate assignment rather than adding curved carriers."
+    },
+    {
+      "patch": "S29",
+      "piece": 4,
+      "areaFaces": 18,
+      "reason": "curved-without-unique-mate-patch",
+      "cubeA": {
+        "mate": 8,
+        "matePatch": null,
+        "mateOverlap": 14,
+        "unique": true
+      },
+      "cubeB": {
+        "mate": 1,
+        "matePatch": "S2",
+        "unique": true,
+        "distinctPartners": 1
+      },
+      "patchesInvolved": [
+        "S29",
+        "S65",
+        "S68"
+      ],
+      "category": "B",
+      "localSplit": true,
+      "additionalCarriers": 1,
+      "additionalType": "paired-split",
+      "minChildFaces": 4,
+      "newGeneralQuadrics": 0,
+      "preservesCorrespondenceTopology": true,
+      "mirroredAcrossMate": true,
+      "family": null,
+      "familyRms": 0.052794257975516665,
+      "planeRMS": 0.052794257975516665,
+      "oppositeBuckets": [
+        {
+          "id": "S65",
+          "piece": 8,
+          "kind": "curved",
+          "faces": 14,
+          "cubeA": 4,
+          "cubeB": 5
+        },
+        {
+          "id": "S68",
+          "piece": 8,
+          "kind": "curved",
+          "faces": 4,
+          "cubeA": 4,
+          "cubeB": 2
+        }
+      ],
+      "leftoverFaces": 0,
+      "leftoverComponents": [],
+      "unmatchedFaces": 0,
+      "childEstimates": [
+        {
+          "matePatch": "S65",
+          "faces": 14,
+          "kind": "curved",
+          "family": "sphere",
+          "rms": 0.017339509061747648
+        },
+        {
+          "matePatch": "S68",
+          "faces": 4,
+          "kind": "curved",
+          "family": "sphere",
+          "rms": 4.0254166421635375e-14
+        }
+      ],
+      "adjacentPlanes": [
+        {
+          "id": "S28",
+          "kind": "cube-exterior",
+          "areaFaces": 46,
+          "sharedEdges": 7,
+          "cubeA": "exterior",
+          "cubeB": "exterior"
+        },
+        {
+          "id": "S32",
+          "kind": "planar-mate",
+          "areaFaces": 3,
+          "sharedEdges": 3,
+          "cubeA": 8,
+          "cubeB": 5
+        },
+        {
+          "id": "S33",
+          "kind": "planar-mate",
+          "areaFaces": 9,
+          "sharedEdges": 2,
+          "cubeA": 2,
+          "cubeB": 5
+        },
+        {
+          "id": "S34",
+          "kind": "planar-mate",
+          "areaFaces": 1,
+          "sharedEdges": 2,
+          "cubeA": 8,
+          "cubeB": 8
+        },
+        {
+          "id": "S35",
+          "kind": "planar-mate",
+          "areaFaces": 1,
+          "sharedEdges": 1,
+          "cubeA": 5,
+          "cubeB": 8
+        }
+      ],
+      "incompatiblePlaneContacts": [
+        "S32",
+        "S33",
+        "S34",
+        "S35"
+      ],
+      "notes": "Local paired split into 2 children (min 4 faces)."
+    },
+    {
+      "patch": "S39",
+      "piece": 5,
+      "areaFaces": 11,
+      "reason": "incomplete-opposite-map",
+      "cubeA": {
+        "mate": 2,
+        "matePatch": "S19",
+        "mateOverlap": 9,
+        "unique": true
+      },
+      "cubeB": {
+        "mate": 4,
+        "matePatch": "S33",
+        "unique": true,
+        "distinctPartners": 1
+      },
+      "patchesInvolved": [
+        "S39",
+        "S19",
+        "S16"
+      ],
+      "category": "C",
+      "localSplit": false,
+      "additionalCarriers": 0,
+      "additionalType": "drop-tiny-opposite-faces",
+      "minChildFaces": 9,
+      "newGeneralQuadrics": 0,
+      "preservesCorrespondenceTopology": true,
+      "mirroredAcrossMate": false,
+      "family": null,
+      "familyRms": 0.05911438085166376,
+      "planeRMS": 0.05911438085166376,
+      "oppositeBuckets": [
+        {
+          "id": "S19",
+          "piece": 2,
+          "kind": "planar-mate",
+          "faces": 9,
+          "cubeA": 5,
+          "cubeB": 1
+        },
+        {
+          "id": "S16",
+          "piece": 2,
+          "kind": "planar-mate",
+          "faces": 2,
+          "cubeA": 5,
+          "cubeB": 3
+        }
+      ],
+      "leftoverFaces": 2,
+      "leftoverComponents": [
+        2
+      ],
+      "unmatchedFaces": 0,
+      "childEstimates": [
+        {
+          "matePatch": "S19",
+          "faces": 9,
+          "kind": "planar-mate",
+          "family": null,
+          "rms": 0
+        }
+      ],
+      "adjacentPlanes": [
+        {
+          "id": "S36",
+          "kind": "cube-exterior",
+          "areaFaces": 47,
+          "sharedEdges": 8,
+          "cubeA": "exterior",
+          "cubeB": "exterior"
+        },
+        {
+          "id": "S37",
+          "kind": "planar-mate",
+          "areaFaces": 1,
+          "sharedEdges": 2,
+          "cubeA": 8,
+          "cubeB": 1
+        },
+        {
+          "id": "S38",
+          "kind": "planar-mate",
+          "areaFaces": 2,
+          "sharedEdges": 1,
+          "cubeA": 8,
+          "cubeB": 1
+        },
+        {
+          "id": "S40",
+          "kind": "planar-mate",
+          "areaFaces": 1,
+          "sharedEdges": 1,
+          "cubeA": 8,
+          "cubeB": 4
+        },
+        {
+          "id": "S45",
+          "kind": "planar-mate",
+          "areaFaces": 4,
+          "sharedEdges": 2,
+          "cubeA": 1,
+          "cubeB": 1
+        },
+        {
+          "id": "S47",
+          "kind": "planar-mate",
+          "areaFaces": 2,
+          "sharedEdges": 1,
+          "cubeA": 3,
+          "cubeB": 6
+        }
+      ],
+      "incompatiblePlaneContacts": [
+        "S37",
+        "S38",
+        "S40",
+        "S45",
+        "S47"
+      ],
+      "notes": "Drop leftover opposite faces from the mate claim; keep the majority partner."
+    },
+    {
+      "patch": "S51",
+      "piece": 6,
+      "areaFaces": 12,
+      "reason": "incomplete-opposite-map",
+      "cubeA": {
+        "mate": 1,
+        "matePatch": "S2",
+        "mateOverlap": 11,
+        "unique": true
+      },
+      "cubeB": {
+        "mate": 1,
+        "matePatch": "S7",
+        "unique": true,
+        "distinctPartners": 1
+      },
+      "patchesInvolved": [
+        "S51",
+        "S2",
+        "S5"
+      ],
+      "category": "C",
+      "localSplit": false,
+      "additionalCarriers": 0,
+      "additionalType": "drop-tiny-opposite-faces",
+      "minChildFaces": 11,
+      "newGeneralQuadrics": 1,
+      "preservesCorrespondenceTopology": true,
+      "mirroredAcrossMate": true,
+      "family": null,
+      "familyRms": 0.05877416253909993,
+      "planeRMS": 0.05877416253909993,
+      "oppositeBuckets": [
+        {
+          "id": "S2",
+          "piece": 1,
+          "kind": "curved",
+          "faces": 11,
+          "cubeA": 6,
+          "cubeB": 4
+        },
+        {
+          "id": "S5",
+          "piece": 1,
+          "kind": "planar-mate",
+          "faces": 1,
+          "cubeA": 6,
+          "cubeB": 5
+        }
+      ],
+      "leftoverFaces": 1,
+      "leftoverComponents": [
+        1
+      ],
+      "unmatchedFaces": 0,
+      "childEstimates": [
+        {
+          "matePatch": "S2",
+          "faces": 11,
+          "kind": "curved",
+          "family": "generalQuadric",
+          "rms": 0.006906538150457331
+        }
+      ],
+      "adjacentPlanes": [
+        {
+          "id": "S48",
+          "kind": "cube-exterior",
+          "areaFaces": 48,
+          "sharedEdges": 1,
+          "cubeA": "exterior",
+          "cubeB": "exterior"
+        },
+        {
+          "id": "S52",
+          "kind": "planar-mate",
+          "areaFaces": 4,
+          "sharedEdges": 4,
+          "cubeA": 8,
+          "cubeB": 1
+        },
+        {
+          "id": "S55",
+          "kind": "planar-mate",
+          "areaFaces": 4,
+          "sharedEdges": 2,
+          "cubeA": 1,
+          "cubeB": 8
+        }
+      ],
+      "incompatiblePlaneContacts": [
+        "S52",
+        "S55"
+      ],
+      "notes": "Drop leftover opposite faces from the mate claim; keep the majority partner."
+    },
+    {
+      "patch": "S65",
+      "piece": 8,
+      "areaFaces": 16,
+      "reason": "incomplete-opposite-map",
+      "cubeA": {
+        "mate": 4,
+        "matePatch": "S29",
+        "mateOverlap": 14,
+        "unique": true
+      },
+      "cubeB": {
+        "mate": 5,
+        "matePatch": "S41",
+        "unique": true,
+        "distinctPartners": 1
+      },
+      "patchesInvolved": [
+        "S65",
+        "S29",
+        "S32"
+      ],
+      "category": "C",
+      "localSplit": false,
+      "additionalCarriers": 0,
+      "additionalType": "drop-tiny-opposite-faces",
+      "minChildFaces": 14,
+      "newGeneralQuadrics": 0,
+      "preservesCorrespondenceTopology": true,
+      "mirroredAcrossMate": true,
+      "family": null,
+      "familyRms": 0.055467426976130114,
+      "planeRMS": 0.055467426976130114,
+      "oppositeBuckets": [
+        {
+          "id": "S29",
+          "piece": 4,
+          "kind": "curved",
+          "faces": 14,
+          "cubeA": 8,
+          "cubeB": 1
+        },
+        {
+          "id": "S32",
+          "piece": 4,
+          "kind": "planar-mate",
+          "faces": 2,
+          "cubeA": 8,
+          "cubeB": 5
+        }
+      ],
+      "leftoverFaces": 2,
+      "leftoverComponents": [
+        2
+      ],
+      "unmatchedFaces": 0,
+      "childEstimates": [
+        {
+          "matePatch": "S29",
+          "faces": 14,
+          "kind": "curved",
+          "family": "sphere",
+          "rms": 0.017339509061747648
+        }
+      ],
+      "adjacentPlanes": [
+        {
+          "id": "S62",
+          "kind": "planar-mate",
+          "areaFaces": 2,
+          "sharedEdges": 3,
+          "cubeA": 6,
+          "cubeB": 5
+        },
+        {
+          "id": "S63",
+          "kind": "cube-exterior",
+          "areaFaces": 49,
+          "sharedEdges": 5,
+          "cubeA": "exterior",
+          "cubeB": "exterior"
+        },
+        {
+          "id": "S64",
+          "kind": "cube-exterior",
+          "areaFaces": 1,
+          "sharedEdges": 2,
+          "cubeA": "exterior",
+          "cubeB": "exterior"
+        },
+        {
+          "id": "S70",
+          "kind": "planar-mate",
+          "areaFaces": 4,
+          "sharedEdges": 2,
+          "cubeA": 2,
+          "cubeB": 6
+        }
+      ],
+      "incompatiblePlaneContacts": [
+        "S62",
+        "S70"
+      ],
+      "notes": "Drop leftover opposite faces from the mate claim; keep the majority partner."
+    },
+    {
+      "patch": "S68",
+      "piece": 8,
+      "areaFaces": 6,
+      "reason": "curved-without-unique-mate-patch",
+      "cubeA": {
+        "mate": 4,
+        "matePatch": null,
+        "mateOverlap": 4,
+        "unique": true
+      },
+      "cubeB": {
+        "mate": 2,
+        "matePatch": null,
+        "unique": true,
+        "distinctPartners": 1
+      },
+      "patchesInvolved": [
+        "S68",
+        "S29",
+        "S34",
+        "S32"
+      ],
+      "category": "C",
+      "localSplit": false,
+      "additionalCarriers": 0,
+      "additionalType": "drop-tiny-opposite-faces",
+      "minChildFaces": 4,
+      "newGeneralQuadrics": 0,
+      "preservesCorrespondenceTopology": true,
+      "mirroredAcrossMate": true,
+      "family": "generalQuadric",
+      "familyRms": 0.0058368030667933675,
+      "planeRMS": 0.03319639141628715,
+      "oppositeBuckets": [
+        {
+          "id": "S29",
+          "piece": 4,
+          "kind": "curved",
+          "faces": 4,
+          "cubeA": 8,
+          "cubeB": 1
+        },
+        {
+          "id": "S34",
+          "piece": 4,
+          "kind": "planar-mate",
+          "faces": 1,
+          "cubeA": 8,
+          "cubeB": 8
+        },
+        {
+          "id": "S32",
+          "piece": 4,
+          "kind": "planar-mate",
+          "faces": 1,
+          "cubeA": 8,
+          "cubeB": 5
+        }
+      ],
+      "leftoverFaces": 2,
+      "leftoverComponents": [
+        1,
+        1
+      ],
+      "unmatchedFaces": 0,
+      "childEstimates": [
+        {
+          "matePatch": "S29",
+          "faces": 4,
+          "kind": "curved",
+          "family": "sphere",
+          "rms": 4.0254166421635375e-14
+        }
+      ],
+      "adjacentPlanes": [
+        {
+          "id": "S63",
+          "kind": "cube-exterior",
+          "areaFaces": 49,
+          "sharedEdges": 3,
+          "cubeA": "exterior",
+          "cubeB": "exterior"
+        },
+        {
+          "id": "S64",
+          "kind": "cube-exterior",
+          "areaFaces": 1,
+          "sharedEdges": 1,
+          "cubeA": "exterior",
+          "cubeB": "exterior"
+        }
+      ],
+      "incompatiblePlaneContacts": [],
+      "notes": "Majority partner exists; leftover islands are below the face floor."
+    },
+    {
+      "patch": "S69",
+      "piece": 8,
+      "areaFaces": 20,
+      "reason": "curved-without-unique-mate-patch",
+      "cubeA": {
+        "mate": 5,
+        "matePatch": null,
+        "mateOverlap": 15,
+        "unique": true
+      },
+      "cubeB": {
+        "mate": 2,
+        "matePatch": null,
+        "unique": true,
+        "distinctPartners": 1
+      },
+      "patchesInvolved": [
+        "S69",
+        "S41",
+        "S38",
+        "S40",
+        "S37",
+        "S44"
+      ],
+      "category": "C",
+      "localSplit": false,
+      "additionalCarriers": 0,
+      "additionalType": "drop-tiny-opposite-faces",
+      "minChildFaces": 15,
+      "newGeneralQuadrics": 0,
+      "preservesCorrespondenceTopology": true,
+      "mirroredAcrossMate": true,
+      "family": null,
+      "familyRms": 0.03894505787457411,
+      "planeRMS": 0.03894505787457411,
+      "oppositeBuckets": [
+        {
+          "id": "S41",
+          "piece": 5,
+          "kind": "curved",
+          "faces": 15,
+          "cubeA": 8,
+          "cubeB": 8
+        },
+        {
+          "id": "S38",
+          "piece": 5,
+          "kind": "planar-mate",
+          "faces": 2,
+          "cubeA": 8,
+          "cubeB": 1
+        },
+        {
+          "id": "S40",
+          "piece": 5,
+          "kind": "planar-mate",
+          "faces": 1,
+          "cubeA": 8,
+          "cubeB": 4
+        },
+        {
+          "id": "S37",
+          "piece": 5,
+          "kind": "planar-mate",
+          "faces": 1,
+          "cubeA": 8,
+          "cubeB": 1
+        },
+        {
+          "id": "S44",
+          "piece": 5,
+          "kind": "planar-mate",
+          "faces": 1,
+          "cubeA": 8,
+          "cubeB": 2
+        }
+      ],
+      "leftoverFaces": 5,
+      "leftoverComponents": [
+        2,
+        2,
+        1
+      ],
+      "unmatchedFaces": 0,
+      "childEstimates": [
+        {
+          "matePatch": "S41",
+          "faces": 15,
+          "kind": "curved",
+          "family": "sphere",
+          "rms": 0.01810039249097919
+        }
+      ],
+      "adjacentPlanes": [
+        {
+          "id": "S63",
+          "kind": "cube-exterior",
+          "areaFaces": 49,
+          "sharedEdges": 6,
+          "cubeA": "exterior",
+          "cubeB": "exterior"
+        },
+        {
+          "id": "S64",
+          "kind": "cube-exterior",
+          "areaFaces": 1,
+          "sharedEdges": 1,
+          "cubeA": "exterior",
+          "cubeB": "exterior"
+        },
+        {
+          "id": "S70",
+          "kind": "planar-mate",
+          "areaFaces": 4,
+          "sharedEdges": 4,
+          "cubeA": 2,
+          "cubeB": 6
+        }
+      ],
+      "incompatiblePlaneContacts": [
+        "S70"
+      ],
+      "notes": "Majority partner exists; leftover islands are below the face floor."
+    }
+  ],
+  "clusters": [
+    [
+      "S2",
+      "S51"
+    ],
+    [
+      "S4"
+    ],
+    [
+      "S7"
+    ],
+    [
+      "S8"
+    ],
+    [
+      "S9"
+    ],
+    [
+      "S10"
+    ],
+    [
+      "S24"
+    ],
+    [
+      "S29",
+      "S65",
+      "S68"
+    ],
+    [
+      "S39"
+    ],
+    [
+      "S69"
+    ]
+  ],
+  "decision": {
+    "go": false,
+    "proceedToReconstruction": false,
+    "categories": {
+      "A": 0,
+      "B": 4,
+      "C": 8,
+      "D": 1
+    },
+    "extraCarriers": 7,
+    "extraGeneralQuadrics": 5,
+    "minChildFaces": 4,
+    "reason": "1 neighborhood(s) in category D",
+    "budget": {
+      "maxChildrenPerCarrier": 3,
+      "maxNewCarriers": 8,
+      "minChildFaces": 3,
+      "maxNewGeneralQuadrics": 2
+    }
+  },
+  "difficulty": {
+    "score": 2401,
+    "signals": {
+      "contradictoryNeighborhoods": 13,
+      "expectedCarrierSplits": 7,
+      "curvedPatches": 30,
+      "tinyBoundaryRegions": 21,
+      "partnerSignatureSplits": 13,
+      "estimatedGeneralQuadrics": 5,
+      "categoryD": 1
+    }
+  },
+  "reconstruction": {
+    "allowed": false,
+    "stages": [
+      "correspondence",
+      "contradiction-triage"
+    ],
+    "hold": "Do not enter insert/opt/closure. Search should rank by analyticDifficulty."
+  }
+}

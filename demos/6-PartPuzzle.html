@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>6-Piece Cube Puzzle</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: #080c14;
+  color: #d0dce8;
+  font-family: 'Courier New', monospace;
+  overflow: hidden;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  touch-action: none;
+}
+
+/* ── Header ── */
+#header {
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(100,160,220,0.12);
+  flex-shrink: 0;
+}
+#header h1 {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #7ab8e0;
+  font-weight: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Tab bar (mobile view switcher) ── */
+#tabs {
+  display: none;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(100,160,220,0.12);
+}
+.tab {
+  flex: 1;
+  padding: 8px 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(122,184,224,0.5);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+}
+.tab.active {
+  color: #7ab8e0;
+  border-bottom-color: #7ab8e0;
+  background: rgba(100,180,240,0.06);
+}
+
+/* ── Controls ── */
+#controls {
+  display: flex;
+  gap: 5px;
+  padding: 6px 10px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgba(100,160,220,0.08);
+}
+button.ctrl {
+  background: rgba(100,180,240,0.08);
+  border: 1px solid rgba(100,180,240,0.22);
+  color: #7ab8e0;
+  padding: 6px 10px;
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-transform: uppercase;
+  border-radius: 2px;
+  min-height: 32px;
+  touch-action: manipulation;
+}
+button.ctrl:hover, button.ctrl.active {
+  background: rgba(100,180,240,0.22);
+  border-color: rgba(100,180,240,0.6);
+  color: #b0d8f8;
+}
+
+/* ── Main canvas area ── */
+#main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+.panel {
+  flex: 1;
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+}
+.panel-label {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(122,184,224,0.35);
+  z-index: 5;
+  pointer-events: none;
+  white-space: nowrap;
+}
+#divider {
+  width: 1px;
+  background: rgba(100,160,220,0.1);
+  flex-shrink: 0;
+}
+canvas { display: block; }
+.hint {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 7px;
+  letter-spacing: 0.12em;
+  color: rgba(122,184,224,0.2);
+  white-space: nowrap;
+  pointer-events: none;
+}
+#legend {
+  position: absolute;
+  top: 28px;
+  right: 8px;
+  font-size: 7px;
+  color: rgba(160,200,230,0.4);
+  line-height: 2;
+  letter-spacing: 0.05em;
+}
+.leg { display: flex; align-items: center; gap: 4px; }
+.swatch { width: 7px; height: 7px; border-radius: 1px; flex-shrink: 0; }
+
+/* ── Mobile layout ── */
+@media (max-width: 600px) {
+  #tabs { display: flex; }
+  #divider { display: none; }
+  .panel { display: none; }
+  .panel.visible { display: block; }
+  #controls { padding: 5px 8px; gap: 4px; }
+  button.ctrl { padding: 7px 8px; font-size: 8px; flex: 1; min-width: 0; }
+}
+</style>
+</head>
+<body>
+<div id="header">
+  <h1>6-Part Diagonal-Wedge Cube Puzzle</h1>
+</div>
+
+<div id="tabs">
+  <button class="tab active" onclick="showTab('left')">Assembled Cube</button>
+  <button class="tab" onclick="showTab('right')">Individual Piece</button>
+</div>
+
+<div id="controls">
+  <button class="ctrl" id="bExplode">Explode</button>
+  <button class="ctrl" id="bAssemble">Assemble</button>
+  <button class="ctrl active" id="bRotate">Rotate</button>
+  <button class="ctrl" id="bHalves">Toggle Half-B</button>
+</div>
+
+<div id="main">
+  <div class="panel visible" id="pLeft">
+    <div class="panel-label">Assembled Cube (translucent)</div>
+    <canvas id="cLeft"></canvas>
+    <div class="hint">Drag · Pinch/scroll to zoom</div>
+  </div>
+  <div id="divider"></div>
+  <div class="panel" id="pRight">
+    <div class="panel-label">Individual Piece — Two Rotatable Halves</div>
+    <canvas id="cRight"></canvas>
+    <div id="legend">
+      <div class="leg"><div class="swatch" style="background:#5bbfff"></div>Half A</div>
+      <div class="leg"><div class="swatch" style="background:#ffaa40"></div>Half B (90°)</div>
+      <div class="leg"><div class="swatch" style="background:rgba(255,255,255,0.3)"></div>4-fold axis</div>
+    </div>
+    <div class="hint">Drag · Pinch/scroll to zoom</div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ─── Tab switching (mobile) ───────────────────────────────────────────────
+let activeTab = 'left';
+function showTab(side) {
+  activeTab = side;
+  document.getElementById('pLeft').classList.toggle('visible', side === 'left');
+  document.getElementById('pRight').classList.toggle('visible', side === 'right');
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    t.classList.toggle('active', (i === 0) === (side === 'left'));
+  });
+  // Hide/show controls that only apply to assembled panel
+  document.getElementById('bExplode').style.display = side === 'left' ? '' : 'none';
+  document.getElementById('bAssemble').style.display = side === 'left' ? '' : 'none';
+  resizeAll();
+}
+
+// ─── Geometry helpers ─────────────────────────────────────────────────────
+const V3 = (x,y,z) => new THREE.Vector3(x,y,z);
+
+function makePentahedronGeometry(flip) {
+  const f = flip ? -1 : 1;
+  const P = [
+    V3( 0,  0, -1),  // P0
+    V3( 1,  0, -1),  // P1
+    V3( 0,  f, -1),  // P2
+    V3( 0,  0,  1),  // P3
+    V3( 1,  0,  1),  // P4
+    V3( 0,  f,  1),  // P5
+  ];
+  const positions = [], normals = [];
+  function addTri(a,b,c) {
+    const n = b.clone().sub(a).cross(c.clone().sub(a)).normalize();
+    [a,b,c].forEach(v => { positions.push(v.x,v.y,v.z); normals.push(n.x,n.y,n.z); });
+  }
+  addTri(P[0],P[2],P[1]);
+  addTri(P[3],P[4],P[5]);
+  addTri(P[0],P[1],P[4]); addTri(P[0],P[4],P[3]);
+  addTri(P[0],P[2],P[5]); addTri(P[0],P[5],P[3]);
+  addTri(P[1],P[2],P[5]); addTri(P[1],P[5],P[4]);
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geo.setAttribute('normal',   new THREE.Float32BufferAttribute(normals,   3));
+  return geo;
+}
+
+function buildPiece(colorA, colorB, opacity) {
+  const group = new THREE.Group();
+  const mat = hex => new THREE.MeshPhongMaterial({
+    color: hex, transparent: true, opacity,
+    side: THREE.DoubleSide, shininess: 110,
+    specular: new THREE.Color(0.3,0.4,0.5), depthWrite: false,
+  });
+  const geoA = makePentahedronGeometry(false);
+  const geoB = makePentahedronGeometry(true);
+  const meshA = new THREE.Mesh(geoA, mat(colorA));
+  const meshB = new THREE.Mesh(geoB, mat(colorB));
+  meshB.rotation.z = Math.PI/2;
+  const edgeMat = new THREE.LineBasicMaterial({ color:0xffffff, transparent:true, opacity:0.15 });
+  const edgesA = new THREE.LineSegments(new THREE.EdgesGeometry(geoA,10), edgeMat);
+  const edgesB = new THREE.LineSegments(new THREE.EdgesGeometry(geoB,10), edgeMat.clone());
+  edgesB.rotation.z = Math.PI/2;
+  const hingeGeo = new THREE.CylinderGeometry(0.05,0.05,2.02,8);
+  const hinge = new THREE.Mesh(hingeGeo, new THREE.MeshBasicMaterial({ color:0xffffff, transparent:true, opacity:0.18 }));
+  hinge.rotation.x = Math.PI/2;
+  group.add(meshA, meshB, edgesA, edgesB, hinge);
+  return { group, meshA, meshB, edgesA, edgesB };
+}
+
+const PIECE_COLORS = [
+  [0x4db8ff, 0x0070cc],
+  [0x60e890, 0x1a9040],
+  [0xffaa40, 0xcc6600],
+  [0xff6688, 0xbb1144],
+  [0xc084fc, 0x7722cc],
+  [0x40ddd8, 0x008888],
+];
+
+// ─── Scene setup ──────────────────────────────────────────────────────────
+function setupScene(canvas) {
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setClearColor(0x080c14, 1);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(40, 1, 0.01, 200);
+  camera.position.set(4.5, 3.2, 4.5);
+  camera.lookAt(0,0,0);
+
+  scene.add(new THREE.AmbientLight(0x304060, 1.0));
+  const sun = new THREE.DirectionalLight(0x88bbff, 1.6); sun.position.set(4,6,5); scene.add(sun);
+  const fill = new THREE.DirectionalLight(0xff8844, 0.4); fill.position.set(-4,-2,3); scene.add(fill);
+  const rim  = new THREE.DirectionalLight(0x44ffcc, 0.25); rim.position.set(1,-5,-4); scene.add(rim);
+
+  const pivot = new THREE.Group();
+  scene.add(pivot);
+  let rot = { x: 0.35, y: 0.55 };
+  pivot.rotation.x = rot.x;
+  pivot.rotation.y = rot.y;
+
+  // Mouse orbit
+  let drag = false, prev = {x:0,y:0};
+  canvas.addEventListener('mousedown', e => { drag=true; prev={x:e.clientX,y:e.clientY}; });
+  window.addEventListener('mouseup', () => drag=false);
+  window.addEventListener('mousemove', e => {
+    if (!drag) return;
+    rot.y += (e.clientX-prev.x)*0.012;
+    rot.x += (e.clientY-prev.y)*0.012;
+    rot.x = Math.max(-1.4, Math.min(1.4, rot.x));
+    pivot.rotation.x = rot.x; pivot.rotation.y = rot.y;
+    prev = {x:e.clientX, y:e.clientY};
+  });
+
+  // Touch orbit + pinch zoom
+  let touches = {}, pinchDist0 = null, zoom = 1;
+  canvas.addEventListener('touchstart', e => {
+    [...e.touches].forEach(t => touches[t.identifier] = {x:t.clientX,y:t.clientY});
+    if (e.touches.length === 2) {
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      pinchDist0 = Math.sqrt(dx*dx+dy*dy);
+    }
+    e.preventDefault();
+  }, {passive:false});
+  canvas.addEventListener('touchmove', e => {
+    if (e.touches.length === 1) {
+      const t = e.touches[0];
+      const prev2 = touches[t.identifier] || {x:t.clientX,y:t.clientY};
+      rot.y += (t.clientX-prev2.x)*0.012;
+      rot.x += (t.clientY-prev2.y)*0.012;
+      rot.x = Math.max(-1.4, Math.min(1.4, rot.x));
+      pivot.rotation.x = rot.x; pivot.rotation.y = rot.y;
+      touches[t.identifier] = {x:t.clientX, y:t.clientY};
+    } else if (e.touches.length === 2 && pinchDist0) {
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      const d = Math.sqrt(dx*dx+dy*dy);
+      zoom = Math.max(0.3, Math.min(4, zoom * (pinchDist0/d)));
+      camera.position.setLength(7.5*zoom);
+      pinchDist0 = d;
+      // also update pan reference
+      [...e.touches].forEach(t => touches[t.identifier] = {x:t.clientX,y:t.clientY});
+    }
+    e.preventDefault();
+  }, {passive:false});
+  canvas.addEventListener('touchend', e => {
+    [...e.changedTouches].forEach(t => delete touches[t.identifier]);
+    if (e.touches.length < 2) pinchDist0 = null;
+  });
+
+  // Scroll zoom
+  canvas.addEventListener('wheel', e => {
+    zoom = Math.max(0.3, Math.min(4, zoom*(1+e.deltaY*0.0012)));
+    camera.position.setLength(7.5*zoom);
+    e.preventDefault();
+  }, {passive:false});
+
+  function resize() {
+    const w = canvas.parentElement.clientWidth;
+    const h = canvas.parentElement.clientHeight;
+    if (w <= 0 || h <= 0) return;
+    renderer.setSize(w, h, false);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    camera.aspect = w/h;
+    camera.updateProjectionMatrix();
+  }
+
+  return { renderer, scene, camera, pivot, rot, resize };
+}
+
+// ─── Left: assembled cube ─────────────────────────────────────────────────
+const L = setupScene(document.getElementById('cLeft'));
+L.pivot.add(new THREE.LineSegments(
+  new THREE.EdgesGeometry(new THREE.BoxGeometry(2,2,2)),
+  new THREE.LineBasicMaterial({ color:0x1a3050, transparent:true, opacity:0.5 })
+));
+
+const assembledPieces = [];
+const explodeTargets = [
+  V3(2.2,0,0), V3(-2.2,0,0),
+  V3(0,2.2,0), V3(0,-2.2,0),
+  V3(0,0,2.2), V3(0,0,-2.2),
+];
+
+const placements = [
+  { euler:[0,0,0],              halfB:0 },
+  { euler:[0,0,Math.PI],        halfB:Math.PI/2 },
+  { euler:[0,Math.PI/2,0],      halfB:0 },
+  { euler:[0,-Math.PI/2,0],     halfB:Math.PI/2 },
+  { euler:[Math.PI/2,0,0],      halfB:Math.PI/2 },
+  { euler:[-Math.PI/2,0,0],     halfB:0 },
+];
+
+placements.forEach((p,i) => {
+  const [ca,cb] = PIECE_COLORS[i];
+  const { group, meshA, meshB, edgesA, edgesB } = buildPiece(ca, cb, 0.44);
+  meshB.rotation.z = p.halfB;
+  edgesB.rotation.z = p.halfB;
+  const wrapper = new THREE.Group();
+  wrapper.add(group);
+  wrapper.rotation.set(...p.euler);
+  L.pivot.add(wrapper);
+  assembledPieces.push({ wrapper, meshA, meshB });
+});
+
+// ─── Right: single piece ──────────────────────────────────────────────────
+const R = setupScene(document.getElementById('cRight'));
+const singlePiece = buildPiece(0x5bbfff, 0xffaa40, 0.72);
+singlePiece.group.scale.setScalar(1.2);
+R.pivot.add(singlePiece.group);
+
+// Axis line
+const axLen = 1.6;
+R.pivot.add(new THREE.Line(
+  new THREE.BufferGeometry().setFromPoints([V3(0,0,-axLen), V3(0,0,axLen)]),
+  new THREE.LineBasicMaterial({ color:0xffffff, transparent:true, opacity:0.28 })
+));
+[1,-1].forEach(s => {
+  const c = new THREE.Mesh(
+    new THREE.ConeGeometry(0.04,0.12,6),
+    new THREE.MeshBasicMaterial({ color:0xffffff, transparent:true, opacity:0.28 })
+  );
+  c.position.z = s*(axLen+0.06); c.rotation.x = s>0 ? Math.PI/2 : -Math.PI/2;
+  R.pivot.add(c);
+});
+// Rotation arc
+const arcPts = [];
+for (let a=0; a<=Math.PI/2+0.01; a+=0.05) arcPts.push(V3(0.5*Math.cos(a), 0.5*Math.sin(a), 0.3));
+R.pivot.add(new THREE.Line(
+  new THREE.BufferGeometry().setFromPoints(arcPts),
+  new THREE.LineBasicMaterial({ color:0xffdd88, transparent:true, opacity:0.32 })
+));
+
+// ─── Controls ────────────────────────────────────────────────────────────
+let autoRot = true, explodeT = 0, explodeDir = 0, halfBVisible = true;
+
+document.getElementById('bExplode').onclick  = () => { explodeDir = 1; };
+document.getElementById('bAssemble').onclick = () => { explodeDir = -1; };
+document.getElementById('bRotate').onclick = function() {
+  autoRot = !autoRot;
+  this.classList.toggle('active', autoRot);
+};
+document.getElementById('bHalves').onclick = function() {
+  halfBVisible = !halfBVisible;
+  this.classList.toggle('active', halfBVisible);
+};
+
+// ─── Resize ───────────────────────────────────────────────────────────────
+function resizeAll() { L.resize(); R.resize(); }
+window.addEventListener('resize', resizeAll);
+// Small delay to let layout settle on orientation change
+window.addEventListener('orientationchange', () => setTimeout(resizeAll, 100));
+setTimeout(resizeAll, 0);
+
+// ─── Loop ────────────────────────────────────────────────────────────────
+const easeIO = t => t<0.5 ? 2*t*t : -1+(4-2*t)*t;
+let t0 = performance.now();
+
+function animate() {
+  requestAnimationFrame(animate);
+  const t = (performance.now()-t0)*0.001;
+
+  if (autoRot) {
+    L.pivot.rotation.y += 0.005;
+    R.pivot.rotation.y += 0.008;
+  }
+
+  if (explodeDir !== 0) {
+    explodeT = Math.max(0, Math.min(1, explodeT + explodeDir*0.025));
+    if (explodeT<=0||explodeT>=1) explodeDir=0;
+  }
+  const ez = easeIO(explodeT);
+  assembledPieces.forEach((p,i) => p.wrapper.position.lerpVectors(V3(0,0,0), explodeTargets[i], ez));
+
+  assembledPieces.forEach((p,i) => {
+    const op = 0.38 + 0.1*Math.sin(t*0.7+i*1.1);
+    p.meshA.material.opacity = op;
+    p.meshB.material.opacity = op;
+  });
+
+  const targetAngle = halfBVisible ? Math.PI/2 : 0;
+  const diff = targetAngle - singlePiece.meshB.rotation.z;
+  if (Math.abs(diff) > 0.001) {
+    singlePiece.meshB.rotation.z  += diff*0.07;
+    singlePiece.edgesB.rotation.z += diff*0.07;
+  }
+  singlePiece.meshA.material.opacity = 0.6 + 0.1*Math.sin(t*0.9);
+  singlePiece.meshB.material.opacity = 0.6 + 0.1*Math.sin(t*0.9+1.0);
+
+  L.renderer.render(L.scene, L.camera);
+  R.renderer.render(R.scene, R.camera);
+}
+animate();
+</script>
+</body>
+</html>

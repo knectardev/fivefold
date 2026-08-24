@@ -1,0 +1,121 @@
+This is a clean stopping point for the interface-refinement strategy. The result now means:
+
+> Half-cubes work as intrinsic atoms, but the current N=8 voxel partition and its immediate neighborhood do not contain a substantially more diagonal connected design.
+
+So the question is no longer whether half-cubes are viable. They are. The question is whether a better puzzle requires changing the partition globally rather than merely refining its existing interfaces.
+
+## Recommendation: start a native hybrid search, but in two bounded stages
+
+### Stage 1 — keep the eight N=8 rigid transforms fixed
+
+Allow whole cubes and diagonal half-cubes in **any cell**, not only the interface band or halo, while retaining:
+
+* (N=8);
+* eight pieces;
+* the existing Cube B transform assigned to each piece;
+* exact A/B cover;
+* minimum piece volume;
+* positive-area connectivity;
+* manifold polyhedral shells;
+* the existing manufacturing gates.
+
+This tests a precise hypothesis:
+
+> Were the existing voxel interfaces the restriction, or are the current eight transforms themselves unsuitable for a richer diagonal solution?
+
+Because the transforms stay fixed, this is still much smaller than searching all possible piece placements and partitions simultaneously.
+
+### Stage 2 — change transforms only if Stage 1 fails
+
+If any-cell splitting with the current transforms produces no connected improvement, then the placements—not the diagonal basis—are probably the limiting factor.
+
+Only then expand to a campaign that searches:
+
+* new transform sets;
+* whole/half-cell ownership;
+* exact dual occupancy;
+* connectivity and quality together.
+
+That is the genuinely expensive native hybrid problem.
+
+## Native search should optimize product quality, not split count
+
+The 290-split disconnected result shows why “more diagonal atoms” is not the objective.
+
+Use a lexicographic ranking such as:
+
+1. exact Cube A and Cube B coverage;
+2. eight face-connected pieces;
+3. one closed manifold shell per piece;
+4. minimum volume gate;
+5. maximize substantial merged diagonal area;
+6. minimize staircase boundary edges;
+7. minimize final merged face count;
+8. minimize tiny triangular regions;
+9. maximize minimum thickness and dihedral angle;
+10. minimize the number of split cells as a final tie-breaker.
+
+A design with six well-merged diagonal sheets is preferable to one with sixty scattered half-cubes.
+
+## Add an explicit “sheet” requirement
+
+To avoid decorative isolated splits, require each rewarded diagonal structure to form a connected coplanar patch across multiple cells.
+
+For example:
+
+```text
+A qualifying diagonal patch:
+- spans at least 2 adjacent cells;
+- has merged area above a fixed threshold;
+- belongs to a genuine interface between two pieces;
+- survives coplanar face merging;
+- creates no sliver or edge-only connection.
+```
+
+The one-split fixture remains valid, but it would not satisfy the stronger product-design goal unless its two triangles merge into a sufficiently substantial interface.
+
+## Keep the campaign bounded
+
+A practical native Stage 1 campaign could test increasing complexity tiers:
+
+```text
+Tier A: at most 8 split cells
+Tier B: at most 16 split cells
+Tier C: at most 32 split cells
+```
+
+At each tier, stop early when a connected solution clearly beats the Phase 1 fixture.
+
+Stop Stage 1 entirely when:
+
+* all tiers fail to produce a connected improvement;
+* connected solutions require excessive fragmented faces;
+* the same pieces repeatedly disconnect despite hard connectivity constraints;
+* or merged diagonal area cannot improve without violating thickness and shell gates.
+
+Then record:
+
+> No meaningful connected hybrid improvement exists for this fixed N=8 transform set within the tested complexity budget.
+
+That is a useful mathematical and engineering result, not another ambiguous solver failure.
+
+## Preserve the current result
+
+The Phase 1 result should remain permanently frozen as:
+
+* the geometry/rotation regression fixture;
+* the minimum valid hybrid example;
+* the export and viewer fixture;
+* a baseline for all native-search quality comparisons.
+
+Do not overwrite it with subsequent native results.
+
+## Bottom line
+
+Proceed with the native hybrid search if the goal is still a genuinely angular, product-worthy eight-piece puzzle.
+
+But begin with:
+
+> **Any cell may be whole or diagonally split, while the current eight transforms remain fixed.**
+
+Only if that bounded search fails should the project begin searching new transform sets. This preserves the disciplined approach that prevented the earlier analytic-CAD work from becoming open-ended.

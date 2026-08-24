@@ -1,0 +1,2876 @@
+{
+  "pool": [
+    "O-F1F1",
+    "O-F1F2",
+    "O-F1F3",
+    "O-F1F4",
+    "O-F2F2",
+    "O-F2F3",
+    "O-F2F4",
+    "O-F3F3",
+    "O-F3F4",
+    "O-F4F4",
+    "L-F0F0",
+    "L-F0F1",
+    "L-F0F2",
+    "L-F0F3",
+    "L-F0F4",
+    "L-F1F1",
+    "L-F1F2",
+    "L-F1F3",
+    "L-F1F4",
+    "L-F2F2",
+    "L-F2F3",
+    "L-F2F4",
+    "L-F3F3",
+    "L-F3F4",
+    "L-F4F4",
+    "L-tromino"
+  ],
+  "note": "All-unique cubic-joint kit: six different families + rigid L-tromino (no duplicate parts). Exhaustive Oh: 7 orbits, 168 raw. Closer analog to the digonal 6-orbit product than the duplicated O-F1F4/L-F1F1 mix.",
+  "inequivalent_orbits": 7,
+  "representatives": [
+    {
+      "family_counts": {
+        "O-F1F1": 1,
+        "O-F1F2": 1,
+        "L-F0F2": 1,
+        "L-F1F2": 1,
+        "L-F3F3": 1,
+        "L-F3F4": 1,
+        "L-tromino": 1
+      },
+      "l_tromino": [
+        [
+          1,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ],
+        [
+          2,
+          1,
+          2
+        ]
+      ],
+      "pieces": [
+        {
+          "family": "O-F1F1",
+          "topology": "I",
+          "faces": [
+            "F1",
+            "F1"
+          ],
+          "clocks": [
+            0,
+            1
+          ],
+          "joint": 1,
+          "cubes": [
+            [
+              2,
+              0,
+              1
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              2,
+              0,
+              2
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                2,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 1,
+                "b": 2
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                1,
+                0,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "O-F1F2",
+          "topology": "I",
+          "faces": [
+            "F1",
+            "F2"
+          ],
+          "clocks": [
+            0,
+            3
+          ],
+          "joint": 3,
+          "cubes": [
+            [
+              2,
+              2,
+              1
+            ],
+            [
+              2,
+              2,
+              2
+            ],
+            [
+              2,
+              2,
+              0
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                2,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                2,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 1,
+                "b": 2
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "L-F0F2",
+          "topology": "L",
+          "faces": [
+            "F0",
+            "F2"
+          ],
+          "clocks": [
+            0,
+            3
+          ],
+          "joint": 3,
+          "cubes": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                0,
+                2,
+                0
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 1,
+                "b": 2
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                1,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 1
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-F1F2",
+          "topology": "L",
+          "faces": [
+            "F1",
+            "F2"
+          ],
+          "clocks": [
+            2,
+            3
+          ],
+          "joint": 11,
+          "cubes": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              2
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                1,
+                1
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 0,
+                "b": 1
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                1,
+                0,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-F3F3",
+          "topology": "L",
+          "faces": [
+            "F3",
+            "F3"
+          ],
+          "clocks": [
+            1,
+            2
+          ],
+          "joint": 6,
+          "cubes": [
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              2,
+              0
+            ],
+            [
+              0,
+              2,
+              1
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 1
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                0,
+                2,
+                0
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 1,
+                "b": 2
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "L-F3F4",
+          "topology": "L",
+          "faces": [
+            "F3",
+            "F4"
+          ],
+          "clocks": [
+            3,
+            3
+          ],
+          "joint": 15,
+          "cubes": [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              2,
+              2
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                1,
+                1
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 0,
+                "b": 1
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                1,
+                2,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-tromino",
+          "topology": "tromino",
+          "faces": [],
+          "clocks": [],
+          "joint": 0,
+          "cubes": [
+            [
+              1,
+              1,
+              2
+            ],
+            [
+              2,
+              1,
+              1
+            ],
+            [
+              2,
+              1,
+              2
+            ]
+          ],
+          "wedges": [],
+          "role": "L-tromino"
+        }
+      ]
+    },
+    {
+      "family_counts": {
+        "O-F1F1": 1,
+        "O-F1F2": 1,
+        "L-F0F2": 1,
+        "L-F1F2": 1,
+        "L-F3F3": 1,
+        "L-F3F4": 1,
+        "L-tromino": 1
+      },
+      "l_tromino": [
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ],
+      "pieces": [
+        {
+          "family": "O-F1F1",
+          "topology": "I",
+          "faces": [
+            "F1",
+            "F1"
+          ],
+          "clocks": [
+            0,
+            3
+          ],
+          "joint": 3,
+          "cubes": [
+            [
+              2,
+              0,
+              1
+            ],
+            [
+              2,
+              0,
+              2
+            ],
+            [
+              2,
+              0,
+              0
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                2,
+                1,
+                2
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 1,
+                "b": 2
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                1,
+                0,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 0,
+                "b": 2
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "O-F1F2",
+          "topology": "I",
+          "faces": [
+            "F1",
+            "F2"
+          ],
+          "clocks": [
+            0,
+            1
+          ],
+          "joint": 1,
+          "cubes": [
+            [
+              2,
+              2,
+              1
+            ],
+            [
+              2,
+              2,
+              0
+            ],
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                2,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 0,
+                "b": 2
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                2,
+                1,
+                2
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 1,
+                "b": 2
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "L-F0F2",
+          "topology": "L",
+          "faces": [
+            "F0",
+            "F2"
+          ],
+          "clocks": [
+            0,
+            3
+          ],
+          "joint": 3,
+          "cubes": [
+            [
+              0,
+              2,
+              2
+            ],
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              1,
+              2,
+              2
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                0,
+                0,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 1,
+                "b": 2
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                1,
+                1,
+                2
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 0,
+                "b": 1
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-F1F2",
+          "topology": "L",
+          "faces": [
+            "F1",
+            "F2"
+          ],
+          "clocks": [
+            2,
+            3
+          ],
+          "joint": 11,
+          "cubes": [
+            [
+              0,
+              2,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              0,
+              2,
+              0
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                1,
+                1
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 1
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                1,
+                2,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 0,
+                "b": 2
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-F3F3",
+          "topology": "L",
+          "faces": [
+            "F3",
+            "F3"
+          ],
+          "clocks": [
+            1,
+            2
+          ],
+          "joint": 6,
+          "cubes": [
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              2
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                1,
+                2
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 0,
+                "b": 1
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                0,
+                0,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 1,
+                "b": 2
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-F3F4",
+          "topology": "L",
+          "faces": [
+            "F3",
+            "F4"
+          ],
+          "clocks": [
+            3,
+            3
+          ],
+          "joint": 15,
+          "cubes": [
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                1,
+                1
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 1
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                1,
+                0,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 0,
+                "b": 2
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-tromino",
+          "topology": "tromino",
+          "faces": [],
+          "clocks": [],
+          "joint": 0,
+          "cubes": [
+            [
+              1,
+              1,
+              0
+            ],
+            [
+              2,
+              1,
+              0
+            ],
+            [
+              2,
+              1,
+              1
+            ]
+          ],
+          "wedges": [],
+          "role": "L-tromino"
+        }
+      ]
+    },
+    {
+      "family_counts": {
+        "O-F1F1": 1,
+        "O-F1F2": 1,
+        "L-F0F2": 1,
+        "L-F1F2": 1,
+        "L-F3F3": 1,
+        "L-F3F4": 1,
+        "L-tromino": 1
+      },
+      "l_tromino": [
+        [
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "pieces": [
+        {
+          "family": "O-F1F1",
+          "topology": "I",
+          "faces": [
+            "F1",
+            "F1"
+          ],
+          "clocks": [
+            0,
+            3
+          ],
+          "joint": 3,
+          "cubes": [
+            [
+              2,
+              2,
+              1
+            ],
+            [
+              2,
+              2,
+              0
+            ],
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                2,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 1,
+                "b": 2
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                1,
+                2,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "O-F1F2",
+          "topology": "I",
+          "faces": [
+            "F1",
+            "F2"
+          ],
+          "clocks": [
+            0,
+            0
+          ],
+          "joint": 0,
+          "cubes": [
+            [
+              0,
+              2,
+              1
+            ],
+            [
+              0,
+              2,
+              0
+            ],
+            [
+              0,
+              2,
+              2
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                2,
+                0
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                1,
+                2,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-F0F2",
+          "topology": "L",
+          "faces": [
+            "F0",
+            "F2"
+          ],
+          "clocks": [
+            0,
+            0
+          ],
+          "joint": 0,
+          "cubes": [
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              2,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                2,
+                0,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 1,
+                "b": 2
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                1,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 0,
+                "b": 1
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "L-F1F2",
+          "topology": "L",
+          "faces": [
+            "F1",
+            "F2"
+          ],
+          "clocks": [
+            0,
+            2
+          ],
+          "joint": 2,
+          "cubes": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 0,
+                "b": 1
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                1,
+                0,
+                1
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-F3F3",
+          "topology": "L",
+          "faces": [
+            "F3",
+            "F3"
+          ],
+          "clocks": [
+            1,
+            3
+          ],
+          "joint": 7,
+          "cubes": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              2,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                2,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 1,
+                "b": 2
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                1,
+                2,
+                0
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "L-F3F4",
+          "topology": "L",
+          "faces": [
+            "F3",
+            "F4"
+          ],
+          "clocks": [
+            2,
+            3
+          ],
+          "joint": 11,
+          "cubes": [
+            [
+              1,
+              1,
+              2
+            ],
+            [
+              2,
+              1,
+              2
+            ],
+            [
+              1,
+              0,
+              2
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                2,
+                0,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 1,
+                "b": 2
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                1,
+                0,
+                1
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "L-tromino",
+          "topology": "tromino",
+          "faces": [],
+          "clocks": [],
+          "joint": 0,
+          "cubes": [
+            [
+              0,
+              0,
+              2
+            ],
+            [
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              1,
+              2
+            ]
+          ],
+          "wedges": [],
+          "role": "L-tromino"
+        }
+      ]
+    },
+    {
+      "family_counts": {
+        "O-F1F1": 1,
+        "O-F1F2": 1,
+        "L-F0F2": 1,
+        "L-F1F2": 1,
+        "L-F3F3": 1,
+        "L-F3F4": 1,
+        "L-tromino": 1
+      },
+      "l_tromino": [
+        [
+          0,
+          2,
+          2
+        ],
+        [
+          1,
+          2,
+          1
+        ],
+        [
+          1,
+          2,
+          2
+        ]
+      ],
+      "pieces": [
+        {
+          "family": "O-F1F1",
+          "topology": "I",
+          "faces": [
+            "F1",
+            "F1"
+          ],
+          "clocks": [
+            0,
+            0
+          ],
+          "joint": 0,
+          "cubes": [
+            [
+              2,
+              2,
+              1
+            ],
+            [
+              2,
+              2,
+              2
+            ],
+            [
+              2,
+              2,
+              0
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                2,
+                1,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 1,
+                "b": 2
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                2,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 1,
+                "b": 2
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "O-F1F2",
+          "topology": "I",
+          "faces": [
+            "F1",
+            "F2"
+          ],
+          "clocks": [
+            0,
+            3
+          ],
+          "joint": 3,
+          "cubes": [
+            [
+              2,
+              0,
+              1
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              2,
+              0,
+              2
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                0,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 0,
+                "b": 2
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                2,
+                1,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 1,
+                "b": 2
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-F0F2",
+          "topology": "L",
+          "faces": [
+            "F0",
+            "F2"
+          ],
+          "clocks": [
+            0,
+            0
+          ],
+          "joint": 0,
+          "cubes": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                0,
+                0,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                1,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 1
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-F1F2",
+          "topology": "L",
+          "faces": [
+            "F1",
+            "F2"
+          ],
+          "clocks": [
+            0,
+            2
+          ],
+          "joint": 2,
+          "cubes": [
+            [
+              0,
+              2,
+              0
+            ],
+            [
+              1,
+              2,
+              0
+            ],
+            [
+              0,
+              2,
+              1
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 1
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                0,
+                1,
+                1
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 1,
+                "b": 2
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "L-F3F3",
+          "topology": "L",
+          "faces": [
+            "F3",
+            "F3"
+          ],
+          "clocks": [
+            1,
+            3
+          ],
+          "joint": 7,
+          "cubes": [
+            [
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              2,
+              1,
+              1
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                0,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 0,
+                "b": 2
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                2,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 1,
+                "b": 2
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-F3F4",
+          "topology": "L",
+          "faces": [
+            "F3",
+            "F4"
+          ],
+          "clocks": [
+            2,
+            3
+          ],
+          "joint": 11,
+          "cubes": [
+            [
+              1,
+              1,
+              2
+            ],
+            [
+              1,
+              0,
+              2
+            ],
+            [
+              0,
+              1,
+              2
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                0,
+                0,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                0,
+                1,
+                1
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 1,
+                "b": 2
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-tromino",
+          "topology": "tromino",
+          "faces": [],
+          "clocks": [],
+          "joint": 0,
+          "cubes": [
+            [
+              0,
+              2,
+              2
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              2,
+              2
+            ]
+          ],
+          "wedges": [],
+          "role": "L-tromino"
+        }
+      ]
+    },
+    {
+      "family_counts": {
+        "O-F1F1": 1,
+        "O-F1F2": 1,
+        "L-F0F2": 1,
+        "L-F1F2": 1,
+        "L-F3F3": 1,
+        "L-F3F4": 1,
+        "L-tromino": 1
+      },
+      "l_tromino": [
+        [
+          2,
+          0,
+          0
+        ],
+        [
+          2,
+          0,
+          1
+        ],
+        [
+          2,
+          1,
+          1
+        ]
+      ],
+      "pieces": [
+        {
+          "family": "O-F1F1",
+          "topology": "I",
+          "faces": [
+            "F1",
+            "F1"
+          ],
+          "clocks": [
+            0,
+            2
+          ],
+          "joint": 2,
+          "cubes": [
+            [
+              1,
+              1,
+              0
+            ],
+            [
+              2,
+              1,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                2,
+                2,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 0,
+                "b": 1
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                0,
+                0,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 0,
+                "b": 1
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "O-F1F2",
+          "topology": "I",
+          "faces": [
+            "F1",
+            "F2"
+          ],
+          "clocks": [
+            0,
+            0
+          ],
+          "joint": 0,
+          "cubes": [
+            [
+              1,
+              0,
+              2
+            ],
+            [
+              0,
+              0,
+              2
+            ],
+            [
+              2,
+              0,
+              2
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                0,
+                1,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 1
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                2,
+                1,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 1
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-F0F2",
+          "topology": "L",
+          "faces": [
+            "F0",
+            "F2"
+          ],
+          "clocks": [
+            2,
+            2
+          ],
+          "joint": 10,
+          "cubes": [
+            [
+              0,
+              2,
+              0
+            ],
+            [
+              1,
+              2,
+              0
+            ],
+            [
+              0,
+              2,
+              1
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                2,
+                2,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 0,
+                "b": 1
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                0,
+                1,
+                1
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 1,
+                "b": 2
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "L-F1F2",
+          "topology": "L",
+          "faces": [
+            "F1",
+            "F2"
+          ],
+          "clocks": [
+            0,
+            3
+          ],
+          "joint": 3,
+          "cubes": [
+            [
+              1,
+              2,
+              2
+            ],
+            [
+              1,
+              1,
+              2
+            ],
+            [
+              0,
+              2,
+              2
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                1,
+                1
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 1,
+                "b": 2
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                0,
+                1,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 1
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "L-F3F3",
+          "topology": "L",
+          "faces": [
+            "F3",
+            "F3"
+          ],
+          "clocks": [
+            1,
+            2
+          ],
+          "joint": 6,
+          "cubes": [
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                0,
+                1,
+                1
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 1,
+                "b": 2
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                0,
+                0,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 0,
+                "b": 1
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "L-F3F4",
+          "topology": "L",
+          "faces": [
+            "F3",
+            "F4"
+          ],
+          "clocks": [
+            1,
+            1
+          ],
+          "joint": 5,
+          "cubes": [
+            [
+              2,
+              2,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                1,
+                1
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 1,
+                "b": 2
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                2,
+                1,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 1
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "L-tromino",
+          "topology": "tromino",
+          "faces": [],
+          "clocks": [],
+          "joint": 0,
+          "cubes": [
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              2,
+              0,
+              1
+            ],
+            [
+              2,
+              1,
+              1
+            ]
+          ],
+          "wedges": [],
+          "role": "L-tromino"
+        }
+      ]
+    },
+    {
+      "family_counts": {
+        "O-F1F1": 1,
+        "O-F1F2": 1,
+        "L-F0F2": 1,
+        "L-F1F2": 1,
+        "L-F3F3": 1,
+        "L-F3F4": 1,
+        "L-tromino": 1
+      },
+      "l_tromino": [
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          2,
+          0
+        ],
+        [
+          1,
+          2,
+          1
+        ]
+      ],
+      "pieces": [
+        {
+          "family": "O-F1F1",
+          "topology": "I",
+          "faces": [
+            "F1",
+            "F1"
+          ],
+          "clocks": [
+            0,
+            3
+          ],
+          "joint": 3,
+          "cubes": [
+            [
+              2,
+              2,
+              1
+            ],
+            [
+              2,
+              2,
+              0
+            ],
+            [
+              2,
+              2,
+              2
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                2,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 1,
+                "b": 2
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                1,
+                2,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "O-F1F2",
+          "topology": "I",
+          "faces": [
+            "F1",
+            "F2"
+          ],
+          "clocks": [
+            0,
+            1
+          ],
+          "joint": 1,
+          "cubes": [
+            [
+              0,
+              2,
+              1
+            ],
+            [
+              0,
+              2,
+              0
+            ],
+            [
+              0,
+              2,
+              2
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                0,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 1,
+                "b": 2
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                1,
+                2,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-F0F2",
+          "topology": "L",
+          "faces": [
+            "F0",
+            "F2"
+          ],
+          "clocks": [
+            0,
+            3
+          ],
+          "joint": 3,
+          "cubes": [
+            [
+              2,
+              1,
+              2
+            ],
+            [
+              1,
+              1,
+              2
+            ],
+            [
+              2,
+              0,
+              2
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                0,
+                1,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                1,
+                0,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 1
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "L-F1F2",
+          "topology": "L",
+          "faces": [
+            "F1",
+            "F2"
+          ],
+          "clocks": [
+            0,
+            3
+          ],
+          "joint": 3,
+          "cubes": [
+            [
+              2,
+              0,
+              1
+            ],
+            [
+              2,
+              1,
+              1
+            ],
+            [
+              2,
+              0,
+              0
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                1,
+                1
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 1
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                2,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 1,
+                "b": 2
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-F3F3",
+          "topology": "L",
+          "faces": [
+            "F3",
+            "F3"
+          ],
+          "clocks": [
+            1,
+            2
+          ],
+          "joint": 6,
+          "cubes": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              2
+            ],
+            [
+              0,
+              1,
+              1
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                0,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 1
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                0,
+                1,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-F3F4",
+          "topology": "L",
+          "faces": [
+            "F3",
+            "F4"
+          ],
+          "clocks": [
+            3,
+            3
+          ],
+          "joint": 15,
+          "cubes": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                0,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 1,
+                "b": 2
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                1,
+                1,
+                1
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 1
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-tromino",
+          "topology": "tromino",
+          "faces": [],
+          "clocks": [],
+          "joint": 0,
+          "cubes": [
+            [
+              1,
+              1,
+              0
+            ],
+            [
+              1,
+              2,
+              0
+            ],
+            [
+              1,
+              2,
+              1
+            ]
+          ],
+          "wedges": [],
+          "role": "L-tromino"
+        }
+      ]
+    },
+    {
+      "family_counts": {
+        "O-F1F1": 1,
+        "O-F1F2": 1,
+        "L-F0F2": 1,
+        "L-F1F2": 1,
+        "L-F3F3": 1,
+        "L-F3F4": 1,
+        "L-tromino": 1
+      },
+      "l_tromino": [
+        [
+          1,
+          1,
+          2
+        ],
+        [
+          2,
+          1,
+          1
+        ],
+        [
+          2,
+          1,
+          2
+        ]
+      ],
+      "pieces": [
+        {
+          "family": "O-F1F1",
+          "topology": "I",
+          "faces": [
+            "F1",
+            "F1"
+          ],
+          "clocks": [
+            0,
+            1
+          ],
+          "joint": 1,
+          "cubes": [
+            [
+              2,
+              0,
+              1
+            ],
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              2,
+              0,
+              2
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                2,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 1,
+                "b": 2
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                1,
+                0,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "O-F1F2",
+          "topology": "I",
+          "faces": [
+            "F1",
+            "F2"
+          ],
+          "clocks": [
+            0,
+            3
+          ],
+          "joint": 3,
+          "cubes": [
+            [
+              2,
+              2,
+              1
+            ],
+            [
+              2,
+              2,
+              2
+            ],
+            [
+              2,
+              2,
+              0
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                2,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                2,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 1,
+                "b": 2
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "L-F0F2",
+          "topology": "L",
+          "faces": [
+            "F0",
+            "F2"
+          ],
+          "clocks": [
+            0,
+            3
+          ],
+          "joint": 3,
+          "cubes": [
+            [
+              1,
+              2,
+              0
+            ],
+            [
+              1,
+              1,
+              0
+            ],
+            [
+              0,
+              2,
+              0
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                0,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 1,
+                "b": 2
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                0,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 1
+              },
+              "side": 1
+            }
+          ]
+        },
+        {
+          "family": "L-F1F2",
+          "topology": "L",
+          "faces": [
+            "F1",
+            "F2"
+          ],
+          "clocks": [
+            0,
+            3
+          ],
+          "joint": 3,
+          "cubes": [
+            [
+              0,
+              2,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              0,
+              2,
+              2
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                1,
+                1
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 1
+              },
+              "side": 1
+            },
+            {
+              "cell": [
+                1,
+                2,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-F3F3",
+          "topology": "L",
+          "faces": [
+            "F3",
+            "F3"
+          ],
+          "clocks": [
+            1,
+            2
+          ],
+          "joint": 6,
+          "cubes": [
+            [
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                0,
+                1,
+                0
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 1
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                1,
+                0,
+                0
+              ],
+              "plane": {
+                "kind": "eq",
+                "a": 1,
+                "b": 2
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-F3F4",
+          "topology": "L",
+          "faces": [
+            "F3",
+            "F4"
+          ],
+          "clocks": [
+            3,
+            3
+          ],
+          "joint": 15,
+          "cubes": [
+            [
+              0,
+              1,
+              2
+            ],
+            [
+              0,
+              0,
+              2
+            ],
+            [
+              0,
+              1,
+              1
+            ]
+          ],
+          "wedges": [
+            {
+              "cell": [
+                1,
+                0,
+                2
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 2
+              },
+              "side": 0
+            },
+            {
+              "cell": [
+                1,
+                1,
+                1
+              ],
+              "plane": {
+                "kind": "sum",
+                "a": 0,
+                "b": 1
+              },
+              "side": 0
+            }
+          ]
+        },
+        {
+          "family": "L-tromino",
+          "topology": "tromino",
+          "faces": [],
+          "clocks": [],
+          "joint": 0,
+          "cubes": [
+            [
+              1,
+              1,
+              2
+            ],
+            [
+              2,
+              1,
+              1
+            ],
+            [
+              2,
+              1,
+              2
+            ]
+          ],
+          "wedges": [],
+          "role": "L-tromino"
+        }
+      ]
+    }
+  ],
+  "raw_solutions": 168,
+  "exhaustive": true,
+  "symmetry": "Oh (24 rotations \u00d7 reflections = 48)",
+  "l_tromino_part": true,
+  "inventory": {
+    "O-F1F1": 1,
+    "O-F1F2": 1,
+    "L-F0F2": 1,
+    "L-F1F2": 1,
+    "L-F3F3": 1,
+    "L-F3F4": 1
+  },
+  "surface_map_orbits": [0, 1, 2, 4, 5],
+  "surface_map_note": "Five of seven Oh packings painted as outer-skin sections. Skipped #6 (same L seat as #0) and #3 (clock-similar to #2). Uncheck Five-layout set only to see all seven."
+}

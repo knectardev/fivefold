@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8+L solutions — same inventory, 384 orbits</title>
+  <style>
+    :root {
+      --bg: #1a1d21;
+      --panel: #24282e;
+      --text: #e8eaed;
+      --muted: #9aa0a6;
+      --accent: #7cb8ff;
+      --active: #3d4a5c;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
+      font-family: "Segoe UI", system-ui, sans-serif; }
+    #app {
+      display: grid;
+      grid-template-columns: 300px 1fr 280px;
+      height: 100%;
+    }
+    aside, #orbitPanel {
+      background: var(--panel);
+      padding: 1.1rem 1.2rem;
+      overflow: auto;
+    }
+    aside { border-right: 1px solid #333842; }
+    #orbitPanel { border-left: 1px solid #333842; display: flex; flex-direction: column; padding: 0; }
+    #orbitPanel header {
+      padding: 1rem 1.1rem 0.6rem;
+      border-bottom: 1px solid #333842;
+      flex: 0 0 auto;
+    }
+    #orbitList {
+      flex: 1 1 auto;
+      overflow: auto;
+      padding: 0.4rem;
+    }
+    .orbit-btn {
+      display: block; width: 100%; text-align: left;
+      background: transparent; border: 1px solid transparent;
+      color: var(--muted); font: inherit; font-size: 0.78rem;
+      padding: 0.45rem 0.55rem; margin: 0 0 0.25rem; border-radius: 4px;
+      cursor: pointer; line-height: 1.35;
+    }
+    .orbit-btn:hover { background: #2c3138; color: var(--text); }
+    .orbit-btn.active {
+      background: var(--active); border-color: #5a6a80; color: var(--text);
+    }
+    .orbit-btn code { color: var(--accent); font-size: 0.72rem; }
+    h1 { font-size: 1.05rem; font-weight: 600; margin: 0 0 0.35rem; }
+    h2 { font-size: 0.9rem; font-weight: 600; margin: 0 0 0.35rem; }
+    p, li { font-size: 0.82rem; line-height: 1.45; color: var(--muted); }
+    .ok { color: #8fd49a; }
+    .err { color: #ff8a8a; }
+    label { display: flex; align-items: center; gap: 0.5rem; margin: 0.35rem 0;
+      font-size: 0.85rem; cursor: pointer; color: var(--text); }
+    #viewport { position: relative; min-width: 0; }
+    canvas { display: block; width: 100%; height: 100%; }
+    .hint { position: absolute; left: 1rem; bottom: 1rem; font-size: 0.75rem;
+      color: var(--muted); pointer-events: none; }
+    code { color: var(--accent); font-size: 0.78rem; }
+    ul { padding-left: 1.1rem; margin: 0.4rem 0 0.8rem; }
+    hr { border: none; border-top: 1px solid #333842; margin: 0.85rem 0; }
+    #status { font-size: 0.8rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <aside>
+      <h1>8 parallel-only + L</h1>
+      <p class="ok">Same inventory · up to cube rotation</p>
+      <p id="status">Loading 384 orbits…</p>
+      <hr />
+      <label><input type="checkbox" id="showDigonal" checked /> Digonal pieces</label>
+      <label><input type="checkbox" id="ghostDigonal" /> Digonal ghosted (Rhino-style)</label>
+      <label><input type="checkbox" id="showL" checked /> L-tromino exception</label>
+      <label><input type="checkbox" id="showVoid" /> Void ghost (when L hidden)</label>
+      <label><input type="checkbox" id="explode" /> Explode pieces</label>
+      <hr />
+      <p><strong style="color:var(--text)">Void cells</strong></p>
+      <code id="voidLabel"></code>
+      <p style="margin-top:0.75rem"><strong style="color:var(--text)">Pieces</strong>
+        (family IDs · same family ⇒ same color)</p>
+      <ul id="pieceList"></ul>
+      <p id="typeSummary"></p>
+    </aside>
+    <div id="viewport">
+      <div class="hint">Drag to orbit · scroll to zoom · ↑/↓ next solution</div>
+    </div>
+    <div id="orbitPanel">
+      <header>
+        <h2>Solution orbits</h2>
+        <p style="margin:0">384 inequivalent packings (rotations identified). Click or use ↑/↓ to inspect.</p>
+      </header>
+      <div id="orbitList"></div>
+    </div>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { ConvexGeometry } from 'three/addons/geometries/ConvexGeometry.js';
+
+const PALETTE = [
+  0xe74c3c, 0xe67e22, 0xf1c40f, 0x2ecc71,
+  0x1abc9c, 0x3498db, 0x9b59b6, 0xfd79a8,
+  0x00cec9, 0x6c5ce7,
+];
+const L_COLOR = 0xf5f6fa;
+const GHOST_OPACITY = 0.35;
+
+const FAMILY_IDS = [0, 1, 3, 5, 7, 10, 12];
+const familyColorMap = new Map(FAMILY_IDS.map((id, i) => [id, PALETTE[i % PALETTE.length]]));
+const familyColor = (family) => familyColorMap.get(family) ?? 0x888888;
+
+let current = null;
+let pieceGroups = [];
+let orbitsData = null;
+
+function halfCorners(plane, side) {
+  const corners = [];
+  for (let x = 0; x <= 1; x++)
+    for (let y = 0; y <= 1; y++)
+      for (let z = 0; z <= 1; z++) {
+        const local = [x, y, z];
+        const u = local.map((v) => 2 * v - 1);
+        const val = plane.kind === 'eq'
+          ? u[plane.a] - u[plane.b]
+          : u[plane.a] + u[plane.b];
+        const s = val <= 0 ? 0 : 1;
+        if (s === side || Math.abs(val) < 1e-9) corners.push(local);
+      }
+  const uniq = [];
+  const seen = new Set();
+  for (const c of corners) {
+    const k = c.join(',');
+    if (!seen.has(k)) { seen.add(k); uniq.push(c); }
+  }
+  return uniq;
+}
+
+function cellCenter(c) {
+  return new THREE.Vector3(c[0] + 0.5, c[1] + 0.5, c[2] + 0.5);
+}
+
+function disposeObject(obj) {
+  obj.traverse((child) => {
+    if (child.geometry) child.geometry.dispose();
+    if (child.material) {
+      if (Array.isArray(child.material)) child.material.forEach((m) => m.dispose());
+      else child.material.dispose();
+    }
+  });
+}
+
+function clearGroup(group) {
+  while (group.children.length) {
+    const ch = group.children.pop();
+    disposeObject(ch);
+  }
+}
+
+function makeFaceMaterial(color, ghost) {
+  return new THREE.MeshStandardMaterial({
+    color, // keep family color when ghosted
+    roughness: ghost ? 0.55 : 0.45,
+    metalness: ghost ? 0.02 : 0.05,
+    flatShading: true,
+    transparent: ghost,
+    opacity: ghost ? GHOST_OPACITY : 1,
+    depthWrite: !ghost,
+    side: THREE.DoubleSide,
+  });
+}
+
+function addEdges(mesh, ghost) {
+  const edges = new THREE.EdgesGeometry(mesh.geometry, 20);
+  const line = new THREE.LineSegments(
+    edges,
+    new THREE.LineBasicMaterial({
+      color: ghost ? 0x111111 : 0x1a1a1a,
+      transparent: ghost,
+      opacity: ghost ? 0.9 : 0.55,
+    }),
+  );
+  mesh.add(line);
+}
+
+function makeCubeMesh(cell, color, ghost) {
+  const g = new THREE.BoxGeometry(0.98, 0.98, 0.98);
+  const mesh = new THREE.Mesh(g, makeFaceMaterial(color, ghost));
+  mesh.position.copy(cellCenter(cell));
+  addEdges(mesh, ghost);
+  return mesh;
+}
+
+function makeWedgeMesh(cell, plane, side, color, ghost) {
+  const corners = halfCorners(plane, side);
+  const pts = corners.map(
+    ([x, y, z]) => new THREE.Vector3(cell[0] + x, cell[1] + y, cell[2] + z),
+  );
+  const ctr = cellCenter(cell);
+  for (const p of pts) p.lerp(ctr, 0.02);
+  const geom = new ConvexGeometry(pts);
+  const mesh = new THREE.Mesh(geom, makeFaceMaterial(color, ghost));
+  addEdges(mesh, ghost);
+  return mesh;
+}
+
+function makeVoidGhost(cell) {
+  const g = new THREE.BoxGeometry(0.98, 0.98, 0.98);
+  const m = new THREE.MeshStandardMaterial({
+    color: 0xff6b6b, transparent: true, opacity: 0.28, depthWrite: false,
+  });
+  const mesh = new THREE.Mesh(g, m);
+  mesh.position.copy(cellCenter(cell));
+  return mesh;
+}
+
+const viewport = document.getElementById('viewport');
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x1a1d21);
+const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+camera.position.set(6.5, 5.2, 7.2);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+viewport.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(1.5, 1.5, 1.5);
+controls.update();
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+const key = new THREE.DirectionalLight(0xffffff, 0.85);
+key.position.set(5, 8, 4);
+scene.add(key);
+scene.add(new THREE.DirectionalLight(0xaaccff, 0.25).translateX(-4).translateY(2).translateZ(-3));
+
+{
+  const edges = new THREE.EdgesGeometry(new THREE.BoxGeometry(3, 3, 3));
+  const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x555b66 }));
+  line.position.set(1.5, 1.5, 1.5);
+  scene.add(line);
+}
+
+const digonalGroup = new THREE.Group();
+const lGroup = new THREE.Group();
+const voidGroup = new THREE.Group();
+scene.add(digonalGroup, lGroup, voidGroup);
+
+function buildSolution(sol) {
+  current = sol;
+  clearGroup(digonalGroup);
+  clearGroup(lGroup);
+  clearGroup(voidGroup);
+  pieceGroups = [];
+
+  const ghost = document.getElementById('ghostDigonal').checked;
+
+  for (const piece of sol.pieces) {
+    const g = new THREE.Group();
+    const color = familyColor(piece.family);
+    const centers = [];
+    for (const c of piece.cubes) {
+      g.add(makeCubeMesh(c, color, ghost));
+      centers.push(cellCenter(c));
+    }
+    for (const w of piece.wedges) {
+      g.add(makeWedgeMesh(w.cell, w.plane, w.side, color, ghost));
+      centers.push(cellCenter(w.cell));
+    }
+    g.userData.home = centers
+      .reduce((a, b) => a.add(b.clone()), new THREE.Vector3())
+      .multiplyScalar(1 / centers.length);
+    digonalGroup.add(g);
+    pieceGroups.push(g);
+  }
+
+  for (const c of sol.void_L) {
+    lGroup.add(makeCubeMesh(c, L_COLOR, false));
+    voidGroup.add(makeVoidGhost(c));
+  }
+
+  document.getElementById('voidLabel').textContent =
+    sol.void_L.map((c) => `(${c.join(',')})`).join(' · ');
+
+  const list = document.getElementById('pieceList');
+  list.innerHTML = '';
+  const counts = {};
+  sol.pieces.forEach((p) => { counts[p.family] = (counts[p.family] || 0) + 1; });
+  sol.pieces.forEach((p) => {
+    const li = document.createElement('li');
+    const hex = familyColor(p.family).toString(16).padStart(6, '0');
+    const dup = counts[p.family] > 1 ? ' <em>(dup)</em>' : '';
+    li.innerHTML = `<span style="color:#${hex}">●</span> family <code>${p.family}</code> j${p.joint}${dup}
+      — ${p.cubes.map((c) => `(${c})`).join('–')}`;
+    list.appendChild(li);
+  });
+  const nDistinct = Object.keys(counts).length;
+  document.getElementById('typeSummary').innerHTML =
+    `<strong style="color:var(--text)">Types:</strong> ${nDistinct} distinct · counts
+     <code>${JSON.stringify(counts)}</code>`;
+
+  syncVisibility();
+}
+
+function syncVisibility() {
+  digonalGroup.visible = document.getElementById('showDigonal').checked;
+  const showL = document.getElementById('showL').checked;
+  lGroup.visible = showL;
+  voidGroup.visible = document.getElementById('showVoid').checked && !showL;
+
+  const explode = document.getElementById('explode').checked;
+  const origin = new THREE.Vector3(1.5, 1.5, 1.5);
+  for (const g of pieceGroups) {
+    if (!explode) g.position.set(0, 0, 0);
+    else {
+      const dir = g.userData.home.clone().sub(origin);
+      if (dir.lengthSq() < 1e-8) dir.set(1, 0, 0);
+      else dir.normalize();
+      g.position.copy(dir.multiplyScalar(1.15));
+    }
+  }
+  if (explode && current) {
+    const lHome = current.void_L
+      .map(cellCenter)
+      .reduce((a, b) => a.add(b), new THREE.Vector3())
+      .multiplyScalar(1 / 3);
+    const dir = lHome.sub(origin);
+    if (dir.lengthSq() < 1e-8) dir.set(0, 1, 0);
+    else dir.normalize();
+    lGroup.position.copy(dir.multiplyScalar(1.15));
+    voidGroup.position.copy(lGroup.position);
+  } else {
+    lGroup.position.set(0, 0, 0);
+    voidGroup.position.set(0, 0, 0);
+  }
+}
+
+function rebuildForGhost() {
+  if (current) buildSolution(current);
+}
+
+for (const id of ['showDigonal', 'showL', 'showVoid', 'explode']) {
+  document.getElementById(id).addEventListener('change', syncVisibility);
+}
+document.getElementById('ghostDigonal').addEventListener('change', rebuildForGhost);
+
+function resize() {
+  const w = viewport.clientWidth;
+  const h = viewport.clientHeight;
+  camera.aspect = w / Math.max(h, 1);
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h, false);
+}
+resize();
+addEventListener('resize', resize);
+
+function frame() {
+  controls.update();
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+frame();
+
+function selectOrbit(index) {
+  const n = orbitsData.representatives.length;
+  index = ((index % n) + n) % n;
+  const rep = orbitsData.representatives[index];
+  buildSolution(rep);
+  document.querySelectorAll('.orbit-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', i === index);
+  });
+  const active = document.querySelector('.orbit-btn.active');
+  if (active) active.scrollIntoView({ block: 'nearest' });
+  document.getElementById('status').textContent =
+    `Orbit ${index} / ${n - 1} · inventory fixed · raw ${orbitsData.raw_solutions.toLocaleString()}`;
+  currentOrbitIndex = index;
+}
+
+let currentOrbitIndex = 0;
+
+function onKeyNav(e) {
+  if (!orbitsData) return;
+  const tag = (e.target && e.target.tagName) || '';
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    const delta = e.key === 'ArrowDown' ? 1 : -1;
+    selectOrbit(currentOrbitIndex + delta);
+  }
+}
+window.addEventListener('keydown', onKeyNav);
+
+async function init() {
+  const status = document.getElementById('status');
+  try {
+    const res = await fetch('./same_inventory_orbits.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    orbitsData = await res.json();
+    status.innerHTML = `<span class="ok">Loaded ${orbitsData.inequivalent_orbits} orbits</span>`;
+
+    const host = document.getElementById('orbitList');
+    host.innerHTML = '';
+    orbitsData.representatives.forEach((rep, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'orbit-btn';
+      btn.dataset.index = String(i);
+      const voidStr = rep.void_L.map((c) => c.join(',')).join(' · ');
+      btn.innerHTML = `<strong style="color:var(--text)">#${i}</strong>
+        <code>${voidStr}</code>`;
+      btn.title = `Void ${voidStr}`;
+      btn.addEventListener('click', () => selectOrbit(i));
+      host.appendChild(btn);
+    });
+
+    // Prefer void matching the minimized viewer solution if present
+    const prefer = JSON.stringify([[0, 0, 0], [0, 0, 1], [0, 1, 1]]);
+    let start = orbitsData.representatives.findIndex(
+      (r) => JSON.stringify(r.void_L) === prefer,
+    );
+    if (start < 0) start = 0;
+    selectOrbit(start);
+  } catch (err) {
+    status.innerHTML = `<span class="err">Failed to load orbits: ${err.message}</span>
+      <br/>Serve this folder over HTTP (e.g. <code>python -m http.server</code>).`;
+  }
+}
+
+init();
+  </script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demos · Cell Puzzle</title>
+    <style>
+      :root {
+        --bg: #0c1018;
+        --text: #d0dce8;
+        --muted: #7a8fa3;
+        --accent: #7ab8e0;
+        --line: rgba(100, 160, 220, 0.14);
+        --card: #121820;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body {
+        min-height: 100%;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .wrap { max-width: 1080px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+      .kicker {
+        font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+        color: var(--accent); margin-bottom: 0.65rem;
+      }
+      h1 { font-size: 1.8rem; font-weight: 650; margin-bottom: 0.5rem; }
+      .lead { color: var(--muted); margin-bottom: 2rem; max-width: 40rem; line-height: 1.5; }
+      h2 {
+        font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+        color: var(--accent); font-weight: 600; margin: 1.6rem 0 0.75rem;
+        padding-bottom: 0.4rem; border-bottom: 1px solid var(--line);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 0.85rem;
+      }
+      a.card {
+        display: flex; flex-direction: column; gap: 0;
+        padding: 0; overflow: hidden;
+        background: var(--card); border: 1px solid var(--line);
+        border-radius: 8px; text-decoration: none; color: inherit;
+      }
+      a.card:hover { border-color: rgba(122, 184, 224, 0.45); background: #17202c; }
+      a.card .thumb {
+        display: block; width: 100%; height: 118px; object-fit: cover;
+        background: #0a1018; border-bottom: 1px solid var(--line);
+      }
+      a.card .body {
+        display: flex; flex-direction: column; gap: 0.4rem;
+        padding: 0.85rem 1.05rem 1.1rem; flex: 1;
+      }
+      a.card h3 { font-size: 1.02rem; font-weight: 600; }
+      a.card p { color: var(--muted); font-size: 0.84rem; line-height: 1.45; flex: 1; }
+      a.card .path {
+        font-size: 0.7rem; color: var(--accent);
+        font-family: ui-monospace, Consolas, monospace; margin-top: 0.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="kicker"><a href="/" style="color:inherit; text-decoration:none">Cell Puzzle</a></div>
+      <h1>Demos</h1>
+      <p class="lead">
+        Local viewers. The five-color 3×3×3 surface map lives with the digonal packer, not as a separate demo file.
+      </p>
+
+      <h2>Five-color cube</h2>
+      <div class="grid">
+        <a class="card" href="/solvers/view_perp_no_rect.html?surface=1">
+          <img class="thumb" src="/thumbs/five-color.svg" alt="" />
+          <span class="body">
+            <h3>Five-color surface map</h3>
+            <p>Eight digonal pieces + L-tromino, five outer-skin color sections per face. This is the product coloring (orange / green / cyan / purple / indigo on gray).</p>
+            <span class="path">/solvers/view_perp_no_rect.html?surface=1</span>
+          </span>
+        </a>
+      </div>
+
+      <h2>Catalogs and dissections</h2>
+      <div class="grid">
+        <a class="card" href="/demos/unit_part_catalog.html">
+          <img class="thumb" src="/thumbs/catalog.svg" alt="" />
+          <span class="body">
+            <h3>Unit-part catalog</h3>
+            <p>Direct two-half joins and 30 cubic-joint mounting families.</p>
+            <span class="path">/demos/unit_part_catalog.html</span>
+          </span>
+        </a>
+        <a class="card" href="/demos/cube-sphere-dissection.html">
+          <img class="thumb" src="/thumbs/cube-sphere.svg" alt="" />
+          <span class="body">
+            <h3>Cube ↔ Sphere</h3>
+            <p>32-piece full-volume partition.</p>
+            <span class="path">/demos/cube-sphere-dissection.html</span>
+          </span>
+        </a>
+        <a class="card" href="/demos/cube-rhombic-dissection.html">
+          <img class="thumb" src="/thumbs/cube-rhombic.svg" alt="" />
+          <span class="body">
+            <h3>Cube ↔ Rhombic / Truncated Octahedron</h3>
+            <p>11-piece and 22-piece truncated octahedron, plus 32-piece rhombic dodecahedron.</p>
+            <span class="path">/demos/cube-rhombic-dissection.html</span>
+          </span>
+        </a>
+        <a class="card" href="/demos/cube-truncated-octahedron-dissection-standalone.html">
+          <img class="thumb" src="/thumbs/truncated-oct.svg" alt="" />
+          <span class="body">
+            <h3>Cube ↔ Truncated Octahedron</h3>
+            <p>22-piece lattice or 11-piece translational cut, with STL export.</p>
+            <span class="path">/demos/cube-truncated-octahedron-dissection-standalone.html</span>
+          </span>
+        </a>
+        <a class="card" href="/demos/dual_cube_polyhedral_viewer.html">
+          <img class="thumb" src="/thumbs/dual-cube.svg" alt="" />
+          <span class="body">
+            <h3>Dual-cube half-cubes</h3>
+            <p>Whole cubes plus 45° diagonal halves.</p>
+            <span class="path">/demos/dual_cube_polyhedral_viewer.html</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

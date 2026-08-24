@@ -1,0 +1,37 @@
+name: wasm-matcher
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - solvers/dual_cube/matching_kernel.c
+      - solvers/dual_cube/build_wasm.mjs
+      - solvers/dual_cube/wasm_matcher.mjs
+      - solvers/dual_cube/match_protocol.mjs
+      - .github/workflows/wasm-matcher.yml
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: 4.0.12
+      - name: Compile matching kernel
+        run: |
+          emcc solvers/dual_cube/matching_kernel.c -O3 --no-entry \
+            -s STANDALONE_WASM=1 \
+            -s EXPORTED_FUNCTIONS=_match,_wasm_match,_wasm_graph,_wasm_graph_cap,_wasm_labelsA,_wasm_labelsB,_wasm_destOf,_wasm_totalCost \
+            -s INITIAL_MEMORY=33554432 \
+            -s ALLOW_MEMORY_GROWTH=0 \
+            -o solvers/dual_cube/matching_kernel.wasm
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: WASM vs JS oracle
+        run: node --test solvers/dual_cube/wasm_matcher.test.mjs solvers/dual_cube/json_contract.test.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: matching_kernel.wasm
+          path: solvers/dual_cube/matching_kernel.wasm

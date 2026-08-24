@@ -1,0 +1,2459 @@
+{
+  "schema": "dual-cube-trimmed-shell",
+  "version": 1,
+  "gridResolution": 8,
+  "pieceCount": 8,
+  "representation": [
+    "trimmed-open-shell",
+    "planar-scaffold",
+    "open-b-rep",
+    "analytic-patch-graph"
+  ],
+  "rhinoReady": false,
+  "note": "Non-convex trimmed analytic shells with planar faces and explicit curved openings. Convex half-space cells are not used. Quadrics are not fitted yet. GPU compute is not used.",
+  "planeTolerance": 0.018,
+  "coplanarDot": 0.98,
+  "curvedDot": 0.55,
+  "cubeA": {
+    "planarInterfaces": 21,
+    "curvedRegions": 16,
+    "sourcePatches": 39,
+    "mergedPlanarFrom": 23,
+    "mergedCurvedFrom": 16
+  },
+  "cubeB": {
+    "planarInterfaces": 22,
+    "curvedRegions": 13,
+    "sourcePatches": 37,
+    "mergedPlanarFrom": 24,
+    "mergedCurvedFrom": 13
+  },
+  "interfaces": [
+    {
+      "pair": "0-6",
+      "pieces": [
+        1,
+        7
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 13,
+      "planeRMS": 0.03886719191248731,
+      "origin": [
+        0.7259615384615384,
+        0.375,
+        0.22596153846153846
+      ],
+      "normal": [
+        -0.4123342423007204,
+        0.3602570446620433,
+        -0.8367767530217732
+      ],
+      "oppositeNormal": [
+        0.4123342423007204,
+        -0.3602570446620433,
+        0.8367767530217732
+      ],
+      "loopVertexCounts": [
+        24
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "0-6",
+      "pieces": [
+        1,
+        7
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 1,
+      "planeRMS": 0,
+      "origin": [
+        0.9375,
+        0.25,
+        0.0625
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "oppositeNormal": [
+        -1,
+        0,
+        0
+      ],
+      "loopVertexCounts": [
+        4
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "0-6",
+      "pieces": [
+        1,
+        7
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 1,
+      "planeRMS": 0,
+      "origin": [
+        0.5625,
+        0.6875,
+        0.375
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "oppositeNormal": [
+        -1,
+        0,
+        0
+      ],
+      "loopVertexCounts": [
+        4
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "6-7",
+      "pieces": [
+        7,
+        8
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 28,
+      "planeRMS": 0.04377949098642149,
+      "origin": [
+        0.42410714285714285,
+        0.26785714285714285,
+        0.28125
+      ],
+      "normal": [
+        -0.009027162598300975,
+        -0.2930776718299061,
+        0.9560460180400239
+      ],
+      "oppositeNormal": [
+        0.009027162598300975,
+        0.2930776718299061,
+        -0.9560460180400239
+      ],
+      "loopVertexCounts": [
+        26
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "6-7",
+      "pieces": [
+        7,
+        8
+      ],
+      "kind": "planar",
+      "sourcePatches": 2,
+      "areaFaces": 3,
+      "planeRMS": 2.1293097654901264e-17,
+      "origin": [
+        0.9375,
+        0.4166666666666667,
+        0.22916666666666666
+      ],
+      "normal": [
+        0,
+        -0.7071067811865476,
+        0.7071067811865475
+      ],
+      "oppositeNormal": [
+        0,
+        0.7071067811865476,
+        -0.7071067811865475
+      ],
+      "loopVertexCounts": [
+        6,
+        4
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "6-7",
+      "pieces": [
+        7,
+        8
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 1,
+      "planeRMS": 0,
+      "origin": [
+        0.8125,
+        0.4375,
+        0.25
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "oppositeNormal": [
+        -1,
+        0,
+        0
+      ],
+      "loopVertexCounts": [
+        4
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "0-4",
+      "pieces": [
+        1,
+        5
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 2,
+      "planeRMS": 0,
+      "origin": [
+        0.8125,
+        0.28125,
+        0.09375
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "oppositeNormal": [
+        -1,
+        0,
+        0
+      ],
+      "loopVertexCounts": [
+        6
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "0-4",
+      "pieces": [
+        1,
+        5
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 11,
+      "planeRMS": 0.036159214678108766,
+      "origin": [
+        0.8693181818181818,
+        0.2159090909090909,
+        0.6988636363636364
+      ],
+      "normal": [
+        0.547706259974676,
+        0.19393731896638136,
+        0.81388338789822
+      ],
+      "oppositeNormal": [
+        -0.547706259974676,
+        -0.19393731896638136,
+        -0.81388338789822
+      ],
+      "loopVertexCounts": [
+        18
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "4-6",
+      "pieces": [
+        5,
+        7
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 3,
+      "planeRMS": 0,
+      "origin": [
+        0.8125,
+        0.3333333333333333,
+        0.0625
+      ],
+      "normal": [
+        0,
+        0,
+        1
+      ],
+      "oppositeNormal": [
+        0,
+        0,
+        -1
+      ],
+      "loopVertexCounts": [
+        8
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "4-6",
+      "pieces": [
+        5,
+        7
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 2,
+      "planeRMS": 0,
+      "origin": [
+        0.9375,
+        0.46875,
+        0.28125
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "oppositeNormal": [
+        -1,
+        0,
+        0
+      ],
+      "loopVertexCounts": [
+        6
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "3-6",
+      "pieces": [
+        4,
+        7
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 11,
+      "planeRMS": 0.043736101043246337,
+      "origin": [
+        0.7045454545454546,
+        0.7272727272727273,
+        0.23863636363636365
+      ],
+      "normal": [
+        0.3277640932107295,
+        0.6250728360296728,
+        -0.7084170020966254
+      ],
+      "oppositeNormal": [
+        -0.3277640932107295,
+        -0.6250728360296728,
+        0.7084170020966254
+      ],
+      "loopVertexCounts": [
+        12
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "2-6",
+      "pieces": [
+        3,
+        7
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 17,
+      "planeRMS": 0.03090498455767759,
+      "origin": [
+        0.14705882352941177,
+        0.5183823529411765,
+        0.29044117647058826
+      ],
+      "normal": [
+        0.43279616693317235,
+        -0.11837185298544763,
+        -0.8936865123233904
+      ],
+      "oppositeNormal": [
+        -0.43279616693317235,
+        0.11837185298544763,
+        0.8936865123233904
+      ],
+      "loopVertexCounts": [
+        26
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "0-7",
+      "pieces": [
+        1,
+        8
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 68,
+      "planeRMS": 0.08950914062994704,
+      "origin": [
+        0.7435661764705882,
+        0.33547794117647056,
+        0.49264705882352944
+      ],
+      "normal": [
+        -0.8534726560407264,
+        0.16270143979209745,
+        -0.4950885444850915
+      ],
+      "oppositeNormal": [
+        0.8534726560407264,
+        -0.16270143979209745,
+        0.4950885444850915
+      ],
+      "loopVertexCounts": [
+        34,
+        28
+      ],
+      "openLoops": 2
+    },
+    {
+      "pair": "5-6",
+      "pieces": [
+        6,
+        7
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 12,
+      "planeRMS": 0.03418220945163158,
+      "origin": [
+        0.734375,
+        0.859375,
+        0.3229166666666667
+      ],
+      "normal": [
+        -0.24136942387275792,
+        -0.29107135568472103,
+        -0.925752811024191
+      ],
+      "oppositeNormal": [
+        0.24136942387275792,
+        0.29107135568472103,
+        0.925752811024191
+      ],
+      "loopVertexCounts": [
+        22
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "1-6",
+      "pieces": [
+        2,
+        7
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 5,
+      "planeRMS": 0.020385366287205577,
+      "origin": [
+        0.225,
+        0.9125,
+        0.3125
+      ],
+      "normal": [
+        0.442120863971394,
+        -0.19268242889535395,
+        -0.8760151957792599
+      ],
+      "oppositeNormal": [
+        -0.442120863971394,
+        0.19268242889535395,
+        0.8760151957792599
+      ],
+      "loopVertexCounts": [
+        12
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "1-6",
+      "pieces": [
+        2,
+        7
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 1,
+      "planeRMS": 0,
+      "origin": [
+        0.4375,
+        0.6875,
+        0.375
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "oppositeNormal": [
+        -1,
+        0,
+        0
+      ],
+      "loopVertexCounts": [
+        4
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "2-7",
+      "pieces": [
+        3,
+        8
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 42,
+      "planeRMS": 0.08625595229375149,
+      "origin": [
+        0.20386904761904762,
+        0.3005952380952381,
+        0.5342261904761905
+      ],
+      "normal": [
+        0.943354789581887,
+        0.08858467168794516,
+        0.3197412968555246
+      ],
+      "oppositeNormal": [
+        -0.943354789581887,
+        -0.08858467168794516,
+        -0.3197412968555246
+      ],
+      "loopVertexCounts": [
+        32
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "4-7",
+      "pieces": [
+        5,
+        8
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 3,
+      "planeRMS": 4.9065389333867974e-18,
+      "origin": [
+        0.9166666666666666,
+        0.4166666666666667,
+        0.3333333333333333
+      ],
+      "normal": [
+        -0.5773502691896258,
+        -0.5773502691896257,
+        0.5773502691896257
+      ],
+      "oppositeNormal": [
+        0.5773502691896258,
+        0.5773502691896257,
+        -0.5773502691896257
+      ],
+      "loopVertexCounts": [
+        6
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "4-7",
+      "pieces": [
+        5,
+        8
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 3,
+      "planeRMS": 3.441870906208846e-17,
+      "origin": [
+        0.9166666666666666,
+        0.3333333333333333,
+        0.5416666666666666
+      ],
+      "normal": [
+        -0.5773502691896257,
+        0.5773502691896258,
+        -0.5773502691896257
+      ],
+      "oppositeNormal": [
+        0.5773502691896257,
+        -0.5773502691896258,
+        0.5773502691896257
+      ],
+      "loopVertexCounts": [
+        6
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "4-7",
+      "pieces": [
+        5,
+        8
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 11,
+      "planeRMS": 0.027929103637916557,
+      "origin": [
+        0.6931818181818182,
+        0.21022727272727273,
+        0.8693181818181818
+      ],
+      "normal": [
+        -0.8684006154615421,
+        -0.3155094436264525,
+        -0.38253648459792844
+      ],
+      "oppositeNormal": [
+        0.8684006154615421,
+        0.3155094436264525,
+        0.38253648459792844
+      ],
+      "loopVertexCounts": [
+        14
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "0-3",
+      "pieces": [
+        1,
+        4
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 2,
+      "planeRMS": 0,
+      "origin": [
+        0.75,
+        0.625,
+        0.3125
+      ],
+      "normal": [
+        0,
+        1,
+        0
+      ],
+      "oppositeNormal": [
+        0,
+        -1,
+        0
+      ],
+      "loopVertexCounts": [
+        6
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "0-3",
+      "pieces": [
+        1,
+        4
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 7,
+      "planeRMS": 0.022891726156006636,
+      "origin": [
+        0.7410714285714286,
+        0.7142857142857143,
+        0.5982142857142857
+      ],
+      "normal": [
+        -0.2723802664894524,
+        0.9585628026566658,
+        0.0834646259809085
+      ],
+      "oppositeNormal": [
+        0.2723802664894524,
+        -0.9585628026566658,
+        -0.0834646259809085
+      ],
+      "loopVertexCounts": [
+        16
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "1-2",
+      "pieces": [
+        2,
+        3
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 20,
+      "planeRMS": 0.04427618182676738,
+      "origin": [
+        0.171875,
+        0.73125,
+        0.490625
+      ],
+      "normal": [
+        -0.3828824499036832,
+        -0.8642797325254329,
+        -0.32622319583610204
+      ],
+      "oppositeNormal": [
+        0.3828824499036832,
+        0.8642797325254329,
+        0.32622319583610204
+      ],
+      "loopVertexCounts": [
+        18
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "3-5",
+      "pieces": [
+        4,
+        6
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 22,
+      "planeRMS": 0.06721594898407449,
+      "origin": [
+        0.7528409090909091,
+        0.7840909090909091,
+        0.6505681818181818
+      ],
+      "normal": [
+        -0.37053714224235246,
+        0.8981315541795163,
+        0.23677402223630267
+      ],
+      "oppositeNormal": [
+        0.37053714224235246,
+        -0.8981315541795163,
+        -0.23677402223630267
+      ],
+      "loopVertexCounts": [
+        32
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "3-7",
+      "pieces": [
+        4,
+        8
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 3,
+      "planeRMS": 1.1254426821361177e-14,
+      "origin": [
+        0.75,
+        0.6666666666666666,
+        0.4166666666666667
+      ],
+      "normal": [
+        0.577350269189626,
+        -0.5773502691900076,
+        0.5773502691892437
+      ],
+      "oppositeNormal": [
+        -0.577350269189626,
+        0.5773502691900076,
+        -0.5773502691892437
+      ],
+      "loopVertexCounts": [
+        8
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "3-7",
+      "pieces": [
+        4,
+        8
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 7,
+      "planeRMS": 0.02481903595727261,
+      "origin": [
+        0.6696428571428571,
+        0.5892857142857143,
+        0.7946428571428571
+      ],
+      "normal": [
+        -0.9778349012315042,
+        -0.19987096977788052,
+        0.06237388374651694
+      ],
+      "oppositeNormal": [
+        0.9778349012315042,
+        0.19987096977788052,
+        -0.06237388374651694
+      ],
+      "loopVertexCounts": [
+        12
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "1-7",
+      "pieces": [
+        2,
+        8
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 25,
+      "planeRMS": 0.060261027731005286,
+      "origin": [
+        0.3025,
+        0.6475,
+        0.795
+      ],
+      "normal": [
+        -0.15540827936298507,
+        -0.9840015326353373,
+        -0.0871163043106393
+      ],
+      "oppositeNormal": [
+        0.15540827936298507,
+        0.9840015326353373,
+        0.0871163043106393
+      ],
+      "loopVertexCounts": [
+        28
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "5-7",
+      "pieces": [
+        6,
+        8
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 5,
+      "planeRMS": 5.146021447227411e-18,
+      "origin": [
+        0.9,
+        0.7,
+        0.475
+      ],
+      "normal": [
+        -0.5773502691896258,
+        -0.5773502691896257,
+        0.5773502691896257
+      ],
+      "oppositeNormal": [
+        0.5773502691896258,
+        0.5773502691896257,
+        -0.5773502691896257
+      ],
+      "loopVertexCounts": [
+        10
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "5-7",
+      "pieces": [
+        6,
+        8
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 2,
+      "planeRMS": 0,
+      "origin": [
+        0.5625,
+        0.65625,
+        0.78125
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "oppositeNormal": [
+        -1,
+        0,
+        0
+      ],
+      "loopVertexCounts": [
+        6
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "5-7",
+      "pieces": [
+        6,
+        8
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 4,
+      "planeRMS": 0,
+      "origin": [
+        0.75,
+        0.4375,
+        0.90625
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "oppositeNormal": [
+        1,
+        0,
+        0
+      ],
+      "loopVertexCounts": [
+        10
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "0-1",
+      "pieces": [
+        1,
+        2
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 2,
+      "planeRMS": 0,
+      "origin": [
+        0.5,
+        0.6875,
+        0.5
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "oppositeNormal": [
+        1,
+        0,
+        0
+      ],
+      "loopVertexCounts": [
+        6
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "1-5",
+      "pieces": [
+        2,
+        6
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 25,
+      "planeRMS": 0.04722041824505262,
+      "origin": [
+        0.5125,
+        0.84,
+        0.7075
+      ],
+      "normal": [
+        0.793866457939007,
+        -0.2982990088038868,
+        -0.529899753072214
+      ],
+      "oppositeNormal": [
+        -0.793866457939007,
+        0.2982990088038868,
+        0.529899753072214
+      ],
+      "loopVertexCounts": [
+        26
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "0-5",
+      "pieces": [
+        1,
+        6
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 2,
+      "planeRMS": 0,
+      "origin": [
+        0.5625,
+        0.75,
+        0.5
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "oppositeNormal": [
+        -1,
+        0,
+        0
+      ],
+      "loopVertexCounts": [
+        6
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "0-5",
+      "pieces": [
+        1,
+        6
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 1,
+      "planeRMS": 0,
+      "origin": [
+        0.8125,
+        0.75,
+        0.5625
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "oppositeNormal": [
+        -1,
+        0,
+        0
+      ],
+      "loopVertexCounts": [
+        4
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "0-5",
+      "pieces": [
+        1,
+        6
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 6,
+      "planeRMS": 0,
+      "origin": [
+        0.875,
+        0.5625,
+        0.75
+      ],
+      "normal": [
+        0,
+        0,
+        1
+      ],
+      "oppositeNormal": [
+        0,
+        0,
+        -1
+      ],
+      "loopVertexCounts": [
+        10
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "1-3",
+      "pieces": [
+        2,
+        4
+      ],
+      "kind": "planar",
+      "sourcePatches": 2,
+      "areaFaces": 2,
+      "planeRMS": 0,
+      "origin": [
+        0.625,
+        0.75,
+        0.8125
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "oppositeNormal": [
+        -1,
+        0,
+        0
+      ],
+      "loopVertexCounts": [
+        4,
+        4
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "4-5",
+      "pieces": [
+        5,
+        6
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 6,
+      "planeRMS": 5.665583147960493e-18,
+      "origin": [
+        0.875,
+        0.3125,
+        0.875
+      ],
+      "normal": [
+        0,
+        0.7071067811865476,
+        0.7071067811865475
+      ],
+      "oppositeNormal": [
+        0,
+        -0.7071067811865476,
+        -0.7071067811865475
+      ],
+      "loopVertexCounts": [
+        10
+      ],
+      "openLoops": 0
+    }
+  ],
+  "pieces": [
+    {
+      "piece": 1,
+      "voxelCount": 48,
+      "voxelVolume": 0.09375,
+      "voxelComponents": 2,
+      "empty": false,
+      "exteriorGroups": [
+        "y0",
+        "z0",
+        "x1"
+      ],
+      "analyticFaces": 15,
+      "planarMates": 8,
+      "curvedOpenings": 4,
+      "shells": 1,
+      "closedShells": 1,
+      "openShells": 0,
+      "manifold": true,
+      "trimCurves": 36,
+      "unexplainedBoundaryEdges": 0,
+      "openBoundaryEdges": 0,
+      "shellSummary": [
+        {
+          "id": 0,
+          "faces": [
+            "cube:0:y0",
+            "cube:0:z0",
+            "cube:0:x1",
+            "planar:0:0-6",
+            "planar:0:0-6",
+            "planar:0:0-4",
+            "planar:0:0-3",
+            "planar:0:0-1",
+            "planar:0:0-5",
+            "planar:0:0-5",
+            "planar:0:0-5",
+            "curved:0:0-6:11",
+            "curved:0:0-4:12",
+            "curved:0:0-7:13",
+            "curved:0:0-3:14"
+          ],
+          "faceCount": 15,
+          "planarFaces": 11,
+          "curvedOpenings": 4,
+          "trimCount": 36,
+          "boundaryEdges": 0,
+          "openBoundaryEdges": 0,
+          "unexplainedBoundaryEdges": 0,
+          "nonmanifoldEdges": 0,
+          "closed": true,
+          "manifold": true
+        }
+      ]
+    },
+    {
+      "piece": 2,
+      "voxelCount": 57,
+      "voxelVolume": 0.111328125,
+      "voxelComponents": 1,
+      "empty": false,
+      "exteriorGroups": [
+        "x0",
+        "y1",
+        "z1"
+      ],
+      "analyticFaces": 10,
+      "planarMates": 3,
+      "curvedOpenings": 4,
+      "shells": 1,
+      "closedShells": 1,
+      "openShells": 0,
+      "manifold": true,
+      "trimCurves": 23,
+      "unexplainedBoundaryEdges": 0,
+      "openBoundaryEdges": 0,
+      "shellSummary": [
+        {
+          "id": 0,
+          "faces": [
+            "cube:1:x0",
+            "cube:1:y1",
+            "cube:1:z1",
+            "planar:1:1-6",
+            "planar:1:0-1",
+            "planar:1:1-3",
+            "curved:1:1-6:6",
+            "curved:1:1-2:7",
+            "curved:1:1-7:8",
+            "curved:1:1-5:9"
+          ],
+          "faceCount": 10,
+          "planarFaces": 6,
+          "curvedOpenings": 4,
+          "trimCount": 23,
+          "boundaryEdges": 0,
+          "openBoundaryEdges": 0,
+          "unexplainedBoundaryEdges": 0,
+          "nonmanifoldEdges": 0,
+          "closed": true,
+          "manifold": true
+        }
+      ]
+    },
+    {
+      "piece": 3,
+      "voxelCount": 39,
+      "voxelVolume": 0.076171875,
+      "voxelComponents": 1,
+      "empty": false,
+      "exteriorGroups": [
+        "x0",
+        "y0"
+      ],
+      "analyticFaces": 5,
+      "planarMates": 0,
+      "curvedOpenings": 3,
+      "shells": 1,
+      "closedShells": 1,
+      "openShells": 0,
+      "manifold": true,
+      "trimCurves": 9,
+      "unexplainedBoundaryEdges": 0,
+      "openBoundaryEdges": 0,
+      "shellSummary": [
+        {
+          "id": 0,
+          "faces": [
+            "cube:2:x0",
+            "cube:2:y0",
+            "curved:2:2-6:2",
+            "curved:2:2-7:3",
+            "curved:2:1-2:4"
+          ],
+          "faceCount": 5,
+          "planarFaces": 2,
+          "curvedOpenings": 3,
+          "trimCount": 9,
+          "boundaryEdges": 0,
+          "openBoundaryEdges": 0,
+          "unexplainedBoundaryEdges": 0,
+          "nonmanifoldEdges": 0,
+          "closed": true,
+          "manifold": true
+        }
+      ]
+    },
+    {
+      "piece": 4,
+      "voxelCount": 13,
+      "voxelVolume": 0.025390625,
+      "voxelComponents": 3,
+      "empty": false,
+      "exteriorGroups": [
+        "x1",
+        "z1"
+      ],
+      "analyticFaces": 9,
+      "planarMates": 3,
+      "curvedOpenings": 4,
+      "shells": 1,
+      "closedShells": 1,
+      "openShells": 0,
+      "manifold": true,
+      "trimCurves": 17,
+      "unexplainedBoundaryEdges": 0,
+      "openBoundaryEdges": 0,
+      "shellSummary": [
+        {
+          "id": 0,
+          "faces": [
+            "cube:3:x1",
+            "cube:3:z1",
+            "planar:3:0-3",
+            "planar:3:3-7",
+            "planar:3:1-3",
+            "curved:3:3-6:5",
+            "curved:3:0-3:6",
+            "curved:3:3-5:7",
+            "curved:3:3-7:8"
+          ],
+          "faceCount": 9,
+          "planarFaces": 5,
+          "curvedOpenings": 4,
+          "trimCount": 17,
+          "boundaryEdges": 0,
+          "openBoundaryEdges": 0,
+          "unexplainedBoundaryEdges": 0,
+          "nonmanifoldEdges": 0,
+          "closed": true,
+          "manifold": true
+        }
+      ]
+    },
+    {
+      "piece": 5,
+      "voxelCount": 17,
+      "voxelVolume": 0.033203125,
+      "voxelComponents": 3,
+      "empty": false,
+      "exteriorGroups": [
+        "z0",
+        "x1",
+        "y0",
+        "z1"
+      ],
+      "analyticFaces": 12,
+      "planarMates": 6,
+      "curvedOpenings": 2,
+      "shells": 2,
+      "closedShells": 2,
+      "openShells": 0,
+      "manifold": true,
+      "trimCurves": 20,
+      "unexplainedBoundaryEdges": 0,
+      "openBoundaryEdges": 0,
+      "shellSummary": [
+        {
+          "id": 0,
+          "faces": [
+            "cube:4:z0",
+            "planar:4:0-4",
+            "planar:4:4-6"
+          ],
+          "faceCount": 3,
+          "planarFaces": 3,
+          "curvedOpenings": 0,
+          "trimCount": 3,
+          "boundaryEdges": 0,
+          "openBoundaryEdges": 0,
+          "unexplainedBoundaryEdges": 0,
+          "nonmanifoldEdges": 0,
+          "closed": true,
+          "manifold": true
+        },
+        {
+          "id": 1,
+          "faces": [
+            "cube:4:x1",
+            "cube:4:y0",
+            "cube:4:z1",
+            "planar:4:4-6",
+            "planar:4:4-7",
+            "planar:4:4-7",
+            "planar:4:4-5",
+            "curved:4:0-4:10",
+            "curved:4:4-7:11"
+          ],
+          "faceCount": 9,
+          "planarFaces": 7,
+          "curvedOpenings": 2,
+          "trimCount": 17,
+          "boundaryEdges": 0,
+          "openBoundaryEdges": 0,
+          "unexplainedBoundaryEdges": 0,
+          "nonmanifoldEdges": 0,
+          "closed": true,
+          "manifold": true
+        }
+      ]
+    },
+    {
+      "piece": 6,
+      "voxelCount": 55,
+      "voxelVolume": 0.107421875,
+      "voxelComponents": 1,
+      "empty": false,
+      "exteriorGroups": [
+        "x1",
+        "y1",
+        "z1"
+      ],
+      "analyticFaces": 13,
+      "planarMates": 7,
+      "curvedOpenings": 3,
+      "shells": 1,
+      "closedShells": 1,
+      "openShells": 0,
+      "manifold": true,
+      "trimCurves": 31,
+      "unexplainedBoundaryEdges": 0,
+      "openBoundaryEdges": 0,
+      "shellSummary": [
+        {
+          "id": 0,
+          "faces": [
+            "cube:5:x1",
+            "cube:5:y1",
+            "cube:5:z1",
+            "planar:5:5-7",
+            "planar:5:5-7",
+            "planar:5:5-7",
+            "planar:5:0-5",
+            "planar:5:0-5",
+            "planar:5:0-5",
+            "planar:5:4-5",
+            "curved:5:5-6:10",
+            "curved:5:3-5:11",
+            "curved:5:1-5:12"
+          ],
+          "faceCount": 13,
+          "planarFaces": 10,
+          "curvedOpenings": 3,
+          "trimCount": 31,
+          "boundaryEdges": 0,
+          "openBoundaryEdges": 0,
+          "unexplainedBoundaryEdges": 0,
+          "nonmanifoldEdges": 0,
+          "closed": true,
+          "manifold": true
+        }
+      ]
+    },
+    {
+      "piece": 7,
+      "voxelCount": 135,
+      "voxelVolume": 0.263671875,
+      "voxelComponents": 1,
+      "empty": false,
+      "exteriorGroups": [
+        "x0",
+        "y0",
+        "z0",
+        "x1",
+        "y1"
+      ],
+      "analyticFaces": 18,
+      "planarMates": 7,
+      "curvedOpenings": 6,
+      "shells": 1,
+      "closedShells": 1,
+      "openShells": 0,
+      "manifold": true,
+      "trimCurves": 44,
+      "unexplainedBoundaryEdges": 0,
+      "openBoundaryEdges": 0,
+      "shellSummary": [
+        {
+          "id": 0,
+          "faces": [
+            "cube:6:x0",
+            "cube:6:y0",
+            "cube:6:z0",
+            "cube:6:x1",
+            "cube:6:y1",
+            "planar:6:0-6",
+            "planar:6:0-6",
+            "planar:6:6-7",
+            "planar:6:6-7",
+            "planar:6:4-6",
+            "planar:6:4-6",
+            "planar:6:1-6",
+            "curved:6:0-6:12",
+            "curved:6:6-7:13",
+            "curved:6:3-6:14",
+            "curved:6:2-6:15",
+            "curved:6:5-6:16",
+            "curved:6:1-6:17"
+          ],
+          "faceCount": 18,
+          "planarFaces": 12,
+          "curvedOpenings": 6,
+          "trimCount": 44,
+          "boundaryEdges": 0,
+          "openBoundaryEdges": 0,
+          "unexplainedBoundaryEdges": 0,
+          "nonmanifoldEdges": 0,
+          "closed": true,
+          "manifold": true
+        }
+      ]
+    },
+    {
+      "piece": 8,
+      "voxelCount": 148,
+      "voxelVolume": 0.2890625,
+      "voxelComponents": 1,
+      "empty": false,
+      "exteriorGroups": [
+        "y0",
+        "x1",
+        "x0",
+        "z1"
+      ],
+      "analyticFaces": 18,
+      "planarMates": 8,
+      "curvedOpenings": 6,
+      "shells": 1,
+      "closedShells": 1,
+      "openShells": 0,
+      "manifold": true,
+      "trimCurves": 41,
+      "unexplainedBoundaryEdges": 0,
+      "openBoundaryEdges": 0,
+      "shellSummary": [
+        {
+          "id": 0,
+          "faces": [
+            "cube:7:y0",
+            "cube:7:x1",
+            "cube:7:x0",
+            "cube:7:z1",
+            "planar:7:6-7",
+            "planar:7:6-7",
+            "planar:7:4-7",
+            "planar:7:4-7",
+            "planar:7:3-7",
+            "planar:7:5-7",
+            "planar:7:5-7",
+            "planar:7:5-7",
+            "curved:7:6-7:12",
+            "curved:7:0-7:13",
+            "curved:7:2-7:14",
+            "curved:7:4-7:15",
+            "curved:7:3-7:16",
+            "curved:7:1-7:17"
+          ],
+          "faceCount": 18,
+          "planarFaces": 12,
+          "curvedOpenings": 6,
+          "trimCount": 41,
+          "boundaryEdges": 0,
+          "openBoundaryEdges": 0,
+          "unexplainedBoundaryEdges": 0,
+          "nonmanifoldEdges": 0,
+          "closed": true,
+          "manifold": true
+        }
+      ]
+    }
+  ],
+  "dualAssembly": {
+    "note": "Voxel contact graphs of the two assemblies need not match; pieces rearrange. Dual topology here is per-piece voxel count, cube exteriors, and loop correspondence for pairs present in both cubes.",
+    "contactPairsA": [
+      "0-6",
+      "6-7",
+      "0-4",
+      "4-6",
+      "3-6",
+      "2-6",
+      "0-7",
+      "5-6",
+      "1-6",
+      "2-7",
+      "4-7",
+      "0-3",
+      "1-2",
+      "3-5",
+      "3-7",
+      "1-7",
+      "5-7",
+      "0-1",
+      "1-5",
+      "0-5",
+      "1-3",
+      "4-5"
+    ],
+    "contactPairsB": [
+      "1-4",
+      "4-6",
+      "1-7",
+      "3-6",
+      "3-4",
+      "4-7",
+      "6-7",
+      "1-3",
+      "3-7",
+      "5-7",
+      "0-7",
+      "1-6",
+      "5-6",
+      "0-6",
+      "2-7",
+      "0-5",
+      "2-5",
+      "0-1",
+      "0-2",
+      "2-6"
+    ],
+    "missingInB": [
+      "0-4",
+      "0-3",
+      "1-2",
+      "3-5",
+      "1-5",
+      "4-5"
+    ],
+    "missingInA": [
+      "1-4",
+      "3-4",
+      "2-5",
+      "0-2"
+    ],
+    "loopCorrespondence": [
+      {
+        "pair": "0-6",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 13,
+        "facesB": 26,
+        "presentInB": true
+      },
+      {
+        "pair": "0-6",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 1,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "0-6",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 1,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "6-7",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 28,
+        "facesB": 10,
+        "presentInB": true
+      },
+      {
+        "pair": "6-7",
+        "kind": "planar",
+        "loopsA": 2,
+        "loopsB": 4,
+        "facesA": 3,
+        "facesB": 7,
+        "presentInB": true
+      },
+      {
+        "pair": "6-7",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 4,
+        "facesA": 1,
+        "facesB": 7,
+        "presentInB": true
+      },
+      {
+        "pair": "0-4",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 2,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "0-4",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 11,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "4-6",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 3,
+        "facesA": 3,
+        "facesB": 8,
+        "presentInB": true
+      },
+      {
+        "pair": "4-6",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 3,
+        "facesA": 2,
+        "facesB": 8,
+        "presentInB": true
+      },
+      {
+        "pair": "3-6",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 11,
+        "facesB": 25,
+        "presentInB": true
+      },
+      {
+        "pair": "2-6",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 17,
+        "facesB": 7,
+        "presentInB": true
+      },
+      {
+        "pair": "0-7",
+        "kind": "curved",
+        "loopsA": 2,
+        "loopsB": 1,
+        "facesA": 68,
+        "facesB": 38,
+        "presentInB": true
+      },
+      {
+        "pair": "5-6",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 12,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "1-6",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 5,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "1-6",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 1,
+        "facesB": 1,
+        "presentInB": true
+      },
+      {
+        "pair": "2-7",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 42,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "4-7",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 2,
+        "facesA": 3,
+        "facesB": 5,
+        "presentInB": true
+      },
+      {
+        "pair": "4-7",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 2,
+        "facesA": 3,
+        "facesB": 5,
+        "presentInB": true
+      },
+      {
+        "pair": "4-7",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 11,
+        "facesB": 4,
+        "presentInB": true
+      },
+      {
+        "pair": "0-3",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 2,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "0-3",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 7,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "1-2",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 20,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "3-5",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 22,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "3-7",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 3,
+        "facesB": 4,
+        "presentInB": true
+      },
+      {
+        "pair": "3-7",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 7,
+        "facesB": 12,
+        "presentInB": true
+      },
+      {
+        "pair": "1-7",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 25,
+        "facesB": 68,
+        "presentInB": true
+      },
+      {
+        "pair": "5-7",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 5,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "5-7",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 2,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "5-7",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 4,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "0-1",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 2,
+        "facesB": 1,
+        "presentInB": true
+      },
+      {
+        "pair": "1-5",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 25,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "0-5",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 4,
+        "facesA": 2,
+        "facesB": 10,
+        "presentInB": true
+      },
+      {
+        "pair": "0-5",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 4,
+        "facesA": 1,
+        "facesB": 10,
+        "presentInB": true
+      },
+      {
+        "pair": "0-5",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 4,
+        "facesA": 6,
+        "facesB": 10,
+        "presentInB": true
+      },
+      {
+        "pair": "1-3",
+        "kind": "planar",
+        "loopsA": 2,
+        "loopsB": 2,
+        "facesA": 2,
+        "facesB": 3,
+        "presentInB": true
+      },
+      {
+        "pair": "4-5",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 6,
+        "facesB": 0,
+        "presentInB": false
+      }
+    ],
+    "transformedPlanarMates": [
+      {
+        "pair": "0-6",
+        "transformedNormalsDot": -1,
+        "originSeparation": 1.2374368670764582
+      },
+      {
+        "pair": "0-6",
+        "transformedNormalsDot": -1,
+        "originSeparation": 0.2795084971874737
+      },
+      {
+        "pair": "6-7",
+        "transformedNormalsDot": 0.5,
+        "originSeparation": 0.8675276172357089
+      },
+      {
+        "pair": "6-7",
+        "transformedNormalsDot": 0,
+        "originSeparation": 0.6903350635742038
+      },
+      {
+        "pair": "0-4",
+        "transformedNormalsDot": -1,
+        "originSeparation": 1.0825317547305482
+      },
+      {
+        "pair": "4-6",
+        "transformedNormalsDot": 0,
+        "originSeparation": 0.6620936909196127
+      },
+      {
+        "pair": "4-6",
+        "transformedNormalsDot": 1,
+        "originSeparation": 0.3125
+      },
+      {
+        "pair": "1-6",
+        "transformedNormalsDot": -1,
+        "originSeparation": 0.39528470752104744
+      },
+      {
+        "pair": "4-7",
+        "transformedNormalsDot": -1,
+        "originSeparation": 0.8416254115301732
+      },
+      {
+        "pair": "4-7",
+        "transformedNormalsDot": 0.3333333333333332,
+        "originSeparation": 0.6263873490988712
+      },
+      {
+        "pair": "0-3",
+        "transformedNormalsDot": 0,
+        "originSeparation": 0.5796011559684815
+      },
+      {
+        "pair": "3-7",
+        "transformedNormalsDot": -0.33333333333377424,
+        "originSeparation": 0.42491829279939863
+      },
+      {
+        "pair": "5-7",
+        "transformedNormalsDot": -1,
+        "originSeparation": 0.85
+      },
+      {
+        "pair": "5-7",
+        "transformedNormalsDot": 0,
+        "originSeparation": 0.6419574557554418
+      },
+      {
+        "pair": "5-7",
+        "transformedNormalsDot": 0,
+        "originSeparation": 0.8546746456985839
+      },
+      {
+        "pair": "0-1",
+        "transformedNormalsDot": 1,
+        "originSeparation": 0.375
+      },
+      {
+        "pair": "0-5",
+        "transformedNormalsDot": 0,
+        "originSeparation": 0.08838834764831845
+      },
+      {
+        "pair": "0-5",
+        "transformedNormalsDot": 0,
+        "originSeparation": 0.4506939094329987
+      },
+      {
+        "pair": "0-5",
+        "transformedNormalsDot": 0,
+        "originSeparation": 0.6373774391990982
+      },
+      {
+        "pair": "1-3",
+        "transformedNormalsDot": 0,
+        "originSeparation": 0.5796011559684815
+      },
+      {
+        "pair": "4-5",
+        "transformedNormalsDot": -0.5,
+        "originSeparation": 0.9560661587986471
+      }
+    ]
+  },
+  "risks": {
+    "emptyPieces": [],
+    "disconnectedScaffolds": [
+      {
+        "piece": 1,
+        "components": 2
+      },
+      {
+        "piece": 4,
+        "components": 3
+      },
+      {
+        "piece": 5,
+        "components": 3
+      },
+      {
+        "piece": 1,
+        "components": 2,
+        "cube": "B"
+      },
+      {
+        "piece": 4,
+        "components": 3,
+        "cube": "B"
+      },
+      {
+        "piece": 5,
+        "components": 3,
+        "cube": "B"
+      }
+    ],
+    "minVolume": 0.025390625,
+    "minVolumeFailures": [
+      4,
+      5
+    ],
+    "minThickness": {
+      "cubeA": 0.125,
+      "cubeB": 0.125,
+      "limit": 0.04
+    },
+    "thicknessRisk": false
+  },
+  "gate": {
+    "patchGraph": {
+      "canonicalPlanarInterfaces": true,
+      "identicalSurfacesOppositeOrientation": true,
+      "cubeExteriorsPresent": true,
+      "curvedOpenLoopsPaired": true,
+      "noDuplicatePlanarFaces": true,
+      "noUnexplainedGaps": true,
+      "noNonmanifoldPlanarJunctions": true,
+      "dualAssemblyTopology": true,
+      "shellsStitched": true,
+      "passed": true,
+      "reasons": []
+    },
+    "solidFeasibility": {
+      "nonempty": true,
+      "connected": false,
+      "closed": false,
+      "manifold": true,
+      "minVolume": false,
+      "minThickness": true,
+      "gapFreeCubeA": false,
+      "gapFreeCubeB": false,
+      "passed": false,
+      "reasons": [
+        "a piece is disconnected or has multiple shells",
+        "shells still have unresolved curved openings",
+        "piece(s) below 5% volume: 4, 5",
+        "Cube A/B gap-overlap not certified until shells are closed"
+      ]
+    },
+    "identicalSurfacesOppositeOrientation": true,
+    "dualAssemblyTopology": true
+  },
+  "diagnostics": {
+    "oppositeOrientation": [
+      {
+        "pair": "0-6",
+        "loNormal": [
+          1,
+          0,
+          0
+        ],
+        "hiNormal": [
+          -1,
+          0,
+          0
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "0-6",
+        "loNormal": [
+          1,
+          0,
+          0
+        ],
+        "hiNormal": [
+          -1,
+          0,
+          0
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "6-7",
+        "loNormal": [
+          0,
+          -0.7071067811865476,
+          0.7071067811865475
+        ],
+        "hiNormal": [
+          0,
+          0.7071067811865476,
+          -0.7071067811865475
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "6-7",
+        "loNormal": [
+          1,
+          0,
+          0
+        ],
+        "hiNormal": [
+          -1,
+          0,
+          0
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "0-4",
+        "loNormal": [
+          1,
+          0,
+          0
+        ],
+        "hiNormal": [
+          -1,
+          0,
+          0
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "4-6",
+        "loNormal": [
+          0,
+          0,
+          1
+        ],
+        "hiNormal": [
+          0,
+          0,
+          -1
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "4-6",
+        "loNormal": [
+          1,
+          0,
+          0
+        ],
+        "hiNormal": [
+          -1,
+          0,
+          0
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "1-6",
+        "loNormal": [
+          1,
+          0,
+          0
+        ],
+        "hiNormal": [
+          -1,
+          0,
+          0
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "4-7",
+        "loNormal": [
+          -0.5773502691896258,
+          -0.5773502691896257,
+          0.5773502691896257
+        ],
+        "hiNormal": [
+          0.5773502691896258,
+          0.5773502691896257,
+          -0.5773502691896257
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "4-7",
+        "loNormal": [
+          -0.5773502691896257,
+          0.5773502691896258,
+          -0.5773502691896257
+        ],
+        "hiNormal": [
+          0.5773502691896257,
+          -0.5773502691896258,
+          0.5773502691896257
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "0-3",
+        "loNormal": [
+          0,
+          1,
+          0
+        ],
+        "hiNormal": [
+          0,
+          -1,
+          0
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "3-7",
+        "loNormal": [
+          0.577350269189626,
+          -0.5773502691900076,
+          0.5773502691892437
+        ],
+        "hiNormal": [
+          -0.577350269189626,
+          0.5773502691900076,
+          -0.5773502691892437
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "5-7",
+        "loNormal": [
+          -0.5773502691896258,
+          -0.5773502691896257,
+          0.5773502691896257
+        ],
+        "hiNormal": [
+          0.5773502691896258,
+          0.5773502691896257,
+          -0.5773502691896257
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "5-7",
+        "loNormal": [
+          1,
+          0,
+          0
+        ],
+        "hiNormal": [
+          -1,
+          0,
+          0
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "5-7",
+        "loNormal": [
+          -1,
+          0,
+          0
+        ],
+        "hiNormal": [
+          1,
+          0,
+          0
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "0-1",
+        "loNormal": [
+          -1,
+          0,
+          0
+        ],
+        "hiNormal": [
+          1,
+          0,
+          0
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "0-5",
+        "loNormal": [
+          1,
+          0,
+          0
+        ],
+        "hiNormal": [
+          -1,
+          0,
+          0
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "0-5",
+        "loNormal": [
+          1,
+          0,
+          0
+        ],
+        "hiNormal": [
+          -1,
+          0,
+          0
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "0-5",
+        "loNormal": [
+          0,
+          0,
+          1
+        ],
+        "hiNormal": [
+          0,
+          0,
+          -1
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "1-3",
+        "loNormal": [
+          1,
+          0,
+          0
+        ],
+        "hiNormal": [
+          -1,
+          0,
+          0
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "4-5",
+        "loNormal": [
+          0,
+          0.7071067811865476,
+          0.7071067811865475
+        ],
+        "hiNormal": [
+          0,
+          -0.7071067811865476,
+          -0.7071067811865475
+        ],
+        "antiparallel": true
+      }
+    ],
+    "duplicateFaces": 0,
+    "unexplainedGaps": 0
+  }
+}

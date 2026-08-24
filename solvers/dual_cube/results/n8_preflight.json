@@ -1,0 +1,391 @@
+{
+  "schema": "dual-cube-n8-correspondence-preflight",
+  "version": 1,
+  "note": "Correspondence only. Full N=8 insert/opt/closure is held until this N=6 occupancy is proved or abandoned.",
+  "fullReconstruction": "held-after-triage",
+  "gridResolution": 8,
+  "cadEligible": true,
+  "counts": {
+    "patches": 70,
+    "rejected": 0,
+    "curved": 30,
+    "planarMate": 31,
+    "cubeExterior": 9,
+    "byKind": {
+      "cube-exterior": 9,
+      "curved": 30,
+      "planar-mate": 31
+    },
+    "accepted": 70,
+    "planar": 31,
+    "exterior": 9,
+    "partnerSignatureSplits": 13
+  },
+  "curvedOpenings": [
+    {
+      "id": "S2",
+      "piece": 1,
+      "areaFaces": 38,
+      "matePatch": null,
+      "mateOverlap": 12,
+      "unique": true
+    },
+    {
+      "id": "S3",
+      "piece": 1,
+      "areaFaces": 21,
+      "matePatch": "S66",
+      "mateOverlap": 21,
+      "unique": true
+    },
+    {
+      "id": "S4",
+      "piece": 1,
+      "areaFaces": 30,
+      "matePatch": null,
+      "mateOverlap": 19,
+      "unique": true
+    },
+    {
+      "id": "S6",
+      "piece": 1,
+      "areaFaces": 6,
+      "matePatch": "S31",
+      "mateOverlap": 6,
+      "unique": true
+    },
+    {
+      "id": "S7",
+      "piece": 1,
+      "areaFaces": 16,
+      "matePatch": null,
+      "mateOverlap": 9,
+      "unique": true
+    },
+    {
+      "id": "S8",
+      "piece": 1,
+      "areaFaces": 32,
+      "matePatch": null,
+      "mateOverlap": 19,
+      "unique": true
+    },
+    {
+      "id": "S9",
+      "piece": 1,
+      "areaFaces": 13,
+      "matePatch": null,
+      "mateOverlap": 9,
+      "unique": true
+    },
+    {
+      "id": "S10",
+      "piece": 2,
+      "areaFaces": 13,
+      "matePatch": null,
+      "mateOverlap": 9,
+      "unique": true
+    },
+    {
+      "id": "S13",
+      "piece": 2,
+      "areaFaces": 9,
+      "matePatch": "S7",
+      "mateOverlap": 9,
+      "unique": true
+    },
+    {
+      "id": "S14",
+      "piece": 2,
+      "areaFaces": 5,
+      "matePatch": "S7",
+      "mateOverlap": 5,
+      "unique": true
+    },
+    {
+      "id": "S22",
+      "piece": 3,
+      "areaFaces": 19,
+      "matePatch": "S8",
+      "mateOverlap": 19,
+      "unique": true
+    },
+    {
+      "id": "S24",
+      "piece": 3,
+      "areaFaces": 11,
+      "matePatch": null,
+      "mateOverlap": 7,
+      "unique": true
+    },
+    {
+      "id": "S25",
+      "piece": 3,
+      "areaFaces": 13,
+      "matePatch": "S8",
+      "mateOverlap": 13,
+      "unique": true
+    },
+    {
+      "id": "S27",
+      "piece": 4,
+      "areaFaces": 10,
+      "matePatch": "S49",
+      "mateOverlap": 10,
+      "unique": true
+    },
+    {
+      "id": "S29",
+      "piece": 4,
+      "areaFaces": 18,
+      "matePatch": null,
+      "mateOverlap": 14,
+      "unique": true
+    },
+    {
+      "id": "S31",
+      "piece": 4,
+      "areaFaces": 6,
+      "matePatch": "S6",
+      "mateOverlap": 6,
+      "unique": true
+    },
+    {
+      "id": "S39",
+      "piece": 5,
+      "areaFaces": 11,
+      "matePatch": "S19",
+      "mateOverlap": 9,
+      "unique": true
+    },
+    {
+      "id": "S41",
+      "piece": 5,
+      "areaFaces": 15,
+      "matePatch": "S69",
+      "mateOverlap": 15,
+      "unique": true
+    },
+    {
+      "id": "S49",
+      "piece": 6,
+      "areaFaces": 10,
+      "matePatch": "S27",
+      "mateOverlap": 10,
+      "unique": true
+    },
+    {
+      "id": "S50",
+      "piece": 6,
+      "areaFaces": 11,
+      "matePatch": "S2",
+      "mateOverlap": 11,
+      "unique": true
+    },
+    {
+      "id": "S51",
+      "piece": 6,
+      "areaFaces": 12,
+      "matePatch": "S2",
+      "mateOverlap": 11,
+      "unique": true
+    },
+    {
+      "id": "S53",
+      "piece": 6,
+      "areaFaces": 12,
+      "matePatch": "S2",
+      "mateOverlap": 12,
+      "unique": true
+    },
+    {
+      "id": "S57",
+      "piece": 7,
+      "areaFaces": 19,
+      "matePatch": "S4",
+      "mateOverlap": 19,
+      "unique": true
+    },
+    {
+      "id": "S58",
+      "piece": 7,
+      "areaFaces": 13,
+      "matePatch": "S67",
+      "mateOverlap": 13,
+      "unique": true
+    },
+    {
+      "id": "S59",
+      "piece": 7,
+      "areaFaces": 11,
+      "matePatch": "S4",
+      "mateOverlap": 11,
+      "unique": true
+    },
+    {
+      "id": "S65",
+      "piece": 8,
+      "areaFaces": 16,
+      "matePatch": "S29",
+      "mateOverlap": 14,
+      "unique": true
+    },
+    {
+      "id": "S66",
+      "piece": 8,
+      "areaFaces": 21,
+      "matePatch": "S3",
+      "mateOverlap": 21,
+      "unique": true
+    },
+    {
+      "id": "S67",
+      "piece": 8,
+      "areaFaces": 13,
+      "matePatch": "S58",
+      "mateOverlap": 13,
+      "unique": true
+    },
+    {
+      "id": "S68",
+      "piece": 8,
+      "areaFaces": 6,
+      "matePatch": null,
+      "mateOverlap": 4,
+      "unique": true
+    },
+    {
+      "id": "S69",
+      "piece": 8,
+      "areaFaces": 20,
+      "matePatch": null,
+      "mateOverlap": 15,
+      "unique": true
+    }
+  ],
+  "planarSimpleMix": {
+    "planarMate": 31,
+    "cubeExterior": 9,
+    "curved": 30,
+    "ratioPlanarToCurved": 1.0333333333333334
+  },
+  "contradictoryNeighborhoods": [
+    {
+      "patch": "S2",
+      "piece": 1,
+      "reason": "curved-without-unique-mate-patch",
+      "mateOverlap": 12,
+      "areaFaces": 38
+    },
+    {
+      "patch": "S4",
+      "piece": 1,
+      "reason": "curved-without-unique-mate-patch",
+      "mateOverlap": 19,
+      "areaFaces": 30
+    },
+    {
+      "patch": "S7",
+      "piece": 1,
+      "reason": "curved-without-unique-mate-patch",
+      "mateOverlap": 9,
+      "areaFaces": 16
+    },
+    {
+      "patch": "S8",
+      "piece": 1,
+      "reason": "curved-without-unique-mate-patch",
+      "mateOverlap": 19,
+      "areaFaces": 32
+    },
+    {
+      "patch": "S9",
+      "piece": 1,
+      "reason": "curved-without-unique-mate-patch",
+      "mateOverlap": 9,
+      "areaFaces": 13
+    },
+    {
+      "patch": "S10",
+      "piece": 2,
+      "reason": "curved-without-unique-mate-patch",
+      "mateOverlap": 9,
+      "areaFaces": 13
+    },
+    {
+      "patch": "S24",
+      "piece": 3,
+      "reason": "curved-without-unique-mate-patch",
+      "mateOverlap": 7,
+      "areaFaces": 11
+    },
+    {
+      "patch": "S29",
+      "piece": 4,
+      "reason": "curved-without-unique-mate-patch",
+      "mateOverlap": 14,
+      "areaFaces": 18
+    },
+    {
+      "patch": "S39",
+      "mate": "S19",
+      "reason": "incomplete-opposite-map",
+      "oppositeHits": 9,
+      "oppositeTotal": 11,
+      "areaFaces": 11,
+      "mateAreaFaces": 9
+    },
+    {
+      "patch": "S51",
+      "mate": "S2",
+      "reason": "incomplete-opposite-map",
+      "oppositeHits": 11,
+      "oppositeTotal": 12,
+      "areaFaces": 12,
+      "mateAreaFaces": 38
+    },
+    {
+      "patch": "S65",
+      "mate": "S29",
+      "reason": "incomplete-opposite-map",
+      "oppositeHits": 14,
+      "oppositeTotal": 16,
+      "areaFaces": 16,
+      "mateAreaFaces": 18
+    },
+    {
+      "patch": "S68",
+      "piece": 8,
+      "reason": "curved-without-unique-mate-patch",
+      "mateOverlap": 4,
+      "areaFaces": 6
+    },
+    {
+      "patch": "S69",
+      "piece": 8,
+      "reason": "curved-without-unique-mate-patch",
+      "mateOverlap": 15,
+      "areaFaces": 20
+    }
+  ],
+  "triageDecision": {
+    "go": false,
+    "proceedToReconstruction": false,
+    "categories": {
+      "A": 0,
+      "B": 4,
+      "C": 8,
+      "D": 1
+    },
+    "extraCarriers": 7,
+    "extraGeneralQuadrics": 5,
+    "minChildFaces": 4,
+    "reason": "1 neighborhood(s) in category D",
+    "budget": {
+      "maxChildrenPerCarrier": 3,
+      "maxNewCarriers": 8,
+      "minChildFaces": 3,
+      "maxNewGeneralQuadrics": 2
+    }
+  }
+}

@@ -1,0 +1,5050 @@
+{
+  "schema": "dual-cube-closure",
+  "version": 3,
+  "note": "Four metrics are separate: discrete doubled-lattice mate identity, carrier incidence, continuous trim mismatch about N/2, and shell closure. Carriers stay frozen. Openings are not fitted. GPU is not used.",
+  "metrics": {
+    "discreteMateIdentity": {
+      "checked": 102,
+      "mismatches": 0,
+      "exact": true
+    },
+    "carrierIncidence": {
+      "rms": 0.02998976760226745,
+      "max": 0.3729325796269274
+    },
+    "continuousTrimMismatch": {
+      "rms": 0.0022056966448711596,
+      "max": 0.01393291479889687,
+      "initialRms": 0.006884351600540769,
+      "initialMax": 0.034629129403166085
+    },
+    "shellClosure": {
+      "openEdges": 39,
+      "nonmanifoldAfterDissolve": 0,
+      "nonmanifoldBeforeDissolve": 5,
+      "diagnosis": [
+        {
+          "piece": 1,
+          "sourceVoxelComponents": 2,
+          "sourceVoxelCount": 21,
+          "shellCount": 2,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 9,
+              "signedVolume": -0.10339506172839513,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0,
+                  0
+                ],
+                "hi": [
+                  0.8333333333333334,
+                  0.3333333333333333,
+                  0.5
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 7,
+              "signedVolume": -0.04012345679012344,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0.5,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  0.3333333333333333,
+                  0.6666666666666666,
+                  0.5
+                ]
+              }
+            }
+          ],
+          "interpretation": "candidate-genuinely-disconnected"
+        },
+        {
+          "piece": 4,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 23,
+          "shellCount": 3,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 16,
+              "signedVolume": -0.14351851851851855,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  0.6666666666666666,
+                  0.5,
+                  1
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 1,
+              "signedVolume": -0.012345679012345678,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0.3333333333333333,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  0.6666666666666666,
+                  0.5,
+                  0.6666666666666666
+                ]
+              }
+            },
+            {
+              "id": 3,
+              "patches": 1,
+              "signedVolume": -0.04629629629629631,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0,
+                  0.6666666666666666
+                ],
+                "hi": [
+                  0.5,
+                  0.3333333333333333,
+                  1
+                ]
+              }
+            }
+          ],
+          "interpretation": "reconstruction-topology-defect"
+        },
+        {
+          "piece": 5,
+          "sourceVoxelComponents": 2,
+          "sourceVoxelCount": 12,
+          "shellCount": 2,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 8,
+              "signedVolume": -0.11574074074074078,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.6666666666666666,
+                  0,
+                  0
+                ],
+                "hi": [
+                  1,
+                  0.5,
+                  0.3333333333333333
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 11,
+              "signedVolume": -0.057098765432098776,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0.3333333333333333,
+                  0
+                ],
+                "hi": [
+                  0.5,
+                  0.6666666666666666,
+                  0.3333333333333333
+                ]
+              }
+            }
+          ],
+          "interpretation": "candidate-genuinely-disconnected"
+        },
+        {
+          "piece": 6,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 53,
+          "shellCount": 3,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 10,
+              "signedVolume": -0.4351851851851858,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0.3333333333333333,
+                  0
+                ],
+                "hi": [
+                  1,
+                  1,
+                  0.6666666666666666
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 1,
+              "signedVolume": -0.057098765432098755,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0.5,
+                  0
+                ],
+                "hi": [
+                  0.3333333333333333,
+                  1,
+                  0.6666666666666666
+                ]
+              }
+            },
+            {
+              "id": 3,
+              "patches": 1,
+              "signedVolume": -0.046296296296296294,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0.3333333333333333,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  1,
+                  0.6666666666666666,
+                  0.6666666666666666
+                ]
+              }
+            }
+          ],
+          "interpretation": "reconstruction-topology-defect"
+        },
+        {
+          "piece": 7,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 16,
+          "shellCount": 2,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 12,
+              "signedVolume": -0.14814814814814817,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0.16666666666666666,
+                  0
+                ],
+                "hi": [
+                  0.3333333333333333,
+                  1,
+                  0.8333333333333334
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 1,
+              "signedVolume": -0.046296296296296294,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0.6666666666666666,
+                  0.16666666666666666
+                ],
+                "hi": [
+                  0.3333333333333333,
+                  1,
+                  0.6666666666666666
+                ]
+              }
+            }
+          ],
+          "interpretation": "weak-edge-or-point-connection"
+        },
+        {
+          "piece": 8,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 34,
+          "shellCount": 2,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 31,
+              "signedVolume": -0.44290123456790226,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0,
+                  0.16666666666666666
+                ],
+                "hi": [
+                  1,
+                  0.6666666666666666,
+                  1
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 1,
+              "signedVolume": -0.03549382716049382,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0,
+                  0.5
+                ],
+                "hi": [
+                  0.6666666666666666,
+                  0.3333333333333333,
+                  0.8333333333333334
+                ]
+              }
+            }
+          ],
+          "interpretation": "weak-edge-or-point-connection"
+        }
+      ]
+    }
+  },
+  "carriers": {
+    "patchCount": 140,
+    "carrierCount": 105,
+    "frozenCount": 99,
+    "unfittedCount": 6,
+    "types": {
+      "plane": 92,
+      "generalQuadric": 7,
+      "unfitted-curved": 6
+    },
+    "items": [
+      {
+        "id": "C1",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S1",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 23
+          }
+        ]
+      },
+      {
+        "id": "C2",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S2",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C3",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S3",
+            "cubeA": {
+              "mate": 5,
+              "matePatch": "S67"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S32"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          },
+          {
+            "patch": "S4",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          }
+        ]
+      },
+      {
+        "id": "C4",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S5",
+            "cubeA": {
+              "mate": 5,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": "S94"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          },
+          {
+            "patch": "S8",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": "S94"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          }
+        ]
+      },
+      {
+        "id": "C5",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S6",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": "S100"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C6",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S7",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": "S101"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S118"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S15",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": "S101"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S61"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C7",
+        "piece": 1,
+        "type": "generalQuadric",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S9",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 6
+          }
+        ]
+      },
+      {
+        "id": "C8",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S10",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": "S50"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S118"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S16",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S112"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S62"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C9",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S11",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C10",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S12",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S112"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S118"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C11",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S13",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": "S51"
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": "S104"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C12",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S14",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": "S101"
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          }
+        ]
+      },
+      {
+        "id": "C13",
+        "piece": 2,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S17",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C14",
+        "piece": 2,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S18",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 3
+          },
+          {
+            "patch": "S19",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C15",
+        "piece": 2,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S20",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S109"
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": "S98"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C16",
+        "piece": 2,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S21",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S110"
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": "S99"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C17",
+        "piece": 2,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 4,
+        "regions": [
+          {
+            "patch": "S22",
+            "cubeA": {
+              "mate": 5,
+              "matePatch": "S69"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S45"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          },
+          {
+            "patch": "S28",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S93"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S56"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S29",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S93"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S41"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S30",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": "S38"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S51"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C18",
+        "piece": 2,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S23",
+            "cubeA": {
+              "mate": 5,
+              "matePatch": "S83"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S41"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C19",
+        "piece": 2,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S24",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S110"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S135"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C20",
+        "piece": 2,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S25",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S124"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S136"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C21",
+        "piece": 2,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S26",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          }
+        ]
+      },
+      {
+        "id": "C22",
+        "piece": 2,
+        "type": "generalQuadric",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S27",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 5,
+              "matePatch": "S73"
+            },
+            "kind": "curved",
+            "areaFaces": 5
+          }
+        ]
+      },
+      {
+        "id": "C23",
+        "piece": 3,
+        "type": "generalQuadric",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S31",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 7
+          }
+        ]
+      },
+      {
+        "id": "C24",
+        "piece": 3,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S32",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": "S57"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S3"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          },
+          {
+            "patch": "S33",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": "S90"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 6
+          }
+        ]
+      },
+      {
+        "id": "C25",
+        "piece": 3,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S34",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": "S90"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 8
+          }
+        ]
+      },
+      {
+        "id": "C26",
+        "piece": 3,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S35",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S137"
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": "S84"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S38",
+            "cubeA": {
+              "mate": 2,
+              "matePatch": "S30"
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": "S84"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C27",
+        "piece": 3,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 3,
+        "regions": [
+          {
+            "patch": "S36",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S123"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 5
+          },
+          {
+            "patch": "S41",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S94"
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          },
+          {
+            "patch": "S44",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C28",
+        "piece": 3,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S37",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 56
+          }
+        ]
+      },
+      {
+        "id": "C29",
+        "piece": 3,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S39",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": "S103"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 5
+          }
+        ]
+      },
+      {
+        "id": "C30",
+        "piece": 3,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S40",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": "S103"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          },
+          {
+            "patch": "S45",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": "S107"
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": "S22"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C31",
+        "piece": 3,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S42",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S94"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S58"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C32",
+        "piece": 3,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S43",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S94"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S59"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C33",
+        "piece": 3,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S46",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S94"
+            },
+            "cubeB": {
+              "mate": 5,
+              "matePatch": "S78"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C34",
+        "piece": 4,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S47",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 21
+          }
+        ]
+      },
+      {
+        "id": "C35",
+        "piece": 4,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S48",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S9"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S129"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S61",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": "S104"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S15"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C36",
+        "piece": 4,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 4,
+        "regions": [
+          {
+            "patch": "S49",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S9"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S128"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S50",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S10"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S119"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S55",
+            "cubeA": {
+              "mate": 5,
+              "matePatch": "S81"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S119"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S62",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S120"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S16"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C37",
+        "piece": 4,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S51",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C38",
+        "piece": 4,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S52",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S119"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          }
+        ]
+      },
+      {
+        "id": "C39",
+        "piece": 4,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S53",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S9"
+            },
+            "cubeB": {
+              "mate": 5,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C40",
+        "piece": 4,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S54",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 4
+          }
+        ]
+      },
+      {
+        "id": "C41",
+        "piece": 4,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S56",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S119"
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          }
+        ]
+      },
+      {
+        "id": "C42",
+        "piece": 4,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S57",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 5,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 11
+          }
+        ]
+      },
+      {
+        "id": "C43",
+        "piece": 4,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S58",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S119"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S42"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S59",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S119"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S43"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C44",
+        "piece": 4,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S60",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": "S33"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S127"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C45",
+        "piece": 4,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S63",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S138"
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": "S89"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C46",
+        "piece": 4,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S64",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": "S31"
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": "S89"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C47",
+        "piece": 5,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S65",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 9
+          }
+        ]
+      },
+      {
+        "id": "C48",
+        "piece": 5,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S66",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 4
+          }
+        ]
+      },
+      {
+        "id": "C49",
+        "piece": 5,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S67",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S3"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S57"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          },
+          {
+            "patch": "S75",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S89"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S57"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C50",
+        "piece": 5,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S68",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S5"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S53"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S82",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S121"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S130"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C51",
+        "piece": 5,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S69",
+            "cubeA": {
+              "mate": 2,
+              "matePatch": "S22"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S57"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          },
+          {
+            "patch": "S80",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S113"
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": "S88"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C52",
+        "piece": 5,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S70",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": "S96"
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": "S96"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 6
+          }
+        ]
+      },
+      {
+        "id": "C53",
+        "piece": 5,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S71",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S5"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S131"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C54",
+        "piece": 5,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 4,
+        "regions": [
+          {
+            "patch": "S72",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S5"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S130"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S74",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S5"
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": "S27"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S78",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S84"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S46"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S81",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": "S55"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S130"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C55",
+        "piece": 5,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S73",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": "S27"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          }
+        ]
+      },
+      {
+        "id": "C56",
+        "piece": 5,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S76",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S86"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S53"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C57",
+        "piece": 5,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S77",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S89"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S138"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C58",
+        "piece": 5,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S79",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S113"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S57"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C59",
+        "piece": 5,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S83",
+            "cubeA": {
+              "mate": 2,
+              "matePatch": "S23"
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": "S88"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C60",
+        "piece": 6,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S84",
+            "cubeA": {
+              "mate": 5,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C61",
+        "piece": 6,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S85",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S8"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S132"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C62",
+        "piece": 6,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S86",
+            "cubeA": {
+              "mate": 5,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C63",
+        "piece": 6,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S87",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 54
+          }
+        ]
+      },
+      {
+        "id": "C64",
+        "piece": 6,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S88",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S8"
+            },
+            "cubeB": {
+              "mate": 5,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C65",
+        "piece": 6,
+        "type": "generalQuadric",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S89",
+            "cubeA": {
+              "mate": 5,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 6
+          }
+        ]
+      },
+      {
+        "id": "C66",
+        "piece": 6,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S90",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 14
+          }
+        ]
+      },
+      {
+        "id": "C67",
+        "piece": 6,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S91",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 9
+          }
+        ]
+      },
+      {
+        "id": "C68",
+        "piece": 6,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S92",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S14"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C69",
+        "piece": 6,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S93",
+            "cubeA": {
+              "mate": 2,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S14"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          },
+          {
+            "patch": "S95",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": "S44"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S111"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C70",
+        "piece": 6,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S94",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 8
+          }
+        ]
+      },
+      {
+        "id": "C71",
+        "piece": 7,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S96",
+            "cubeA": {
+              "mate": 5,
+              "matePatch": "S70"
+            },
+            "cubeB": {
+              "mate": 5,
+              "matePatch": "S70"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 6
+          }
+        ]
+      },
+      {
+        "id": "C72",
+        "piece": 7,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S97",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 17
+          }
+        ]
+      },
+      {
+        "id": "C73",
+        "piece": 7,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S98",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S90"
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": "S20"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C74",
+        "piece": 7,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S99",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S90"
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": "S21"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C75",
+        "piece": 7,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S100",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S6"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S124"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C76",
+        "piece": 7,
+        "type": "generalQuadric",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S101",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 6
+          }
+        ]
+      },
+      {
+        "id": "C77",
+        "piece": 7,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S102",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": "S52"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S124"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C78",
+        "piece": 7,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S103",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S90"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 11
+          }
+        ]
+      },
+      {
+        "id": "C79",
+        "piece": 7,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 3,
+        "regions": [
+          {
+            "patch": "S104",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          },
+          {
+            "patch": "S106",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S4"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          },
+          {
+            "patch": "S108",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": "S40"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S4"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C80",
+        "piece": 7,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S105",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C81",
+        "piece": 7,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S107",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S31"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          }
+        ]
+      },
+      {
+        "id": "C82",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S109",
+            "cubeA": {
+              "mate": 2,
+              "matePatch": "S20"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C83",
+        "piece": 8,
+        "type": "generalQuadric",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S110",
+            "cubeA": {
+              "mate": 2,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 5
+          }
+        ]
+      },
+      {
+        "id": "C84",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S111",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C85",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 4,
+        "regions": [
+          {
+            "patch": "S112",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          },
+          {
+            "patch": "S116",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 3
+          },
+          {
+            "patch": "S132",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          },
+          {
+            "patch": "S137",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": "S101"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C86",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S113",
+            "cubeA": {
+              "mate": 5,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C87",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S114",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 21
+          }
+        ]
+      },
+      {
+        "id": "C88",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S115",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C89",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S117",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S4"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S6"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S126",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S92"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S11"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C90",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S118",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C91",
+        "piece": 8,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S119",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 8
+          }
+        ]
+      },
+      {
+        "id": "C92",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S120",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C93",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S121",
+            "cubeA": {
+              "mate": 5,
+              "matePatch": "S82"
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": "S91"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C94",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S122",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S91"
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": "S91"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C95",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S123",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S91"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S36"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          },
+          {
+            "patch": "S125",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C96",
+        "piece": 8,
+        "type": "generalQuadric",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S124",
+            "cubeA": {
+              "mate": 2,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 9
+          }
+        ]
+      },
+      {
+        "id": "C97",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S127",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 5
+          }
+        ]
+      },
+      {
+        "id": "C98",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S128",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": "S34"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S49"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S129",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": "S34"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S48"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C99",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S130",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 5,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C100",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S131",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": "S34"
+            },
+            "cubeB": {
+              "mate": 5,
+              "matePatch": "S71"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C101",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S133",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": "S105"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S36"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S139",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": "S39"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S44"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C102",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S134",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": "S106"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S44"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S140",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": "S39"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S44"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C103",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S135",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": "S36"
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": "S24"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C104",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S136",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": "S34"
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": "S25"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C105",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S138",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": "S63"
+            },
+            "cubeB": {
+              "mate": 5,
+              "matePatch": "S77"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      }
+    ]
+  },
+  "assemblies": {
+    "A": {
+      "junctionRMS": 0.02998976760226745,
+      "junctionMax": 0.3729325796269274,
+      "mateRMS": 0.06014537036014925,
+      "mateMax": 0.11780400859432022,
+      "analyticTrims": 251,
+      "unmatchedTrims": 0,
+      "openEdges": 39,
+      "nonmanifoldEdges": 0
+    },
+    "B": {
+      "junctionRMS": 0.0022056966448711596,
+      "junctionMax": 0.01393291479889687,
+      "mateRMS": 0.0022056966448711596,
+      "mateMax": 0.01393291479889687,
+      "voxelCorrespondenceRms": 0,
+      "voxelCorrespondenceMax": 0,
+      "initialRms": 0.006884351600540769,
+      "initialMax": 0.034629129403166085,
+      "analyticTrims": 251,
+      "unmatchedTrims": 0,
+      "openEdges": 39,
+      "nonmanifoldEdges": 0
+    }
+  },
+  "pieces": [
+    {
+      "piece": 1,
+      "patches": 16,
+      "carriers": 12,
+      "analyticTrims": 29,
+      "unmatchedTrims": 0,
+      "openEdges": 0,
+      "duplicateEdges": 0,
+      "nonmanifoldEdges": 0,
+      "nonmanifoldBeforeDissolve": 0,
+      "shells": 2,
+      "shellsBeforeDissolve": 2,
+      "volumePositive": true,
+      "connectedSolid": false,
+      "sourceVoxelVolume": 0.09722222222222222,
+      "unresolvedCurvedOpenings": 0,
+      "fittedCurved": 1,
+      "shellMembers": [
+        {
+          "id": 1,
+          "patchIds": [
+            "S1",
+            "S3",
+            "S4",
+            "S5",
+            "S6",
+            "S8",
+            "S9",
+            "S11",
+            "S13"
+          ]
+        },
+        {
+          "id": 2,
+          "patchIds": [
+            "S2",
+            "S7",
+            "S10",
+            "S12",
+            "S14",
+            "S15",
+            "S16"
+          ]
+        }
+      ]
+    },
+    {
+      "piece": 2,
+      "patches": 14,
+      "carriers": 10,
+      "analyticTrims": 21,
+      "unmatchedTrims": 0,
+      "openEdges": 0,
+      "duplicateEdges": 0,
+      "nonmanifoldEdges": 0,
+      "nonmanifoldBeforeDissolve": 1,
+      "shells": 1,
+      "shellsBeforeDissolve": 2,
+      "volumePositive": true,
+      "connectedSolid": false,
+      "sourceVoxelVolume": 0.027777777777777776,
+      "unresolvedCurvedOpenings": 0,
+      "fittedCurved": 1,
+      "shellMembers": [
+        {
+          "id": 1,
+          "patchIds": [
+            "S17",
+            "S18",
+            "S19",
+            "S20",
+            "S21",
+            "S22",
+            "S23",
+            "S24",
+            "S25",
+            "S26",
+            "S27",
+            "S28",
+            "S29",
+            "S30"
+          ]
+        }
+      ]
+    },
+    {
+      "piece": 3,
+      "patches": 16,
+      "carriers": 11,
+      "analyticTrims": 34,
+      "unmatchedTrims": 0,
+      "openEdges": 0,
+      "duplicateEdges": 0,
+      "nonmanifoldEdges": 0,
+      "nonmanifoldBeforeDissolve": 0,
+      "shells": 1,
+      "shellsBeforeDissolve": 1,
+      "volumePositive": true,
+      "connectedSolid": true,
+      "sourceVoxelVolume": 0.2361111111111111,
+      "unresolvedCurvedOpenings": 0,
+      "fittedCurved": 1,
+      "shellMembers": [
+        {
+          "id": 1,
+          "patchIds": [
+            "S31",
+            "S32",
+            "S33",
+            "S34",
+            "S35",
+            "S36",
+            "S37",
+            "S38",
+            "S39",
+            "S40",
+            "S41",
+            "S42",
+            "S43",
+            "S44",
+            "S45",
+            "S46"
+          ]
+        }
+      ]
+    },
+    {
+      "piece": 4,
+      "patches": 18,
+      "carriers": 13,
+      "analyticTrims": 32,
+      "unmatchedTrims": 12,
+      "openEdges": 12,
+      "duplicateEdges": 0,
+      "nonmanifoldEdges": 0,
+      "nonmanifoldBeforeDissolve": 1,
+      "shells": 3,
+      "shellsBeforeDissolve": 3,
+      "volumePositive": true,
+      "connectedSolid": false,
+      "sourceVoxelVolume": 0.10648148148148148,
+      "unresolvedCurvedOpenings": 2,
+      "fittedCurved": 0,
+      "shellMembers": [
+        {
+          "id": 1,
+          "patchIds": [
+            "S47",
+            "S48",
+            "S49",
+            "S50",
+            "S51",
+            "S52",
+            "S53",
+            "S55",
+            "S56",
+            "S58",
+            "S59",
+            "S60",
+            "S61",
+            "S62",
+            "S63",
+            "S64"
+          ]
+        },
+        {
+          "id": 2,
+          "patchIds": [
+            "S54"
+          ]
+        },
+        {
+          "id": 3,
+          "patchIds": [
+            "S57"
+          ]
+        }
+      ]
+    },
+    {
+      "piece": 5,
+      "patches": 19,
+      "carriers": 13,
+      "analyticTrims": 40,
+      "unmatchedTrims": 0,
+      "openEdges": 0,
+      "duplicateEdges": 0,
+      "nonmanifoldEdges": 0,
+      "nonmanifoldBeforeDissolve": 0,
+      "shells": 2,
+      "shellsBeforeDissolve": 2,
+      "volumePositive": true,
+      "connectedSolid": false,
+      "sourceVoxelVolume": 0.05555555555555555,
+      "unresolvedCurvedOpenings": 0,
+      "fittedCurved": 0,
+      "shellMembers": [
+        {
+          "id": 1,
+          "patchIds": [
+            "S65",
+            "S67",
+            "S69",
+            "S75",
+            "S77",
+            "S79",
+            "S80",
+            "S83"
+          ]
+        },
+        {
+          "id": 2,
+          "patchIds": [
+            "S66",
+            "S68",
+            "S70",
+            "S71",
+            "S72",
+            "S73",
+            "S74",
+            "S76",
+            "S78",
+            "S81",
+            "S82"
+          ]
+        }
+      ]
+    },
+    {
+      "piece": 6,
+      "patches": 12,
+      "carriers": 11,
+      "analyticTrims": 13,
+      "unmatchedTrims": 13,
+      "openEdges": 13,
+      "duplicateEdges": 0,
+      "nonmanifoldEdges": 0,
+      "nonmanifoldBeforeDissolve": 0,
+      "shells": 3,
+      "shellsBeforeDissolve": 3,
+      "volumePositive": true,
+      "connectedSolid": false,
+      "sourceVoxelVolume": 0.24537037037037038,
+      "unresolvedCurvedOpenings": 2,
+      "fittedCurved": 1,
+      "shellMembers": [
+        {
+          "id": 1,
+          "patchIds": [
+            "S84",
+            "S85",
+            "S86",
+            "S87",
+            "S88",
+            "S89",
+            "S92",
+            "S93",
+            "S94",
+            "S95"
+          ]
+        },
+        {
+          "id": 2,
+          "patchIds": [
+            "S90"
+          ]
+        },
+        {
+          "id": 3,
+          "patchIds": [
+            "S91"
+          ]
+        }
+      ]
+    },
+    {
+      "piece": 7,
+      "patches": 13,
+      "carriers": 11,
+      "analyticTrims": 21,
+      "unmatchedTrims": 7,
+      "openEdges": 7,
+      "duplicateEdges": 0,
+      "nonmanifoldEdges": 0,
+      "nonmanifoldBeforeDissolve": 2,
+      "shells": 2,
+      "shellsBeforeDissolve": 2,
+      "volumePositive": true,
+      "connectedSolid": false,
+      "sourceVoxelVolume": 0.07407407407407407,
+      "unresolvedCurvedOpenings": 1,
+      "fittedCurved": 1,
+      "shellMembers": [
+        {
+          "id": 1,
+          "patchIds": [
+            "S96",
+            "S97",
+            "S98",
+            "S99",
+            "S100",
+            "S101",
+            "S102",
+            "S104",
+            "S105",
+            "S106",
+            "S107",
+            "S108"
+          ]
+        },
+        {
+          "id": 2,
+          "patchIds": [
+            "S103"
+          ]
+        }
+      ]
+    },
+    {
+      "piece": 8,
+      "patches": 32,
+      "carriers": 24,
+      "analyticTrims": 61,
+      "unmatchedTrims": 7,
+      "openEdges": 7,
+      "duplicateEdges": 0,
+      "nonmanifoldEdges": 0,
+      "nonmanifoldBeforeDissolve": 1,
+      "shells": 2,
+      "shellsBeforeDissolve": 2,
+      "volumePositive": true,
+      "connectedSolid": false,
+      "sourceVoxelVolume": 0.1574074074074074,
+      "unresolvedCurvedOpenings": 1,
+      "fittedCurved": 2,
+      "shellMembers": [
+        {
+          "id": 1,
+          "patchIds": [
+            "S109",
+            "S110",
+            "S111",
+            "S112",
+            "S113",
+            "S114",
+            "S115",
+            "S116",
+            "S117",
+            "S118",
+            "S120",
+            "S121",
+            "S122",
+            "S123",
+            "S124",
+            "S125",
+            "S126",
+            "S127",
+            "S128",
+            "S129",
+            "S130",
+            "S131",
+            "S132",
+            "S133",
+            "S134",
+            "S135",
+            "S136",
+            "S137",
+            "S138",
+            "S139",
+            "S140"
+          ]
+        },
+        {
+          "id": 2,
+          "patchIds": [
+            "S119"
+          ]
+        }
+      ]
+    }
+  ],
+  "junctions": {
+    "count": 210,
+    "rms": 0.02998976760226745,
+    "max": 0.3729325796269274,
+    "samples": [
+      {
+        "id": "J1:0,1,2",
+        "piece": 1,
+        "surfaceRms": 0.001176335280429725,
+        "surfaceMax": 0.0019927643458821425,
+        "carriers": 3
+      },
+      {
+        "id": "J1:0,2,1",
+        "piece": 1,
+        "surfaceRms": 0.0001915284765555339,
+        "surfaceMax": 0.00027428497937209695,
+        "carriers": 3
+      },
+      {
+        "id": "J1:2,2,0",
+        "piece": 1,
+        "surfaceRms": 0.00011706437868507058,
+        "surfaceMax": 0.00013052464275703501,
+        "carriers": 2
+      },
+      {
+        "id": "J1:5,0,1",
+        "piece": 1,
+        "surfaceRms": 0.000022842749996310532,
+        "surfaceMax": 0.000029720154785289193,
+        "carriers": 2
+      },
+      {
+        "id": "J1:2,0,3",
+        "piece": 1,
+        "surfaceRms": 0.0004175729035735144,
+        "surfaceMax": 0.0004805134096294175,
+        "carriers": 3
+      },
+      {
+        "id": "J1:3,0,3",
+        "piece": 1,
+        "surfaceRms": 0.00010913590929471185,
+        "surfaceMax": 0.00012052859973285535,
+        "carriers": 3
+      },
+      {
+        "id": "J1:5,2,0",
+        "piece": 1,
+        "surfaceRms": 0.0003901147401016,
+        "surfaceMax": 0.0004909213256300282,
+        "carriers": 3
+      },
+      {
+        "id": "J1:0,3,2",
+        "piece": 1,
+        "surfaceRms": 0.0340206942716094,
+        "surfaceMax": 0.0416749983336666,
+        "carriers": 3
+      },
+      {
+        "id": "J1:0,3,3",
+        "piece": 1,
+        "surfaceRms": 0.04166666749966676,
+        "surfaceMax": 0.0416749983336666,
+        "carriers": 2
+      },
+      {
+        "id": "J1:0,4,3",
+        "piece": 1,
+        "surfaceRms": 0.0340206942716094,
+        "surfaceMax": 0.0416749983336666,
+        "carriers": 3
+      },
+      {
+        "id": "J1:4,1,2",
+        "piece": 1,
+        "surfaceRms": 0.00006441059925400647,
+        "surfaceMax": 0.00007056956156882566,
+        "carriers": 2
+      },
+      {
+        "id": "J1:4,2,2",
+        "piece": 1,
+        "surfaceRms": 0.01964186013714734,
+        "surfaceMax": 0.024070692086760853,
+        "carriers": 3
+      },
+      {
+        "id": "J1:3,1,3",
+        "piece": 1,
+        "surfaceRms": 0.0331827997396784,
+        "surfaceMax": 0.04262170955090572,
+        "carriers": 4
+      },
+      {
+        "id": "J1:1,2,2",
+        "piece": 1,
+        "surfaceRms": 0.0007204575323009593,
+        "surfaceMax": 0.0009338717379487226,
+        "carriers": 3
+      },
+      {
+        "id": "J1:2,2,2",
+        "piece": 1,
+        "surfaceRms": 0.000038335168989950585,
+        "surfaceMax": 0.00005793553354837763,
+        "carriers": 3
+      },
+      {
+        "id": "J1:3,2,2",
+        "piece": 1,
+        "surfaceRms": 2.943923360032078e-17,
+        "surfaceMax": 4.163336342344337e-17,
+        "carriers": 2
+      }
+    ]
+  },
+  "trims": {
+    "uniqueRecords": 330,
+    "analytic": 251,
+    "unmatched": 0,
+    "role": {
+      "intersection": 218,
+      "carrierSeam": 112,
+      "missing": 0
+    },
+    "status": {
+      "resolved": 291,
+      "openUnfitted": 39,
+      "missing": 0
+    },
+    "family": {
+      "plane-plane": 139,
+      "generalQuadric-plane": 39,
+      "generalQuadric-generalQuadric": 1
+    },
+    "consistent": true
+  },
+  "audit": {
+    "cubeB": {
+      "schema": "dual-cube-mate-audit",
+      "version": 2,
+      "note": "Discrete mate identity is exact doubled-lattice equality f2B(i)=f2B(j) and dB(i)=-dB(j). Continuous geometricGap uses rotation about N/2.",
+      "pairCount": 45,
+      "discrete": {
+        "checked": 102,
+        "mismatches": 0,
+        "exact": true
+      },
+      "voxelRms": 0,
+      "voxelMax": 0,
+      "geometricRms": 0,
+      "geometricMax": 0,
+      "worst10": [
+        {
+          "patch": "S3",
+          "matePatch": "S32",
+          "piece": 1,
+          "matePiece": 3,
+          "cubeA": {
+            "mate": 5,
+            "matePatch": "S67"
+          },
+          "cubeB": {
+            "mate": 3,
+            "matePatch": "S32"
+          },
+          "transformP": {
+            "r": 18,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 14,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.8333333333333334,
+              0.08333333333333333,
+              0.08333333333333333
+            ],
+            "seedB": [
+              0.08333333333333333,
+              0.16666666666666666,
+              0.9166666666666666
+            ],
+            "mateA": [
+              0.08333333333333333,
+              0.08333333333333333,
+              0.8333333333333334
+            ],
+            "mateB": [
+              0.08333333333333333,
+              0.16666666666666666,
+              0.9166666666666666
+            ],
+            "f2B": [
+              1,
+              2,
+              11
+            ],
+            "f2Mate": [
+              1,
+              2,
+              11
+            ]
+          }
+        },
+        {
+          "patch": "S5",
+          "matePatch": "S94",
+          "piece": 1,
+          "matePiece": 6,
+          "cubeA": {
+            "mate": 5,
+            "matePatch": null
+          },
+          "cubeB": {
+            "mate": 6,
+            "matePatch": "S94"
+          },
+          "transformP": {
+            "r": 18,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 9,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.08333333333333333,
+              0.3333333333333333,
+              0.08333333333333333
+            ],
+            "seedB": [
+              0.08333333333333333,
+              0.9166666666666666,
+              0.6666666666666666
+            ],
+            "mateA": [
+              0.9166666666666666,
+              0.9166666666666666,
+              0.6666666666666666
+            ],
+            "mateB": [
+              0.08333333333333333,
+              0.9166666666666666,
+              0.6666666666666666
+            ],
+            "f2B": [
+              1,
+              11,
+              8
+            ],
+            "f2Mate": [
+              1,
+              11,
+              8
+            ]
+          }
+        },
+        {
+          "patch": "S8",
+          "matePatch": "S94",
+          "piece": 1,
+          "matePiece": 6,
+          "cubeA": {
+            "mate": 6,
+            "matePatch": null
+          },
+          "cubeB": {
+            "mate": 6,
+            "matePatch": "S94"
+          },
+          "transformP": {
+            "r": 18,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 9,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.4166666666666667,
+              0.3333333333333333,
+              0.08333333333333333
+            ],
+            "seedB": [
+              0.08333333333333333,
+              0.5833333333333334,
+              0.6666666666666666
+            ],
+            "mateA": [
+              0.5833333333333334,
+              0.9166666666666666,
+              0.6666666666666666
+            ],
+            "mateB": [
+              0.08333333333333333,
+              0.5833333333333334,
+              0.6666666666666666
+            ],
+            "f2B": [
+              1,
+              7,
+              8
+            ],
+            "f2Mate": [
+              1,
+              7,
+              8
+            ]
+          }
+        },
+        {
+          "patch": "S10",
+          "matePatch": "S118",
+          "piece": 1,
+          "matePiece": 8,
+          "cubeA": {
+            "mate": 4,
+            "matePatch": "S50"
+          },
+          "cubeB": {
+            "mate": 8,
+            "matePatch": "S118"
+          },
+          "transformP": {
+            "r": 18,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 22,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.25,
+              0.5,
+              0.4166666666666667
+            ],
+            "seedB": [
+              0.4166666666666667,
+              0.75,
+              0.5
+            ],
+            "mateA": [
+              0.5,
+              0.25,
+              0.4166666666666667
+            ],
+            "mateB": [
+              0.4166666666666667,
+              0.75,
+              0.5
+            ],
+            "f2B": [
+              5,
+              9,
+              6
+            ],
+            "f2Mate": [
+              5,
+              9,
+              6
+            ]
+          }
+        },
+        {
+          "patch": "S15",
+          "matePatch": "S61",
+          "piece": 1,
+          "matePiece": 4,
+          "cubeA": {
+            "mate": 7,
+            "matePatch": "S101"
+          },
+          "cubeB": {
+            "mate": 4,
+            "matePatch": "S61"
+          },
+          "transformP": {
+            "r": 18,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 8,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.08333333333333333,
+              0.5833333333333334,
+              0.5
+            ],
+            "seedB": [
+              0.5,
+              0.9166666666666666,
+              0.4166666666666667
+            ],
+            "mateA": [
+              0.08333333333333333,
+              0.5,
+              0.5833333333333334
+            ],
+            "mateB": [
+              0.5,
+              0.9166666666666666,
+              0.4166666666666667
+            ],
+            "f2B": [
+              6,
+              11,
+              5
+            ],
+            "f2Mate": [
+              6,
+              11,
+              5
+            ]
+          }
+        },
+        {
+          "patch": "S16",
+          "matePatch": "S62",
+          "piece": 1,
+          "matePiece": 4,
+          "cubeA": {
+            "mate": 8,
+            "matePatch": "S112"
+          },
+          "cubeB": {
+            "mate": 4,
+            "matePatch": "S62"
+          },
+          "transformP": {
+            "r": 18,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 8,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.25,
+              0.5833333333333334,
+              0.5
+            ],
+            "seedB": [
+              0.5,
+              0.75,
+              0.4166666666666667
+            ],
+            "mateA": [
+              0.25,
+              0.5,
+              0.5833333333333334
+            ],
+            "mateB": [
+              0.5,
+              0.75,
+              0.4166666666666667
+            ],
+            "f2B": [
+              6,
+              9,
+              5
+            ],
+            "f2Mate": [
+              6,
+              9,
+              5
+            ]
+          }
+        },
+        {
+          "patch": "S20",
+          "matePatch": "S98",
+          "piece": 2,
+          "matePiece": 7,
+          "cubeA": {
+            "mate": 8,
+            "matePatch": "S109"
+          },
+          "cubeB": {
+            "mate": 7,
+            "matePatch": "S98"
+          },
+          "transformP": {
+            "r": 7,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 20,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.8333333333333334,
+              0.08333333333333333,
+              0.25
+            ],
+            "seedB": [
+              0.8333333333333334,
+              0.25,
+              0.9166666666666666
+            ],
+            "mateA": [
+              0.08333333333333333,
+              0.75,
+              0.16666666666666666
+            ],
+            "mateB": [
+              0.8333333333333334,
+              0.25,
+              0.9166666666666666
+            ],
+            "f2B": [
+              10,
+              3,
+              11
+            ],
+            "f2Mate": [
+              10,
+              3,
+              11
+            ]
+          }
+        },
+        {
+          "patch": "S21",
+          "matePatch": "S99",
+          "piece": 2,
+          "matePiece": 7,
+          "cubeA": {
+            "mate": 8,
+            "matePatch": "S110"
+          },
+          "cubeB": {
+            "mate": 7,
+            "matePatch": "S99"
+          },
+          "transformP": {
+            "r": 7,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 20,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.75,
+              0.3333333333333333,
+              0.4166666666666667
+            ],
+            "seedB": [
+              0.75,
+              0.4166666666666667,
+              0.6666666666666666
+            ],
+            "mateA": [
+              0.3333333333333333,
+              0.5833333333333334,
+              0.25
+            ],
+            "mateB": [
+              0.75,
+              0.4166666666666667,
+              0.6666666666666666
+            ],
+            "f2B": [
+              9,
+              5,
+              8
+            ],
+            "f2Mate": [
+              9,
+              5,
+              8
+            ]
+          }
+        },
+        {
+          "patch": "S22",
+          "matePatch": "S45",
+          "piece": 2,
+          "matePiece": 3,
+          "cubeA": {
+            "mate": 5,
+            "matePatch": "S69"
+          },
+          "cubeB": {
+            "mate": 3,
+            "matePatch": "S45"
+          },
+          "transformP": {
+            "r": 7,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 14,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.9166666666666666,
+              0.16666666666666666,
+              0.25
+            ],
+            "seedB": [
+              0.9166666666666666,
+              0.25,
+              0.8333333333333334
+            ],
+            "mateA": [
+              0.16666666666666666,
+              0.9166666666666666,
+              0.75
+            ],
+            "mateB": [
+              0.9166666666666666,
+              0.25,
+              0.8333333333333334
+            ],
+            "f2B": [
+              11,
+              3,
+              10
+            ],
+            "f2Mate": [
+              11,
+              3,
+              10
+            ]
+          }
+        },
+        {
+          "patch": "S23",
+          "matePatch": "S41",
+          "piece": 2,
+          "matePiece": 3,
+          "cubeA": {
+            "mate": 5,
+            "matePatch": "S83"
+          },
+          "cubeB": {
+            "mate": 3,
+            "matePatch": "S41"
+          },
+          "transformP": {
+            "r": 7,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 14,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.75,
+              0.4166666666666667,
+              0.3333333333333333
+            ],
+            "seedB": [
+              0.75,
+              0.3333333333333333,
+              0.5833333333333334
+            ],
+            "mateA": [
+              0.4166666666666667,
+              0.75,
+              0.6666666666666666
+            ],
+            "mateB": [
+              0.75,
+              0.3333333333333333,
+              0.5833333333333334
+            ],
+            "f2B": [
+              9,
+              4,
+              7
+            ],
+            "f2Mate": [
+              9,
+              4,
+              7
+            ]
+          }
+        }
+      ]
+    },
+    "frozenSolve": {
+      "schema": "dual-cube-frozen-solve",
+      "version": 1,
+      "note": "One Cube-B variable per mated sample, transformed about N/2. Carriers stay frozen. Incompatible pairs are reported, not snapped.",
+      "pairCount": 41,
+      "initialRms": 0.006884351600540769,
+      "initialMax": 0.034629129403166085,
+      "finalRms": 0.0022056966448711596,
+      "finalMax": 0.01393291479889687,
+      "incompatibleCount": 0,
+      "perCarrier": {
+        "plane": {
+          "rms": 0.0016200593120113303,
+          "max": 0.01393291479889687,
+          "n": 76
+        },
+        "generalQuadric": {
+          "rms": 0.005765833349092328,
+          "max": 0.01393291479889687,
+          "n": 6
+        }
+      },
+      "worst": [
+        {
+          "patch": "S107",
+          "matePatch": "S31",
+          "piece": 7,
+          "matePiece": 3,
+          "carrierP": "plane",
+          "carrierQ": "generalQuadric",
+          "initialB": 0.034629129403166085,
+          "finalB": 0.01393291479889687,
+          "surfaceRmsP": 0.000018455075950397568,
+          "surfaceRmsQ": 0.00001846743901440513,
+          "surfaceMax": 0.00001846743901440513,
+          "incompatible": false,
+          "snapped": false
+        },
+        {
+          "patch": "S27",
+          "matePatch": "S73",
+          "piece": 2,
+          "matePiece": 5,
+          "carrierP": "generalQuadric",
+          "carrierQ": "plane",
+          "initialB": 0.01673854900048169,
+          "finalB": 0.0023016863377787198,
+          "surfaceRmsP": 0.0000033065775573220064,
+          "surfaceRmsQ": 0.0000033073306592752705,
+          "surfaceMax": 0.0000033073306592752705,
+          "incompatible": false,
+          "snapped": false
+        },
+        {
+          "patch": "S63",
+          "matePatch": "S89",
+          "piece": 4,
+          "matePiece": 6,
+          "carrierP": "plane",
+          "carrierQ": "generalQuadric",
+          "initialB": 0.01914947929356472,
+          "finalB": 0.00019141944677605427,
+          "surfaceRmsP": 1.9739183509948077e-7,
+          "surfaceRmsQ": 4.2188279612019296e-7,
+          "surfaceMax": 4.2188279612019296e-7,
+          "incompatible": false,
+          "snapped": false
+        },
+        {
+          "patch": "S64",
+          "matePatch": "S89",
+          "piece": 4,
+          "matePiece": 6,
+          "carrierP": "plane",
+          "carrierQ": "generalQuadric",
+          "initialB": 0.009853686772796199,
+          "finalB": 0.0000901189272455373,
+          "surfaceRmsP": 7.622178732624718e-8,
+          "surfaceRmsQ": 2.0785405250248796e-7,
+          "surfaceMax": 2.0785405250248796e-7,
+          "incompatible": false,
+          "snapped": false
+        },
+        {
+          "patch": "S102",
+          "matePatch": "S124",
+          "piece": 7,
+          "matePiece": 8,
+          "carrierP": "plane",
+          "carrierQ": "generalQuadric",
+          "initialB": 0.00009172404118982925,
+          "finalB": 0.000015517513536423367,
+          "surfaceRmsP": 2.1837618369852096e-8,
+          "surfaceRmsQ": 2.184219814148056e-8,
+          "surfaceMax": 2.184219814148056e-8,
+          "incompatible": false,
+          "snapped": false
+        },
+        {
+          "patch": "S100",
+          "matePatch": "S124",
+          "piece": 7,
+          "matePiece": 8,
+          "carrierP": "plane",
+          "carrierQ": "generalQuadric",
+          "initialB": 0.00006660301100713609,
+          "finalB": 0.0000112626514007097,
+          "surfaceRmsP": 1.5850265426553545e-8,
+          "surfaceRmsQ": 1.5853594668004405e-8,
+          "surfaceMax": 1.5853594668004405e-8,
+          "incompatible": false,
+          "snapped": false
+        },
+        {
+          "patch": "S3",
+          "matePatch": "S32",
+          "piece": 1,
+          "matePiece": 3,
+          "carrierP": "plane",
+          "carrierQ": "plane",
+          "initialB": 0,
+          "finalB": 0,
+          "surfaceRmsP": 1.214306433183765e-17,
+          "surfaceRmsQ": 0,
+          "surfaceMax": 1.214306433183765e-17,
+          "incompatible": false,
+          "snapped": false
+        },
+        {
+          "patch": "S5",
+          "matePatch": "S94",
+          "piece": 1,
+          "matePiece": 6,
+          "carrierP": "plane",
+          "carrierQ": "plane",
+          "initialB": 0,
+          "finalB": 0,
+          "surfaceRmsP": 0,
+          "surfaceRmsQ": 0,
+          "surfaceMax": 0,
+          "incompatible": false,
+          "snapped": false
+        },
+        {
+          "patch": "S8",
+          "matePatch": "S94",
+          "piece": 1,
+          "matePiece": 6,
+          "carrierP": "plane",
+          "carrierQ": "plane",
+          "initialB": 0,
+          "finalB": 0,
+          "surfaceRmsP": 0,
+          "surfaceRmsQ": 0,
+          "surfaceMax": 0,
+          "incompatible": false,
+          "snapped": false
+        },
+        {
+          "patch": "S10",
+          "matePatch": "S118",
+          "piece": 1,
+          "matePiece": 8,
+          "carrierP": "plane",
+          "carrierQ": "plane",
+          "initialB": 0,
+          "finalB": 0,
+          "surfaceRmsP": 0,
+          "surfaceRmsQ": 0,
+          "surfaceMax": 0,
+          "incompatible": false,
+          "snapped": false
+        }
+      ]
+    },
+    "aMate": {
+      "rms": 0.06014537036014925,
+      "max": 0.11780400859432022,
+      "count": 210,
+      "worst": [
+        {
+          "patch": "S13",
+          "matePatch": "S51",
+          "piece": 1,
+          "matePiece": 4,
+          "initial": 0.11780400859432022,
+          "final": 0.11780400859432022,
+          "surfaceMax": 0.00003332000533119717
+        },
+        {
+          "patch": "S13",
+          "matePatch": "S51",
+          "piece": 1,
+          "matePiece": 4,
+          "initial": 0.11780400859432022,
+          "final": 0.11780400859432022,
+          "surfaceMax": 0.00003332000533119717
+        },
+        {
+          "patch": "S13",
+          "matePatch": "S51",
+          "piece": 1,
+          "matePiece": 4,
+          "initial": 0.11780400859432022,
+          "final": 0.11780400859432022,
+          "surfaceMax": 0.00003332000533119717
+        },
+        {
+          "patch": "S13",
+          "matePatch": "S51",
+          "piece": 1,
+          "matePiece": 4,
+          "initial": 0.11780400859432022,
+          "final": 0.11780400859432022,
+          "surfaceMax": 0.00003332000533119717
+        },
+        {
+          "patch": "S13",
+          "matePatch": "S51",
+          "piece": 1,
+          "matePiece": 4,
+          "initial": 0.1178040085943202,
+          "final": 0.1178040085943202,
+          "surfaceMax": 0.00003332000533119717
+        },
+        {
+          "patch": "S13",
+          "matePatch": "S51",
+          "piece": 1,
+          "matePiece": 4,
+          "initial": 0.1178040085943202,
+          "final": 0.1178040085943202,
+          "surfaceMax": 0.00003332000533119717
+        },
+        {
+          "patch": "S78",
+          "matePatch": "S84",
+          "piece": 5,
+          "matePiece": 6,
+          "initial": 0.1178040085943202,
+          "final": 0.1178040085943202,
+          "surfaceMax": 0.00003332000533119717
+        },
+        {
+          "patch": "S78",
+          "matePatch": "S84",
+          "piece": 5,
+          "matePiece": 6,
+          "initial": 0.1178040085943202,
+          "final": 0.1178040085943202,
+          "surfaceMax": 0.00003332000533119717
+        }
+      ]
+    },
+    "nonmanifold": [],
+    "shells": [
+      {
+        "piece": 1,
+        "sourceVoxelComponents": 2,
+        "sourceVoxelCount": 21,
+        "shellCount": 2,
+        "shells": [
+          {
+            "id": 1,
+            "patches": 9,
+            "signedVolume": -0.10339506172839513,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0,
+                0,
+                0
+              ],
+              "hi": [
+                0.8333333333333334,
+                0.3333333333333333,
+                0.5
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "patches": 7,
+            "signedVolume": -0.04012345679012344,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0,
+                0.5,
+                0.3333333333333333
+              ],
+              "hi": [
+                0.3333333333333333,
+                0.6666666666666666,
+                0.5
+              ]
+            }
+          }
+        ],
+        "interpretation": "candidate-genuinely-disconnected"
+      },
+      {
+        "piece": 4,
+        "sourceVoxelComponents": 1,
+        "sourceVoxelCount": 23,
+        "shellCount": 3,
+        "shells": [
+          {
+            "id": 1,
+            "patches": 16,
+            "signedVolume": -0.14351851851851855,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0,
+                0,
+                0.3333333333333333
+              ],
+              "hi": [
+                0.6666666666666666,
+                0.5,
+                1
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "patches": 1,
+            "signedVolume": -0.012345679012345678,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.3333333333333333,
+                0.3333333333333333,
+                0.3333333333333333
+              ],
+              "hi": [
+                0.6666666666666666,
+                0.5,
+                0.6666666666666666
+              ]
+            }
+          },
+          {
+            "id": 3,
+            "patches": 1,
+            "signedVolume": -0.04629629629629631,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0,
+                0,
+                0.6666666666666666
+              ],
+              "hi": [
+                0.5,
+                0.3333333333333333,
+                1
+              ]
+            }
+          }
+        ],
+        "interpretation": "reconstruction-topology-defect"
+      },
+      {
+        "piece": 5,
+        "sourceVoxelComponents": 2,
+        "sourceVoxelCount": 12,
+        "shellCount": 2,
+        "shells": [
+          {
+            "id": 1,
+            "patches": 8,
+            "signedVolume": -0.11574074074074078,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.6666666666666666,
+                0,
+                0
+              ],
+              "hi": [
+                1,
+                0.5,
+                0.3333333333333333
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "patches": 11,
+            "signedVolume": -0.057098765432098776,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0,
+                0.3333333333333333,
+                0
+              ],
+              "hi": [
+                0.5,
+                0.6666666666666666,
+                0.3333333333333333
+              ]
+            }
+          }
+        ],
+        "interpretation": "candidate-genuinely-disconnected"
+      },
+      {
+        "piece": 6,
+        "sourceVoxelComponents": 1,
+        "sourceVoxelCount": 53,
+        "shellCount": 3,
+        "shells": [
+          {
+            "id": 1,
+            "patches": 10,
+            "signedVolume": -0.4351851851851858,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0,
+                0.3333333333333333,
+                0
+              ],
+              "hi": [
+                1,
+                1,
+                0.6666666666666666
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "patches": 1,
+            "signedVolume": -0.057098765432098755,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0,
+                0.5,
+                0
+              ],
+              "hi": [
+                0.3333333333333333,
+                1,
+                0.6666666666666666
+              ]
+            }
+          },
+          {
+            "id": 3,
+            "patches": 1,
+            "signedVolume": -0.046296296296296294,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.3333333333333333,
+                0.3333333333333333,
+                0.3333333333333333
+              ],
+              "hi": [
+                1,
+                0.6666666666666666,
+                0.6666666666666666
+              ]
+            }
+          }
+        ],
+        "interpretation": "reconstruction-topology-defect"
+      },
+      {
+        "piece": 7,
+        "sourceVoxelComponents": 1,
+        "sourceVoxelCount": 16,
+        "shellCount": 2,
+        "shells": [
+          {
+            "id": 1,
+            "patches": 12,
+            "signedVolume": -0.14814814814814817,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0,
+                0.16666666666666666,
+                0
+              ],
+              "hi": [
+                0.3333333333333333,
+                1,
+                0.8333333333333334
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "patches": 1,
+            "signedVolume": -0.046296296296296294,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0,
+                0.6666666666666666,
+                0.16666666666666666
+              ],
+              "hi": [
+                0.3333333333333333,
+                1,
+                0.6666666666666666
+              ]
+            }
+          }
+        ],
+        "interpretation": "weak-edge-or-point-connection"
+      },
+      {
+        "piece": 8,
+        "sourceVoxelComponents": 1,
+        "sourceVoxelCount": 34,
+        "shellCount": 2,
+        "shells": [
+          {
+            "id": 1,
+            "patches": 31,
+            "signedVolume": -0.44290123456790226,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0,
+                0,
+                0.16666666666666666
+              ],
+              "hi": [
+                1,
+                0.6666666666666666,
+                1
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "patches": 1,
+            "signedVolume": -0.03549382716049382,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.3333333333333333,
+                0,
+                0.5
+              ],
+              "hi": [
+                0.6666666666666666,
+                0.3333333333333333,
+                0.8333333333333334
+              ]
+            }
+          }
+        ],
+        "interpretation": "weak-edge-or-point-connection"
+      }
+    ]
+  },
+  "gate": {
+    "topology": {
+      "zeroNonmanifold": true,
+      "zeroUnmatched": false,
+      "carrierSeamsDissolved": true,
+      "oneShellPerPiece": false,
+      "positiveVolume": true,
+      "pass": false
+    },
+    "geometric": {
+      "junctionRmsBelow01": false,
+      "mateRmsABelow01": false,
+      "mateRmsBBelow01": true,
+      "noResidualAbove03": false,
+      "pass": false
+    },
+    "cadReady": false,
+    "everyPieceNonempty": true,
+    "everyPieceConnectedSolid": false,
+    "zeroOpenEdges": false,
+    "zeroNonmanifold": true,
+    "zeroUnresolvedOpenings": false,
+    "cubeAClosed": false,
+    "cubeBClosed": false,
+    "bothAssembliesClosed": false,
+    "rhinoReady": false
+  }
+}

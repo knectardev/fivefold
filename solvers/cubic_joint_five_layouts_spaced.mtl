@@ -1,0 +1,66 @@
+# cell-puzzle family colors (same hues as the viewer kit swatches)
+# Rhino: keep this file next to the .obj and enable
+# “Set display color from OBJ material color”.
+
+newmtl p01_O_F1F1
+# #e53935
+Kd 0.8980 0.2235 0.2078
+Ka 0.1200 0.1200 0.1200
+Ks 0.0800 0.0800 0.0800
+Ns 8.0000
+d 1.0000
+illum 2
+
+newmtl p02_O_F1F2
+# #f9a825
+Kd 0.9765 0.6588 0.1451
+Ka 0.1200 0.1200 0.1200
+Ks 0.0800 0.0800 0.0800
+Ns 8.0000
+d 1.0000
+illum 2
+
+newmtl p03_L_F0F2
+# #43a047
+Kd 0.2627 0.6275 0.2784
+Ka 0.1200 0.1200 0.1200
+Ks 0.0800 0.0800 0.0800
+Ns 8.0000
+d 1.0000
+illum 2
+
+newmtl p04_L_F1F2
+# #00acc1
+Kd 0.0000 0.6745 0.7569
+Ka 0.1200 0.1200 0.1200
+Ks 0.0800 0.0800 0.0800
+Ns 8.0000
+d 1.0000
+illum 2
+
+newmtl p05_L_F3F3
+# #1e88e5
+Kd 0.1176 0.5333 0.8980
+Ka 0.1200 0.1200 0.1200
+Ks 0.0800 0.0800 0.0800
+Ns 8.0000
+d 1.0000
+illum 2
+
+newmtl p06_L_F3F4
+# #8e24aa
+Kd 0.5569 0.1412 0.6667
+Ka 0.1200 0.1200 0.1200
+Ks 0.0800 0.0800 0.0800
+Ns 8.0000
+d 1.0000
+illum 2
+
+newmtl p07_L_tromino
+# #f5f6fa
+Kd 0.9608 0.9647 0.9804
+Ka 0.1200 0.1200 0.1200
+Ks 0.0800 0.0800 0.0800
+Ns 8.0000
+d 1.0000
+illum 2

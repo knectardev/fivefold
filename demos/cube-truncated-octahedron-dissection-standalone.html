@@ -1,0 +1,2000 @@
+<!doctype html>
+<html lang="en" data-visualize-standalone>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Cube Truncated Octahedron Dissection</title>
+<style>:root {
+  color-scheme: light dark;
+  background-color: transparent !important;
+
+  /* Agent-facing contract; keep in sync with SKILL.md. */
+  --background: var(
+    --main-surface-primary,
+    light-dark(rgb(255 255 255), rgb(24 24 24))
+  );
+  --foreground: light-dark(rgb(26 28 31), rgb(255 255 255));
+  --card: color-mix(in oklab, var(--foreground) 5%, transparent);
+  --card-foreground: var(--foreground);
+  --popover: light-dark(rgb(255 255 255), rgb(45 45 45));
+  --popover-foreground: var(--foreground);
+  --primary: light-dark(rgb(51 156 255), rgb(131 195 255));
+  --primary-foreground: light-dark(rgb(255 255 255), rgb(13 13 13));
+  --secondary: light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%));
+  --secondary-foreground: var(--foreground);
+  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
+  --muted-foreground: light-dark(
+    rgb(26 28 31 / 49.4%),
+    rgb(255 255 255 / 49.8%)
+  );
+  --accent: light-dark(rgb(229 242 255), rgb(13 39 63));
+  --accent-foreground: var(--primary);
+  --destructive: light-dark(rgb(226 85 7), rgb(255 133 73));
+  --border: light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%));
+  --input: light-dark(
+    rgb(26 28 31 / 11.8%),
+    color-mix(in oklab, rgb(0 0 0) 10%, transparent)
+  );
+  --ring: light-dark(rgb(51 156 255), rgb(131 195 255 / 76%));
+  --font-size-base: 14px;
+  --red: light-dark(rgb(186 38 35), rgb(250 66 62));
+  --green: light-dark(rgb(0 162 64), rgb(64 201 119));
+
+  /* Internal implementation variables; not part of the agent contract. */
+  --font-sans: -apple-system, system-ui, "Segoe UI", sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+  --font-size-normal: max(11px, var(--font-size-base));
+  --font-size-tooltip: calc(var(--font-size-base) - 1px);
+  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
+  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
+  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
+  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
+  --font-weight-normal: 430;
+  --font-weight-medium: 500;
+  --line-height-normal: calc(var(--font-size-normal) * 1.5);
+  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
+  --line-height-small: calc(var(--font-size-small) + 4px);
+  --radius: 10px;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
+  --checkmark-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 17'%3E%3Cpath d='M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z'/%3E%3C/svg%3E");
+
+  /* Legacy aliases; not part of the current agent contract. */
+  --viz-bg: transparent;
+  --viz-panel: var(--card);
+  --viz-border: var(--border);
+  --viz-text: var(--foreground);
+  --viz-muted: var(--muted-foreground);
+  --viz-accent: var(--primary);
+  --viz-accent-text: var(--primary-foreground);
+  --viz-accent-bg: var(--accent);
+  --viz-font-size: var(--font-size-base);
+  --viz-warning: var(--destructive);
+  --color-background-primary: var(--background);
+  --color-text-primary: var(--foreground);
+  --color-border-secondary: var(--border);
+}
+
+:root[data-visualize-standalone] {
+  background-color: var(--background) !important;
+}
+
+/* Generic mobile code-block hosts provide light/dark mode but no series palette.
+   AppBlock hosts set all six variables themselves. */
+:root:not([data-app-block-surface]) {
+  --viz-series-1: var(--primary);
+  --viz-series-2: light-dark(#f3883b, #f59a56);
+  --viz-series-3: light-dark(#5dc977, #74d58b);
+  --viz-series-4: light-dark(#eb77b1, #f08fc0);
+  --viz-series-5: light-dark(#9b79ec, #aa91ef);
+  --viz-series-6: light-dark(#3ab9b1, #5acbc2);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html > body {
+  margin: 0;
+  padding: 5px;
+  color: var(--foreground);
+  background: transparent !important;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-normal);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+:root:not([data-app-block-surface]) > body {
+  padding: 12px;
+}
+
+a {
+  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+a:is(:hover, :focus-visible) {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-thickness: 0.5px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-block: 0;
+}
+
+h1 {
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+b,
+strong,
+th {
+  font-weight: var(--font-weight-medium);
+}
+
+code:not(pre code) {
+  display: inline;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  background: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  overflow-wrap: anywhere;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  word-break: break-word;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--foreground);
+  font: inherit;
+  text-align: start;
+}
+
+.table :is(th, td) {
+  padding-block: 10px;
+  padding-inline: 0 24px;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-responsive > .table :is(th, td) {
+  overflow-wrap: break-word;
+}
+
+.table :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+
+.table :is(caption, thead th) {
+  font-weight: 600;
+}
+
+.table thead th {
+  padding-block: 8px;
+  border-bottom-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.table tbody tr:last-child :is(th, td) {
+  border-bottom: 0;
+}
+
+.table.table-sm :is(th, td) {
+  padding-block: 6px;
+}
+
+.table.table-sm :is(th, td):not(:last-child) {
+  padding-inline-end: 16px;
+}
+
+.table :is(.text-end, [align="right"]) {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.table :is(.text-center, [align="center"]) {
+  text-align: center;
+}
+
+.table .text-nowrap {
+  white-space: nowrap;
+}
+
+#widget {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  background: transparent !important;
+}
+
+.card {
+  min-width: 0;
+  padding: 12px;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  border-radius: var(--radius-2xl);
+  color: var(--card-foreground);
+  background: var(--card);
+}
+
+#widget > :not(.card) {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: min(
+    20rem,
+    var(--tooltip-available-width, calc(100vw - 10px)),
+    calc(100vw - 10px)
+  );
+  max-height: min(
+    var(--tooltip-available-height, calc(100vh - 10px)),
+    calc(100vh - 10px)
+  );
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  color: var(--popover-foreground);
+  background: var(--popover);
+  box-shadow: none;
+  font-size: var(--font-size-tooltip);
+  line-height: var(--line-height-tooltip);
+  overflow-wrap: break-word;
+  white-space: normal;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* The bundled tooltip runtime owns [data-tooltip]. AppBlock's CSS-only
+   pseudo-tooltip can widen dense grids even while hidden. */
+main [data-tooltip]::after {
+  content: none;
+}
+
+.viz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
+  gap: 10px;
+}
+
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.viz-stat-value {
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+}
+
+.viz-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.viz-badge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  color: var(--accent-foreground);
+  background: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+small,
+.text-small,
+.viz-badge {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.text-muted {
+  color: var(--muted-foreground);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.viz-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.viz-controls > .form-label {
+  display: grid;
+  min-width: min(100%, 260px);
+  flex: 1 1 280px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2px 12px;
+  margin-bottom: 0;
+}
+
+.viz-controls > .form-label > :is(.form-control, .form-range, .form-select) {
+  grid-column: 1 / -1;
+}
+
+.btn,
+.form-check-input,
+.form-control,
+.form-range,
+.form-select {
+  font: inherit;
+}
+
+.btn {
+  appearance: button;
+  display: inline-flex;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0 8px;
+  -webkit-app-region: no-drag;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: var(--cursor-interaction, pointer);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.btn:is(.btn-block, .viz-tile) {
+  inline-size: 100%;
+}
+
+.btn.viz-tile {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+a.btn {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn-primary {
+  border-color: transparent;
+  color: var(--interactive-label-primary-default, var(--primary-foreground));
+  background: var(--interactive-bg-primary-default, var(--foreground));
+  background-clip: padding-box;
+}
+
+.btn-primary .text-muted {
+  color: color-mix(
+    in srgb,
+    var(--interactive-label-primary-default, var(--primary-foreground)) 50%,
+    transparent
+  );
+}
+
+.btn-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--foreground) 80%, transparent);
+  background-clip: padding-box;
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  color: var(--foreground);
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+[data-lucide] {
+  stroke-width: 1.6;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  padding: 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  color: var(--foreground);
+  background: var(--secondary);
+}
+
+.form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.form-control[type="file"] {
+  padding: 0;
+  overflow: hidden;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control[type="file"]::file-selector-button {
+  min-height: 26px;
+  margin-right: 8px;
+  padding: 0 8px;
+  border: 0;
+  border-right: 1px solid var(--input);
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  cursor: inherit;
+  font: inherit;
+}
+
+.form-control[type="file"]:not(:disabled):hover::file-selector-button {
+  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-control-color[type="color"] {
+  width: 40px;
+  height: 28px;
+  padding: 3px;
+  cursor: var(--cursor-interaction, pointer);
+}
+
+.form-control-color[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.form-control-color[type="color"]::-webkit-color-swatch {
+  border: 0;
+  border-radius: calc(var(--radius-lg) - 4px);
+}
+
+textarea.form-control {
+  height: auto;
+  min-height: 72px;
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.form-control:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.form-select {
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 0 32px 0 8px;
+  outline: none;
+  border: 1px solid var(--input);
+  border-radius: var(--radius-lg);
+  color: var(--foreground);
+  background-color: var(--secondary);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
+    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 50%,
+    calc(100% - 10px) 50%;
+  background-repeat: no-repeat;
+  background-size: 4px 4px;
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-select:not(:disabled):hover {
+  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
+}
+
+.form-select:focus-visible {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-check {
+  display: flex;
+  min-height: 20px;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-check-input {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  margin: 0;
+  border: 1px solid var(--input);
+  color: var(--primary-foreground);
+  background-color: transparent;
+  cursor: var(--cursor-interaction, default);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    box-shadow 150ms;
+}
+
+.form-check:not(.form-switch) .form-check-input[type="checkbox"] {
+  border-color: var(--input);
+  border-radius: var(--radius-sm);
+  background-color: var(--secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input:not(:disabled):not(:checked):hover {
+  background-color: var(--card);
+}
+
+.form-check:not(.form-switch) .form-check-input[type="checkbox"]:checked {
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
+
+.form-check:not(.form-switch)
+  .form-check-input[type="checkbox"]:checked::before {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary-foreground);
+  content: "";
+  mask: var(--checkmark-image) center / 12px 12px no-repeat;
+}
+
+.form-check-input[type="radio"] {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+}
+
+.form-check-input[type="radio"]:checked {
+  border: 2px solid var(--primary);
+  background:
+    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
+    var(--primary);
+}
+
+.form-check:not(.form-switch) .form-check-input:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+}
+
+.form-switch .form-check-input:disabled,
+.form-switch .form-check-input:disabled + .form-check-label {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.form-check-label {
+  color: var(--foreground);
+  cursor: var(--cursor-interaction, default);
+}
+
+.form-switch .form-check-input {
+  position: relative;
+  width: 32px;
+  height: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--muted);
+  box-shadow: none;
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+  box-shadow: var(--shadow-sm);
+  content: "";
+  transform: translate(2px, -50%);
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.form-switch .form-check-input:checked {
+  background: var(--primary);
+}
+
+.form-switch .form-check-input:checked::before {
+  transform: translate(14px, -50%);
+}
+
+.form-switch .form-check-input:focus-visible {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-range {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: 0;
+  accent-color: var(--primary);
+  background: linear-gradient(
+      color-mix(in srgb, var(--foreground) 7%, transparent),
+      color-mix(in srgb, var(--foreground) 7%, transparent)
+    )
+    center / 100% 2px no-repeat;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-webkit-slider-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range::-moz-range-track {
+  height: 28px;
+  background: transparent;
+}
+
+.form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  background: light-dark(var(--primary-foreground), var(--foreground));
+}
+
+.form-range:focus-visible::-moz-range-thumb {
+  border-color: var(--ring);
+  box-shadow: inset 0 0 0 1px var(--ring);
+}
+
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.btn:not(.btn-primary, .viz-tile):is(
+    [aria-pressed="true"],
+    [aria-selected="true"],
+    .is-selected
+  ) {
+  border-color: var(--primary);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn.viz-tile:is([aria-pressed="true"], [aria-selected="true"], .is-selected) {
+  border-color: var(--primary);
+  box-shadow: inset 0 0 0 1px var(--primary);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#widget > svg {
+  width: 100%;
+}
+
+.text-warning,
+.text-destructive {
+  color: var(--destructive);
+}
+</style>
+</head>
+<body>
+<div id="cube-to-truncated-octahedron-lab">
+  <div class="viz-controls" aria-label="Dissection controls">
+    <div class="viz-row" role="group" aria-label="Construction">
+      <button type="button" class="btn construction-button" data-cut="11" aria-pressed="true">11-piece translational</button>
+      <button type="button" class="btn construction-button" data-cut="22" aria-pressed="false">22-piece lattice</button>
+    </div>
+    <div class="viz-row" role="group" aria-label="Assembly mode">
+      <button type="button" class="btn mode-button" data-mode="inventory" aria-pressed="true">Inventory</button>
+      <button type="button" class="btn mode-button" data-mode="cube" aria-pressed="false">Cube</button>
+      <button type="button" class="btn mode-button" data-mode="target" aria-pressed="false">Truncated octahedron</button>
+    </div>
+    <label class="form-label separation-control">
+      <span>Separation <span class="text-muted separation-value">18%</span></span>
+      <input class="form-range separation-range" type="range" min="0" max="100" value="18">
+    </label>
+    <label class="form-label opacity-control">
+      <span>Opacity <span class="text-muted opacity-value">92%</span></span>
+      <input class="form-range opacity-range" type="range" min="35" max="100" value="92">
+    </label>
+    <label class="form-check form-switch">
+      <input class="form-check-input guide-toggle" id="cto-guides" type="checkbox" checked>
+      <span class="form-check-label">Guide</span>
+    </label>
+    <label class="form-check form-switch">
+      <input class="form-check-input rotate-toggle" id="cto-rotate" type="checkbox">
+      <span class="form-check-label">Auto rotate</span>
+    </label>
+    <div class="export-panel">
+      <label class="form-label export-scale-control">
+        <span>Cube edge <span class="text-muted">millimetres</span></span>
+        <input class="form-control export-size" type="number" min="1" max="1000" step="1" value="40" inputmode="decimal">
+      </label>
+      <div class="viz-row" role="group" aria-label="Mesh export">
+        <button type="button" class="btn export-selected" disabled>Selected STL</button>
+        <button type="button" class="btn btn-primary export-all">All 11 STL (.zip)</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="lab-stage">
+      <canvas class="lab-canvas" role="img" aria-label="Eleven rigid pieces arranged as an inventory"></canvas>
+      <div class="stage-badge viz-badge">11-piece translational cut</div>
+      <div class="selected-readout text-small" aria-live="polite">Select a piece to inspect it</div>
+    </div>
+  </div>
+
+  <div class="lab-footer text-small">
+    <span class="mode-readout">Separated inventory</span>
+    <span class="text-muted">
+      <span class="construction-prefix">Σ digitized volume</span>
+      <span class="volume-readout">1.000048</span>
+      <span class="construction-suffix">· translations only · closure 2×10⁻⁴</span>
+    </span>
+    <span class="text-muted export-status" aria-live="polite"></span>
+  </div>
+</div>
+
+<style>
+  #cube-to-truncated-octahedron-lab {
+    width: 100%;
+    color: var(--foreground);
+  }
+
+  #cube-to-truncated-octahedron-lab .viz-controls {
+    margin-bottom: 12px;
+  }
+
+  #cube-to-truncated-octahedron-lab .form-label {
+    min-width: 150px;
+  }
+
+  #cube-to-truncated-octahedron-lab .form-label > span:first-child {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  #cube-to-truncated-octahedron-lab .lab-stage {
+    position: relative;
+    overflow: hidden;
+    height: 520px;
+  }
+
+  #cube-to-truncated-octahedron-lab .lab-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+  }
+
+  #cube-to-truncated-octahedron-lab .stage-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    pointer-events: none;
+  }
+
+  #cube-to-truncated-octahedron-lab .selected-readout {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    max-width: calc(100% - 24px);
+    padding: 6px 9px;
+    color: var(--card-foreground);
+    background: color-mix(in srgb, var(--card) 88%, transparent);
+    pointer-events: none;
+  }
+
+  #cube-to-truncated-octahedron-lab .lab-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  #cube-to-truncated-octahedron-lab .export-panel[hidden] {
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    #cube-to-truncated-octahedron-lab .lab-stage {
+      height: 430px;
+    }
+
+    #cube-to-truncated-octahedron-lab .form-label {
+      min-width: 132px;
+    }
+  }
+</style>
+
+<script type="module">
+  import * as THREE from "https://esm.sh/three@0.180.0";
+  import JSZip from "https://esm.sh/jszip@3.10.1";
+  import { OrbitControls } from "https://esm.sh/three@0.180.0/examples/jsm/controls/OrbitControls.js";
+  import { ConvexGeometry } from "https://esm.sh/three@0.180.0/examples/jsm/geometries/ConvexGeometry.js";
+  import { STLExporter } from "https://esm.sh/three@0.180.0/examples/jsm/exporters/STLExporter.js";
+
+  const root = document.getElementById("cube-to-truncated-octahedron-lab");
+  const canvas = root.querySelector(".lab-canvas");
+  const stage = root.querySelector(".lab-stage");
+  const separationRange = root.querySelector(".separation-range");
+  const opacityRange = root.querySelector(".opacity-range");
+  const separationValue = root.querySelector(".separation-value");
+  const opacityValue = root.querySelector(".opacity-value");
+  const guideToggle = root.querySelector(".guide-toggle");
+  const rotateToggle = root.querySelector(".rotate-toggle");
+  const modeReadout = root.querySelector(".mode-readout");
+  const volumeReadout = root.querySelector(".volume-readout");
+  const selectedReadout = root.querySelector(".selected-readout");
+  const stageBadge = root.querySelector(".stage-badge");
+  const constructionPrefix = root.querySelector(".construction-prefix");
+  const constructionSuffix = root.querySelector(".construction-suffix");
+  const exportPanel = root.querySelector(".export-panel");
+  const exportSize = root.querySelector(".export-size");
+  const exportSelectedButton = root.querySelector(".export-selected");
+  const exportAllButton = root.querySelector(".export-all");
+  const exportStatus = root.querySelector(".export-status");
+  const modeButtons = [...root.querySelectorAll(".mode-button")];
+  const constructionButtons = [...root.querySelectorAll(".construction-button")];
+
+  const EPSILON = 1e-7;
+  const q = Math.pow(32, -1 / 3);
+  const brickDimensions = [4 * q, 4 * q, 2 * q];
+  const sortedDimensions = [2 * q, 4 * q, 4 * q];
+  const cubeShift = [0.04902917, 0.19476811, 0.23884163];
+  const cubeBasisRows = [
+    [-0.76579776, -0.21583906, -0.60577825],
+    [0.56277631, 0.23089821, -0.79370576],
+    [0.31118582, -0.94873575, -0.05535223]
+  ];
+
+  function cssColor(name, fallback) {
+    const value = getComputedStyle(root).getPropertyValue(name).trim();
+    return value || fallback;
+  }
+
+  function add(a, b) {
+    return [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
+  }
+
+  function subtract(a, b) {
+    return [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+  }
+
+  function scale(a, amount) {
+    return [a[0] * amount, a[1] * amount, a[2] * amount];
+  }
+
+  function dot(a, b) {
+    return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+  }
+
+  function cross(a, b) {
+    return [
+      a[1] * b[2] - a[2] * b[1],
+      a[2] * b[0] - a[0] * b[2],
+      a[0] * b[1] - a[1] * b[0]
+    ];
+  }
+
+  function length(a) {
+    return Math.hypot(a[0], a[1], a[2]);
+  }
+
+  function normalize(a) {
+    const amount = length(a);
+    return amount > EPSILON ? scale(a, 1 / amount) : [0, 0, 0];
+  }
+
+  function distance(a, b) {
+    return length(subtract(a, b));
+  }
+
+  function determinant3(matrix) {
+    return dot(matrix[0], cross(matrix[1], matrix[2]));
+  }
+
+  function solve3(matrix, values) {
+    const det = determinant3(matrix);
+    if (Math.abs(det) < 1e-10) return null;
+    const c0 = [matrix[0][0], matrix[1][0], matrix[2][0]];
+    const c1 = [matrix[0][1], matrix[1][1], matrix[2][1]];
+    const c2 = [matrix[0][2], matrix[1][2], matrix[2][2]];
+    return [
+      dot(values, cross(c1, c2)) / det,
+      dot(c0, cross(values, c2)) / det,
+      dot(c0, cross(c1, values)) / det
+    ];
+  }
+
+  function rowTimesMatrix(vector, matrix) {
+    return [
+      vector[0] * matrix[0][0] + vector[1] * matrix[1][0] + vector[2] * matrix[2][0],
+      vector[0] * matrix[0][1] + vector[1] * matrix[1][1] + vector[2] * matrix[2][1],
+      vector[0] * matrix[0][2] + vector[1] * matrix[1][2] + vector[2] * matrix[2][2]
+    ];
+  }
+
+  function multiplyMatrices(a, b) {
+    return a.map((row) => [0, 1, 2].map((column) => (
+      row[0] * b[0][column] + row[1] * b[1][column] + row[2] * b[2][column]
+    )));
+  }
+
+  function plane(normal, distanceValue) {
+    return { n: normal, d: distanceValue };
+  }
+
+  function cleanPlanes(planes) {
+    const result = [];
+    planes.forEach((item) => {
+      const magnitude = length(item.n);
+      if (magnitude < EPSILON) return;
+      const normalizedPlane = {
+        n: scale(item.n, 1 / magnitude),
+        d: item.d / magnitude
+      };
+      const duplicate = result.find((old) => (
+        distance(old.n, normalizedPlane.n) < 1e-7 &&
+        Math.abs(old.d - normalizedPlane.d) < 1e-7
+      ));
+      if (!duplicate) result.push(normalizedPlane);
+    });
+    return result;
+  }
+
+  function buildPolyhedron(inputPlanes) {
+    const planes = cleanPlanes(inputPlanes);
+    const vertices = [];
+    for (let i = 0; i < planes.length - 2; i += 1) {
+      for (let j = i + 1; j < planes.length - 1; j += 1) {
+        for (let k = j + 1; k < planes.length; k += 1) {
+          const point = solve3(
+            [planes[i].n, planes[j].n, planes[k].n],
+            [planes[i].d, planes[j].d, planes[k].d]
+          );
+          if (!point) continue;
+          const inside = planes.every((boundary) => dot(boundary.n, point) <= boundary.d + 2e-7);
+          if (!inside) continue;
+          if (!vertices.some((old) => distance(old, point) < 2e-6)) vertices.push(point);
+        }
+      }
+    }
+    if (vertices.length < 4) return null;
+
+    const centroid = vertices.reduce((sum, point) => add(sum, point), [0, 0, 0]);
+    const center = scale(centroid, 1 / vertices.length);
+    const triangles = [];
+    const faces = [];
+
+    planes.forEach((boundary) => {
+      const ids = vertices
+        .map((point, index) => ({ point, index }))
+        .filter((entry) => Math.abs(dot(boundary.n, entry.point) - boundary.d) < 3e-6)
+        .map((entry) => entry.index);
+      if (ids.length < 3) return;
+      const faceCenter = ids
+        .map((index) => vertices[index])
+        .reduce((sum, point) => add(sum, point), [0, 0, 0]);
+      const faceOrigin = scale(faceCenter, 1 / ids.length);
+      const normal = normalize(boundary.n);
+      const reference = Math.abs(normal[0]) < 0.8 ? [1, 0, 0] : [0, 1, 0];
+      const axisU = normalize(cross(reference, normal));
+      const axisV = cross(normal, axisU);
+      ids.sort((left, right) => {
+        const a = subtract(vertices[left], faceOrigin);
+        const b = subtract(vertices[right], faceOrigin);
+        const angleA = Math.atan2(dot(a, axisV), dot(a, axisU));
+        const angleB = Math.atan2(dot(b, axisV), dot(b, axisU));
+        return angleA - angleB;
+      });
+      faces.push(ids);
+      for (let index = 1; index < ids.length - 1; index += 1) {
+        triangles.push([ids[0], ids[index], ids[index + 1]]);
+      }
+    });
+
+    let signedVolume = 0;
+    triangles.forEach((triangle) => {
+      const a = subtract(vertices[triangle[0]], center);
+      const b = subtract(vertices[triangle[1]], center);
+      const c = subtract(vertices[triangle[2]], center);
+      signedVolume += dot(a, cross(b, c)) / 6;
+    });
+    const volume = Math.abs(signedVolume);
+    if (volume < 1e-7) return null;
+    return { vertices, faces, triangles, center, volume, planes };
+  }
+
+  function boxPlanes(dimensions) {
+    const result = [];
+    for (let axis = 0; axis < 3; axis += 1) {
+      const normal = [0, 0, 0];
+      normal[axis] = 1;
+      result.push(plane(normal, dimensions[axis]));
+      result.push(plane(scale(normal, -1), 0));
+    }
+    return result;
+  }
+
+  function integerTriples(min, max) {
+    const result = [];
+    for (let x = min; x <= max; x += 1) {
+      for (let y = min; y <= max; y += 1) {
+        for (let z = min; z <= max; z += 1) result.push([x, y, z]);
+      }
+    }
+    return result;
+  }
+
+  const basePlanes = boxPlanes(brickDimensions);
+  const targetPlanes = [];
+  for (let axis = 0; axis < 3; axis += 1) {
+    const normal = [0, 0, 0];
+    normal[axis] = 1;
+    targetPlanes.push(plane(normal, 2 * q));
+    targetPlanes.push(plane(scale(normal, -1), 2 * q));
+  }
+  [-1, 1].forEach((x) => {
+    [-1, 1].forEach((y) => {
+      [-1, 1].forEach((z) => targetPlanes.push(plane([x, y, z], 3 * q)));
+    });
+  });
+
+  const targetLattice = [
+    [4 * q, 0, 0],
+    [0, 4 * q, 0],
+    [2 * q, 2 * q, 2 * q]
+  ];
+
+  const targetPartitions = [];
+  integerTriples(-2, 2).forEach((coords) => {
+    const offset = rowTimesMatrix(coords, targetLattice);
+    const shiftedTargetPlanes = targetPlanes.map((boundary) => (
+      plane(boundary.n, boundary.d - dot(boundary.n, offset))
+    ));
+    const planes = [...basePlanes, ...shiftedTargetPlanes];
+    const polyhedron = buildPolyhedron(planes);
+    if (polyhedron) targetPartitions.push({ offset, planes, polyhedron });
+  });
+
+  const b21 = -Math.sqrt(Math.pow(sortedDimensions[1] * sortedDimensions[2], 2) - 1) / sortedDimensions[2];
+  const b32 = Math.sqrt(sortedDimensions[2] * sortedDimensions[2] - 1);
+  const brickLattice = [
+    [1, 0, 0],
+    [b21, 1, 0],
+    [0, b32, 1]
+  ];
+
+  const reverseRows = [];
+  for (let rowIndex = 2; rowIndex >= 0; rowIndex -= 1) {
+    let row = [...brickLattice[rowIndex]];
+    reverseRows.forEach((old) => {
+      row = subtract(row, scale(old, dot(row, old) / dot(old, old)));
+    });
+    reverseRows.push(row);
+  }
+  const orthogonalRows = reverseRows.reverse();
+  const directions = orthogonalRows.map((row, index) => scale(row, 1 / sortedDimensions[index]));
+  const permutation = [
+    [0, 1, 0],
+    [0, 0, 1],
+    [1, 0, 0]
+  ];
+  const cubeRotationRows = multiplyMatrices(permutation, directions);
+
+  const cubePartitions = [];
+  integerTriples(-2, 2).forEach((coords) => {
+    const offset = rowTimesMatrix(coords, brickLattice);
+    const planes = [...basePlanes];
+    for (let axis = 0; axis < 3; axis += 1) {
+      const normal = [cubeRotationRows[0][axis], cubeRotationRows[1][axis], cubeRotationRows[2][axis]];
+      planes.push(plane(normal, offset[axis] + 1 - cubeShift[axis]));
+      planes.push(plane(scale(normal, -1), -offset[axis] + cubeShift[axis]));
+    }
+    const polyhedron = buildPolyhedron(planes);
+    if (polyhedron) cubePartitions.push({ offset, planes, polyhedron });
+  });
+
+  const latticePieceData = [];
+  targetPartitions.forEach((targetPart, targetIndex) => {
+    cubePartitions.forEach((cubePart) => {
+      const planes = [...targetPart.planes];
+      for (let axis = 0; axis < 3; axis += 1) {
+        const normal = [cubeRotationRows[0][axis], cubeRotationRows[1][axis], cubeRotationRows[2][axis]];
+        planes.push(plane(normal, cubePart.offset[axis] + 1 - cubeShift[axis]));
+        planes.push(plane(scale(normal, -1), -cubePart.offset[axis] + cubeShift[axis]));
+      }
+      const polyhedron = buildPolyhedron(planes);
+      if (polyhedron) {
+        latticePieceData.push({
+          ...polyhedron,
+          targetOffset: targetPart.offset,
+          cubeOffset: cubePart.offset,
+          group: targetIndex
+        });
+      }
+    });
+  });
+
+  latticePieceData.sort((a, b) => b.volume - a.volume);
+
+  // Gavin Theobald's exact translational 11-piece construction, numerically
+  // reconstructed from the published vector drawing. Every row is one rigid
+  // convex solid; targetOffset and cubeOffset are translations only.
+  const rawTheobaldPieces = [
+    { id: 1, vertices: [[-0.130015415,-0.581169093,-0.133604665],[0.061019052,-0.390179945,0.248373596],[-0.253987622,-0.075175612,0.24838026],[0.061011626,0.239775852,0.248372497],[0.375996373,-0.075208142,0.248378673],[0.498194947,0.046959822,0.003991905],[-0.433087742,-0.075188441,0.06926261],[0.061002946,0.350145777,0.138019283],[0.219934617,0.415330285,-0.086142555],[-0.172028279,0.304874415,-0.396184076],[-0.345235886,0.233815296,-0.151890557],[0.057195385,-0.393980214,-0.436956972]], targetOffset: [-0.060927762,0.075115268,0.381739042], cubeOffset: [-0.085104735,0.177052796,-0.275865968] },
+    { id: 2, vertices: [[0.40309618,-0.051523727,-0.046424768],[0.100884575,-0.175512358,0.379795433],[-0.129716194,-0.234248545,0.090514164],[0.00618125,-0.017430449,0.443190136],[0.185274987,0.612497966,-0.007674085],[-0.129708629,-0.017441118,0.307286254],[-0.12971462,0.297534628,-0.007648261],[-0.129712722,-0.017439325,-0.322634729],[-0.076101828,-0.017455706,-0.376258061],[-0.129710316,-0.222100439,-0.118005451],[0.029227317,-0.156880926,-0.342140632]], targetOffset: [-0.500205739,0.017368341,0.007794687], cubeOffset: [0.416823517,-0.199488386,-0.075218046] },
+    { id: 3, vertices: [[-0.084049469,0.129940357,0.616162754],[0.230929606,0.129938384,0.301181094],[0.230943072,0.444896833,-0.01377089],[0.230929344,-0.08687137,0.084368765],[0.230926969,0.129896036,-0.328752652],[0.230923261,-0.0747152,-0.12411934],[-0.246293344,-0.261090494,0.387361864],[-0.564884493,-0.350865151,0.135350752],[-0.175324227,-0.191035018,-0.414045396],[-0.08410072,0.129905621,-0.643736951]], targetOffset: [0.398964361,-0.129837231,0.013613062], cubeOffset: [0.056199142,-0.346842612,-0.069071429] },
+    { id: 4, vertices: [[0.182316468,-0.241723759,0.345587757],[-0.109508828,-0.533534072,0.053760376],[0.375099267,-0.048963838,-0.039995532],[-0.201262363,0.266058815,0.221355807],[-0.119017383,0.266039805,-0.21912498],[0.060108566,0.26602749,-0.040012862],[-0.371812853,0.266057061,0.100434051],[0.184077127,-0.239961501,-0.422004617]], targetOffset: [0.254884129,0.363929879,0.039980013], cubeOffset: [-0.399182799,-0.16416596,0.012507188] },
+    { id: 5, vertices: [[-0.095900945,-0.156285653,0.349652837],[-0.144850306,-0.007140129,0.358360905],[-0.294012573,-0.156277961,0.209207967],[0.156850802,-0.156304739,0.030104243],[0.335967431,0.473644495,-0.42075552],[0.020979109,-0.156288794,-0.105803997],[0.020966481,0.15865278,-0.420766435]], targetOffset: [-0.020986817,-0.473671162,-0.209187659], cubeOffset: [0.266145618,-0.060603815,0.337852208] },
+    { id: 6, vertices: [[0.041604177,-0.1361302,0.278933618],[-0.045296189,0.12887334,0.29440452],[0.302144541,-0.02921666,-0.088511725],[-0.405642468,-0.26216118,-0.074823962],[-0.24340254,0.128874532,0.153969535],[0.207456749,0.128852785,-0.025141842],[0.071579639,0.128868736,-0.161006311],[0.071556092,-0.087961353,-0.377823832]], targetOffset: [-0.07161683,0.50114994,-0.154053382], cubeOffset: [0.215546723,-0.345770026,0.393111505] },
+    { id: 7, vertices: [[0.477419172,0.04599585,-0.0237233],[0.183830029,-0.247572794,0.45203572],[-0.154326321,-0.585718422,0.11387355],[0.008466553,0.287020992,0.48322142],[0.038439359,-0.392944083,-0.271687891],[-0.537893977,-0.077949613,-0.010337464],[-0.276543392,-0.077962546,-0.271690329],[-0.438749053,0.161000798,0.129483561],[0.038467012,0.335185731,-0.173537435],[0.038428996,0.237015333,-0.271694494],[0.353435648,-0.077988973,-0.271701199],[0.269025974,0.393917728,0.115757861]], targetOffset: [-0.038534626,0.078017992,-0.358406581], cubeOffset: [-0.06252795,0.179820517,0.244190069] },
+    { id: 8, vertices: [[0.352218603,-0.015739709,-0.050396871],[0.165009129,-0.202930222,0.252957921],[0.041021944,-0.326910538,0.004973167],[-0.043382006,0.144989115,0.392442948],[0.258823535,0.268985215,-0.033788613],[-0.115027121,0.163612258,-0.329524287],[0.163221835,-0.204744196,-0.239411134],[-0.273961405,-0.011928264,0.004969609],[-0.273967257,0.086240482,0.103136833],[-0.273957257,0.098425859,-0.105359573]], targetOffset: [-0.355999915,-0.303058298,-0.004966654], cubeOffset: [0.249867557,0.428757823,-0.032464464] },
+    { id: 9, vertices: [[-0.010724314,0.125992535,0.262720906],[-0.010718663,-0.18898604,-0.052258531],[0.042886886,-0.188995839,-0.105891876],[-0.325732606,-0.188986717,-0.367270998],[0.304288698,0.440976061,0.2627005]], targetOffset: [0.010731796,-0.440953987,0.367234723], cubeOffset: [0.297827496,-0.027939255,-0.345597919] },
+    { id: 10, vertices: [[0.066159903,-0.185060035,-0.036064576],[0.381156815,0.129936654,-0.036061228],[0.381150468,0.240261356,-0.146425559],[0.38116434,0.228095592,0.062077138],[-0.195185233,-0.185053812,0.225298496],[-0.365704229,-0.185045338,0.104397308],[-0.112949926,-0.185067574,-0.215146497],[-0.096044469,0.053901722,0.365111728],[-0.025093044,0.123929973,-0.436290247],[-0.414654625,-0.035898539,0.113103436]], targetOffset: [0.248737154,-0.444813787,0.035919281], cubeOffset: [-0.405231645,0.286918497,0.008563569] },
+    { id: 11, vertices: [[0.105960257,-0.073918741,0.290111334],[0.264894192,-0.00873702,0.065953737],[-0.20906171,0.130699601,-0.229502504],[0.10596037,0.130696925,0.085471286],[0.159597341,0.130697439,0.031858377],[-0.300279994,-0.190247472,0.000198836],[-0.127070456,-0.119190732,-0.244091066]], targetOffset: [-0.105890312,0.499186236,0.229637177], cubeOffset: [0.181154938,-0.347630194,-0.483315608] }
+  ];
+
+  function volumeOfGeometry(geometry) {
+    const position = geometry.getAttribute("position");
+    let signedVolume = 0;
+    for (let index = 0; index < position.count; index += 3) {
+      const a = [position.getX(index), position.getY(index), position.getZ(index)];
+      const b = [position.getX(index + 1), position.getY(index + 1), position.getZ(index + 1)];
+      const c = [position.getX(index + 2), position.getY(index + 2), position.getZ(index + 2)];
+      signedVolume += dot(a, cross(b, c)) / 6;
+    }
+    return Math.abs(signedVolume);
+  }
+
+  const theobaldPieceData = rawTheobaldPieces.map((item) => {
+    const center = scale(item.vertices.reduce((sum, vertex) => add(sum, vertex), [0, 0, 0]), 1 / item.vertices.length);
+    const points = item.vertices.map((vertex) => new THREE.Vector3(...subtract(vertex, center)));
+    const testGeometry = new ConvexGeometry(points);
+    const volume = volumeOfGeometry(testGeometry);
+    testGeometry.dispose();
+    return { ...item, center, volume, group: item.id - 1 };
+  });
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(37, 1, 0.05, 50);
+  camera.position.set(4.2, 3.1, 5.8);
+
+  const controls = new OrbitControls(camera, canvas);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.08;
+  controls.minDistance = 1.8;
+  controls.maxDistance = 10;
+  controls.target.set(0, 0, 0);
+
+  scene.add(new THREE.HemisphereLight(
+    cssColor("--card", "#d8e2ea"),
+    cssColor("--muted", "#33424e"),
+    1.7
+  ));
+  const keyLight = new THREE.DirectionalLight(cssColor("--foreground", "#ffffff"), 2.6);
+  keyLight.position.set(3, 5, 4);
+  keyLight.castShadow = true;
+  scene.add(keyLight);
+  const fillLight = new THREE.DirectionalLight(cssColor("--viz-series-2", "#78b6ce"), 1.1);
+  fillLight.position.set(-4, 1, -2);
+  scene.add(fillLight);
+
+  const pieceRoot = new THREE.Group();
+  scene.add(pieceRoot);
+  const guideRoot = new THREE.Group();
+  scene.add(guideRoot);
+
+  function geometryFromPolyhedron(data) {
+    const positions = [];
+    data.triangles.forEach((triangle) => {
+      triangle.forEach((vertexIndex) => {
+        const local = subtract(data.vertices[vertexIndex], data.center);
+        positions.push(local[0], local[1], local[2]);
+      });
+    });
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+    geometry.computeVertexNormals();
+    geometry.computeBoundingSphere();
+    return geometry;
+  }
+
+  function geometryFromConvexPiece(data) {
+    return new ConvexGeometry(data.vertices.map((vertex) => (
+      new THREE.Vector3(...subtract(vertex, data.center))
+    )));
+  }
+
+  const seriesColors = [1, 2, 3, 4, 5].map((index) => (
+    cssColor(`--viz-series-${index}`, cssColor("--primary", "#4b8da8"))
+  ));
+  const edgeColor = cssColor("--foreground", "#172733");
+  const stlExporter = new STLExporter();
+  let pieces = [];
+  let pieceData = [];
+  let construction = new URLSearchParams(window.location.search).get("cut") === "22" ? "22" : "11";
+
+  function createPieceMeshes(dataList, useConvexHull) {
+    return dataList.map((data, index) => {
+    const group = new THREE.Group();
+    const geometry = useConvexHull ? geometryFromConvexPiece(data) : geometryFromPolyhedron(data);
+    const material = new THREE.MeshStandardMaterial({
+      color: seriesColors[data.group % seriesColors.length],
+      roughness: 0.54,
+      metalness: 0.04,
+      transparent: true,
+      opacity: 0.92,
+      side: THREE.DoubleSide,
+      polygonOffset: true,
+      polygonOffsetFactor: 1,
+      polygonOffsetUnits: 1
+    });
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    mesh.userData.pieceIndex = index;
+    group.add(mesh);
+
+    const outlineMaterial = new THREE.LineBasicMaterial({
+      color: edgeColor,
+      transparent: true,
+      opacity: 0.48
+    });
+    const outline = new THREE.LineSegments(new THREE.EdgesGeometry(geometry, 10), outlineMaterial);
+    outline.userData.pieceIndex = index;
+    group.add(outline);
+    pieceRoot.add(group);
+    return {
+      data,
+      group,
+      mesh,
+      outline,
+      material,
+      outlineMaterial,
+      targetPosition: new THREE.Vector3(),
+      targetQuaternion: new THREE.Quaternion(),
+      tweenStartPosition: new THREE.Vector3(),
+      tweenStartQuaternion: new THREE.Quaternion(),
+      tweenStartedAt: performance.now()
+    };
+    });
+  }
+
+  function disposePieces() {
+    pieces.forEach((piece) => {
+      pieceRoot.remove(piece.group);
+      piece.mesh.geometry.dispose();
+      piece.outline.geometry.dispose();
+      piece.material.dispose();
+      piece.outlineMaterial.dispose();
+    });
+    pieces = [];
+  }
+
+  const latticeCubeMatrix = new THREE.Matrix4().set(
+    cubeRotationRows[0][0], cubeRotationRows[1][0], cubeRotationRows[2][0], 0,
+    cubeRotationRows[0][1], cubeRotationRows[1][1], cubeRotationRows[2][1], 0,
+    cubeRotationRows[0][2], cubeRotationRows[1][2], cubeRotationRows[2][2], 0,
+    0, 0, 0, 1
+  );
+  const latticeCubeQuaternion = new THREE.Quaternion().setFromRotationMatrix(latticeCubeMatrix);
+  const theobaldCubeMatrix = new THREE.Matrix4().set(
+    cubeBasisRows[0][0], cubeBasisRows[1][0], cubeBasisRows[2][0], 0,
+    cubeBasisRows[0][1], cubeBasisRows[1][1], cubeBasisRows[2][1], 0,
+    cubeBasisRows[0][2], cubeBasisRows[1][2], cubeBasisRows[2][2], 0,
+    0, 0, 0, 1
+  );
+  const theobaldCubeQuaternion = new THREE.Quaternion().setFromRotationMatrix(theobaldCubeMatrix);
+  const identityQuaternion = new THREE.Quaternion();
+
+  const guideMaterial = new THREE.LineBasicMaterial({
+    color: cssColor("--muted-foreground", edgeColor),
+    transparent: true,
+    opacity: 0.54
+  });
+  const cubeGuide = new THREE.LineSegments(
+    new THREE.EdgesGeometry(new THREE.BoxGeometry(1, 1, 1)),
+    guideMaterial
+  );
+  guideRoot.add(cubeGuide);
+
+  const targetGuideData = buildPolyhedron(targetPlanes);
+  const targetGuide = new THREE.LineSegments(
+    new THREE.EdgesGeometry(geometryFromPolyhedron(targetGuideData), 10),
+    guideMaterial
+  );
+  targetGuide.position.set(...targetGuideData.center);
+  guideRoot.add(targetGuide);
+
+  let mode = "inventory";
+  let selectedIndex = null;
+  let cameraTween = null;
+  const raycaster = new THREE.Raycaster();
+  const pointer = new THREE.Vector2();
+
+  function inventoryPose(index) {
+    const columns = construction === "11" ? 4 : 6;
+    const column = index % columns;
+    const row = Math.floor(index / columns);
+    const x = construction === "11" ? (column - 1.5) * 1.04 : (column - 2.5) * 0.72;
+    const y = construction === "11" ? (1 - row) * 1.02 : (1.5 - row) * 0.76;
+    const z = ((index % 3) - 1) * 0.08;
+    const quaternion = new THREE.Quaternion().setFromEuler(new THREE.Euler(
+      (row - (construction === "11" ? 1 : 1.5)) * 0.09,
+      (column - (construction === "11" ? 1.5 : 2.5)) * 0.12,
+      ((index % 2) - 0.5) * 0.08
+    ));
+    return { position: new THREE.Vector3(x, y, z), quaternion };
+  }
+
+  function assembledPose(piece, requestedMode) {
+    const center = piece.data.center;
+    if (requestedMode === "target" || construction === "11") {
+      const offset = requestedMode === "target" ? piece.data.targetOffset : piece.data.cubeOffset;
+      return {
+        position: new THREE.Vector3(
+          center[0] + offset[0],
+          center[1] + offset[1],
+          center[2] + offset[2]
+        ),
+        quaternion: identityQuaternion.clone()
+      };
+    }
+    const rotatedCenter = rowTimesMatrix(center, cubeRotationRows);
+    return {
+      position: new THREE.Vector3(
+        rotatedCenter[0] + cubeShift[0] - piece.data.cubeOffset[0] - 0.5,
+        rotatedCenter[1] + cubeShift[1] - piece.data.cubeOffset[1] - 0.5,
+        rotatedCenter[2] + cubeShift[2] - piece.data.cubeOffset[2] - 0.5
+      ),
+      quaternion: latticeCubeQuaternion.clone()
+    };
+  }
+
+  function explodedPosition(position, requestedMode, amount) {
+    if (requestedMode === "inventory") return position.clone().multiplyScalar(1 + amount * 0.18);
+    const direction = position.clone();
+    if (direction.lengthSq() < 1e-8) direction.set(0, 1, 0);
+    return position.clone().add(direction.normalize().multiplyScalar(amount * 0.72));
+  }
+
+  function retargetPieces(animate = true) {
+    const separation = Number(separationRange.value) / 100;
+    const now = performance.now();
+    pieces.forEach((piece, index) => {
+      const pose = mode === "inventory" ? inventoryPose(index) : assembledPose(piece, mode);
+      piece.tweenStartPosition.copy(piece.group.position);
+      piece.tweenStartQuaternion.copy(piece.group.quaternion);
+      piece.targetPosition.copy(explodedPosition(pose.position, mode, separation));
+      piece.targetQuaternion.copy(pose.quaternion);
+      piece.tweenStartedAt = animate ? now : now - 1000;
+    });
+  }
+
+  function setCameraForMode(requestedMode) {
+    const destination = requestedMode === "inventory"
+      ? new THREE.Vector3(4.2, 3.1, 5.8)
+      : new THREE.Vector3(2.35, 1.75, 2.85);
+    cameraTween = {
+      from: camera.position.clone(),
+      to: destination,
+      startedAt: performance.now()
+    };
+  }
+
+  function setMode(nextMode, animate = true) {
+    mode = nextMode;
+    modeButtons.forEach((button) => {
+      const pressed = button.dataset.mode === mode;
+      button.setAttribute("aria-pressed", String(pressed));
+      button.classList.toggle("btn-primary", pressed);
+    });
+    const labels = {
+      inventory: "Separated inventory",
+      cube: "Watertight unit cube",
+      target: "Regular truncated octahedron"
+    };
+    modeReadout.textContent = labels[mode];
+    canvas.setAttribute("aria-label", `${pieceData.length} rigid pieces shown in ${labels[mode].toLowerCase()} mode`);
+    cubeGuide.visible = guideToggle.checked && mode === "cube";
+    targetGuide.visible = guideToggle.checked && mode === "target";
+    retargetPieces(animate);
+    if (animate) setCameraForMode(mode);
+  }
+
+  function updateOpacity() {
+    const opacity = Number(opacityRange.value) / 100;
+    opacityValue.textContent = `${Math.round(opacity * 100)}%`;
+    pieces.forEach((piece, index) => {
+      piece.material.opacity = index === selectedIndex ? 1 : opacity;
+      piece.outlineMaterial.opacity = index === selectedIndex ? 0.95 : 0.48;
+    });
+  }
+
+  function selectPiece(index) {
+    selectedIndex = index;
+    exportSelectedButton.disabled = index === null || construction !== "11";
+    updateOpacity();
+    if (index === null) {
+      selectedReadout.textContent = "Select a piece to inspect it";
+      return;
+    }
+    const piece = pieces[index];
+    selectedReadout.textContent = `Piece ${String(index + 1).padStart(2, "0")} · volume ${piece.data.volume.toFixed(6)} · ${piece.data.vertices.length} vertices`;
+  }
+
+  function setConstruction(nextCut, animate = true) {
+    construction = nextCut === "22" ? "22" : "11";
+    constructionButtons.forEach((button) => {
+      const pressed = button.dataset.cut === construction;
+      button.setAttribute("aria-pressed", String(pressed));
+      button.classList.toggle("btn-primary", pressed);
+    });
+    disposePieces();
+    pieceData = construction === "11" ? theobaldPieceData : latticePieceData;
+    pieces = createPieceMeshes(pieceData, construction === "11");
+    const totalVolume = pieceData.reduce((sum, item) => sum + item.volume, 0);
+    volumeReadout.textContent = totalVolume.toFixed(6);
+    stageBadge.textContent = construction === "11"
+      ? "11-piece translational cut"
+      : "Exact · 22 rigid pieces";
+    constructionPrefix.textContent = construction === "11" ? "Σ digitized volume" : "Total volume";
+    constructionSuffix.textContent = construction === "11"
+      ? "· translations only · closure 2×10⁻⁴"
+      : "· rotations and translations only";
+    exportPanel.hidden = construction !== "11";
+    if (exportStatus) exportStatus.textContent = "";
+    cubeGuide.quaternion.copy(construction === "11" ? theobaldCubeQuaternion : identityQuaternion);
+    selectPiece(null);
+    setMode(mode, animate);
+  }
+
+  function exportScaleMillimetres() {
+    const value = Number(exportSize.value);
+    if (!Number.isFinite(value) || value <= 0 || value > 1000) {
+      throw new Error("Enter a cube edge between 1 and 1000 millimetres.");
+    }
+    return value;
+  }
+
+  function pieceFileName(index) {
+    return `cube-truncated-octahedron-piece-${String(index + 1).padStart(2, "0")}.stl`;
+  }
+
+  function binaryStl(piece, scaleMillimetres) {
+    const exportMesh = new THREE.Mesh(piece.mesh.geometry);
+    exportMesh.scale.setScalar(scaleMillimetres);
+    exportMesh.updateMatrixWorld(true);
+    const result = stlExporter.parse(exportMesh, { binary: true });
+    if (result instanceof DataView) {
+      return new Uint8Array(result.buffer, result.byteOffset, result.byteLength);
+    }
+    if (result instanceof ArrayBuffer) return new Uint8Array(result);
+    return new TextEncoder().encode(String(result));
+  }
+
+  function downloadBlob(blob, fileName) {
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = fileName;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  function scaledTranslation(center, offset, scaleMillimetres) {
+    return center.map((value, axis) => Number(((value + offset[axis]) * scaleMillimetres).toFixed(6)));
+  }
+
+  function assemblyManifest(scaleMillimetres) {
+    const totalVolume = pieceData.reduce((sum, item) => sum + item.volume, 0);
+    return {
+      units: "millimetres",
+      cube_edge: scaleMillimetres,
+      piece_rotation_between_assemblies: "none",
+      cube_basis_rows: cubeBasisRows,
+      digitized_volume_sum: Number(totalVolume.toFixed(9)),
+      closure_tolerance_model_units: 0.0002,
+      pieces: pieceData.map((data, index) => ({
+        id: index + 1,
+        file: pieceFileName(index),
+        target_translation: scaledTranslation(data.center, data.targetOffset, scaleMillimetres),
+        cube_translation: scaledTranslation(data.center, data.cubeOffset, scaleMillimetres)
+      }))
+    };
+  }
+
+  modeButtons.forEach((button) => button.addEventListener("click", () => setMode(button.dataset.mode)));
+  constructionButtons.forEach((button) => button.addEventListener("click", () => setConstruction(button.dataset.cut)));
+  exportSelectedButton.addEventListener("click", () => {
+    if (selectedIndex === null || construction !== "11") return;
+    try {
+      const scaleMillimetres = exportScaleMillimetres();
+      const fileName = pieceFileName(selectedIndex);
+      const bytes = binaryStl(pieces[selectedIndex], scaleMillimetres);
+      downloadBlob(new Blob([bytes], { type: "model/stl" }), fileName);
+      exportStatus.textContent = `Downloaded piece ${String(selectedIndex + 1).padStart(2, "0")} at ${scaleMillimetres} mm cube scale.`;
+    } catch (error) {
+      exportStatus.textContent = error instanceof Error ? error.message : "The STL could not be exported.";
+    }
+  });
+  exportAllButton.addEventListener("click", async () => {
+    const originalLabel = exportAllButton.textContent;
+    exportAllButton.disabled = true;
+    exportAllButton.textContent = "Preparing ZIP…";
+    try {
+      const scaleMillimetres = exportScaleMillimetres();
+      const zip = new JSZip();
+      pieces.forEach((piece, index) => {
+        zip.file(pieceFileName(index), binaryStl(piece, scaleMillimetres));
+      });
+      zip.file("assembly-poses.json", JSON.stringify(assemblyManifest(scaleMillimetres), null, 2));
+      zip.file(
+        "README.txt",
+        `Cube ↔ truncated-octahedron 11-piece dissection\n\n` +
+        `All STL coordinates are in millimetres for a ${scaleMillimetres} mm cube edge.\n` +
+        "The meshes are centered individually. assembly-poses.json provides the translation of each centered mesh for both assemblies. No piece rotation is required between assemblies.\n"
+      );
+      const blob = await zip.generateAsync({ type: "blob", compression: "DEFLATE" });
+      downloadBlob(blob, `cube-truncated-octahedron-11-pieces-${scaleMillimetres}mm.zip`);
+      exportStatus.textContent = `Downloaded 11 STL files at ${scaleMillimetres} mm cube scale.`;
+    } catch (error) {
+      exportStatus.textContent = error instanceof Error ? error.message : "The ZIP could not be exported.";
+    } finally {
+      exportAllButton.disabled = false;
+      exportAllButton.textContent = originalLabel;
+    }
+  });
+  separationRange.addEventListener("input", () => {
+    separationValue.textContent = `${separationRange.value}%`;
+    retargetPieces(false);
+  });
+  opacityRange.addEventListener("input", updateOpacity);
+  guideToggle.addEventListener("change", () => {
+    cubeGuide.visible = guideToggle.checked && mode === "cube";
+    targetGuide.visible = guideToggle.checked && mode === "target";
+  });
+
+  canvas.addEventListener("pointerup", (event) => {
+    const bounds = canvas.getBoundingClientRect();
+    pointer.x = ((event.clientX - bounds.left) / bounds.width) * 2 - 1;
+    pointer.y = -((event.clientY - bounds.top) / bounds.height) * 2 + 1;
+    raycaster.setFromCamera(pointer, camera);
+    const hit = raycaster.intersectObjects(pieces.map((piece) => piece.mesh), false)[0];
+    selectPiece(hit ? hit.object.userData.pieceIndex : null);
+  });
+
+  function easeInOut(value) {
+    return value < 0.5 ? 4 * value * value * value : 1 - Math.pow(-2 * value + 2, 3) / 2;
+  }
+
+  function resize() {
+    const width = Math.max(1, stage.clientWidth);
+    const height = Math.max(1, stage.clientHeight);
+    renderer.setSize(width, height, false);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+  }
+
+  const resizeObserver = new ResizeObserver(resize);
+  resizeObserver.observe(stage);
+  resize();
+
+  function render(now) {
+    pieces.forEach((piece) => {
+      const progress = Math.min(1, (now - piece.tweenStartedAt) / 820);
+      const eased = easeInOut(progress);
+      piece.group.position.lerpVectors(piece.tweenStartPosition, piece.targetPosition, eased);
+      piece.group.quaternion.slerpQuaternions(piece.tweenStartQuaternion, piece.targetQuaternion, eased);
+    });
+    if (cameraTween) {
+      const progress = Math.min(1, (now - cameraTween.startedAt) / 700);
+      camera.position.lerpVectors(cameraTween.from, cameraTween.to, easeInOut(progress));
+      if (progress >= 1) cameraTween = null;
+    }
+    if (rotateToggle.checked) pieceRoot.rotation.y += 0.0035;
+    guideRoot.rotation.y = pieceRoot.rotation.y;
+    controls.update();
+    renderer.render(scene, camera);
+    requestAnimationFrame(render);
+  }
+
+  setConstruction(construction, false);
+  requestAnimationFrame(render);
+</script>
+
+<script id="codex-visualization-floating-ui-core" src="https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js"></script>
+<script id="codex-visualization-floating-ui-dom" src="https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js"></script>
+<script id="codex-visualization-lucide" async src="https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js"></script>
+<script id="codex-visualization-tooltip">/* oxlint-disable typescript/no-unsafe-argument, typescript/no-unsafe-call, typescript/no-unsafe-return */
+// Runs inside the visualization sandbox, not the host webview.
+(() => {
+  if (window.FloatingUIDOM == null) {
+    return;
+  }
+  const { autoUpdate, computePosition, flip, offset, shift, size } =
+    window.FloatingUIDOM;
+  const tooltipPlacements = new Set(["top", "right", "bottom", "left"]);
+  const tooltipId = `codex-visualization-tooltip-${
+    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
+  }`;
+  const tooltipGap = 5;
+  const hoverDelay = 700;
+  const skipDelay = 300;
+  let activeTrigger = null;
+  let pendingTrigger = null;
+  let tooltip = null;
+  let openTimeout = null;
+  let autoUpdateCleanup = null;
+  let positionRequest = 0;
+  let skipDelayUntil = 0;
+
+  const getTrigger = (target) =>
+    target?.nodeType === Node.ELEMENT_NODE
+      ? target.closest("[data-tooltip]")
+      : null;
+  const containsTarget = (trigger, target) =>
+    target?.nodeType != null && trigger.contains(target);
+  const getContent = (trigger) =>
+    trigger.getAttribute("data-tooltip")?.trim() ?? "";
+  const getPlacement = (trigger) => {
+    const placement = trigger.getAttribute("data-tooltip-placement");
+    return tooltipPlacements.has(placement) ? placement : "top";
+  };
+  const getTooltip = () => {
+    if (tooltip == null) {
+      tooltip = document.createElement("div");
+      tooltip.id = tooltipId;
+      tooltip.className = "tooltip";
+      tooltip.setAttribute("role", "tooltip");
+    }
+    return tooltip;
+  };
+  const setDescribedBy = (trigger, described) => {
+    const ids = new Set(
+      (trigger.getAttribute("aria-describedby") ?? "")
+        .split(/\s+/)
+        .filter(Boolean),
+    );
+    if (described) {
+      ids.add(tooltipId);
+    } else {
+      ids.delete(tooltipId);
+    }
+    if (ids.size === 0) {
+      trigger.removeAttribute("aria-describedby");
+    } else {
+      trigger.setAttribute("aria-describedby", [...ids].join(" "));
+    }
+  };
+  const clearOpenTimeout = () => {
+    if (openTimeout != null) {
+      window.clearTimeout(openTimeout);
+      openTimeout = null;
+    }
+    pendingTrigger = null;
+  };
+  const closeTooltip = (activateSkipDelay = true) => {
+    clearOpenTimeout();
+    positionRequest += 1;
+    autoUpdateCleanup?.();
+    autoUpdateCleanup = null;
+    if (activeTrigger == null) {
+      return;
+    }
+    setDescribedBy(activeTrigger, false);
+    activeTrigger = null;
+    tooltip?.remove();
+    if (activateSkipDelay) {
+      skipDelayUntil = Date.now() + skipDelay;
+    }
+  };
+  const updatePosition = (trigger, floating) => {
+    const request = ++positionRequest;
+    void computePosition(trigger, floating, {
+      middleware: [
+        offset(tooltipGap),
+        flip({ padding: tooltipGap }),
+        shift({ padding: tooltipGap }),
+        size({
+          padding: tooltipGap,
+          apply({ availableHeight, availableWidth, elements }) {
+            elements.floating.style.setProperty(
+              "--tooltip-available-width",
+              `${Math.max(0, availableWidth)}px`,
+            );
+            elements.floating.style.setProperty(
+              "--tooltip-available-height",
+              `${Math.max(0, availableHeight)}px`,
+            );
+          },
+        }),
+      ],
+      placement: getPlacement(trigger),
+      strategy: "fixed",
+    })
+      .then(({ x, y }) => {
+        if (activeTrigger !== trigger || request !== positionRequest) {
+          return;
+        }
+        const scale = window.devicePixelRatio || 1;
+        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
+        floating.style.visibility = "visible";
+      })
+      .catch(() => {
+        if (activeTrigger === trigger && request === positionRequest) {
+          closeTooltip(false);
+        }
+      });
+  };
+  const openTooltip = (trigger) => {
+    const content = getContent(trigger);
+    if (!trigger.isConnected || content.length === 0) {
+      return;
+    }
+    clearOpenTimeout();
+    if (activeTrigger === trigger) {
+      return;
+    }
+    closeTooltip();
+    const floating = getTooltip();
+    floating.textContent = content;
+    floating.style.visibility = "hidden";
+    floating.style.transform = "translate(0, 0)";
+    document.body.appendChild(floating);
+    activeTrigger = trigger;
+    setDescribedBy(trigger, true);
+    autoUpdateCleanup = autoUpdate(trigger, floating, () => {
+      updatePosition(trigger, floating);
+    });
+  };
+  const requestOpen = (trigger, immediate = false) => {
+    if (
+      getContent(trigger).length === 0 ||
+      activeTrigger === trigger ||
+      pendingTrigger === trigger
+    ) {
+      return;
+    }
+    clearOpenTimeout();
+    pendingTrigger = trigger;
+    const delay =
+      immediate || activeTrigger != null || Date.now() < skipDelayUntil
+        ? 0
+        : hoverDelay;
+    if (delay === 0) {
+      openTooltip(trigger);
+      return;
+    }
+    openTimeout = window.setTimeout(() => {
+      openTimeout = null;
+      pendingTrigger = null;
+      openTooltip(trigger);
+    }, delay);
+  };
+  const handlePointerOpen = (event) => {
+    if (event.pointerType === "touch") {
+      return;
+    }
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    requestOpen(trigger);
+  };
+  const handleLeave = (event) => {
+    const trigger = getTrigger(event.target);
+    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
+      return;
+    }
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const handleFocusIn = (event) => {
+    const trigger = getTrigger(event.target);
+    if (trigger?.matches(":focus-visible")) {
+      requestOpen(trigger, true);
+    }
+  };
+  const handleKeyDown = (event) => {
+    if (event.key === "Escape") {
+      closeTooltip();
+    }
+  };
+  const handleContextMenu = (event) => {
+    const trigger = getTrigger(event.target);
+    if (activeTrigger === trigger || pendingTrigger === trigger) {
+      closeTooltip();
+    }
+  };
+  const destroy = () => {
+    closeTooltip(false);
+    document.removeEventListener("pointerover", handlePointerOpen);
+    document.removeEventListener("pointerout", handleLeave);
+    document.removeEventListener("focusin", handleFocusIn);
+    document.removeEventListener("focusout", handleLeave);
+    document.removeEventListener("keydown", handleKeyDown);
+    document.removeEventListener("contextmenu", handleContextMenu);
+    tooltip = null;
+  };
+
+  document.addEventListener("pointerover", handlePointerOpen);
+  document.addEventListener("pointerout", handleLeave);
+  document.addEventListener("focusin", handleFocusIn);
+  document.addEventListener("focusout", handleLeave);
+  document.addEventListener("keydown", handleKeyDown);
+  document.addEventListener("contextmenu", handleContextMenu);
+  window.addEventListener("pagehide", destroy, { once: true });
+})();
+</script>
+<script id="codex-visualization-lucide-initialization">(() => {
+  const initialize = () => {
+    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
+  };
+  if (globalThis.lucide != null) {
+    initialize();
+    return;
+  }
+  document
+    .getElementById("codex-visualization-lucide")
+    ?.addEventListener("load", initialize, { once: true });
+})();
+</script>
+</body>
+</html>

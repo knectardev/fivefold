@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cell Puzzle</title>
+    <style>
+      :root {
+        --bg: #0c1018;
+        --panel: #141a24;
+        --text: #d0dce8;
+        --muted: #7a8fa3;
+        --accent: #7ab8e0;
+        --ok: #6dca8e;
+        --line: rgba(100, 160, 220, 0.14);
+        --card: #121820;
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      html, body {
+        min-height: 100%;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+
+      body {
+        background-image:
+          radial-gradient(ellipse 80% 50% at 50% -10%, rgba(122, 184, 224, 0.12), transparent),
+          linear-gradient(rgba(100, 160, 220, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(100, 160, 220, 0.04) 1px, transparent 1px);
+        background-size: auto, 48px 48px, 48px 48px;
+      }
+
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 3.5rem 1.5rem 4.5rem;
+      }
+
+      header {
+        margin-bottom: 2.75rem;
+      }
+
+      header .kicker {
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.65rem;
+      }
+
+      header h1 {
+        font-size: clamp(1.8rem, 4vw, 2.6rem);
+        font-weight: 650;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.55rem;
+      }
+
+      header p {
+        max-width: 42rem;
+        color: var(--muted);
+        font-size: 1.02rem;
+        line-height: 1.55;
+      }
+
+      section {
+        margin-bottom: 2.4rem;
+      }
+
+      section h2 {
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 600;
+        margin-bottom: 0.85rem;
+        padding-bottom: 0.45rem;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 0.85rem;
+      }
+
+      a.card {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+        overflow: hidden;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        text-decoration: none;
+        color: inherit;
+        transition: border-color 0.15s, background 0.15s, transform 0.15s;
+      }
+
+      a.card:hover {
+        border-color: rgba(122, 184, 224, 0.45);
+        background: #17202c;
+        transform: translateY(-1px);
+      }
+
+      a.card .thumb {
+        display: block;
+        width: 100%;
+        height: 118px;
+        object-fit: cover;
+        background: #0a1018;
+        border-bottom: 1px solid var(--line);
+      }
+
+      a.card .body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        padding: 0.85rem 1.05rem 1.1rem;
+        flex: 1;
+      }
+
+      a.card h3 {
+        font-size: 1.02rem;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      a.card p {
+        color: var(--muted);
+        font-size: 0.84rem;
+        line-height: 1.45;
+        flex: 1;
+      }
+
+      a.card .path {
+        font-size: 0.7rem;
+        letter-spacing: 0.02em;
+        color: var(--accent);
+        font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+        margin-top: 0.25rem;
+      }
+
+      footer {
+        margin-top: 2rem;
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="kicker">Geometry lab</div>
+        <h1>Cell Puzzle</h1>
+        <p>
+          Interactive tools and demos for kinetic chains, cube dissections,
+          and packing solvers. Pick a project below.
+        </p>
+      </header>
+
+      <section>
+        <h2>Design tools</h2>
+        <div class="grid">
+          <a class="card" href="/chain.html">
+            <img class="thumb" src="/thumbs/chain.svg" alt="" />
+            <span class="body">
+              <h3>Kinetic Chain Design Tool</h3>
+              <p>Build and edit a linked kinetic chain, run the geometry pipeline, and export parts as STL.</p>
+              <span class="path">/chain.html</span>
+            </span>
+          </a>
+          <a class="card" href="/demos/unit_part_catalog.html">
+            <img class="thumb" src="/thumbs/catalog.svg" alt="" />
+            <span class="body">
+              <h3>Unit-part catalog</h3>
+              <p>Two collections: direct two-half joins, and 30 cubic-joint mounting families (15 opposite + 15 adjacent). Quarter-turns stay inside a family. Click the stage to spin one module.</p>
+              <span class="path">/demos/unit_part_catalog.html</span>
+            </span>
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2>Dissections</h2>
+        <div class="grid">
+          <a class="card" href="/demos/cube-sphere-dissection.html">
+            <img class="thumb" src="/thumbs/cube-sphere.svg" alt="" />
+            <span class="body">
+              <h3>Cube ↔ Sphere</h3>
+              <p>32-piece full-volume partition: 8 core octants plus 24 face-cap sectors, with cube/sphere/blend poses.</p>
+              <span class="path">/demos/cube-sphere-dissection.html</span>
+            </span>
+          </a>
+          <a class="card" href="/demos/cube-rhombic-dissection.html">
+            <img class="thumb" src="/thumbs/cube-rhombic.svg" alt="" />
+            <span class="body">
+              <h3>Cube ↔ Rhombic / Truncated Octahedron</h3>
+              <p>Same three-panel viewer: 11-piece and 22-piece cube↔truncated octahedron, plus the exact 32-piece cube↔rhombic dodecahedron.</p>
+              <span class="path">/demos/cube-rhombic-dissection.html</span>
+            </span>
+          </a>
+          <a class="card" href="/demos/cube-truncated-octahedron-dissection-standalone.html">
+            <img class="thumb" src="/thumbs/truncated-oct.svg" alt="" />
+            <span class="body">
+              <h3>Cube ↔ Truncated Octahedron</h3>
+              <p>Switch between the 22-piece lattice cut and Gavin Theobald’s 11-piece translational construction, with STL export for the 11-piece set.</p>
+              <span class="path">/demos/cube-truncated-octahedron-dissection-standalone.html</span>
+            </span>
+          </a>
+          <a class="card" href="/demos/test.html">
+            <img class="thumb" src="/thumbs/weaire-phelan.svg" alt="" />
+            <span class="body">
+              <h3>Weaire–Phelan 8-Cell</h3>
+              <p>Six planar cuts trim an 8-cell Weaire–Phelan unit block into a solid cube.</p>
+              <span class="path">/demos/test.html</span>
+            </span>
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2>Packing solvers</h2>
+        <div class="grid">
+          <a class="card" href="/solvers/view_L_solution.html">
+            <img class="thumb" src="/thumbs/eight-l.svg" alt="" />
+            <span class="body">
+              <h3>8 + L solutions</h3>
+              <p>Browse 384 rotation-inequivalent packings of eight digonal pieces plus an L-tromino exception.</p>
+              <span class="path">/solvers/view_L_solution.html</span>
+            </span>
+          </a>
+          <a class="card" href="/solvers/view_perp_no_rect.html?surface=1">
+            <img class="thumb" src="/thumbs/five-color.svg" alt="" />
+            <span class="body">
+              <h3>Five-color surface map</h3>
+              <p>One 8+L digonal kit, five outer-skin color sections per face. Opens with the product mix, gray bases, and surface colors on.</p>
+              <span class="path">/solvers/view_perp_no_rect.html?surface=1</span>
+            </span>
+          </a>
+          <a class="card" href="/solvers/view_perp_no_rect.html">
+            <img class="thumb" src="/thumbs/perp.svg" alt="" />
+            <span class="body">
+              <h3>Perp joints, no rectangles</h3>
+              <p>12-pool digonal packings that allow perpendicular joints and ban easy 2×3 rectangles. Export STL/OBJ. Surface map is the checkbox “Five-solution surface colors.”</p>
+              <span class="path">/solvers/view_perp_no_rect.html</span>
+            </span>
+          </a>
+          <a class="card" href="/solvers/view_cubic_joint.html">
+            <img class="thumb" src="/thumbs/cubic-joint.svg" alt="" />
+            <span class="body">
+              <h3>Cubic joint 6 + L</h3>
+              <p>Six unique Collection-2 cubic joints plus a rigid L-tromino. Mixed sample plus one manufactured kit (7 Oh orbits). Five of those seven layouts as surface colors via “This piece mix only.”</p>
+              <span class="path">/solvers/view_cubic_joint.html</span>
+            </span>
+          </a>
+          <a class="card" href="/solvers/view_cubic_joint.html?surface=1">
+            <img class="thumb" src="/thumbs/five-color.svg" alt="" />
+            <span class="body">
+              <h3>Cubic-joint five-layout map</h3>
+              <p>Same analog as the digonal five-color cube: one all-unique kit packed seven ways, five layouts painted as outer-skin sections. Opens mix + gray + surface colors.</p>
+              <span class="path">/solvers/view_cubic_joint.html?surface=1</span>
+            </span>
+          </a>
+          <a class="card" href="/demos/dual_cube_polyhedral_viewer.html">
+            <img class="thumb" src="/thumbs/dual-cube.svg" alt="" />
+            <span class="body">
+              <h3>Dual-cube half-cubes</h3>
+              <p>Whole cubes plus 45° diagonal halves. Same rigid pieces pack Cube A and Cube B.</p>
+              <span class="path">/demos/dual_cube_polyhedral_viewer.html</span>
+            </span>
+          </a>
+        </div>
+      </section>
+
+      <footer>Run with <code style="color:var(--accent)">npm run dev</code> and open this page at the root.</footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+{
+  "savedAt": "2026-08-21T03:32:43.541Z",
+  "N": 8,
+  "pieceCount": 8,
+  "jobs": 12,
+  "cpuCount": 16,
+  "serialMs": 7665.5497000000005,
+  "rows": [
+    {
+      "workers": 1,
+      "ms": 7665.5497000000005,
+      "speedup": 1,
+      "efficiency": 1
+    },
+    {
+      "workers": 4,
+      "ms": 2865.892,
+      "speedup": 2.6747517701295096,
+      "efficiency": 0.6686879425323774
+    },
+    {
+      "workers": 6,
+      "ms": 2628.1679000000004,
+      "speedup": 2.916689493087561,
+      "efficiency": 0.48611491551459346
+    },
+    {
+      "workers": 8,
+      "ms": 2865.7044000000005,
+      "speedup": 2.6749268696380546,
+      "efficiency": 0.3343658587047568
+    },
+    {
+      "workers": 12,
+      "ms": 2644.0608999999986,
+      "speedup": 2.8991577690211314,
+      "efficiency": 0.24159648075176096
+    }
+  ],
+  "recommendedDefault": 4,
+  "note": "Default 4 workers even if many logical CPUs are present. Efficiency may fall from memory bandwidth, GC, and scheduler contention."
+}

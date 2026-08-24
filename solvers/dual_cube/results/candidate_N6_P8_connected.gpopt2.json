@@ -1,0 +1,1876 @@
+{
+  "schema": "dual-cube-global-opt-continue",
+  "version": 1,
+  "note": "Provisional-only continuation. Ranked by Cube B, then stages A–D. Accepted carriers stayed frozen. Rollbacks became half-space constraints. Seed-supported trims were replaced only when a real branch preserved the eight-shell topology.",
+  "backend": "cpu",
+  "gpu": {
+    "ok": false,
+    "reason": "navigator.gpu is not available"
+  },
+  "success": false,
+  "baseline": {
+    "energy": {
+      "total": 0.16793663609177095,
+      "terms": {
+        "A": 0.02596392381265847,
+        "B": 0.08709561727642892,
+        "junction": 0.06977724418468796,
+        "trim": 0.05538667559786995,
+        "intersection": 0.001550000000000001,
+        "reg": 0
+      },
+      "max": {
+        "A": 0.08489378392217764,
+        "B": 0.21117736944021917
+      }
+    },
+    "topology": {
+      "openEdges": 0,
+      "shells": 8,
+      "nonmanifold": 0,
+      "unexplained": 0,
+      "fittedUntrimmed": 0,
+      "piece5Closed": true
+    }
+  },
+  "final": {
+    "energy": {
+      "total": 0.1669272136358635,
+      "terms": {
+        "A": 0.029594400262136677,
+        "B": 0.08696273762489035,
+        "junction": 0.07002908679300286,
+        "trim": 0.032280663811660205,
+        "intersection": 0.001550000000000001,
+        "reg": 0.000007116080442958417
+      },
+      "max": {
+        "A": 0.09495663728984181,
+        "B": 0.2078588310479792
+      }
+    },
+    "topology": {
+      "openEdges": 0,
+      "shells": 8,
+      "nonmanifold": 0,
+      "unexplained": 0,
+      "fittedUntrimmed": 0,
+      "piece5Closed": true
+    }
+  },
+  "gate": {
+    "openEdges": 0,
+    "shells": 8,
+    "nonmanifoldEdges": 0,
+    "unexplainedEdges": 0,
+    "provisionalCarriers": 10,
+    "seedSupportedTrims": 6,
+    "cubeA": {
+      "trimRms": 0.029594400262136677,
+      "trimMax": 0.09495663728984181
+    },
+    "cubeB": {
+      "trimRms": 0.08696273762489035,
+      "trimMax": 0.2078588310479792
+    },
+    "trimMax": 0.2078588310479792,
+    "acceptedCarriersFrozen": true
+  },
+  "s74": {
+    "familyTried": "sphere",
+    "familyFeasible": true,
+    "geometry": {
+      "center": [
+        0.3928041666666666,
+        0.5014469818750056,
+        0.443973480625013
+      ],
+      "radius": 0.20205539523194938,
+      "planeDistance": 0.14280416666666662,
+      "circleRadius": 0.14294527877820298
+    },
+    "topologyStillValid": true
+  },
+  "ranking": [
+    {
+      "patch": "S50",
+      "piece": 4,
+      "family": "generalQuadric",
+      "cubeA": {
+        "rms": 0.01946117730937446,
+        "max": 0.05032524190835073
+      },
+      "cubeB": {
+        "rms": 0.12594047504819278,
+        "max": 0.15249326290169019
+      },
+      "junctionRms": 0.03751293913898246,
+      "seedSupportedTrims": 4,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": false,
+      "missingRealIntersections": [
+        "S46",
+        "S51",
+        "S52",
+        "S54"
+      ],
+      "contributionB": 0.01586100325536447
+    },
+    {
+      "patch": "S45",
+      "piece": 4,
+      "family": "sphere",
+      "cubeA": {
+        "rms": 0.033685322868535504,
+        "max": 0.06376628115259764
+      },
+      "cubeB": {
+        "rms": 0.1177152241192537,
+        "max": 0.21117736944021917
+      },
+      "junctionRms": 0.05859976703638632,
+      "seedSupportedTrims": 0,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": true,
+      "missingRealIntersections": [],
+      "contributionB": 0.013856873989446126
+    },
+    {
+      "patch": "S21",
+      "piece": 2,
+      "family": "generalQuadric",
+      "cubeA": {
+        "rms": 0.017172820499141244,
+        "max": 0.030247041207035676
+      },
+      "cubeB": {
+        "rms": 0.09793303617201984,
+        "max": 0.14328455290591763
+      },
+      "junctionRms": 0.0617824113571443,
+      "seedSupportedTrims": 6,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": false,
+      "missingRealIntersections": [
+        "S22",
+        "S23",
+        "S24",
+        "S25",
+        "S26",
+        "S27"
+      ],
+      "contributionB": 0.009590879573870146
+    },
+    {
+      "patch": "S74",
+      "piece": 6,
+      "family": "sphere",
+      "cubeA": {
+        "rms": 0.04951026285331774,
+        "max": 0.06894950796728552
+      },
+      "cubeB": {
+        "rms": 0.08681231021544863,
+        "max": 0.10898509304498513
+      },
+      "junctionRms": 0.04384825418936297,
+      "seedSupportedTrims": 0,
+      "topologySensitive": true,
+      "topologyReason": "open-edges",
+      "realIntersection": true,
+      "missingRealIntersections": [],
+      "contributionB": 0.007536377204943288
+    },
+    {
+      "patch": "S7",
+      "piece": 1,
+      "family": "generalQuadric",
+      "cubeA": {
+        "rms": 0.011651438026139677,
+        "max": 0.017236377459229246
+      },
+      "cubeB": {
+        "rms": 0.07786445474214587,
+        "max": 0.0850140525592422
+      },
+      "junctionRms": 0.06858616744847382,
+      "seedSupportedTrims": 6,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": false,
+      "missingRealIntersections": [
+        "S1",
+        "S2",
+        "S3",
+        "S10",
+        "S18",
+        "S20"
+      ],
+      "contributionB": 0.006062873312291682
+    },
+    {
+      "patch": "S19",
+      "piece": 1,
+      "family": "generalQuadric",
+      "cubeA": {
+        "rms": 0.030028543653562757,
+        "max": 0.06125871496811646
+      },
+      "cubeB": {
+        "rms": 0.07547340791876288,
+        "max": 0.1403005098987457
+      },
+      "junctionRms": 0.054105551538923796,
+      "seedSupportedTrims": 4,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": false,
+      "missingRealIntersections": [
+        "S14",
+        "S15",
+        "S17",
+        "S20"
+      ],
+      "contributionB": 0.005696235302871978
+    },
+    {
+      "patch": "S41",
+      "piece": 3,
+      "family": "cylinder",
+      "cubeA": {
+        "rms": 0.04322768121950649,
+        "max": 0.08489378392217764
+      },
+      "cubeB": {
+        "rms": 0.07452828323753125,
+        "max": 0.14983226541583727
+      },
+      "junctionRms": 0.05974024544403583,
+      "seedSupportedTrims": 0,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": true,
+      "missingRealIntersections": [],
+      "contributionB": 0.005554465002333681
+    },
+    {
+      "patch": "S91",
+      "piece": 8,
+      "family": "generalQuadric",
+      "cubeA": {
+        "rms": 0.016804404029980558,
+        "max": 0.033873956072525586
+      },
+      "cubeB": {
+        "rms": 0.07084011810666505,
+        "max": 0.10194548994353837
+      },
+      "junctionRms": 0.06417151726769368,
+      "seedSupportedTrims": 6,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": false,
+      "missingRealIntersections": [
+        "S89",
+        "S90",
+        "S93",
+        "S94",
+        "S95",
+        "S97"
+      ],
+      "contributionB": 0.0050183223333662525
+    },
+    {
+      "patch": "S9",
+      "piece": 1,
+      "family": "cylinder",
+      "cubeA": {
+        "rms": 0.026522741887125643,
+        "max": 0.03895537001463639
+      },
+      "cubeB": {
+        "rms": 0.06070354087375152,
+        "max": 0.09711631362828993
+      },
+      "junctionRms": 0.07164222824204226,
+      "seedSupportedTrims": 0,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": true,
+      "missingRealIntersections": [],
+      "contributionB": 0.003684919874611222
+    },
+    {
+      "patch": "S4",
+      "piece": 1,
+      "family": "generalQuadric",
+      "cubeA": {
+        "rms": 0.00275666450840344,
+        "max": 0.007616936200141498
+      },
+      "cubeB": {
+        "rms": 0.056451678409104096,
+        "max": 0.08166722926115873
+      },
+      "junctionRms": 0.059649686869899715,
+      "seedSupportedTrims": 5,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": false,
+      "missingRealIntersections": [
+        "S1",
+        "S5",
+        "S12",
+        "S15",
+        "S17"
+      ],
+      "contributionB": 0.00318679199520491
+    }
+  ],
+  "rankingFinal": [
+    {
+      "patch": "S50",
+      "piece": 4,
+      "family": "generalQuadric",
+      "cubeA": {
+        "rms": 0.01946117730937446,
+        "max": 0.05032524190835073
+      },
+      "cubeB": {
+        "rms": 0.12594047504819278,
+        "max": 0.15249326290169019
+      },
+      "junctionRms": 0.03751293913898246,
+      "seedSupportedTrims": 4,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": false,
+      "missingRealIntersections": [
+        "S46",
+        "S51",
+        "S52",
+        "S54"
+      ],
+      "contributionB": 0.01586100325536447
+    },
+    {
+      "patch": "S45",
+      "piece": 4,
+      "family": "cylinder",
+      "cubeA": {
+        "rms": 0.04062880383619438,
+        "max": 0.07356663067110111
+      },
+      "cubeB": {
+        "rms": 0.1244501808095006,
+        "max": 0.2078588310479792
+      },
+      "junctionRms": 0.08403801963540664,
+      "seedSupportedTrims": 0,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": true,
+      "missingRealIntersections": [],
+      "contributionB": 0.015487847503517392
+    },
+    {
+      "patch": "S21",
+      "piece": 2,
+      "family": "generalQuadric",
+      "cubeA": {
+        "rms": 0.01836366405098052,
+        "max": 0.037322165979408774
+      },
+      "cubeB": {
+        "rms": 0.09866735945783218,
+        "max": 0.14356723751924513
+      },
+      "junctionRms": 0.05768380585791534,
+      "seedSupportedTrims": 6,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": false,
+      "missingRealIntersections": [
+        "S22",
+        "S23",
+        "S24",
+        "S25",
+        "S26",
+        "S27"
+      ],
+      "contributionB": 0.009735247822381065
+    },
+    {
+      "patch": "S19",
+      "piece": 1,
+      "family": "generalQuadric",
+      "cubeA": {
+        "rms": 0.030028543653562757,
+        "max": 0.06125871496811646
+      },
+      "cubeB": {
+        "rms": 0.07547340791876288,
+        "max": 0.1403005098987457
+      },
+      "junctionRms": 0.054105551538923796,
+      "seedSupportedTrims": 4,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": false,
+      "missingRealIntersections": [
+        "S14",
+        "S15",
+        "S17",
+        "S20"
+      ],
+      "contributionB": 0.005696235302871978
+    },
+    {
+      "patch": "S7",
+      "piece": 1,
+      "family": "generalQuadric",
+      "cubeA": {
+        "rms": 0.014407435794446873,
+        "max": 0.021763513657215513
+      },
+      "cubeB": {
+        "rms": 0.07486758125634448,
+        "max": 0.08205740765876755
+      },
+      "junctionRms": 0.0704872054404384,
+      "seedSupportedTrims": 6,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": false,
+      "missingRealIntersections": [
+        "S1",
+        "S2",
+        "S3",
+        "S10",
+        "S18",
+        "S20"
+      ],
+      "contributionB": 0.005605154723175344
+    },
+    {
+      "patch": "S41",
+      "piece": 3,
+      "family": "cylinder",
+      "cubeA": {
+        "rms": 0.04492658000162203,
+        "max": 0.08978874850381152
+      },
+      "cubeB": {
+        "rms": 0.07119106067367072,
+        "max": 0.14479540384547573
+      },
+      "junctionRms": 0.06012165486869061,
+      "seedSupportedTrims": 0,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": true,
+      "missingRealIntersections": [],
+      "contributionB": 0.005068167119842266
+    },
+    {
+      "patch": "S91",
+      "piece": 8,
+      "family": "generalQuadric",
+      "cubeA": {
+        "rms": 0.018439373804974714,
+        "max": 0.041068842806032374
+      },
+      "cubeB": {
+        "rms": 0.07092969031979797,
+        "max": 0.10194548994353833
+      },
+      "junctionRms": 0.05941822760569414,
+      "seedSupportedTrims": 6,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": false,
+      "missingRealIntersections": [
+        "S89",
+        "S90",
+        "S93",
+        "S94",
+        "S95",
+        "S97"
+      ],
+      "contributionB": 0.005031020968862441
+    },
+    {
+      "patch": "S74",
+      "piece": 6,
+      "family": "sphere",
+      "cubeA": {
+        "rms": 0.06611859169763291,
+        "max": 0.09495663728984181
+      },
+      "cubeB": {
+        "rms": 0.06907402675879744,
+        "max": 0.0889019724713006
+      },
+      "junctionRms": 0.04627472887474264,
+      "seedSupportedTrims": 0,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": true,
+      "missingRealIntersections": [],
+      "contributionB": 0.004771221172675064
+    },
+    {
+      "patch": "S4",
+      "piece": 1,
+      "family": "generalQuadric",
+      "cubeA": {
+        "rms": 0.00275666450840344,
+        "max": 0.007616936200141498
+      },
+      "cubeB": {
+        "rms": 0.056451678409104096,
+        "max": 0.08166722926115873
+      },
+      "junctionRms": 0.059649686869899715,
+      "seedSupportedTrims": 5,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": false,
+      "missingRealIntersections": [
+        "S1",
+        "S5",
+        "S12",
+        "S15",
+        "S17"
+      ],
+      "contributionB": 0.00318679199520491
+    },
+    {
+      "patch": "S9",
+      "piece": 1,
+      "family": "cylinder",
+      "cubeA": {
+        "rms": 0.03387767797055295,
+        "max": 0.05159132441660258
+      },
+      "cubeB": {
+        "rms": 0.05640840755639446,
+        "max": 0.0876395840786805
+      },
+      "junctionRms": 0.06037294955727856,
+      "seedSupportedTrims": 0,
+      "topologySensitive": false,
+      "topologyReason": null,
+      "realIntersection": true,
+      "missingRealIntersections": [],
+      "contributionB": 0.0031819084430482992
+    }
+  ],
+  "constraints": [
+    {
+      "patch": "S45",
+      "reason": "open-edges",
+      "kind": "open-edges",
+      "stage": "opt1"
+    }
+  ],
+  "acceptedCarriersFrozen": true,
+  "promoted": 0,
+  "remainingProvisional": 10,
+  "seedSupportedTrims": [
+    "S6__plane_S3__seed_polyline__forward__none",
+    "S6__plane_S5__numerical__forward__none",
+    "S6__plane_S15__seed_polyline__forward__none",
+    "S6__plane_S14__seed_polyline__forward__none",
+    "S96__plane_S93__seed_polyline__forward__none",
+    "S96__plane_S94__numerical__forward__none"
+  ],
+  "carrierStatus": [
+    {
+      "patch": "S4",
+      "piece": 1,
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S6",
+      "piece": 1,
+      "type": "cylinder",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S7",
+      "piece": 1,
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S9",
+      "piece": 1,
+      "type": "cylinder",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S13",
+      "piece": 1,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S19",
+      "piece": 1,
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S21",
+      "piece": 2,
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S35",
+      "piece": 3,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S41",
+      "piece": 3,
+      "type": "cylinder",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S45",
+      "piece": 4,
+      "type": "cylinder",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S49",
+      "piece": 4,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S50",
+      "piece": 4,
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S56",
+      "piece": 5,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S59",
+      "piece": 5,
+      "type": "cylinder",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S66",
+      "piece": 6,
+      "type": "cone",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S70",
+      "piece": 6,
+      "type": "cylinder",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S71",
+      "piece": 6,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S74",
+      "piece": 6,
+      "type": "sphere",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S80",
+      "piece": 7,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S81",
+      "piece": 7,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S84",
+      "piece": 7,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S91",
+      "piece": 8,
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S92",
+      "piece": 8,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S96",
+      "piece": 8,
+      "type": "cylinder",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S99",
+      "piece": 8,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    }
+  ],
+  "log": [
+    {
+      "stage": "rank"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S96",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S96",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "A",
+      "sweep": 0,
+      "decision": "keep",
+      "reason": "energy-decreased",
+      "totalBefore": 0.3091505512002151,
+      "totalAfter": 0.3068775595637023,
+      "terms": {
+        "A": 0.028036439097748993,
+        "B": 0.08468997680331357,
+        "junction": 0.07041803769743303,
+        "trim": 0.06954142626422433,
+        "intersection": 0.001550000000000001,
+        "reg": 0.000035854660228003466
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "A",
+      "sweep": 1,
+      "decision": "keep",
+      "reason": "energy-decreased",
+      "totalBefore": 0.3068775595637023,
+      "totalAfter": 0.3055334084722766,
+      "terms": {
+        "A": 0.027912931047961814,
+        "B": 0.08390238252557575,
+        "junction": 0.07083528426965154,
+        "trim": 0.07491727415585571,
+        "intersection": 0.001550000000000001,
+        "reg": 0.0000736717382124737
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "A",
+      "sweep": 2,
+      "decision": "rollback",
+      "reason": "trust-region-hold",
+      "totalBefore": 0.3055334084722766,
+      "totalAfter": 0.3048383924224931,
+      "terms": {
+        "A": 0.02742796792973987,
+        "B": 0.08391682888235717,
+        "junction": 0.07071253976957827,
+        "trim": 0.07328062271737681,
+        "intersection": 0.001550000000000001,
+        "reg": 0.0002206476890508883
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "A",
+      "sweep": 3,
+      "decision": "rollback",
+      "reason": "trust-region-hold",
+      "totalBefore": 0.3055334084722766,
+      "totalAfter": 0.3048383924224931,
+      "terms": {
+        "A": 0.02742796792973987,
+        "B": 0.08391682888235717,
+        "junction": 0.07071253976957827,
+        "trim": 0.07328062271737681,
+        "intersection": 0.001550000000000001,
+        "reg": 0.0002206476890508883
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "A",
+      "sweep": 4,
+      "decision": "rollback",
+      "reason": "trust-region-hold",
+      "totalBefore": 0.3055334084722766,
+      "totalAfter": 0.3048383924224931,
+      "terms": {
+        "A": 0.02742796792973987,
+        "B": 0.08391682888235717,
+        "junction": 0.07071253976957827,
+        "trim": 0.07328062271737681,
+        "intersection": 0.001550000000000001,
+        "reg": 0.0002206476890508883
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "A",
+      "sweep": 5,
+      "decision": "rollback",
+      "reason": "trust-region-hold",
+      "totalBefore": 0.3055334084722766,
+      "totalAfter": 0.3048383924224931,
+      "terms": {
+        "A": 0.02742796792973987,
+        "B": 0.08391682888235717,
+        "junction": 0.07071253976957827,
+        "trim": 0.07328062271737681,
+        "intersection": 0.001550000000000001,
+        "reg": 0.0002206476890508883
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "A-regen",
+      "decision": "keep",
+      "reason": "regenerated"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S96",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S96",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "B",
+      "sweep": 0,
+      "decision": "rollback",
+      "reason": "trust-region-hold",
+      "totalBefore": 0.1900434953339564,
+      "totalAfter": 0.1856318289650732,
+      "terms": {
+        "A": 0.029644258690480114,
+        "B": 0.08457023971851879,
+        "junction": 0.0699358228878202,
+        "trim": 0.05333230709312731,
+        "intersection": 0.001550000000000001,
+        "reg": 0.00009460684298780513
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "B",
+      "sweep": 1,
+      "decision": "rollback",
+      "reason": "trust-region-hold",
+      "totalBefore": 0.1900434953339564,
+      "totalAfter": 0.1856318289650732,
+      "terms": {
+        "A": 0.029644258690480114,
+        "B": 0.08457023971851879,
+        "junction": 0.0699358228878202,
+        "trim": 0.05333230709312731,
+        "intersection": 0.001550000000000001,
+        "reg": 0.00009460684298780513
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "B",
+      "sweep": 2,
+      "decision": "rollback",
+      "reason": "trust-region-hold",
+      "totalBefore": 0.1900434953339564,
+      "totalAfter": 0.1856318289650732,
+      "terms": {
+        "A": 0.029644258690480114,
+        "B": 0.08457023971851879,
+        "junction": 0.0699358228878202,
+        "trim": 0.05333230709312731,
+        "intersection": 0.001550000000000001,
+        "reg": 0.00009460684298780513
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "B",
+      "sweep": 3,
+      "decision": "rollback",
+      "reason": "trust-region-hold",
+      "totalBefore": 0.1900434953339564,
+      "totalAfter": 0.1856318289650732,
+      "terms": {
+        "A": 0.029644258690480114,
+        "B": 0.08457023971851879,
+        "junction": 0.0699358228878202,
+        "trim": 0.05333230709312731,
+        "intersection": 0.001550000000000001,
+        "reg": 0.00009460684298780513
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "B",
+      "sweep": 4,
+      "decision": "rollback",
+      "reason": "trust-region-hold",
+      "totalBefore": 0.1900434953339564,
+      "totalAfter": 0.1856318289650732,
+      "terms": {
+        "A": 0.029644258690480114,
+        "B": 0.08457023971851879,
+        "junction": 0.0699358228878202,
+        "trim": 0.05333230709312731,
+        "intersection": 0.001550000000000001,
+        "reg": 0.00009460684298780513
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "B",
+      "sweep": 5,
+      "decision": "rollback",
+      "reason": "trust-region-hold",
+      "totalBefore": 0.1900434953339564,
+      "totalAfter": 0.1856318289650732,
+      "terms": {
+        "A": 0.029644258690480114,
+        "B": 0.08457023971851879,
+        "junction": 0.0699358228878202,
+        "trim": 0.05333230709312731,
+        "intersection": 0.001550000000000001,
+        "reg": 0.00009460684298780513
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "B-regen",
+      "decision": "keep",
+      "reason": "regenerated"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S96",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S96",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "C",
+      "sweep": 0,
+      "decision": "keep",
+      "reason": "energy-decreased",
+      "totalBefore": 0.21327102171894616,
+      "totalAfter": 0.2130444938943924,
+      "terms": {
+        "A": 0.027798719399051226,
+        "B": 0.08396726518983237,
+        "junction": 0.07056266643502392,
+        "trim": 0.07491727415585571,
+        "intersection": 0.001550000000000001,
+        "reg": 2.7526081662061648e-8
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "C",
+      "sweep": 1,
+      "decision": "keep",
+      "reason": "energy-decreased",
+      "totalBefore": 0.2130444938943924,
+      "totalAfter": 0.21300186806815455,
+      "terms": {
+        "A": 0.027727167553050214,
+        "B": 0.08405164200104592,
+        "junction": 0.07047734531945045,
+        "trim": 0.07491727415585571,
+        "intersection": 0.001550000000000001,
+        "reg": 1.0686280517578115e-7
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "C",
+      "sweep": 2,
+      "decision": "keep",
+      "reason": "energy-decreased",
+      "totalBefore": 0.21300186806815455,
+      "totalAfter": 0.21296841357546017,
+      "terms": {
+        "A": 0.027685910378642577,
+        "B": 0.08406680566641608,
+        "junction": 0.07046601200940374,
+        "trim": 0.07491727415585571,
+        "intersection": 0.001550000000000001,
+        "reg": 1.6354153993187848e-7
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "C",
+      "sweep": 3,
+      "decision": "keep",
+      "reason": "energy-decreased",
+      "totalBefore": 0.21296841357546017,
+      "totalAfter": 0.2129307065683919,
+      "terms": {
+        "A": 0.02773744551787058,
+        "B": 0.08389456353982958,
+        "junction": 0.07059370215464236,
+        "trim": 0.07491727415585571,
+        "intersection": 0.001550000000000001,
+        "reg": 1.774003909227317e-7
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "C",
+      "sweep": 4,
+      "decision": "keep",
+      "reason": "energy-decreased",
+      "totalBefore": 0.2129307065683919,
+      "totalAfter": 0.21292706098485722,
+      "terms": {
+        "A": 0.027763274755182085,
+        "B": 0.08385816685550299,
+        "junction": 0.07060434235333943,
+        "trim": 0.07491727415585571,
+        "intersection": 0.001550000000000001,
+        "reg": 2.3474366455078031e-7
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "C-regen",
+      "decision": "keep",
+      "reason": "regenerated"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S96",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S96",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "D",
+      "sweep": 0,
+      "decision": "keep",
+      "reason": "energy-decreased",
+      "totalBefore": 0.3070858711238007,
+      "totalAfter": 0.28101343335432555,
+      "terms": {
+        "A": 0.030642533691658144,
+        "B": 0.08602803593184238,
+        "junction": 0.06904302906089987,
+        "trim": 0.04839563355693364,
+        "intersection": 0.001550000000000001,
+        "reg": 0.000048506150914634176
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "D",
+      "sweep": 1,
+      "decision": "keep",
+      "reason": "energy-decreased",
+      "totalBefore": 0.28101343335432555,
+      "totalAfter": 0.2745929581960582,
+      "terms": {
+        "A": 0.03329236448632423,
+        "B": 0.08855106278524215,
+        "junction": 0.0685906524382699,
+        "trim": 0.03836567020826685,
+        "intersection": 0.001550000000000001,
+        "reg": 0.00011222684451219518
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "D",
+      "sweep": 2,
+      "decision": "keep",
+      "reason": "energy-decreased",
+      "totalBefore": 0.2745929581960582,
+      "totalAfter": 0.27400272298184486,
+      "terms": {
+        "A": 0.03233756089546245,
+        "B": 0.0892492031883094,
+        "junction": 0.06856743629260975,
+        "trim": 0.03808604204156861,
+        "intersection": 0.001550000000000001,
+        "reg": 0.00015021608231707316
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "D",
+      "sweep": 3,
+      "decision": "keep",
+      "reason": "energy-decreased",
+      "totalBefore": 0.27400272298184486,
+      "totalAfter": 0.2737925729056888,
+      "terms": {
+        "A": 0.03153281480107928,
+        "B": 0.08904237823265594,
+        "junction": 0.06849262571029008,
+        "trim": 0.03889521976048182,
+        "intersection": 0.001550000000000001,
+        "reg": 0.00021069996951219498
+      },
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    },
+    {
+      "stage": "D-regen",
+      "decision": "keep",
+      "reason": "regenerated"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S6",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S96",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "seed-trim",
+      "patch": "S96",
+      "decision": "accepted-carrier-frozen",
+      "reason": "no-real-intersection"
+    },
+    {
+      "stage": "family",
+      "patch": "S45",
+      "decision": "keep",
+      "reason": "alternate-special-quadric",
+      "topology": {
+        "openEdges": 0,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0,
+        "fittedUntrimmed": 0,
+        "piece5Closed": true
+      }
+    }
+  ],
+  "fits": [
+    {
+      "patch": "S4",
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.00275666450840344,
+      "mateARms": 0.00275666450840344,
+      "mateBRms": 0.056451678409104096
+    },
+    {
+      "patch": "S6",
+      "type": "cylinder",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.036738594969371076,
+      "mateARms": 0.036738594969371076,
+      "mateBRms": 0.036738594969371076,
+      "radius": 0.17913249080046872,
+      "axis": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "patch": "S7",
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.014407435794446873,
+      "mateARms": 0.014407435794446873,
+      "mateBRms": 0.07486758125634448
+    },
+    {
+      "patch": "S9",
+      "type": "cylinder",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.03387767797055295,
+      "mateARms": 0.03387767797055295,
+      "mateBRms": 0.05640840755639446,
+      "radius": 0.31234238249335006,
+      "axis": [
+        0.5663481986993815,
+        -0.8225155805299442,
+        0.05213288420425812
+      ]
+    },
+    {
+      "patch": "S13",
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.029271706499525922,
+      "mateARms": 0.029271706499525922,
+      "mateBRms": 0.04921319684879797
+    },
+    {
+      "patch": "S19",
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.030028543653562757,
+      "mateARms": 0.030028543653562757,
+      "mateBRms": 0.07547340791876288
+    },
+    {
+      "patch": "S21",
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.01836366405098052,
+      "mateARms": 0.01836366405098052,
+      "mateBRms": 0.09866735945783218
+    },
+    {
+      "patch": "S35",
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.0011910743136299517,
+      "mateARms": 0.0011910743136299517,
+      "mateBRms": 0.0013761770922484818
+    },
+    {
+      "patch": "S41",
+      "type": "cylinder",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.04492658000162203,
+      "mateARms": 0.04492658000162203,
+      "mateBRms": 0.07119106067367072,
+      "radius": 0.32734238249335007,
+      "axis": [
+        0.3384943401610343,
+        -0.8343363834769232,
+        -0.4350912328300752
+      ]
+    },
+    {
+      "patch": "S45",
+      "type": "cylinder",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.04062880383619438,
+      "mateARms": 0.04062880383619438,
+      "mateBRms": 0.1244501808095006,
+      "center": [
+        0.46890979251944265,
+        0.19784204709032405,
+        0.08613009363487266
+      ],
+      "radius": 0.22165994466994263,
+      "axis": [
+        0.4688642747586845,
+        -0.16753403587172186,
+        -0.8672362069699038
+      ]
+    },
+    {
+      "patch": "S49",
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.0012207573308967029,
+      "mateARms": 0.0012207573308967029,
+      "mateBRms": 0.010830830667063359
+    },
+    {
+      "patch": "S50",
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.01946117730937446,
+      "mateARms": 0.01946117730937446,
+      "mateBRms": 0.12594047504819278
+    },
+    {
+      "patch": "S56",
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.03356692513610045,
+      "mateARms": 0.03356692513610045,
+      "mateBRms": 0.03356692513610045
+    },
+    {
+      "patch": "S59",
+      "type": "cylinder",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.02508805071728511,
+      "mateARms": 0.02508805071728511,
+      "mateBRms": 0.02508805071728511,
+      "radius": 0.21425012860220496,
+      "axis": [
+        0.14744240955019208,
+        -0.8365470545980171,
+        0.5276833911631249
+      ]
+    },
+    {
+      "patch": "S66",
+      "type": "cone",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.025978569086284407,
+      "mateARms": 0.025978569086284407,
+      "mateBRms": 0.04337955652139244,
+      "axis": [
+        -0.40539655409133923,
+        0.32231169878005905,
+        0.8554348617869045
+      ]
+    },
+    {
+      "patch": "S70",
+      "type": "cylinder",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.010414027674602927,
+      "mateARms": 0.010414027674602927,
+      "mateBRms": 0.014865388139770688,
+      "radius": 0.09278401263132931,
+      "axis": [
+        -0.030939665733671743,
+        -0.33800520326352096,
+        0.9406355402870309
+      ]
+    },
+    {
+      "patch": "S71",
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.008556718630563634,
+      "mateARms": 0.008556718630563634,
+      "mateBRms": 0.007301368942592035
+    },
+    {
+      "patch": "S74",
+      "type": "sphere",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.06611859169763291,
+      "mateARms": 0.06611859169763291,
+      "mateBRms": 0.06907402675879744,
+      "center": [
+        0.3928041666666666,
+        0.5014469818750056,
+        0.443973480625013
+      ],
+      "radius": 0.20205539523194938
+    },
+    {
+      "patch": "S80",
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.01697635115745369,
+      "mateARms": 0.01697635115745369,
+      "mateBRms": 0.014933323333112423
+    },
+    {
+      "patch": "S81",
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.0236732791937636,
+      "mateARms": 0.0236732791937636,
+      "mateBRms": 0.026281006302519578
+    },
+    {
+      "patch": "S84",
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.030370917612105044,
+      "mateARms": 0.030370917612105044,
+      "mateBRms": 0.04574690958158731
+    },
+    {
+      "patch": "S91",
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.018439373804974714,
+      "mateARms": 0.018439373804974714,
+      "mateBRms": 0.07092969031979797
+    },
+    {
+      "patch": "S92",
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.00009378205329456153,
+      "mateARms": 0.00009378205329456153,
+      "mateBRms": 0.00009319348611295759
+    },
+    {
+      "patch": "S96",
+      "type": "cylinder",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.0226810065812712,
+      "mateARms": 0.0226810065812712,
+      "mateBRms": 0.0226810065812712,
+      "radius": 0.16583862471863173,
+      "axis": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "patch": "S99",
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.0026048444274903134,
+      "mateARms": 0.0026048444274903134,
+      "mateBRms": 0.002146518032187679
+    }
+  ]
+}

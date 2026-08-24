@@ -1,0 +1,1280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unit-part catalog</title>
+  <style>
+    :root {
+      --bg: #0c1018;
+      --panel: #141a24;
+      --card: #121820;
+      --text: #d0dce8;
+      --muted: #7a8fa3;
+      --accent: #7ab8e0;
+      --ok: #6dca8e;
+      --warn: #e0c07a;
+      --line: rgba(100, 160, 220, 0.14);
+      --line-strong: rgba(122, 184, 224, 0.35);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", system-ui, sans-serif;
+    }
+    body {
+      background-image: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(122, 184, 224, 0.12), transparent);
+    }
+    #app {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      height: 100%;
+    }
+    header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      padding: 0.95rem 1.35rem 0.9rem;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+    }
+    .kicker {
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.28rem;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+    .lede {
+      margin: 0.28rem 0 0;
+      color: var(--muted);
+      font-size: 0.84rem;
+      max-width: 42rem;
+      line-height: 1.45;
+    }
+    .toolbar { display: flex; align-items: end; gap: 0.85rem; flex-wrap: wrap; }
+    .field { display: flex; flex-direction: column; gap: 0.28rem; }
+    .field label {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    select, button {
+      background: #1a2230;
+      color: var(--text);
+      border: 1px solid var(--line-strong);
+      border-radius: 5px;
+      font: inherit;
+    }
+    select {
+      min-width: 18rem;
+      padding: 0.42rem 0.55rem;
+      font-size: 0.88rem;
+    }
+    button.ctrl, button.ctrl {
+      padding: 0.42rem 0.7rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      color: var(--accent);
+    }
+    button.ctrl:hover, button.ctrl.on,
+    button.ctrl:hover, button.ctrl.on { background: #243044; }
+    header a { color: var(--accent); font-size: 0.82rem; text-decoration: none; }
+    header a:hover { text-decoration: underline; }
+    #body {
+      display: grid;
+      grid-template-columns: minmax(280px, 1.05fr) minmax(340px, 0.95fr);
+      min-height: 0;
+    }
+    #stageWrap {
+      position: relative;
+      min-width: 0;
+      min-height: 280px;
+      border-right: 1px solid var(--line);
+      background: #0a0e16;
+    }
+    #stageSlot { position: absolute; inset: 0; cursor: grab; }
+    .stage-empty {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-content: center;
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      z-index: 2;
+      pointer-events: none;
+    }
+    .stage-empty.visible { display: grid; }
+    .stage-empty h2 { margin: 0 0 0.4rem; color: var(--text); font-size: 1.05rem; }
+    .stage-empty p { margin: 0; max-width: 26rem; line-height: 1.5; font-size: 0.88rem; }
+    #hud {
+      position: absolute;
+      left: 1rem;
+      bottom: 0.85rem;
+      z-index: 2;
+      pointer-events: none;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    #stageControls {
+      position: absolute;
+      right: 0.85rem;
+      bottom: 0.7rem;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .arm-picker {
+      display: flex;
+      align-items: center;
+      gap: 0.28rem;
+    }
+    .arm-picker > span {
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .arm-button, .turn-btn {
+      background: #1a2230;
+      color: var(--text);
+      border: 1px solid var(--line-strong);
+      border-radius: 5px;
+      font: inherit;
+      cursor: pointer;
+    }
+    .arm-button {
+      min-width: 1.85rem;
+      height: 1.7rem;
+      font-size: 0.78rem;
+      font-weight: 650;
+    }
+    .arm-button.active {
+      border-color: var(--accent);
+      color: #0c1018;
+      background: var(--accent);
+    }
+    .turn-btn {
+      height: 1.7rem;
+      padding: 0 0.5rem;
+      font-size: 0.72rem;
+      color: var(--accent);
+    }
+    .arm-button:hover, .turn-btn:hover { background: #243044; }
+    .arm-button.active:hover { background: #8ec4e6; }
+    #catalog { overflow: auto; padding: 1rem 1.1rem 1.6rem; }
+    .collection-note {
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.5;
+      margin: 0 0 0.7rem;
+    }
+    .jump {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0 0 1rem;
+    }
+    .jump a {
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      padding: 0.2rem 0.55rem;
+    }
+    .jump a:hover { background: #1a2433; }
+    .join-tag {
+      display: inline-block;
+      margin-top: 0.22rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .group { margin-bottom: 1.25rem; scroll-margin-top: 0.6rem; }
+    .group h2 {
+      margin: 0 0 0.25rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .gblurb { margin: 0 0 0.65rem; color: var(--muted); font-size: 0.78rem; line-height: 1.4; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+      gap: 0.65rem;
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      text-align: left;
+      color: inherit;
+      font: inherit;
+      padding: 0;
+    }
+    .card:hover { border-color: var(--line-strong); background: #17202c; }
+    .card.selected { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+    .card .kit-mark { display: none; }
+    .card.in-kit {
+      --kit-color: var(--ok);
+      background: color-mix(in srgb, var(--kit-color) 40%, var(--card));
+      border-color: var(--kit-color);
+      box-shadow: inset 4px 0 0 var(--kit-color);
+    }
+    .card.in-kit:hover {
+      background: color-mix(in srgb, var(--kit-color) 52%, #17202c);
+      border-color: var(--kit-color);
+    }
+    .card.in-kit.selected {
+      border-color: var(--accent);
+      box-shadow: inset 4px 0 0 var(--kit-color), 0 0 0 1px var(--accent) inset;
+    }
+    .card.in-kit .code { color: var(--text); }
+    .card.in-kit .kit-mark {
+      display: inline-block;
+      margin-top: 0.28rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--kit-color);
+    }
+    .kit-check {
+      display: flex;
+      align-items: center;
+      align-self: center;
+      gap: 0.45rem;
+      margin: 0;
+      padding-bottom: 0.12rem;
+      font-size: 0.8rem;
+      color: var(--text);
+      cursor: pointer;
+      user-select: none;
+      max-width: 16rem;
+      line-height: 1.3;
+    }
+    .kit-check input { accent-color: var(--accent); }
+    .thumb { height: 118px; background: #0a0e16; }
+    .card .meta { padding: 0.5rem 0.55rem 0.6rem; }
+    .code {
+      font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+      font-size: 0.92rem;
+      font-weight: 650;
+      letter-spacing: 0.06em;
+    }
+    .card .name { display: block; margin-top: 0.15rem; color: var(--muted); font-size: 0.72rem; line-height: 1.35; }
+    .card .twin { display: block; margin-top: 0.2rem; color: #5f7386; font-size: 0.68rem; }
+    .empty-box {
+      border: 1px dashed rgba(122, 184, 224, 0.28);
+      border-radius: 8px;
+      padding: 1.2rem 1rem;
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.5;
+    }
+    #detail {
+      margin-top: 0.35rem;
+      padding: 0.75rem 0.85rem;
+      background: #10161f;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    #detail h3 { margin: 0 0 0.35rem; font-size: 0.95rem; }
+    #detail p { margin: 0; color: var(--muted); font-size: 0.8rem; line-height: 1.45; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0.55rem 0 0.15rem; }
+    .chip {
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      padding: 0.18rem 0.4rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .chip.ok { color: var(--ok); border-color: rgba(109, 202, 142, 0.35); }
+    .chip.warn { color: var(--warn); border-color: rgba(224, 192, 122, 0.35); }
+    #overlay {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+      z-index: 1;
+    }
+    @media (max-width: 860px) {
+      #body { grid-template-columns: 1fr; grid-template-rows: 42vh 1fr; }
+      #stageWrap { border-right: none; border-bottom: 1px solid var(--line); }
+      select { min-width: 12rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <div>
+        <div class="kicker">Cell puzzle</div>
+        <h1>Unit-part catalog</h1>
+        <p class="lede">
+          Two collections in the dropdown. Collection 1 is unique two-half
+          joins after 180° in the sitting pose (a flip is a different part).
+          Collection 2 is the cubic-joint mounting families: five gray join
+          faces, 15 unordered pairs, opposite or adjacent on the lavender cube
+          (30 families). Quarter-turns stay inside a family. Click either gray
+          module (or either half in Collection 1) to turn that part 90° — the
+          camera stays put.
+        </p>
+      </div>
+      <div class="toolbar">
+        <div class="field">
+          <label for="collection">Collection</label>
+          <select id="collection"></select>
+        </div>
+        <button class="ctrl on" id="spinBtn" type="button">Spin</button>
+        <label class="kit-check" title="O-F1F1, O-F1F2, L-F0F2, L-F1F2, L-F3F3, L-F3F4">
+          <input type="checkbox" id="highlightKit" />
+          Highlight unique 6+L cube kit
+        </label>
+        <a href="/">Home</a>
+      </div>
+    </header>
+    <div id="body">
+      <div id="stageWrap">
+        <div id="stageSlot"></div>
+        <div class="stage-empty" id="stageEmpty" hidden aria-hidden="true">
+          <h2>No pieces in this collection yet</h2>
+          <p>Switch to Collection 1 or Collection 2, or add groups in this page’s script.</p>
+        </div>
+        <div id="hud">Click either gray module to turn it · drag to orbit · scroll to zoom</div>
+        <div id="stageControls">
+          <div class="arm-picker" aria-label="Active module">
+            <span>Arm</span>
+            <button type="button" class="arm-button active" data-arm="A" aria-pressed="true">A</button>
+            <button type="button" class="arm-button" data-arm="B" aria-pressed="false">B</button>
+          </div>
+          <button type="button" class="turn-btn" id="turnLeft" aria-label="Rotate active arm backward 90 degrees">−90°</button>
+          <button type="button" class="turn-btn" id="turnRight" aria-label="Rotate active arm forward 90 degrees">+90°</button>
+        </div>
+      </div>
+      <div id="catalog">
+        <p class="collection-note" id="collectionNote"></p>
+        <nav class="jump" id="jumpNav" aria-label="Join classes"></nav>
+        <div id="groups"></div>
+        <div id="detail" hidden></div>
+      </div>
+    </div>
+  </div>
+  <canvas id="overlay"></canvas>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const GRAY_FACES = [
+  { id: 'F0', name: 'axial', description: 'face opposite the diagonal half-cube', n: { x: 0, y: -1, z: 0 }, tan: { x: 1, y: 0, z: 0 } },
+  { id: 'F1', name: 'slope-low side', description: 'side face at the low edge of the diagonal slope', n: { x: -1, y: 0, z: 0 }, tan: { x: 0, y: 1, z: 0 } },
+  { id: 'F2', name: 'slope-high side', description: 'side face at the high edge of the diagonal slope', n: { x: 1, y: 0, z: 0 }, tan: { x: 0, y: 1, z: 0 } },
+  { id: 'F3', name: 'prism-end A', description: 'first side face parallel to the triangular-prism end', n: { x: 0, y: 0, z: -1 }, tan: { x: 1, y: 0, z: 0 } },
+  { id: 'F4', name: 'prism-end B', description: 'opposite side face parallel to the triangular-prism end', n: { x: 0, y: 0, z: 1 }, tan: { x: 1, y: 0, z: 0 } },
+];
+
+function mountingFamilies(join) {
+  const prefix = join === 'joint-I' ? 'O' : 'L';
+  const items = [];
+  for (let i = 0; i < GRAY_FACES.length; i++) {
+    for (let j = i; j < GRAY_FACES.length; j++) {
+      const fa = GRAY_FACES[i];
+      const fb = GRAY_FACES[j];
+      const code = `${prefix}-${fa.id}${fb.id}`;
+      items.push({
+        id: code,
+        join,
+        code,
+        a: fa.id,
+        b: fb.id,
+        twin: code,
+        name: `${fa.name} × ${fb.name}`,
+        note: `Gray A uses ${fa.id}, the ${fa.description}. Gray B uses ${fb.id}, the ${fb.description}. Quarter-turns around the joint stay in this family.`,
+        chiral: false,
+      });
+    }
+  }
+  return items;
+}
+
+const COLLECTIONS = [
+  {
+    id: 'roofs-2x1',
+    name: 'Collection 1 — two-half joins',
+    note: '15 unique types: 2 L, 2 J (mirror L), 1 bar, 10 standing 2×1. E/W, E/E, and E/N are one L with the south half spun on the join; N/W and N/N are the other L. The J footprint is the handedness you cannot get by rotating an L. Click the stage to spin one half in place.',
+    groups: [
+      {
+        id: 'end-side',
+        title: 'End-to-side · L and J (on the table)',
+        blurb: 'Cubes meet at a corner; roofs occupy the two outer cells. Spinning the south half 90° around the join cycles its slope (the E/W · E/E · E/N cards were that motion, as were N/W · N/N). The J is the mirror footprint — flipping an L, not rotating it. Click the model to spin the south half; the camera does not reset.',
+        pieces: [
+          { id: 'L-N', join: 'end-side', hand: 'L', code: 'L · N', a: 'N', b: 'W', twin: 'S/W', name: 'L, east arm across', note: 'N/W, N/N, N/E, N/S are this part with the south half spun 90° around the join. Twin S/* at 180° in the plane.', chiral: false },
+          { id: 'L-E', join: 'end-side', hand: 'L', code: 'L · E', a: 'E', b: 'W', twin: 'W/W', name: 'L, east arm down', note: 'E/W, E/E, E/N, E/S are this part with the south half spun 90° around the join. Twin W/* at 180° in the plane.', chiral: false },
+          { id: 'J-N', join: 'end-side', hand: 'J', code: 'J · N', a: 'N', b: 'W', twin: 'S/E', name: 'J, west arm across', note: 'Mirror L: stub goes west instead of east. Cannot be rotated onto an L. Click to spin the south half.', chiral: true, mirror: 'L · N' },
+          { id: 'J-E', join: 'end-side', hand: 'J', code: 'J · E', a: 'E', b: 'W', twin: 'W/E', name: 'J, west arm down', note: 'Mirror of L · E. Click to spin the south half.', chiral: true, mirror: 'L · E' },
+        ],
+      },
+      {
+        id: 'end-end',
+        title: 'End-to-end · 4-long bar (on the table)',
+        blurb: 'Both halves lie in a line: roofs, cube, cube, roof. Rolling 90° around the long midplane cycles NN, NS, NE, and NW, so those four catalog rows are one part.',
+        pieces: [
+          { id: 'T-NN', join: 'end-end', code: 'bar', a: 'N', b: 'N', twin: 'SS', name: 'One physical bar', note: 'NN / NS / NE / NW are the four rolls around the long axis. Click the stage to cycle them. In-plane 180° is SS.', chiral: false },
+        ],
+      },
+      {
+        id: 'perp',
+        title: 'Side-to-side · both perpendicular to the bar',
+        blurb: 'Both halves stand on the table, cubes joined along a side. Roofs face across the short direction (N/S).',
+        pieces: [
+          { id: 'NN', join: 'side', code: 'NN', a: 'N', b: 'N', twin: 'SS', name: 'Same way', note: 'Both roofs slope the same way across the bar. SS is this part turned 180°.', chiral: false },
+          { id: 'NS', join: 'side', code: 'NS', a: 'N', b: 'S', twin: 'NS', name: 'Opposite (one chirality)', note: 'Roofs face opposite ways across the bar. 180° leaves this pairing in place. SN is the mirror, not a rotation.', chiral: true, mirror: 'SN' },
+          { id: 'SN', join: 'side', code: 'SN', a: 'S', b: 'N', twin: 'SN', name: 'Opposite (other chirality)', note: 'The other opposite-perp pairing. Distinct from NS unless the part can be flipped over.', chiral: true, mirror: 'NS' },
+        ],
+      },
+      {
+        id: 'along',
+        title: 'Side-to-side · both along the bar',
+        blurb: 'Same sitting pose. Roofs face along the long direction (E/W).',
+        pieces: [
+          { id: 'EE', join: 'side', code: 'EE', a: 'E', b: 'E', twin: 'WW', name: 'Same way', note: 'Both roofs run the same way along the bar. WW is this part turned 180°.', chiral: false },
+          { id: 'EW', join: 'side', code: 'EW', a: 'E', b: 'W', twin: 'EW', name: 'Toward each other', note: 'Valley along the join. Self-symmetric under 180°.', chiral: false },
+          { id: 'WE', join: 'side', code: 'WE', a: 'W', b: 'E', twin: 'WE', name: 'Away from each other', note: 'Peak along the join. Self-symmetric under 180°.', chiral: false },
+        ],
+      },
+      {
+        id: 'mixed',
+        title: 'Side-to-side · mixed',
+        blurb: 'One roof across the bar, one along it. Four chiral types.',
+        pieces: [
+          { id: 'NE', join: 'side', code: 'NE', a: 'N', b: 'E', twin: 'WS', name: 'Left N, right E', note: 'WS is the same part after a 180° spin. Mirror is EN.', chiral: true, mirror: 'EN' },
+          { id: 'NW', join: 'side', code: 'NW', a: 'N', b: 'W', twin: 'ES', name: 'Left N, right W', note: 'ES is the 180° twin. Mirror is SE.', chiral: true, mirror: 'SE' },
+          { id: 'EN', join: 'side', code: 'EN', a: 'E', b: 'N', twin: 'SW', name: 'Left E, right N', note: 'SW is the 180° twin. Mirror of NE.', chiral: true, mirror: 'NE' },
+          { id: 'SE', join: 'side', code: 'SE', a: 'S', b: 'E', twin: 'WN', name: 'Left S, right E', note: 'WN is the 180° twin. Mirror of NW.', chiral: true, mirror: 'NW' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'joint-cube',
+    name: 'Collection 2 — cubic joint',
+    note: '30 unique mounting families, matching unit-three-part-catalog-v5: each gray module (cube + diagonal half-cube) may meet the lavender cube on any of five exposed cube faces. Rotating at the joint does not change which physical face stays in contact, so those five choices stay distinct. 15 unordered gray-face pairs × opposite or adjacent lavender faces = 30 families. Reflections are not the same family. Click either gray module on the stage to quarter-turn that module; the 16 joint poses stay inside the selected family.',
+    groups: [
+      {
+        id: 'joint-I',
+        title: 'Opposite lavender faces',
+        blurb: 'Arms on opposite faces of the lavender cube. 15 unordered pairs of gray join faces (F0–F4, combinations with replacement). Quarter-turns of either module stay in the same family and are not extra cards.',
+        pieces: mountingFamilies('joint-I'),
+      },
+      {
+        id: 'joint-L',
+        title: 'Adjacent lavender faces',
+        blurb: 'Arms on adjacent faces of the lavender cube. The same 15 unordered gray-face pairs, now on an L. Click either gray module on the stage to quarter-turn it around its joint axis.',
+        pieces: mountingFamilies('joint-L'),
+      },
+    ],
+  },
+];
+
+const CUBE = 0xf3f1ea;
+const CUBE_R = 0xe4eaf2;
+const SLOPE = 0x5c5854;
+const SLOPE_R = 0x3f4a58;
+const EDGE = 0x1a1a1a;
+
+function dirSpec(dir) {
+  switch (dir) {
+    case 'N': return { axis: 2, sign: -1 };
+    case 'S': return { axis: 2, sign: 1 };
+    case 'E': return { axis: 0, sign: 1 };
+    case 'W': return { axis: 0, sign: -1 };
+    default: throw new Error(dir);
+  }
+}
+
+function addTri(pos, nrm, a, b, c) {
+  const ab = b.clone().sub(a);
+  const ac = c.clone().sub(a);
+  const n = ab.cross(ac).normalize();
+  [a, b, c].forEach((v) => {
+    pos.push(v.x, v.y, v.z);
+    nrm.push(n.x, n.y, n.z);
+  });
+}
+
+function addQuad(pos, nrm, a, b, c, d) {
+  addTri(pos, nrm, a, b, c);
+  addTri(pos, nrm, a, c, d);
+}
+
+function meshFrom(pos, nrm, color) {
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  geo.setAttribute('normal', new THREE.Float32BufferAttribute(nrm, 3));
+  const mat = new THREE.MeshStandardMaterial({
+    color, roughness: 0.48, metalness: 0.04, flatShading: true, side: THREE.DoubleSide,
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.add(new THREE.LineSegments(
+    new THREE.EdgesGeometry(geo, 20),
+    new THREE.LineBasicMaterial({ color: EDGE, transparent: true, opacity: 0.7 }),
+  ));
+  return mesh;
+}
+
+function makeHalf(cx, cz, dir, cubeColor, slopeColor) {
+  const g = new THREE.Group();
+  const cube = new THREE.Mesh(
+    new THREE.BoxGeometry(0.98, 0.98, 0.98),
+    new THREE.MeshStandardMaterial({ color: cubeColor, roughness: 0.5, metalness: 0.03, flatShading: true }),
+  );
+  cube.position.set(cx + 0.5, 0.5, cz + 0.5);
+  cube.add(new THREE.LineSegments(
+    new THREE.EdgesGeometry(cube.geometry, 20),
+    new THREE.LineBasicMaterial({ color: EDGE, transparent: true, opacity: 0.65 }),
+  ));
+  g.add(cube);
+
+  const x0 = cx;
+  const x1 = cx + 1;
+  const z0 = cz;
+  const z1 = cz + 1;
+  const y0 = 1;
+  const y1 = 2;
+  const { axis, sign } = dirSpec(dir);
+  let lowA, lowB, highA, highB, ridgeA, ridgeB;
+  if (axis === 2) {
+    if (sign < 0) {
+      lowA = new THREE.Vector3(x0, y0, z0); lowB = new THREE.Vector3(x1, y0, z0);
+      highA = new THREE.Vector3(x0, y0, z1); highB = new THREE.Vector3(x1, y0, z1);
+      ridgeA = new THREE.Vector3(x0, y1, z1); ridgeB = new THREE.Vector3(x1, y1, z1);
+    } else {
+      lowA = new THREE.Vector3(x1, y0, z1); lowB = new THREE.Vector3(x0, y0, z1);
+      highA = new THREE.Vector3(x1, y0, z0); highB = new THREE.Vector3(x0, y0, z0);
+      ridgeA = new THREE.Vector3(x1, y1, z0); ridgeB = new THREE.Vector3(x0, y1, z0);
+    }
+  } else if (sign > 0) {
+    lowA = new THREE.Vector3(x1, y0, z0); lowB = new THREE.Vector3(x1, y0, z1);
+    highA = new THREE.Vector3(x0, y0, z0); highB = new THREE.Vector3(x0, y0, z1);
+    ridgeA = new THREE.Vector3(x0, y1, z0); ridgeB = new THREE.Vector3(x0, y1, z1);
+  } else {
+    lowA = new THREE.Vector3(x0, y0, z1); lowB = new THREE.Vector3(x0, y0, z0);
+    highA = new THREE.Vector3(x1, y0, z1); highB = new THREE.Vector3(x1, y0, z0);
+    ridgeA = new THREE.Vector3(x1, y1, z1); ridgeB = new THREE.Vector3(x1, y1, z0);
+  }
+
+  const sPos = [];
+  const sN = [];
+  const bPos = [];
+  const bN = [];
+  addQuad(sPos, sN, ridgeA, ridgeB, lowB, lowA);
+  addQuad(bPos, bN, highA, highB, ridgeB, ridgeA);
+  addTri(bPos, bN, highA, ridgeA, lowA);
+  addTri(bPos, bN, highB, lowB, ridgeB);
+  g.add(meshFrom(sPos, sN, slopeColor));
+  g.add(meshFrom(bPos, bN, cubeColor));
+  return g;
+}
+
+function upVector(up) {
+  switch (up) {
+    case 'U': return new THREE.Vector3(0, 1, 0);
+    case 'D': return new THREE.Vector3(0, -1, 0);
+    case 'N': return new THREE.Vector3(0, 0, -1);
+    case 'S': return new THREE.Vector3(0, 0, 1);
+    case 'E': return new THREE.Vector3(1, 0, 0);
+    case 'W': return new THREE.Vector3(-1, 0, 0);
+    default: throw new Error(up);
+  }
+}
+
+const WORLD_DIR = {
+  U: new THREE.Vector3(0, 1, 0),
+  D: new THREE.Vector3(0, -1, 0),
+  N: new THREE.Vector3(0, 0, -1),
+  S: new THREE.Vector3(0, 0, 1),
+  E: new THREE.Vector3(1, 0, 0),
+  W: new THREE.Vector3(-1, 0, 0),
+};
+
+function dirToward(upKey, want) {
+  const quat = new THREE.Quaternion().setFromUnitVectors(
+    new THREE.Vector3(0, 1, 0),
+    WORLD_DIR[upKey].clone(),
+  );
+  let best = 'N';
+  let bestDot = -1e9;
+  for (const d of ['N', 'S', 'E', 'W']) {
+    const v = new THREE.Vector3(
+      d === 'E' ? 1 : d === 'W' ? -1 : 0,
+      0,
+      d === 'S' ? 1 : d === 'N' ? -1 : 0,
+    ).applyQuaternion(quat);
+    const dot = v.dot(want);
+    if (dot > bestDot) {
+      bestDot = dot;
+      best = d;
+    }
+  }
+  return best;
+}
+
+function cgV(x, y, z) { return { x, y, z }; }
+function cgAdd(a, b) { return { x: a.x + b.x, y: a.y + b.y, z: a.z + b.z }; }
+function cgScale(a, s) { return { x: a.x * s, y: a.y * s, z: a.z * s }; }
+function cgDot(a, b) { return a.x * b.x + a.y * b.y + a.z * b.z; }
+function cgCross(a, b) {
+  return { x: a.y * b.z - a.z * b.y, y: a.z * b.x - a.x * b.z, z: a.x * b.y - a.y * b.x };
+}
+function fromCG(p) { return new THREE.Vector3(p.x, p.z, -p.y); }
+
+function orientedModuleCG(topology, arm, faceId) {
+  let u;
+  let r0;
+  if (topology === 'I' && arm === 'A') { u = cgV(-1, 0, 0); r0 = cgV(0, 0, 1); }
+  else if (topology === 'I') { u = cgV(1, 0, 0); r0 = cgV(0, 0, 1); }
+  else if (arm === 'A') { u = cgV(1, 0, 0); r0 = cgV(0, 0, 1); }
+  else { u = cgV(0, 1, 0); r0 = cgV(0, 0, -1); }
+  const face = GRAY_FACES.find((f) => f.id === faceId);
+  const n = face.n;
+  const tan = face.tan;
+  const third = cgCross(n, tan);
+  const targetN = cgScale(u, -1);
+  const targetTan = r0;
+  const targetThird = cgCross(targetN, targetTan);
+  const map = (vec) => cgAdd(
+    cgAdd(cgScale(targetN, cgDot(vec, n)), cgScale(targetTan, cgDot(vec, tan))),
+    cgScale(targetThird, cgDot(vec, third)),
+  );
+  return { u, s: map(cgV(1, 0, 0)), e: map(cgV(0, 1, 0)), t: map(cgV(0, 0, 1)) };
+}
+
+function makeJointCube() {
+  const mesh = new THREE.Mesh(
+    new THREE.BoxGeometry(0.98, 0.98, 0.98),
+    new THREE.MeshStandardMaterial({
+      color: 0xbba5e0,
+      roughness: 0.45,
+      metalness: 0.04,
+      transparent: true,
+      opacity: 0.5,
+      depthWrite: false,
+    }),
+  );
+  mesh.add(new THREE.LineSegments(
+    new THREE.EdgesGeometry(mesh.geometry, 20),
+    new THREE.LineBasicMaterial({ color: 0x5a4078, transparent: true, opacity: 0.9 }),
+  ));
+  return mesh;
+}
+
+function makeGrayArm(topology, arm, faceId, cubeColor, slopeColor) {
+  const m = orientedModuleCG(topology, arm, faceId);
+  const center = fromCG(m.u);
+  const s = fromCG(m.s);
+  const e = fromCG(m.e);
+  const t = fromCG(m.t);
+  const local = (lu, lr, lt) => center.clone()
+    .addScaledVector(s, lu)
+    .addScaledVector(e, lr)
+    .addScaledVector(t, lt);
+  const A = local(-0.5, 0.5, -0.5);
+  const B = local(0.5, 0.5, -0.5);
+  const C = local(0.5, 1.5, -0.5);
+  const D = local(-0.5, 0.5, 0.5);
+  const E = local(0.5, 0.5, 0.5);
+  const F = local(0.5, 1.5, 0.5);
+  const pos = [];
+  const nrm = [];
+  addTri(pos, nrm, A, C, B);
+  addTri(pos, nrm, D, E, F);
+  addQuad(pos, nrm, A, B, E, D);
+  addQuad(pos, nrm, B, C, F, E);
+  addQuad(pos, nrm, A, D, F, C);
+
+  const g = new THREE.Group();
+  const cube = new THREE.Mesh(
+    new THREE.BoxGeometry(0.98, 0.98, 0.98),
+    new THREE.MeshStandardMaterial({ color: cubeColor, roughness: 0.5, metalness: 0.03, flatShading: true }),
+  );
+  cube.position.copy(center);
+  cube.add(new THREE.LineSegments(
+    new THREE.EdgesGeometry(cube.geometry, 20),
+    new THREE.LineBasicMaterial({ color: EDGE, transparent: true, opacity: 0.65 }),
+  ));
+  g.add(cube);
+  g.add(meshFrom(pos, nrm, slopeColor));
+  g.userData.baseQuat = g.quaternion.clone();
+  g.userData.basePos = g.position.clone();
+  g.userData.cubeLocal = center.clone();
+  return g;
+}
+
+function placeHalf(dir, cube, up, cubeColor, slopeColor) {
+  const g = makeHalf(0, 0, dir, cubeColor, slopeColor);
+  const quat = new THREE.Quaternion().setFromUnitVectors(
+    new THREE.Vector3(0, 1, 0),
+    upVector(up),
+  );
+  g.quaternion.copy(quat);
+  const localCube = new THREE.Vector3(0.5, 0.5, 0.5).applyQuaternion(quat);
+  const target = new THREE.Vector3(cube[0] + 0.5, cube[1] + 0.5, cube[2] + 0.5);
+  g.position.copy(target).sub(localCube);
+  g.userData.baseQuat = g.quaternion.clone();
+  g.userData.basePos = g.position.clone();
+  g.userData.cubeLocal = new THREE.Vector3(0.5, 0.5, 0.5);
+  return g;
+}
+
+function cubeCenter(half) {
+  return half.userData.cubeLocal.clone().applyQuaternion(half.quaternion).add(half.position);
+}
+
+function makePiece(piece) {
+  const g = new THREE.Group();
+  const join = piece.join || 'side';
+  let halfA;
+  let halfB;
+  let joint = null;
+  let axis = new THREE.Vector3(1, 0, 0);
+  if (join === 'side') {
+    halfA = placeHalf(piece.a, [0, 0, 0], 'U', CUBE, SLOPE);
+    halfB = placeHalf(piece.b, [1, 0, 0], 'U', CUBE_R, SLOPE_R);
+    axis.set(1, 0, 0);
+  } else if (join === 'end-side') {
+    const stubUp = piece.hand === 'J' ? 'W' : 'E';
+    halfA = placeHalf(piece.a, [0, 0, 0], stubUp, CUBE, SLOPE);
+    halfB = placeHalf(piece.b, [0, 0, 1], 'S', CUBE_R, SLOPE_R);
+    axis.set(0, 0, 1);
+  } else if (join === 'end-end') {
+    halfA = placeHalf(piece.a, [0, 0, 0], 'W', CUBE, SLOPE);
+    halfB = placeHalf(piece.b, [1, 0, 0], 'E', CUBE_R, SLOPE_R);
+    axis.set(1, 0, 0);
+  } else if (join === 'joint-I') {
+    joint = makeJointCube();
+    g.add(joint);
+    halfA = makeGrayArm('I', 'A', piece.a, CUBE, SLOPE);
+    halfB = makeGrayArm('I', 'B', piece.b, CUBE_R, SLOPE_R);
+    axis.copy(halfB.userData.cubeLocal).normalize();
+  } else if (join === 'joint-L') {
+    joint = makeJointCube();
+    g.add(joint);
+    halfA = makeGrayArm('L', 'A', piece.a, CUBE, SLOPE);
+    halfB = makeGrayArm('L', 'B', piece.b, CUBE_R, SLOPE_R);
+    axis.copy(halfB.userData.cubeLocal).normalize();
+  }
+  g.add(halfA);
+  g.add(halfB);
+  halfA.userData.arm = 'A';
+  halfB.userData.arm = 'B';
+  const pivotA = cubeCenter(halfA);
+  const pivotB = cubeCenter(halfB);
+  let axisA = axis.clone();
+  let axisB = axis.clone();
+  if (join === 'joint-I' || join === 'joint-L') {
+    axisA.copy(halfA.userData.cubeLocal).normalize();
+    axisB.copy(halfB.userData.cubeLocal).normalize();
+  }
+  const box = new THREE.Box3().setFromObject(g);
+  const c = box.getCenter(new THREE.Vector3());
+  g.position.sub(c);
+  halfA.userData.basePos = halfA.position.clone();
+  halfB.userData.basePos = halfB.position.clone();
+  g.userData = { halfA, halfB, joint, axis, pivot: pivotB, axisA, axisB, pivotA, pivotB, join };
+  return g;
+}
+
+function frameCamera(camera, object) {
+  const box = new THREE.Box3().setFromObject(object);
+  const size = Math.max(2.2, box.getSize(new THREE.Vector3()).length());
+  const dist = size * 1.2;
+  camera.position.set(dist * 0.9, dist * 0.72, dist * 0.9);
+  camera.near = 0.05;
+  camera.far = 80;
+  camera.lookAt(0, 0, 0);
+  camera.updateProjectionMatrix();
+}
+
+function lights(scene) {
+  scene.add(new THREE.HemisphereLight(0xd8e6f4, 0x2a2830, 0.85));
+  const key = new THREE.DirectionalLight(0xffffff, 1.15);
+  key.position.set(4.2, 7.2, 3.4);
+  scene.add(key);
+  const fill = new THREE.DirectionalLight(0x8aa0b8, 0.35);
+  fill.position.set(-3.5, 1.8, -4);
+  scene.add(fill);
+}
+
+function makeView(isStage) {
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0a0e16);
+  lights(scene);
+  let grid = null;
+  if (isStage) {
+    grid = new THREE.GridHelper(10, 10, 0x2a3a4c, 0x1a2430);
+    grid.position.y = -1.05;
+    scene.add(grid);
+  }
+  const camera = new THREE.PerspectiveCamera(isStage ? 38 : 32, 1, 0.05, 80);
+  camera.position.set(3.4, 2.8, 3.4);
+  camera.lookAt(0, 0, 0);
+  const pivot = new THREE.Group();
+  scene.add(pivot);
+  return { scene, camera, pivot, piece: null, grid };
+}
+
+const overlay = document.getElementById('overlay');
+const renderer = new THREE.WebGLRenderer({ canvas: overlay, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setScissorTest(true);
+
+const stageSlot = document.getElementById('stageSlot');
+const stage = makeView(true);
+const controls = new OrbitControls(stage.camera, stageSlot);
+controls.enableDamping = true;
+controls.minDistance = 2.2;
+controls.maxDistance = 20;
+
+const selectEl = document.getElementById('collection');
+const groupsEl = document.getElementById('groups');
+const noteEl = document.getElementById('collectionNote');
+const detailEl = document.getElementById('detail');
+const emptyEl = document.getElementById('stageEmpty');
+const spinBtn = document.getElementById('spinBtn');
+const hud = document.getElementById('hud');
+const highlightKitEl = document.getElementById('highlightKit');
+
+const CUBE_KIT_COLORS = {
+  'O-F1F1': '#e53935',
+  'O-F1F2': '#f9a825',
+  'L-F0F2': '#43a047',
+  'L-F1F2': '#00acc1',
+  'L-F3F3': '#1e88e5',
+  'L-F3F4': '#8e24aa',
+};
+
+const params = new URLSearchParams(location.search);
+let collectionId = COLLECTIONS[0].id;
+if (params.get('v') === '30families' || params.get('collection') === 'joint-cube') {
+  collectionId = 'joint-cube';
+}
+let selectedId = null;
+let spin = true;
+let poseA = 0;
+let poseB = 0;
+let activeArm = 'A';
+const thumbs = [];
+const raycaster = new THREE.Raycaster();
+const pointerNdc = new THREE.Vector2();
+const armButtons = [...document.querySelectorAll('#stageControls [data-arm]')];
+
+function setArmPose(half, axis, pivot, index) {
+  if (!half || !axis || !pivot) return;
+  const q = new THREE.Quaternion().setFromAxisAngle(axis, index * Math.PI / 2);
+  half.quaternion.copy(q).multiply(half.userData.baseQuat);
+  half.position.copy(half.userData.basePos).sub(pivot).applyQuaternion(q).add(pivot);
+}
+
+function setActiveArm(which) {
+  activeArm = which === 'B' ? 'B' : 'A';
+  for (const btn of armButtons) {
+    const on = btn.dataset.arm === activeArm;
+    btn.classList.toggle('active', on);
+    btn.setAttribute('aria-pressed', String(on));
+  }
+}
+
+function applyPose() {
+  if (!stage.piece) return;
+  const { halfA, halfB, axisA, axisB, pivotA, pivotB, join } = stage.piece.userData;
+  setArmPose(halfA, axisA, pivotA, poseA);
+  setArmPose(halfB, axisB, pivotB, poseB);
+  const jointed = (join || '').startsWith('joint');
+  hud.textContent = jointed
+    ? `A ${poseA * 90}° · B ${poseB * 90}° · click a gray module to turn it · drag to orbit`
+    : `A ${poseA + 1}/4 · B ${poseB + 1}/4 · click a half to spin it · drag to orbit`;
+}
+
+function rotateArm(which, amount = 1) {
+  if (!stage.piece) return;
+  setActiveArm(which);
+  if (which === 'A') poseA = (poseA + amount + 4) % 4;
+  else poseB = (poseB + amount + 4) % 4;
+  applyPose();
+  renderDetail(pieceById(selectedId));
+}
+
+function rotateActive(amount) {
+  rotateArm(activeArm, amount);
+}
+
+function hitArm(clientX, clientY) {
+  if (!stage.piece) return null;
+  const { halfA, halfB, joint } = stage.piece.userData;
+  if (!halfA || !halfB) return null;
+  const r = stageSlot.getBoundingClientRect();
+  if (r.width <= 0 || r.height <= 0) return null;
+  pointerNdc.set(
+    ((clientX - r.left) / r.width) * 2 - 1,
+    -((clientY - r.top) / r.height) * 2 + 1,
+  );
+  raycaster.setFromCamera(pointerNdc, stage.camera);
+  const targets = joint ? [halfA, halfB, joint] : [halfA, halfB];
+  const hits = raycaster.intersectObjects(targets, true);
+  if (!hits.length) return null;
+  let obj = hits[0].object;
+  while (obj && obj !== halfA && obj !== halfB && obj !== joint) obj = obj.parent;
+  if (obj === halfA) return 'A';
+  if (obj === halfB) return 'B';
+  return null;
+}
+
+function joinShort(piece) {
+  if (piece.join === 'end-side') return piece.hand === 'J' ? 'J on table' : 'L on table';
+  if (piece.join === 'end-end') return 'end-to-end bar';
+  if (piece.join === 'joint-I') return 'opposite faces';
+  if (piece.join === 'joint-L') return 'adjacent faces';
+  return 'standing 2×1';
+}
+
+function twinLabel(piece) {
+  if ((piece.join || '').startsWith('joint')) {
+    return '4 quarter-turns stay in this family';
+  }
+  const bits = [];
+  if (piece.twin === piece.code) bits.push('self under 180°');
+  else bits.push('same as ' + piece.twin + ' at 180°');
+  if (piece.chiral) bits.push('mirror of ' + piece.mirror);
+  return bits.join(' · ');
+}
+
+function allPieces(col) {
+  return col.groups.flatMap((g) => g.pieces.map((p) => ({ ...p, group: g.id })));
+}
+
+function currentCollection() {
+  return COLLECTIONS.find((c) => c.id === collectionId) ?? COLLECTIONS[0];
+}
+
+function pieceById(id) {
+  return allPieces(currentCollection()).find((p) => p.id === id) ?? null;
+}
+
+function disposeObject(obj) {
+  obj.traverse((ch) => {
+    if (ch.geometry) ch.geometry.dispose();
+    if (ch.material) {
+      if (Array.isArray(ch.material)) ch.material.forEach((m) => m.dispose());
+      else ch.material.dispose();
+    }
+  });
+}
+
+function setStagePiece(piece) {
+  if (stage.piece) {
+    stage.pivot.remove(stage.piece);
+    disposeObject(stage.piece);
+    stage.piece = null;
+  }
+  if (!piece) {
+    hud.textContent = 'Click a gray module or a half to turn it · drag to orbit · scroll to zoom';
+    return;
+  }
+  poseA = 0;
+  poseB = 0;
+  setActiveArm('A');
+  stage.piece = makePiece(piece);
+  stage.pivot.add(stage.piece);
+  applyPose();
+  frameCamera(stage.camera, stage.piece);
+  controls.target.set(0, 0, 0);
+}
+
+function renderDetail(piece) {
+  if (!piece) {
+    detailEl.hidden = true;
+    detailEl.innerHTML = '';
+    return;
+  }
+  detailEl.hidden = false;
+  const joinLabel = piece.join === 'end-side'
+    ? (piece.hand === 'J' ? 'end-to-side J' : 'end-to-side L')
+    : piece.join === 'end-end' ? 'end-to-end bar'
+    : piece.join === 'joint-I' ? 'opposite lavender faces'
+    : piece.join === 'joint-L' ? 'adjacent lavender faces'
+    : 'side-to-side';
+  const poseChip = (piece.join || '').startsWith('joint')
+    ? `A ${poseA * 90}° · B ${poseB * 90}°`
+    : `A ${poseA + 1}/4 · B ${poseB + 1}/4`;
+  const chips = [
+    `<span class="chip">${joinLabel}</span>`,
+    `<span class="chip">${piece.a} · ${piece.b}</span>`,
+    `<span class="chip">${twinLabel(piece)}</span>`,
+    `<span class="chip">${poseChip}</span>`,
+    piece.chiral
+      ? `<span class="chip warn">chiral · keep both</span>`
+      : `<span class="chip ok">${(piece.join || '').startsWith('joint') ? 'family · 16 joint poses' : 'achiral under rotation'}</span>`,
+  ].join('');
+  detailEl.innerHTML = `<h3>${piece.code} — ${piece.name}</h3><div class="chips">${chips}</div><p>${piece.note}</p>`;
+}
+
+function selectPiece(id) {
+  selectedId = id;
+  const piece = pieceById(id);
+  setStagePiece(piece);
+  renderDetail(piece);
+  groupsEl.querySelectorAll('.card').forEach((btn) => {
+    btn.classList.toggle('selected', btn.dataset.id === id);
+  });
+}
+
+function clearThumbs() {
+  while (thumbs.length) {
+    const t = thumbs.pop();
+    if (t.piece) {
+      t.pivot.remove(t.piece);
+      disposeObject(t.piece);
+    }
+  }
+}
+
+function renderCatalog() {
+  const col = currentCollection();
+  noteEl.textContent = col.note;
+  groupsEl.innerHTML = '';
+  clearThumbs();
+  const jumpEl = document.getElementById('jumpNav');
+  if (jumpEl) jumpEl.innerHTML = '';
+
+  if (!col.groups.length) {
+    emptyEl.classList.add('visible');
+    emptyEl.hidden = false;
+    emptyEl.setAttribute('aria-hidden', 'false');
+    hud.style.display = 'none';
+    setStagePiece(null);
+    renderDetail(null);
+    groupsEl.innerHTML = `<div class="empty-box">${col.emptyHint ?? 'Nothing here yet.'}</div>`;
+    return;
+  }
+  emptyEl.classList.remove('visible');
+  emptyEl.hidden = true;
+  emptyEl.setAttribute('aria-hidden', 'true');
+  hud.style.display = '';
+
+  for (const group of col.groups) {
+    const sec = document.createElement('section');
+    sec.className = 'group';
+    sec.id = `group-${group.id}`;
+    sec.innerHTML = `<h2>${group.title}</h2><p class="gblurb">${group.blurb}</p>`;
+    const grid = document.createElement('div');
+    grid.className = 'cards';
+    for (const piece of group.pieces) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'card';
+      btn.dataset.id = piece.id;
+      btn.innerHTML = `
+        <div class="thumb" data-thumb="${piece.id}"></div>
+        <div class="meta">
+          <span class="code">${piece.code}</span>
+          <span class="join-tag">${joinShort(piece)}</span>
+          <span class="name">${piece.name}</span>
+          <span class="twin">${twinLabel(piece)}</span>
+          <span class="kit-mark">in 6+L kit</span>
+        </div>`;
+      btn.addEventListener('click', () => selectPiece(piece.id));
+      grid.appendChild(btn);
+      const slot = btn.querySelector('.thumb');
+      const view = makeView(false);
+      view.piece = makePiece(piece);
+      view.pivot.add(view.piece);
+      frameCamera(view.camera, view.piece);
+      thumbs.push({ ...view, elem: slot, id: piece.id });
+    }
+    sec.appendChild(grid);
+    groupsEl.appendChild(sec);
+  }
+
+  if (jumpEl) {
+    const jumpLabel = {
+      'end-side': 'L / J on table',
+      'end-end': 'End-to-end bar',
+      'perp': 'Standing · across',
+      'along': 'Standing · along',
+      'mixed': 'Standing · mixed',
+      'joint-I': 'Opposite',
+      'joint-L': 'Adjacent',
+    };
+    jumpEl.innerHTML = col.groups.map((g) =>
+      `<a href="#group-${g.id}" data-jump="group-${g.id}">${jumpLabel[g.id] ?? g.title.split('·')[0].trim()} (${g.pieces.length})</a>`
+    ).join('');
+    jumpEl.querySelectorAll('[data-jump]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById(a.dataset.jump)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
+
+  const first = allPieces(col)[0];
+  selectPiece(selectedId && pieceById(selectedId) ? selectedId : first.id);
+  applyKitHighlight();
+}
+
+function applyKitHighlight() {
+  const on = Boolean(highlightKitEl?.checked);
+  groupsEl.querySelectorAll('.card').forEach((btn) => {
+    const color = CUBE_KIT_COLORS[btn.dataset.id];
+    const mark = on && Boolean(color);
+    btn.classList.toggle('in-kit', mark);
+    if (mark) btn.style.setProperty('--kit-color', color);
+    else btn.style.removeProperty('--kit-color');
+  });
+}
+
+for (const col of COLLECTIONS) {
+  const opt = document.createElement('option');
+  opt.value = col.id;
+  opt.textContent = col.name;
+  selectEl.appendChild(opt);
+}
+selectEl.value = collectionId;
+selectEl.addEventListener('change', () => {
+  collectionId = selectEl.value;
+  selectedId = null;
+  renderCatalog();
+});
+spinBtn.addEventListener('click', () => {
+  spin = !spin;
+  spinBtn.classList.toggle('on', spin);
+});
+highlightKitEl.addEventListener('change', () => {
+  if (highlightKitEl.checked && collectionId !== 'joint-cube') {
+    collectionId = 'joint-cube';
+    selectEl.value = collectionId;
+    selectedId = null;
+    renderCatalog();
+    return;
+  }
+  applyKitHighlight();
+});
+
+let ptrDown = null;
+stageSlot.tabIndex = 0;
+stageSlot.addEventListener('pointerdown', (e) => {
+  ptrDown = { x: e.clientX, y: e.clientY };
+  stageSlot.focus({ preventScroll: true });
+});
+stageSlot.addEventListener('pointermove', (e) => {
+  if (ptrDown) return;
+  stageSlot.style.cursor = hitArm(e.clientX, e.clientY) ? 'pointer' : 'grab';
+});
+stageSlot.addEventListener('pointerup', (e) => {
+  if (!ptrDown) return;
+  const dx = e.clientX - ptrDown.x;
+  const dy = e.clientY - ptrDown.y;
+  ptrDown = null;
+  if (dx * dx + dy * dy >= 36) return;
+  const arm = hitArm(e.clientX, e.clientY);
+  if (arm) rotateArm(arm, 1);
+});
+stageSlot.addEventListener('pointercancel', () => { ptrDown = null; });
+stageSlot.addEventListener('keydown', (e) => {
+  const key = e.key.toLowerCase();
+  if (key === 'a') { e.preventDefault(); setActiveArm('A'); }
+  else if (key === 'b') { e.preventDefault(); setActiveArm('B'); }
+  else if (e.key === 'ArrowRight' || e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    rotateActive(1);
+  } else if (e.key === 'ArrowLeft') {
+    e.preventDefault();
+    rotateActive(-1);
+  }
+});
+for (const btn of armButtons) {
+  btn.addEventListener('click', () => setActiveArm(btn.dataset.arm));
+}
+document.getElementById('turnLeft').addEventListener('click', () => rotateActive(-1));
+document.getElementById('turnRight').addEventListener('click', () => rotateActive(1));
+
+function viewRect(elem) {
+  const r = elem.getBoundingClientRect();
+  const w = overlay.clientWidth;
+  const h = overlay.clientHeight;
+  const width = Math.max(0, Math.floor(r.width));
+  const height = Math.max(0, Math.floor(r.height));
+  const left = Math.floor(r.left);
+  const bottom = Math.floor(h - r.bottom);
+  const on = r.bottom > 0 && r.top < h && r.right > 0 && r.left < w && width > 0 && height > 0;
+  return { width, height, left, bottom, on };
+}
+
+function drawView(view, elem) {
+  const { width, height, left, bottom, on } = viewRect(elem);
+  if (!on) return;
+  renderer.setViewport(left, bottom, width, height);
+  renderer.setScissor(left, bottom, width, height);
+  view.camera.aspect = width / height;
+  view.camera.updateProjectionMatrix();
+  renderer.render(view.scene, view.camera);
+}
+
+function resizeOverlay() {
+  renderer.setSize(overlay.clientWidth, overlay.clientHeight, false);
+}
+
+function tick() {
+  requestAnimationFrame(tick);
+  if (spin) {
+    const d = 0.006;
+    stage.pivot.rotation.y += d;
+    for (const t of thumbs) t.pivot.rotation.y += d;
+  }
+  controls.update();
+  renderer.setClearColor(0x000000, 0);
+  renderer.clear();
+  if (currentCollection().groups.length) drawView(stage, stageSlot);
+  for (const t of thumbs) drawView(t, t.elem);
+}
+
+window.addEventListener('resize', resizeOverlay);
+renderCatalog();
+resizeOverlay();
+tick();
+  </script>
+</body>
+</html>

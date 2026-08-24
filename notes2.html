@@ -1,0 +1,45 @@
+Yes. They are two separate standalone HTML applications.
+
+exact_cover_dual_cube_solver_variable_pieces.html is the search stage. It:
+
+generates exact voxel partitions;
+searches Cube A/Cube B transform assignments;
+enforces zero voxel overlap, void, and out-of-bounds occupancy;
+evaluates connectivity, size, roughness, and other admissibility criteria;
+exports candidate JSON.
+
+dual_cube_low_order_surface_studio.html is the reconstruction stage. It does not run the exact-cover solver internally. It expects you to load the candidate JSON produced by the first application, then:
+
+extracts the contact graph;
+identifies connected interface patches;
+fits planes and quadrics;
+performs the experimental joint mesh optimization;
+exports Rhino/OBJ reconstruction data.
+
+They do not share memory, a database, or background process. The JSON file is the handoff between them.
+
+GPU use
+
+Neither application currently uses your GPU for computation.
+
+They run primarily as:
+
+ordinary JavaScript;
+on the browser’s main CPU thread;
+using regular arrays and typed arrays;
+with Canvas 2D for visualization.
+
+The browser or operating system may use the GPU for basic canvas compositing and displaying the page, but that does not accelerate the solver itself.
+
+The expensive operations are CPU-based:
+
+exact-cover/min-cost matching;
+candidate evaluation;
+connectivity analysis;
+contact-patch extraction;
+plane and quadric fitting;
+mesh-vertex optimization.
+
+They also currently do not use Web Workers, so most computation occurs on a single JavaScript thread. That is why a heavy search can make the interface sluggish.
+
+GPU acceleration would require an explicit rewrite using WebGPU or GPU compute shaders. The most suitable GPU tasks would be voxel-field operations, distance calculations, smoothing, residual sampling, and perhaps large batches of patch fitting. The exact combinatorial matching solver is less naturally GPU-oriented; it would benefit more immediately from Web Workers, WebAssembly, or a native Python/C++ backend.

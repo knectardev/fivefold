@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cube ↔ Sphere Dissection</title>
+  <style>
+    :root {
+      --bg: #0c1018;
+      --panel: #141a24;
+      --text: #d0dce8;
+      --muted: #7a8fa3;
+      --accent: #7ab8e0;
+      --ok: #6dca8e;
+      --warn: #e0b35a;
+      --line: rgba(100, 160, 220, 0.14);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; background: var(--bg); color: var(--text);
+      font-family: "Segoe UI", system-ui, sans-serif; }
+    #app {
+      display: grid;
+      grid-template-columns: minmax(260px, 310px) 1fr minmax(280px, 360px);
+      height: 100%;
+      min-height: 0;
+    }
+    aside, #piecePanel {
+      background: var(--panel);
+      overflow: auto;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+    aside { border-right: 1px solid var(--line); padding: 0.9rem 1rem; }
+    #piecePanel { border-left: 1px solid var(--line); padding: 0.9rem 0.85rem; }
+    h1 { font-size: 1.02rem; font-weight: 600; margin-bottom: 0.3rem; }
+    h2 { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--accent); margin: 0.85rem 0 0.4rem; font-weight: 600; }
+    p, #volumes, .muted { color: var(--muted); }
+    #volumes div { margin: 0.15rem 0; }
+    #volumes b { color: var(--text); }
+    #status { color: var(--accent); margin-top: 0.45rem; font-size: 0.78rem; }
+    .verdict {
+      margin-top: 0.55rem; padding: 0.55rem 0.65rem;
+      border: 1px solid var(--line); border-radius: 4px;
+      background: rgba(0,0,0,0.2); font-size: 0.75rem; color: var(--muted);
+    }
+    .verdict strong { color: var(--text); }
+    .verdict .ok { color: var(--ok); }
+    .verdict .warn { color: var(--warn); }
+    hr { border: none; border-top: 1px solid var(--line); margin: 0.65rem 0; }
+    .row { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 0.35rem 0; }
+    button {
+      background: rgba(100, 180, 240, 0.08);
+      border: 1px solid rgba(100, 180, 240, 0.25);
+      color: var(--accent);
+      padding: 0.35rem 0.55rem;
+      font: inherit; font-size: 0.72rem;
+      letter-spacing: 0.04em; text-transform: uppercase;
+      cursor: pointer; border-radius: 3px;
+    }
+    button:hover, button.active {
+      background: rgba(100, 180, 240, 0.22);
+      border-color: rgba(100, 180, 240, 0.55);
+      color: #c8e4f8;
+    }
+    label.chk {
+      display: flex; align-items: center; gap: 0.4rem;
+      margin: 0.28rem 0; color: var(--text); cursor: pointer;
+    }
+    label.slider { display: grid; gap: 0.2rem; margin: 0.45rem 0; color: var(--muted); }
+    input[type="range"] { width: 100%; }
+    #viewport { position: relative; min-width: 0; min-height: 0; }
+    canvas#c { display: block; width: 100%; height: 100%; }
+    .hint {
+      position: absolute; left: 1rem; bottom: 1rem;
+      font-size: 0.7rem; color: var(--muted); pointer-events: none;
+    }
+    .modeBadge {
+      position: absolute; top: 0.75rem; left: 50%; transform: translateX(-50%);
+      font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(122,184,224,0.75); pointer-events: none;
+      text-align: center; max-width: 90%;
+    }
+    .badge {
+      display: inline-block; font-size: 0.65rem; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 0.1rem 0.35rem; border-radius: 2px; border: 1px solid;
+    }
+    .badge.exact { color: var(--ok); border-color: rgba(109,202,142,0.45); background: rgba(109,202,142,0.1); }
+    .badge.provisional { color: var(--warn); border-color: rgba(224,179,90,0.45); background: rgba(224,179,90,0.1); }
+    #pieceMatrix { display: flex; flex-direction: column; gap: 0.35rem; }
+    .piece-card {
+      display: grid; grid-template-columns: 12px 1fr; gap: 0.4rem;
+      padding: 0.35rem 0.4rem; border: 1px solid var(--line); border-radius: 4px;
+      cursor: pointer; background: rgba(0,0,0,0.15);
+    }
+    .piece-card:hover { border-color: rgba(100,180,240,0.4); }
+    .piece-card.selected { border-color: rgba(100,180,240,0.75); background: rgba(100,180,240,0.1); }
+    .swatch { width: 12px; border-radius: 2px; min-height: 36px; }
+    .piece-card .name { color: var(--text); font-weight: 600; font-size: 0.75rem; }
+    .slots {
+      display: grid; grid-template-columns: 44px 1fr; gap: 0.05rem 0.3rem;
+      font-size: 0.68rem; color: var(--muted); margin-top: 0.15rem;
+    }
+    .slots .tag { font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
+    #selectedDetail {
+      border: 1px solid var(--line); border-radius: 4px; padding: 0.5rem;
+      background: rgba(0,0,0,0.2); margin-bottom: 0.6rem; min-height: 64px;
+    }
+    #previewWrap {
+      width: 100%; height: 110px; border-radius: 3px; overflow: hidden;
+      border: 1px solid var(--line); margin-top: 0.4rem; background: #0a0e14;
+    }
+    #preview { display: block; width: 100%; height: 100%; }
+    @media (max-width: 1100px) {
+      #app { grid-template-columns: 1fr; grid-template-rows: auto 45vh auto; }
+      aside { border-right: none; border-bottom: 1px solid var(--line); }
+      #piecePanel { border-left: none; border-top: 1px solid var(--line); max-height: 40vh; }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <aside>
+      <h1>Cube ↔ Sphere Dissection</h1>
+      <p>
+        <b style="color:var(--text)">32 pieces</b>: 8 core octants + 24 face-cap
+        sectors. Sphere is the exact ball. Cube best-fits those same caps toward
+        the corners — messy until cuts are congruent. Nothing shelved.
+      </p>
+      <div id="status">Loading…</div>
+      <div class="verdict" id="verdict">Building full-volume partition…</div>
+
+      <h2>Assembly</h2>
+      <div class="row">
+        <button data-mode="cube" class="active">Cube</button>
+        <button data-mode="sphere">Sphere</button>
+        <button data-mode="both">Blend</button>
+        <button id="btnSweep" type="button">▶ Sweep</button>
+      </div>
+      <label class="chk"><input type="checkbox" id="explode" /> Explode</label>
+      <label class="chk"><input type="checkbox" id="showWire" checked /> Cube / sphere wire</label>
+      <label class="chk"><input type="checkbox" id="isolate" /> Isolate selected piece</label>
+      <label class="slider">
+        Pose: cube → sphere (same 32 meshes)
+        <input type="range" id="morph" min="0" max="1" step="0.01" value="0" />
+      </label>
+
+      <h2>Volumes</h2>
+      <div id="volumes"></div>
+    </aside>
+
+    <div id="viewport">
+      <div class="modeBadge" id="modeBadge">Cube assembly</div>
+      <canvas id="c"></canvas>
+      <div class="hint">Drag to orbit · scroll to zoom · click a piece card</div>
+    </div>
+
+    <div id="piecePanel">
+      <h2>All 32 pieces</h2>
+      <p class="muted" style="margin-bottom:0.5rem;font-size:0.72rem">
+        Every card appears in <b style="color:var(--text)">both</b> assemblies.
+        <span class="badge exact">Exact</span> in sphere.
+        <span class="badge provisional">Provisional</span> cube seats.
+      </p>
+      <div id="selectedDetail">
+        <div class="title" style="font-weight:600">Select a piece</div>
+        <div class="muted">Inspect cube vs sphere role for one wedge.</div>
+        <div id="previewWrap" hidden><canvas id="preview"></canvas></div>
+      </div>
+      <div id="pieceMatrix"></div>
+    </div>
+  </div>
+  <script type="module" src="/src/dissection/main.ts"></script>
+</body>
+</html>

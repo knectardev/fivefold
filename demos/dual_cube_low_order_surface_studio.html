@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Low-Order Dual-Cube Surface Reconstruction Studio</title>
+<style>
+:root{--bg:#081018;--panel:#121b27;--line:#2a3748;--text:#eef4fb;--muted:#9ba9ba;--ok:#78d99a;--warn:#f1c969;--bad:#ff7d87;--blue:#76bfff}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+#app{display:grid;grid-template-columns:minmax(0,1fr) 450px;height:100%}
+#main{position:relative;min-height:760px;overflow:hidden}
+canvas{display:block;width:100%;height:100%;touch-action:none}
+#head{position:absolute;left:18px;top:14px;z-index:3;pointer-events:none}
+h1{font-size:18px;margin:0 0 4px}
+#head p{font-size:12px;color:var(--muted);margin:0;max-width:900px}
+.badge{display:inline-block;margin-top:7px;padding:4px 7px;border-radius:999px;background:#183124;border:1px solid #397354;font-size:11px;color:#a7efc0}
+aside{background:var(--panel);border-left:1px solid var(--line);padding:16px;overflow:auto}
+section{padding-bottom:15px;margin-bottom:15px;border-bottom:1px solid var(--line)}
+section:last-child{border:0}
+h2{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:#cbd5e2;margin:0 0 9px}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:7px 0}
+button,.filebtn{background:#202a39;color:var(--text);border:1px solid #45536a;border-radius:8px;padding:8px 10px;font:inherit;cursor:pointer;text-decoration:none}
+button:hover,.filebtn:hover{background:#2a3548}
+button.active{background:#3b4c68;border-color:#7185a8}
+button.primary{background:#28543a;border-color:#4b8e68}
+label{font-size:12px;color:#cbd4df;display:block;margin-top:9px}
+input[type=range]{width:100%}
+textarea{width:100%;min-height:110px;background:#07101a;color:#dce8f5;border:1px solid #34475f;border-radius:8px;padding:8px;font:11px ui-monospace,SFMono-Regular,Consolas,monospace}
+.val{margin-left:auto;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+.metric{display:flex;justify-content:space-between;padding:7px 8px;background:#0e151f;border:1px solid #253143;border-radius:7px;margin:5px 0;font-size:12px}
+.good{color:var(--ok);font-weight:700}.warn{color:var(--warn);font-weight:700}.bad{color:var(--bad);font-weight:700}
+.status{font-size:12px;padding:8px;border-radius:7px;background:#0e151f;border:1px solid #253143;line-height:1.45}
+.note{font-size:11px;line-height:1.45;color:var(--muted)}
+.tipwrap{position:relative;display:inline-flex;align-items:center;gap:6px}
+.help{display:inline-grid;place-items:center;width:17px;height:17px;border-radius:50%;border:1px solid #5d7390;color:#bdd5ef;font-size:11px;font-weight:700;cursor:help;background:#1b2838}
+.tooltip{position:absolute;left:0;top:24px;z-index:50;width:310px;padding:10px 11px;border-radius:8px;background:#07101a;border:1px solid #42617f;box-shadow:0 10px 28px rgba(0,0,0,.45);font-size:11px;line-height:1.45;color:#dce8f5;display:none;pointer-events:none}
+.tipwrap:hover .tooltip,.tipwrap:focus-within .tooltip,.tipwrap.open .tooltip{display:block}
+.patchlist{display:grid;gap:5px;max-height:310px;overflow:auto}
+.patch{display:grid;grid-template-columns:48px 1fr auto;gap:7px;align-items:center;padding:7px;border:1px solid #26364a;border-radius:7px;background:#0c141e;font-size:11px}
+.patch.plane{border-left:3px solid #78d99a}.patch.quadric{border-left:3px solid #76bfff}.patch.freeform{border-left:3px solid #ff7d87}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.card{background:#0e151f;border:1px solid #263345;border-radius:7px;padding:7px;font-size:11px}
+.progress{height:8px;background:#1c2938;border-radius:999px;overflow:hidden}
+.progress span{display:block;height:100%;width:0%;background:#69b8ff;transition:width .15s}
+.exportbox{display:none;margin-top:8px}
+.exportbox.open{display:block}
+@media(max-width:980px){#app{grid-template-columns:1fr;grid-template-rows:minmax(760px,68vh) auto;height:auto;min-height:100%}aside{border-left:0;border-top:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<div id="app">
+<main id="main">
+  <div id="head">
+    <h1>Low-Order Dual-Cube Surface Reconstruction Studio</h1>
+    <p>Exact voxel candidate → contact graph → connected interface patches → plane/quadric fitting → joint shared-vertex optimization → Rhino reconstruction.</p>
+    <span class="badge">Shared mating patches · planar cube exteriors · explicit A/B residual validation</span>
+  </div>
+  <canvas id="c"></canvas>
+</main>
+<aside>
+<section>
+  <h2>Load exact candidate</h2>
+  <div class="row"><label class="filebtn">Load JSON file<input id="file" type="file" accept=".json,application/json" hidden></label><button id="loadPaste">Load pasted JSON</button></div>
+  <textarea id="paste" placeholder="Paste candidate JSON or repair-project JSON here…"></textarea>
+  <div id="loadStatus" class="status">Load a candidate exported from the exact-cover solver.</div>
+</section>
+
+<section>
+  <h2>Representation pipeline</h2>
+  <div class="row"><button id="analyze" class="primary">1. Extract contact graph</button><button id="fit">2. Fit low-order patches</button><button id="optimize">3. Joint optimize</button></div>
+  <div class="progress"><span id="progress"></span></div>
+  <div id="pipelineStatus" class="status">Waiting for candidate data.</div>
+</section>
+
+<section>
+  <h2>Patch fitting</h2>
+  <label><span class="tipwrap" tabindex="0">Minimum patch area <span class="help">?</span><span class="tooltip"><b>Minimum number of voxel faces in a connected interface component.</b><br>Smaller components are flagged as residual detail rather than treated as desirable independent surfaces.</span></span></label>
+  <div class="row"><input id="minPatch" type="range" min="1" max="20" step="1" value="3"><span id="minPatchv" class="val">3 faces</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Plane tolerance <span class="help">?</span><span class="tooltip"><b>Maximum RMS distance from patch samples to a plane, as a fraction of cube edge.</b><br>Increase to favor fewer planar surfaces; decrease to demand closer fidelity.</span></span></label>
+  <div class="row"><input id="planeTol" type="range" min=".001" max=".08" step=".001" value=".018"><span id="planeTolv" class="val">0.018</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Quadric tolerance <span class="help">?</span><span class="tooltip"><b>Maximum RMS error for a second-order height patch.</b><br>Patches exceeding this remain unresolved.</span></span></label>
+  <div class="row"><input id="quadTol" type="range" min=".002" max=".12" step=".001" value=".032"><span id="quadTolv" class="val">0.032</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Quadratic complexity penalty <span class="help">?</span><span class="tooltip"><b>Required relative improvement before replacing a plane with a quadratic patch.</b><br>Higher values strongly prefer planes.</span></span></label>
+  <div class="row"><input id="complexity" type="range" min="0" max=".8" step=".02" value=".28"><span id="complexityv" class="val">0.280</span></div>
+</section>
+
+<section>
+  <h2>Joint constrained optimization</h2>
+  <label>Iterations</label><div class="row"><input id="iters" type="range" min="1" max="100" step="1" value="35"><span id="itersv" class="val">35</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Surface attraction <span class="help">?</span><span class="tooltip"><b>How strongly mesh vertices move onto fitted plane/quadric constraints.</b><br>Higher values simplify surfaces more aggressively.</span></span></label>
+  <div class="row"><input id="surfaceWeight" type="range" min=".05" max=".95" step=".01" value=".62"><span id="surfaceWeightv" class="val">0.620</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Original-shape retention <span class="help">?</span><span class="tooltip"><b>Pull toward the exact voxel topology.</b><br>Higher values preserve thickness and connectivity.</span></span></label>
+  <div class="row"><input id="retain" type="range" min="0" max=".8" step=".01" value=".20"><span id="retainv" class="val">0.200</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Laplacian regularization <span class="help">?</span><span class="tooltip"><b>Neighbor averaging along the reconstructed mesh.</b><br>Suppresses high-frequency noise while patch projection restores low-order shape.</span></span></label>
+  <div class="row"><input id="lap" type="range" min="0" max=".5" step=".01" value=".10"><span id="lapv" class="val">0.100</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Maximum vertex displacement <span class="help">?</span><span class="tooltip"><b>Maximum movement from the exact voxel boundary, in cube-edge units.</b><br>A topology and thickness safeguard.</span></span></label>
+  <div class="row"><input id="maxMove" type="range" min=".01" max=".25" step=".005" value=".09"><span id="maxMovev" class="val">0.090</span></div>
+</section>
+
+<section>
+  <h2>View</h2>
+  <div class="row"><button id="viewVoxel" class="active">Voxel topology</button><button id="viewFitted">Fitted patches</button><button id="viewOptimized">Optimized solids</button><button id="rotate">Auto rotate</button></div>
+  <label>Opacity</label><div class="row"><input id="opacity" type="range" min=".15" max="1" step=".01" value=".82"><span id="opacityv" class="val">0.82</span></div>
+</section>
+
+<section>
+  <h2>Validation</h2>
+  <div id="metrics"></div>
+  <p class="note">Cube A mating residual remains nearly zero because mating pieces share canonical vertices. Cube B mating residual measures how closely the separately transformed physical surfaces meet after low-order compression.</p>
+</section>
+
+<section>
+  <h2>Contact graph and patches</h2>
+  <div id="patchSummary" class="grid2"></div>
+  <div id="patchList" class="patchlist"></div>
+</section>
+
+<section>
+  <h2>Rhino and geometry exports</h2>
+  <div class="row"><button id="exportRhino" class="primary">Prepare Rhino Python reconstruction</button><button id="exportOBJ">Prepare combined A+B OBJ</button><button id="exportReport">Prepare fit report JSON</button></div>
+  <div id="exportBox" class="exportbox">
+    <textarea id="exportText" style="min-height:220px"></textarea>
+    <div class="row"><button id="copyExport">Copy export text</button><button id="openExport">Open raw text</button></div>
+    <p class="note">The Rhino script creates colored meshes for both configurations, attempts mesh-to-Brep conversion, and reports which pieces become closed solids.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Guarantee status</h2>
+  <p class="note">This stage enforces shared fitted models for each mating patch and exact planar exterior constraints. It preserves the original topology through a displacement bound. It evaluates rather than assumes continuous closure in Cube B. A later nonlinear/Brep refinement is still required when the reported residual is nonzero.</p>
+</section>
+</aside>
+</div>
+
+<script>
+const $=id=>document.getElementById(id),C=$('c'),ctx=C.getContext('2d');
+const colors=['#e64b45','#f39a32','#e7c83e','#3fa55b','#20a7b5','#397fd0','#7a58c7','#c34f86','#8b6b3f','#69b95b','#df6fa8','#6b9fa8'];
+let cand=null,N=0,K=0,patches=[],constraints=new Map(),mesh=null,optimized=null,viewMode='voxel';
+let yaw=-.72,pitch=.56,zoom=.86,auto=false,opacity=.82;
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const add=(a,b)=>[a[0]+b[0],a[1]+b[1],a[2]+b[2]];
+const sub=(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]];
+const mul=(a,s)=>[a[0]*s,a[1]*s,a[2]*s];
+const dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+const norm=a=>Math.hypot(a[0],a[1],a[2]);
+const unit=a=>{const n=norm(a)||1;return[a[0]/n,a[1]/n,a[2]/n]};
+const idx=(x,y,z)=>x+N*(y+N*z);
+function rotations24(){
+  const perms=[[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]],out=[];
+  for(const p of perms)for(const sx of [-1,1])for(const sy of [-1,1])for(const sz of [-1,1]){
+    const M=[[0,0,0],[0,0,0],[0,0,0]];
+    M[0][p[0]]=sx;M[1][p[1]]=sy;M[2][p[2]]=sz;
+    const det=M[0][0]*(M[1][1]*M[2][2]-M[1][2]*M[2][1])-M[0][1]*(M[1][0]*M[2][2]-M[1][2]*M[2][0])+M[0][2]*(M[1][0]*M[2][1]-M[1][1]*M[2][0]);
+    if(det===1)out.push(M);
+  }
+  return out;
+}
+const ROT=rotations24();
+function applyRot(v,M){return[M[0][0]*v[0]+M[0][1]*v[1]+M[0][2]*v[2],M[1][0]*v[0]+M[1][1]*v[1]+M[1][2]*v[2],M[2][0]*v[0]+M[2][1]*v[1]+M[2][2]*v[2]]}
+function applyInvRot(v,M){return[M[0][0]*v[0]+M[1][0]*v[1]+M[2][0]*v[2],M[0][1]*v[0]+M[1][1]*v[1]+M[2][1]*v[2],M[0][2]*v[0]+M[1][2]*v[1]+M[2][2]*v[2]]}
+function transformPoint(p,k){const pl=cand.placements[k],M=ROT[pl.r],c=sub(p,[.5,.5,.5]),q=applyRot(c,M);return add(add(q,[.5,.5,.5]),pl.t.map(v=>v/N))}
+function inversePoint(p,k){const pl=cand.placements[k],M=ROT[pl.r],q=sub(sub(p,[.5,.5,.5]),pl.t.map(v=>v/N)),c=applyInvRot(q,M);return add(c,[.5,.5,.5])}
+function inverseNormal(n,k){return applyInvRot(n,ROT[cand.placements[k].r])}
+function parseCandidate(data){
+  const src=data.selectedCandidate||data,labelsA=src.labelsA||data.labelsA,labelsB=src.labelsB||data.labelsB,placements=src.placements||data.placements;
+  const n=data.gridResolution||data.N||src.gridResolution||src.N,k=data.pieceCount||src.pieceCount||placements?.length;
+  if(!n||!k||!Array.isArray(labelsA)||!Array.isArray(labelsB)||!Array.isArray(placements))throw new Error('JSON is missing N, labelsA, labelsB, or placements.');
+  if(labelsA.length!==n*n*n||labelsB.length!==n*n*n)throw new Error('Voxel label count does not match N³.');
+  return {N:+n,K:+k,labelsA:new Uint8Array(labelsA),labelsB:new Uint8Array(labelsB),placements:placements.map(p=>({r:+p.r,t:p.t.map(Number)}))};
+}
+function loadObject(data){
+  cand=parseCandidate(data);N=cand.N;K=cand.K;patches=[];constraints=new Map();mesh=null;optimized=null;viewMode='voxel';
+  $('loadStatus').innerHTML=`<span class="good">Loaded.</span> ${K} pieces on a ${N}³ grid.`;
+  $('pipelineStatus').textContent='Candidate loaded. Extract the contact graph.';setViewButtons();updateMetrics();updatePatchUI();
+}
+$('file').onchange=async e=>{try{const f=e.target.files[0];if(f)loadObject(JSON.parse(await f.text()))}catch(err){$('loadStatus').innerHTML=`<span class="bad">${err.message}</span>`}};
+$('loadPaste').onclick=()=>{try{loadObject(JSON.parse($('paste').value))}catch(err){$('loadStatus').innerHTML=`<span class="bad">${err.message}</span>`}};
+
+function faceGeom(x,y,z,axis,side){
+  const c=[x+.5,y+.5,z+.5],n=[0,0,0];n[axis]=side;c[axis]+=side*.5;
+  const axes=[0,1,2].filter(a=>a!==axis),verts=[];
+  for(const s0 of [-.5,.5])for(const s1 of [-.5,.5]){const p=[x+.5,y+.5,z+.5];p[axis]+=side*.5;p[axes[0]]+=s0;p[axes[1]]+=s1;verts.push(p.map(v=>v/N))}
+  return {center:c.map(v=>v/N),normal:n,verts:[verts[0],verts[1],verts[3],verts[2]]};
+}
+function edgeKeys(face){
+  const vv=face.verts.map(p=>p.map(v=>Math.round(v*N*2)).join(',')),out=[];
+  for(let i=0;i<4;i++){const a=vv[i],b=vv[(i+1)%4];out.push(a<b?`${a}|${b}`:`${b}|${a}`)}
+  return out;
+}
+function canonicalFaceKey(piece,center,normal){const c=center.map(v=>Math.round(v*N*2)),n=normal.map(v=>Math.round(v));return `${piece}|${c.join(',')}|${n.join(',')}`}
+function addConstraint(key,ref){if(!constraints.has(key))constraints.set(key,[]);constraints.get(key).push(ref)}
+function extractState(labels,state){
+  const faces=[],byPair=new Map(),dirs=[[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
+  for(let z=0;z<N;z++)for(let y=0;y<N;y++)for(let x=0;x<N;x++){
+    const a=labels[idx(x,y,z)];
+    for(let di=0;di<6;di++){
+      const d=dirs[di],X=x+d[0],Y=y+d[1],Z=z+d[2],axis=Math.floor(di/2),side=di%2===0?1:-1;
+      if(X>=0&&Y>=0&&Z>=0&&X<N&&Y<N&&Z<N){
+        const b=labels[idx(X,Y,Z)];
+        if(a===b||a>b)continue;
+        const g=faceGeom(x,y,z,axis,side),face={...g,state,a,b,edges:[],pieceKeys:[]};face.edges=edgeKeys(face);
+        if(state==='A')face.pieceKeys=[canonicalFaceKey(a,face.center,face.normal),canonicalFaceKey(b,face.center,mul(face.normal,-1))];
+        else{
+          const ca=inversePoint(face.center,a),na=inverseNormal(face.normal,a),cb=inversePoint(face.center,b),nb=inverseNormal(mul(face.normal,-1),b);
+          face.pieceKeys=[canonicalFaceKey(a,ca,na),canonicalFaceKey(b,cb,nb)];
+        }
+        faces.push(face);const key=`${state}:${a}-${b}`;if(!byPair.has(key))byPair.set(key,[]);byPair.get(key).push(face);
+      }else{
+        const g=faceGeom(x,y,z,axis,side);
+        if(state==='A')addConstraint(canonicalFaceKey(a,g.center,g.normal),{type:'exterior',state:'A',piece:a,axis,side,planeCoord:g.center[axis]});
+        else{const cc=inversePoint(g.center,a),nn=inverseNormal(g.normal,a);addConstraint(canonicalFaceKey(a,cc,nn),{type:'exterior',state:'B',piece:a,axis,side,planeCoord:g.center[axis]})}
+      }
+    }
+  }
+  return {faces,byPair};
+}
+function connectedComponentsFaces(list){
+  const edgeMap=new Map();list.forEach((f,i)=>f.edges.forEach(e=>{if(!edgeMap.has(e))edgeMap.set(e,[]);edgeMap.get(e).push(i)}));
+  const adj=Array.from({length:list.length},()=>[]);for(const ids of edgeMap.values())if(ids.length>1)for(let i=0;i<ids.length;i++)for(let j=i+1;j<ids.length;j++){adj[ids[i]].push(ids[j]);adj[ids[j]].push(ids[i])}
+  const seen=new Uint8Array(list.length),out=[];
+  for(let i=0;i<list.length;i++)if(!seen[i]){const q=[i],comp=[];seen[i]=1;for(let h=0;h<q.length;h++){const u=q[h];comp.push(list[u]);for(const v of adj[u])if(!seen[v]){seen[v]=1;q.push(v)}}out.push(comp)}
+  return out;
+}
+function analyze(){
+  if(!cand){$('pipelineStatus').textContent='Load a candidate first.';return}
+  constraints=new Map();patches=[];const A=extractState(cand.labelsA,'A'),B=extractState(cand.labelsB,'B');let id=0;
+  for(const stateData of [A,B])for(const list of stateData.byPair.values())for(const faces of connectedComponentsFaces(list))patches.push({id:id++,state:faces[0].state,a:faces[0].a,b:faces[0].b,faces,points:faces.map(f=>f.center),model:null});
+  mesh=buildCanonicalMesh();$('pipelineStatus').innerHTML=`<span class="good">Contact graph extracted.</span> ${patches.length} connected interface patches.`;
+  viewMode='voxel';setViewButtons();updatePatchUI();updateMetrics();
+}
+$('analyze').onclick=analyze;
+
+function jacobi3(A){
+  let V=[[1,0,0],[0,1,0],[0,0,1]],M=A.map(r=>[...r]);
+  for(let it=0;it<40;it++){let p=0,q=1,max=Math.abs(M[0][1]);for(const [i,j] of [[0,2],[1,2]])if(Math.abs(M[i][j])>max){max=Math.abs(M[i][j]);p=i;q=j}if(max<1e-12)break;
+    const phi=.5*Math.atan2(2*M[p][q],M[q][q]-M[p][p]),c=Math.cos(phi),s=Math.sin(phi);
+    for(let k=0;k<3;k++){const mp=M[k][p],mq=M[k][q];M[k][p]=c*mp-s*mq;M[k][q]=s*mp+c*mq}
+    for(let k=0;k<3;k++){const mp=M[p][k],mq=M[q][k];M[p][k]=c*mp-s*mq;M[q][k]=s*mp+c*mq}
+    for(let k=0;k<3;k++){const vp=V[k][p],vq=V[k][q];V[k][p]=c*vp-s*vq;V[k][q]=s*vp+c*vq}
+  }
+  const vals=[M[0][0],M[1][1],M[2][2]],order=[0,1,2].sort((a,b)=>vals[a]-vals[b]);
+  return {values:order.map(i=>vals[i]),vectors:order.map(i=>unit([V[0][i],V[1][i],V[2][i]]))};
+}
+function solveLinear(A,b){
+  const n=b.length,M=A.map((r,i)=>[...r,b[i]]);
+  for(let i=0;i<n;i++){let p=i;for(let j=i+1;j<n;j++)if(Math.abs(M[j][i])>Math.abs(M[p][i]))p=j;if(Math.abs(M[p][i])<1e-12)return null;[M[i],M[p]]=[M[p],M[i]];
+    const d=M[i][i];for(let j=i;j<=n;j++)M[i][j]/=d;for(let r=0;r<n;r++)if(r!==i){const f=M[r][i];for(let j=i;j<=n;j++)M[r][j]-=f*M[i][j]}}
+  return M.map(r=>r[n]);
+}
+function fitPatch(p){
+  const pts=p.points,n=pts.length,cent=[0,0,0];for(const q of pts){cent[0]+=q[0];cent[1]+=q[1];cent[2]+=q[2]}for(let i=0;i<3;i++)cent[i]/=n;
+  const C=[[0,0,0],[0,0,0],[0,0,0]];for(const q of pts){const d=sub(q,cent);for(let i=0;i<3;i++)for(let j=0;j<3;j++)C[i][j]+=d[i]*d[j]/n}
+  const eig=jacobi3(C),normal=eig.vectors[0],u=eig.vectors[2],v=unit(cross(normal,u));
+  let ePlane=0;for(const q of pts){const w=dot(sub(q,cent),normal);ePlane+=w*w}ePlane=Math.sqrt(ePlane/n);
+  const ATA=Array.from({length:6},()=>Array(6).fill(0)),ATb=Array(6).fill(0);
+  for(const q of pts){const d=sub(q,cent),U=dot(d,u),V=dot(d,v),W=dot(d,normal),r=[U*U,U*V,V*V,U,V,1];for(let i=0;i<6;i++){ATb[i]+=r[i]*W;for(let j=0;j<6;j++)ATA[i][j]+=r[i]*r[j]}}
+  const coef=solveLinear(ATA,ATb)||[0,0,0,0,0,0];let eQuad=0;
+  for(const q of pts){const d=sub(q,cent),U=dot(d,u),V=dot(d,v),W=dot(d,normal),P=coef[0]*U*U+coef[1]*U*V+coef[2]*V*V+coef[3]*U+coef[4]*V+coef[5];eQuad+=(W-P)**2}
+  eQuad=Math.sqrt(eQuad/n);const planeTol=+$('planeTol').value,quadTol=+$('quadTol').value,pen=+$('complexity').value;let type='freeform';
+  if(ePlane<=planeTol)type='plane';else if(eQuad<=quadTol&&eQuad<ePlane*(1-pen))type='quadric';else if(ePlane<=quadTol)type='plane';
+  return {type,origin:cent,n:normal,u,v,coef,planeRMS:ePlane,quadRMS:eQuad,rms:type==='quadric'?eQuad:ePlane};
+}
+function fitAll(){
+  if(!patches.length){$('pipelineStatus').textContent='Extract the contact graph first.';return}
+  const min=+$('minPatch').value;for(const p of patches){p.small=p.faces.length<min;p.model=fitPatch(p)}
+  for(const p of patches)for(const f of p.faces){addConstraint(f.pieceKeys[0],{type:'patch',patch:p,piece:p.a,state:p.state});addConstraint(f.pieceKeys[1],{type:'patch',patch:p,piece:p.b,state:p.state})}
+  $('pipelineStatus').innerHTML=`<span class="good">Low-order fitting complete.</span> ${patches.filter(p=>p.model.type==='plane').length} planes, ${patches.filter(p=>p.model.type==='quadric').length} quadrics, ${patches.filter(p=>p.model.type==='freeform').length} unresolved.`;
+  viewMode='fitted';setViewButtons();updatePatchUI();updateMetrics();
+}
+$('fit').onclick=fitAll;
+
+function projectModel(point,ref){
+  if(ref.type==='exterior'){if(ref.state==='A'){const q=[...point];q[ref.axis]=ref.planeCoord;return q}const y=transformPoint(point,ref.piece);y[ref.axis]=ref.planeCoord;return inversePoint(y,ref.piece)}
+  const m=ref.patch.model;let y=ref.state==='A'?point:transformPoint(point,ref.piece),d=sub(y,m.origin),U=dot(d,m.u),V=dot(d,m.v),W=0;
+  if(m.type==='quadric')W=m.coef[0]*U*U+m.coef[1]*U*V+m.coef[2]*V*V+m.coef[3]*U+m.coef[4]*V+m.coef[5];
+  const q=add(add(add(m.origin,mul(m.u,U)),mul(m.v,V)),mul(m.n,W));return ref.state==='A'?q:inversePoint(q,ref.piece);
+}
+function buildCanonicalMesh(){
+  const vmap=new Map(),verts=[],orig=[],faces=Array.from({length:K},()=>[]),adj=[];
+  function vid(p){const key=p.map(v=>Math.round(v*N)).join(',');if(!vmap.has(key)){vmap.set(key,verts.length);verts.push([...p]);orig.push([...p]);adj.push(new Set())}return vmap.get(key)}
+  const dirs=[[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
+  for(let z=0;z<N;z++)for(let y=0;y<N;y++)for(let x=0;x<N;x++){const k=cand.labelsA[idx(x,y,z)];
+    for(let di=0;di<6;di++){const d=dirs[di],X=x+d[0],Y=y+d[1],Z=z+d[2],axis=Math.floor(di/2),side=di%2===0?1:-1;
+      if(X>=0&&Y>=0&&Z>=0&&X<N&&Y<N&&Z<N&&cand.labelsA[idx(X,Y,Z)]===k)continue;
+      const g=faceGeom(x,y,z,axis,side),ids=g.verts.map(vid),tri1=side>0?[ids[0],ids[1],ids[2]]:[ids[0],ids[2],ids[1]],tri2=side>0?[ids[0],ids[2],ids[3]]:[ids[0],ids[3],ids[2]];
+      faces[k].push(tri1,tri2);for(let i=0;i<4;i++){const a=ids[i],b=ids[(i+1)%4];adj[a].add(b);adj[b].add(a)}
+    }
+  }
+  return {verts,orig,faces,adj};
+}
+function vertexConstraintRefs(m){
+  const out=Array.from({length:m.verts.length},()=>[]),coordToId=new Map(m.orig.map((p,i)=>[p.map(v=>Math.round(v*N)).join(','),i]));
+  const dirs=[[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
+  for(let z=0;z<N;z++)for(let y=0;y<N;y++)for(let x=0;x<N;x++){const k=cand.labelsA[idx(x,y,z)];
+    for(let di=0;di<6;di++){const d=dirs[di],X=x+d[0],Y=y+d[1],Z=z+d[2],axis=Math.floor(di/2),side=di%2===0?1:-1;
+      if(X>=0&&Y>=0&&Z>=0&&X<N&&Y<N&&Z<N&&cand.labelsA[idx(X,Y,Z)]===k)continue;
+      const g=faceGeom(x,y,z,axis,side),key=canonicalFaceKey(k,g.center,g.normal),refs=constraints.get(key)||[];
+      for(const p of g.verts){const id=coordToId.get(p.map(v=>Math.round(v*N)).join(','));if(id!==undefined)for(const r of refs)if(!out[id].includes(r))out[id].push(r)}
+    }
+  }
+  return out;
+}
+async function optimizeMesh(){
+  if(!mesh||!patches.some(p=>p.model)){$('pipelineStatus').textContent='Fit patches first.';return}
+  const m={verts:mesh.verts.map(p=>[...p]),orig:mesh.orig.map(p=>[...p]),faces:mesh.faces,adj:mesh.adj},refs=vertexConstraintRefs(m);
+  const iters=+$('iters').value,wS=+$('surfaceWeight').value,wO=+$('retain').value,wL=+$('lap').value,maxMove=+$('maxMove').value;
+  for(let it=0;it<iters;it++){
+    const next=m.verts.map((p,i)=>{
+      let target=[0,0,0],ws=0;for(const r of refs[i]){if(r.type==='patch'&&r.patch.model.type==='freeform')continue;target=add(target,projectModel(p,r));ws++}
+      const q=ws?mul(target,1/ws):p;let avg=[0,0,0],deg=0;for(const j of m.adj[i]){avg=add(avg,m.verts[j]);deg++}avg=deg?mul(avg,1/deg):p;
+      let r=mul(add(add(mul(q,wS),mul(m.orig[i],wO)),mul(avg,wL)),1/(wS+wO+wL||1)),d=sub(r,m.orig[i]),dn=norm(d);
+      if(dn>maxMove)r=add(m.orig[i],mul(d,maxMove/dn));return r.map(v=>clamp(v,-.05,1.05));
+    });
+    m.verts=next;$('progress').style.width=`${100*(it+1)/iters}%`;if(it%4===0)await new Promise(requestAnimationFrame);
+  }
+  optimized=m;$('progress').style.width='0%';viewMode='optimized';setViewButtons();$('pipelineStatus').innerHTML='<span class="good">Joint optimization complete.</span> Validate Cube B mating residual before promotion.';updateMetrics();
+}
+$('optimize').onclick=optimizeMesh;
+
+function patchModelStats(){return{total:patches.length,plane:patches.filter(p=>p.model?.type==='plane').length,quadric:patches.filter(p=>p.model?.type==='quadric').length,freeform:patches.filter(p=>p.model?.type==='freeform').length,small:patches.filter(p=>p.small).length}}
+function bMatingResidual(m){
+  if(!m||!cand)return{rms:Infinity,max:Infinity,count:0};const coordToId=new Map(m.orig.map((p,i)=>[p.map(v=>Math.round(v*N)).join(','),i]));let sum=0,max=0,count=0;
+  for(const p of patches)if(p.state==='B')for(const f of p.faces)for(const corner of f.verts){
+    const ca=inversePoint(corner,p.a),cb=inversePoint(corner,p.b),ia=coordToId.get(ca.map(v=>Math.round(v*N)).join(',')),ib=coordToId.get(cb.map(v=>Math.round(v*N)).join(','));
+    if(ia===undefined||ib===undefined)continue;const d=norm(sub(transformPoint(m.verts[ia],p.a),transformPoint(m.verts[ib],p.b)));sum+=d*d;max=Math.max(max,d);count++;
+  }
+  return{rms:count?Math.sqrt(sum/count):0,max,count};
+}
+function exteriorResidual(m){
+  if(!m)return 0;const refs=vertexConstraintRefs(m);let max=0;
+  for(let i=0;i<m.verts.length;i++)for(const r of refs[i])if(r.type==='exterior'){const p=r.state==='A'?m.verts[i]:transformPoint(m.verts[i],r.piece);max=Math.max(max,Math.abs(p[r.axis]-r.planeCoord))}
+  return max;
+}
+function updateMetrics(){
+  const root=$('metrics');root.innerHTML='';if(!cand){root.innerHTML='<div class="status">No candidate loaded.</div>';return}
+  const st=patchModelStats(),m=optimized||mesh,bres=bMatingResidual(m),ext=exteriorResidual(m);let disp=0;if(m)for(let i=0;i<m.verts.length;i++)disp+=norm(sub(m.verts[i],m.orig[i]));if(m?.verts.length)disp/=m.verts.length;
+  const vals=[['Pieces',K,'good'],['Grid',`${N}³`,'good'],['Contact patches',patches.length,patches.length?'good':'warn'],['Planes / quadrics',`${st.plane} / ${st.quadric}`,st.freeform?'warn':'good'],['Unresolved patches',st.freeform,st.freeform?'bad':'good'],['Small residual patches',st.small,st.small?'warn':'good'],['Mean vertex displacement',disp.toFixed(4),disp<.08?'good':'warn'],['Cube exterior max residual',ext.toFixed(5),ext<.002?'good':'bad'],['Cube A mating residual','0.00000','good'],['Cube B mating RMS',Number.isFinite(bres.rms)?bres.rms.toFixed(5):'—',bres.rms<.01?'good':bres.rms<.03?'warn':'bad'],['Cube B mating max',Number.isFinite(bres.max)?bres.max.toFixed(5):'—',bres.max<.025?'good':bres.max<.06?'warn':'bad']];
+  for(const [a,b,c] of vals){const d=document.createElement('div');d.className='metric';d.innerHTML=`<span>${a}</span><span class="${c}">${b}</span>`;root.appendChild(d)}
+}
+function updatePatchUI(){
+  const sum=$('patchSummary'),list=$('patchList'),s=patchModelStats();sum.innerHTML='';
+  for(const [a,b] of [['Total',s.total],['Planes',s.plane],['Quadrics',s.quadric],['Unresolved',s.freeform]]){const c=document.createElement('div');c.className='card';c.innerHTML=`${a}<br><b>${b}</b>`;sum.appendChild(c)}
+  list.innerHTML='';patches.slice().sort((a,b)=>b.faces.length-a.faces.length).forEach(p=>{const m=p.model,d=document.createElement('div'),type=m?.type||'unfit';d.className=`patch ${type==='unfit'?'':type}`;d.innerHTML=`<b>${p.state} P${p.a+1}–P${p.b+1}</b><span>${p.faces.length} faces · ${type}${m?`<br>plane ${m.planeRMS.toFixed(4)} · quad ${m.quadRMS.toFixed(4)}`:''}</span><span>${p.small?'small':''}</span>`;list.appendChild(d)});
+}
+function viewPoint(p,offset){const q=[p[0]-.5-offset,p[1]-.5,p[2]-.5],cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch),x=cy*q[0]+sy*q[2],z=-sy*q[0]+cy*q[2],y=q[1];return[x,cp*y-sp*z,sp*y+cp*z]}
+function project(p,w,h,offset,shift){const q=viewPoint(p,offset),cam=3.5/zoom,s=Math.min(w/2,h)*.82/(cam-q[2]);return[shift+q[0]*s,h*.49-q[1]*s,q[2]]}
+function drawCubeShell(offset,shift,w,h){
+  const Q=[[0,0,0],[1,0,0],[0,1,0],[1,1,0],[0,0,1],[1,0,1],[0,1,1],[1,1,1]].map(p=>[p[0]+offset,p[1],p[2]]),E=[[0,1],[0,2],[0,4],[1,3],[1,5],[2,3],[2,6],[3,7],[4,5],[4,6],[5,7],[6,7]];
+  ctx.strokeStyle='rgba(255,255,255,.58)';ctx.lineWidth=1.3;for(const e of E){const a=project(Q[e[0]],w,h,offset,shift),b=project(Q[e[1]],w,h,offset,shift);ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke()}
+}
+function drawMeshAssembly(m,state,offset,shift,w,h){
+  if(!m)return;const tris=[];
+  for(let k=0;k<K;k++)for(const f of m.faces[k]){const pts=f.map(i=>state==='A'?m.verts[i]:transformPoint(m.verts[i],k)).map(p=>[p[0]+offset,p[1],p[2]]),pr=pts.map(p=>project(p,w,h,offset,shift)),z=pr.reduce((s,p)=>s+p[2],0)/3;tris.push({pr,z,k})}
+  tris.sort((a,b)=>a.z-b.z);ctx.globalAlpha=opacity;
+  for(const t of tris){ctx.fillStyle=colors[t.k%colors.length];ctx.strokeStyle='rgba(0,0,0,.18)';ctx.lineWidth=.35;ctx.beginPath();ctx.moveTo(t.pr[0][0],t.pr[0][1]);ctx.lineTo(t.pr[1][0],t.pr[1][1]);ctx.lineTo(t.pr[2][0],t.pr[2][1]);ctx.closePath();ctx.fill();ctx.stroke()}
+  ctx.globalAlpha=1;
+}
+function drawPatchOverlay(state,offset,shift,w,h){
+  for(const p of patches)if(p.state===state&&p.model){ctx.globalAlpha=.85;ctx.fillStyle=p.model.type==='plane'?'#8ff0ac':p.model.type==='quadric'?'#8fc8ff':'#ff7d87';for(const q of p.points){const pr=project([q[0]+offset,q[1],q[2]],w,h,offset,shift);ctx.fillRect(pr[0]-1.5,pr[1]-1.5,3,3)}}ctx.globalAlpha=1;
+}
+function render(){
+  const dpr=Math.min(devicePixelRatio||1,2),r=C.getBoundingClientRect(),w=r.width,h=r.height;if(C.width!==Math.round(w*dpr)||C.height!==Math.round(h*dpr)){C.width=Math.round(w*dpr);C.height=Math.round(h*dpr)}
+  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);const m=viewMode==='optimized'&&optimized?optimized:mesh;
+  drawMeshAssembly(m,'A',0,w*.27,w,h);drawMeshAssembly(m,'B',2,w*.73,w,h);if(viewMode==='fitted'){drawPatchOverlay('A',0,w*.27,w,h);drawPatchOverlay('B',2,w*.73,w,h)}
+  drawCubeShell(0,w*.27,w,h);drawCubeShell(2,w*.73,w,h);ctx.fillStyle='#eef4fb';ctx.font='700 14px system-ui';ctx.textAlign='center';ctx.fillText('Cube A — canonical physical pieces',w*.27,h-28);ctx.fillText('Cube B — rigidly transformed assembly',w*.73,h-28);if(auto)yaw+=.003;requestAnimationFrame(render);
+}
+function setViewButtons(){for(const [id,v] of [['viewVoxel','voxel'],['viewFitted','fitted'],['viewOptimized','optimized']])$(id).classList.toggle('active',viewMode===v)}
+$('viewVoxel').onclick=()=>{viewMode='voxel';setViewButtons()};$('viewFitted').onclick=()=>{viewMode='fitted';setViewButtons()};$('viewOptimized').onclick=()=>{viewMode='optimized';setViewButtons()};$('rotate').onclick=e=>{auto=!auto;e.target.classList.toggle('active',auto)};
+$('opacity').oninput=()=>{opacity=+$('opacity').value;$('opacityv').textContent=opacity.toFixed(2)};
+for(const id of ['minPatch','planeTol','quadTol','complexity','iters','surfaceWeight','retain','lap','maxMove'])$(id).oninput=()=>{$(id+'v').textContent=id==='minPatch'?`${$(id).value} faces`:(+$(id).value).toFixed(id==='iters'?0:3)};
+let drag=false,lx=0,ly=0;C.onpointerdown=e=>{drag=true;lx=e.clientX;ly=e.clientY;C.setPointerCapture(e.pointerId)};C.onpointermove=e=>{if(!drag)return;yaw+=(e.clientX-lx)*.008;pitch=clamp(pitch+(e.clientY-ly)*.008,-1.35,1.35);lx=e.clientX;ly=e.clientY};C.onpointerup=()=>drag=false;C.onpointercancel=()=>drag=false;C.addEventListener('wheel',e=>{e.preventDefault();zoom=clamp(zoom*Math.exp(-e.deltaY*.001),.55,2.1)},{passive:false});
+document.addEventListener('click',e=>{const help=e.target.closest('.help');document.querySelectorAll('.tipwrap.open').forEach(x=>{if(!help||x!==help.parentElement)x.classList.remove('open')});if(help){e.preventDefault();e.stopPropagation();help.parentElement.classList.toggle('open')}});
+
+function objText(m){
+  let out='# Low-order reconstructed dual-cube puzzle\n# Cube A at X=0; Cube B at X=3 cube-edge lengths\n',offset=0;
+  for(const state of ['A','B'])for(let k=0;k<K;k++){out+=`o Cube${state}_Piece_${k+1}\n`;const ids=[...new Set(m.faces[k].flat())],map=new Map();
+    for(const id of ids){let p=state==='A'?m.verts[id]:transformPoint(m.verts[id],k);if(state==='B')p=[p[0]+3,p[1],p[2]];map.set(id,++offset);out+=`v ${p[0]} ${p[1]} ${p[2]}\n`}
+    for(const f of m.faces[k])out+=`f ${f.map(i=>map.get(i)).join(' ')}\n`;
+  }
+  return out;
+}
+function rhinoScript(m){
+  const data={K,colors:colors.slice(0,K),placements:cand.placements,verts:m.verts,faces:m.faces},payload=JSON.stringify(data).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+  return `# Rhino 7/8 Python script generated by the Low-Order Dual-Cube Studio
+# Paste into Rhino's Python editor and run.
+import Rhino
+import scriptcontext as sc
+import System
+import json
+
+DATA = json.loads('${payload}')
+
+def ensure_layer(name, color):
+    idx = sc.doc.Layers.FindByFullPath(name, -1)
+    if idx >= 0: return idx
+    layer = Rhino.DocObjects.Layer()
+    layer.Name = name
+    layer.Color = color
+    return sc.doc.Layers.Add(layer)
+
+def rotations24():
+    perms=[[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]]
+    rots=[]
+    for p in perms:
+      for sx in (-1,1):
+       for sy in (-1,1):
+        for sz in (-1,1):
+         M=[[0,0,0],[0,0,0],[0,0,0]]
+         M[0][p[0]]=sx;M[1][p[1]]=sy;M[2][p[2]]=sz
+         det=M[0][0]*(M[1][1]*M[2][2]-M[1][2]*M[2][1])-M[0][1]*(M[1][0]*M[2][2]-M[1][2]*M[2][0])+M[0][2]*(M[1][0]*M[2][1]-M[1][1]*M[2][0])
+         if det==1: rots.append(M)
+    return rots
+
+ROTS=rotations24()
+
+def add_piece(state, k, xoff):
+    verts=DATA["verts"];faces=DATA["faces"][k];pl=DATA["placements"][k];M=ROTS[pl["r"]]
+    mesh=Rhino.Geometry.Mesh();used=sorted(set(i for f in faces for i in f));remap={}
+    for old in used:
+        p=list(verts[old])
+        if state=="B":
+            c=[p[0]-.5,p[1]-.5,p[2]-.5]
+            q=[M[0][0]*c[0]+M[0][1]*c[1]+M[0][2]*c[2],M[1][0]*c[0]+M[1][1]*c[1]+M[1][2]*c[2],M[2][0]*c[0]+M[2][1]*c[1]+M[2][2]*c[2]]
+            p=[q[0]+.5+pl["t"][0]/${N},q[1]+.5+pl["t"][1]/${N},q[2]+.5+pl["t"][2]/${N}]
+        p[0]+=xoff;remap[old]=mesh.Vertices.Count;mesh.Vertices.Add(p[0],p[1],p[2])
+    for f in faces: mesh.Faces.AddFace(remap[f[0]],remap[f[1]],remap[f[2]])
+    mesh.Normals.ComputeNormals();mesh.Compact()
+    color=System.Drawing.ColorTranslator.FromHtml(DATA["colors"][k]);layer=ensure_layer("Cube_%s_Piece_%02d"%(state,k+1),color)
+    attr=Rhino.DocObjects.ObjectAttributes();attr.LayerIndex=layer;attr.ObjectColor=color;attr.ColorSource=Rhino.DocObjects.ObjectColorSource.ColorFromObject
+    brep=Rhino.Geometry.Brep.CreateFromMesh(mesh, True)
+    if brep and brep.IsSolid:
+        sc.doc.Objects.AddBrep(brep,attr);print("Cube %s Piece %d: closed Brep solid"%(state,k+1))
+    else:
+        sc.doc.Objects.AddMesh(mesh,attr);print("Cube %s Piece %d: mesh retained; Brep solid conversion failed"%(state,k+1))
+
+for k in range(DATA["K"]):
+    add_piece("A",k,0.0)
+    add_piece("B",k,3.0)
+sc.doc.Views.Redraw()
+print("Reconstruction complete. Cube B is offset +3 edge lengths in X.")
+`;
+}
+function reportJSON(){
+  const m=optimized||mesh,b=bMatingResidual(m),s=patchModelStats();
+  return JSON.stringify({schema:'dual-cube-low-order-fit-report',version:1,savedAt:new Date().toISOString(),N,pieceCount:K,settings:{minPatch:+$('minPatch').value,planeTolerance:+$('planeTol').value,quadricTolerance:+$('quadTol').value,complexityPenalty:+$('complexity').value,iterations:+$('iters').value,surfaceWeight:+$('surfaceWeight').value,retention:+$('retain').value,laplacian:+$('lap').value,maxMove:+$('maxMove').value},patchSummary:s,patches:patches.map(p=>({state:p.state,pieces:[p.a+1,p.b+1],areaFaces:p.faces.length,small:!!p.small,model:p.model?{type:p.model.type,planeRMS:p.model.planeRMS,quadricRMS:p.model.quadRMS,origin:p.model.origin,normal:p.model.n,u:p.model.u,v:p.model.v,coefficients:p.model.coef}:null})),validation:{cubeA_matingRMS:0,cubeB_matingRMS:b.rms,cubeB_matingMax:b.max,cubeExteriorMaxResidual:exteriorResidual(m)}},null,2);
+}
+function showExport(text){$('exportText').value=text;$('exportBox').classList.add('open')}
+$('exportRhino').onclick=()=>{if(!optimized){$('pipelineStatus').textContent='Run joint optimization first.';return}showExport(rhinoScript(optimized))};
+$('exportOBJ').onclick=()=>{if(!optimized){$('pipelineStatus').textContent='Run joint optimization first.';return}showExport(objText(optimized))};
+$('exportReport').onclick=()=>showExport(reportJSON());
+$('copyExport').onclick=async()=>{try{await navigator.clipboard.writeText($('exportText').value);$('pipelineStatus').innerHTML='<span class="good">Export copied to clipboard.</span>'}catch{$('exportText').select();document.execCommand('copy')}};
+$('openExport').onclick=()=>{const blob=new Blob([$('exportText').value],{type:'text/plain'}),url=URL.createObjectURL(blob);window.open(url,'_blank','noopener');setTimeout(()=>URL.revokeObjectURL(url),30000)};
+render();
+</script>
+</body>
+</html>

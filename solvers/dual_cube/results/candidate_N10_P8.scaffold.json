@@ -1,0 +1,1048 @@
+{
+  "schema": "dual-cube-planar-scaffold",
+  "version": 1,
+  "gridResolution": 10,
+  "pieceCount": 8,
+  "representation": [
+    "planar-scaffold",
+    "open-b-rep",
+    "analytic-patch-graph"
+  ],
+  "rhinoReady": false,
+  "note": "Planar B-rep scaffold with explicit open loops at curved interfaces. Pieces are not closed solids until quadrics fill those loops. GPU compute is not used.",
+  "planeTolerance": 0.018,
+  "coplanarDot": 0.98,
+  "cubeA": {
+    "planarInterfaces": 6,
+    "curvedRegions": 11,
+    "sourcePatches": 17,
+    "mergedPlanarFrom": 6
+  },
+  "cubeB": {
+    "planarInterfaces": 5,
+    "curvedRegions": 12,
+    "sourcePatches": 17
+  },
+  "interfaces": [
+    {
+      "pair": "0-2",
+      "pieces": [
+        1,
+        3
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 40,
+      "planeRMS": 0.0311593462247715,
+      "origin": [
+        0.38875000000000004,
+        0.2925,
+        0.12874999999999998
+      ],
+      "normal": [
+        0.18493322849121716,
+        0.5701593713110628,
+        -0.800448619404137
+      ],
+      "oppositeNormal": [
+        -0.18493322849121716,
+        -0.5701593713110628,
+        0.800448619404137
+      ],
+      "loopVertexCounts": [
+        34
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "0-7",
+      "pieces": [
+        1,
+        8
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 56,
+      "planeRMS": 0.030516074875174926,
+      "origin": [
+        0.6017857142857143,
+        0.3053571428571428,
+        0.4035714285714286
+      ],
+      "normal": [
+        0.5775449977655129,
+        0.8114800718693836,
+        0.08911716173046257
+      ],
+      "oppositeNormal": [
+        -0.5775449977655129,
+        -0.8114800718693836,
+        -0.08911716173046257
+      ],
+      "loopVertexCounts": [
+        42
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "2-7",
+      "pieces": [
+        3,
+        8
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 48,
+      "planeRMS": 0.031844541041156776,
+      "origin": [
+        0.6927083333333334,
+        0.5052083333333334,
+        0.20000000000000004
+      ],
+      "normal": [
+        0.3112017610900554,
+        -0.19279129651570473,
+        0.9305831396937307
+      ],
+      "oppositeNormal": [
+        -0.3112017610900554,
+        0.19279129651570473,
+        -0.9305831396937307
+      ],
+      "loopVertexCounts": [
+        38
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "2-3",
+      "pieces": [
+        3,
+        4
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 17,
+      "planeRMS": 0.01725554789515848,
+      "origin": [
+        0.11176470588235293,
+        0.6441176470588236,
+        0.19705882352941176
+      ],
+      "normal": [
+        -0.7061968096113342,
+        -0.22997712068783008,
+        0.6696242155529534
+      ],
+      "oppositeNormal": [
+        0.7061968096113342,
+        0.22997712068783008,
+        -0.6696242155529534
+      ],
+      "loopVertexCounts": [
+        20
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "1-2",
+      "pieces": [
+        2,
+        3
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 41,
+      "planeRMS": 0.036839603647806925,
+      "origin": [
+        0.49268292682926834,
+        0.8000000000000003,
+        0.15609756097560976
+      ],
+      "normal": [
+        -0.03051247268795976,
+        -0.8872015163098234,
+        -0.4603720869774979
+      ],
+      "oppositeNormal": [
+        0.03051247268795976,
+        0.8872015163098234,
+        0.4603720869774979
+      ],
+      "loopVertexCounts": [
+        34
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "0-3",
+      "pieces": [
+        1,
+        4
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 71,
+      "planeRMS": 0.047201057569638785,
+      "origin": [
+        0.2267605633802816,
+        0.25000000000000006,
+        0.5485915492957745
+      ],
+      "normal": [
+        -0.8178003987710967,
+        0.31896092112693764,
+        0.4790265530883343
+      ],
+      "oppositeNormal": [
+        0.8178003987710967,
+        -0.31896092112693764,
+        -0.4790265530883343
+      ],
+      "loopVertexCounts": [
+        42
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "1-7",
+      "pieces": [
+        2,
+        8
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 78,
+      "planeRMS": 0.04460772098372429,
+      "origin": [
+        0.6115384615384617,
+        0.8224358974358972,
+        0.5698717948717947
+      ],
+      "normal": [
+        0.16103256171033026,
+        -0.9041075658049325,
+        0.39580048449097216
+      ],
+      "oppositeNormal": [
+        -0.16103256171033026,
+        0.9041075658049325,
+        -0.39580048449097216
+      ],
+      "loopVertexCounts": [
+        44
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "1-3",
+      "pieces": [
+        2,
+        4
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 18,
+      "planeRMS": 0.01715461828369798,
+      "origin": [
+        0.11944444444444444,
+        0.886111111111111,
+        0.4944444444444446
+      ],
+      "normal": [
+        -0.7660587092454356,
+        -0.6161758963579088,
+        0.18297901173835468
+      ],
+      "oppositeNormal": [
+        0.7660587092454356,
+        0.6161758963579088,
+        -0.18297901173835468
+      ],
+      "loopVertexCounts": [
+        20
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "0-5",
+      "pieces": [
+        1,
+        6
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 7,
+      "planeRMS": 0.01523404907358958,
+      "origin": [
+        0.8785714285714284,
+        0.1,
+        0.4928571428571429
+      ],
+      "normal": [
+        0.7952795997293892,
+        0.43782753744205627,
+        0.4193297100274286
+      ],
+      "oppositeNormal": [
+        -0.7952795997293892,
+        -0.43782753744205627,
+        -0.4193297100274286
+      ],
+      "loopVertexCounts": [
+        12
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "5-7",
+      "pieces": [
+        6,
+        8
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 23,
+      "planeRMS": 0.022782811306942225,
+      "origin": [
+        0.8586956521739131,
+        0.3760869565217391,
+        0.6043478260869565
+      ],
+      "normal": [
+        -0.3218807193675256,
+        0.5074012327011698,
+        -0.7993352185114688
+      ],
+      "oppositeNormal": [
+        0.3218807193675256,
+        -0.5074012327011698,
+        0.7993352185114688
+      ],
+      "loopVertexCounts": [
+        24
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "3-7",
+      "pieces": [
+        4,
+        8
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 24,
+      "planeRMS": 0.022680894074376252,
+      "origin": [
+        0.21458333333333335,
+        0.71875,
+        0.6833333333333332
+      ],
+      "normal": [
+        0.9011910219472733,
+        0.42717334960770575,
+        -0.07333260766236283
+      ],
+      "oppositeNormal": [
+        -0.9011910219472733,
+        -0.42717334960770575,
+        0.07333260766236283
+      ],
+      "loopVertexCounts": [
+        28
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "0-4",
+      "pieces": [
+        1,
+        5
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 19,
+      "planeRMS": 4.706465880471054e-13,
+      "origin": [
+        0.6342105263157896,
+        0.14210526315789473,
+        0.7236842105263157
+      ],
+      "normal": [
+        0.577350269190557,
+        0.5773502691932907,
+        0.5773502691850296
+      ],
+      "oppositeNormal": [
+        -0.577350269190557,
+        -0.5773502691932907,
+        -0.5773502691850296
+      ],
+      "loopVertexCounts": [
+        24
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "0-4",
+      "pieces": [
+        1,
+        5
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 1,
+      "planeRMS": 0,
+      "origin": [
+        0.4,
+        0.45,
+        0.75
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "oppositeNormal": [
+        -1,
+        0,
+        0
+      ],
+      "loopVertexCounts": [
+        4
+      ],
+      "openLoops": 0
+    },
+    {
+      "pair": "4-5",
+      "pieces": [
+        5,
+        6
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 28,
+      "planeRMS": 0.037327687929372334,
+      "origin": [
+        0.8625,
+        0.26071428571428573,
+        0.7767857142857144
+      ],
+      "normal": [
+        0.7579425425260821,
+        0.05567753668264329,
+        -0.64994085433834
+      ],
+      "oppositeNormal": [
+        -0.7579425425260821,
+        -0.05567753668264329,
+        0.64994085433834
+      ],
+      "loopVertexCounts": [
+        24
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "4-7",
+      "pieces": [
+        5,
+        8
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 59,
+      "planeRMS": 0.0293516635175375,
+      "origin": [
+        0.5906779661016951,
+        0.7084745762711866,
+        0.8042372881355935
+      ],
+      "normal": [
+        -0.09863995008518965,
+        0.34860439974169194,
+        -0.9320649831036063
+      ],
+      "oppositeNormal": [
+        0.09863995008518965,
+        -0.34860439974169194,
+        0.9320649831036063
+      ],
+      "loopVertexCounts": [
+        42
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "3-4",
+      "pieces": [
+        4,
+        5
+      ],
+      "kind": "curved",
+      "sourcePatches": 1,
+      "areaFaces": 24,
+      "planeRMS": 0.02427764913545771,
+      "origin": [
+        0.3874999999999998,
+        0.4145833333333333,
+        0.9020833333333331
+      ],
+      "normal": [
+        0.8367184940057252,
+        0.5109654489215173,
+        -0.19701896303966224
+      ],
+      "oppositeNormal": [
+        -0.8367184940057252,
+        -0.5109654489215173,
+        0.19701896303966224
+      ],
+      "loopVertexCounts": [
+        32
+      ],
+      "openLoops": 1
+    },
+    {
+      "pair": "1-4",
+      "pieces": [
+        2,
+        5
+      ],
+      "kind": "planar",
+      "sourcePatches": 1,
+      "areaFaces": 3,
+      "planeRMS": 1.1807379746963406e-12,
+      "origin": [
+        0.5166666666666667,
+        0.9333333333333332,
+        0.8833333333333333
+      ],
+      "normal": [
+        -2.0450992989205257e-11,
+        -0.7071067812144849,
+        0.7071067811586101
+      ],
+      "oppositeNormal": [
+        2.0450992989205257e-11,
+        0.7071067812144849,
+        -0.7071067811586101
+      ],
+      "loopVertexCounts": [
+        8
+      ],
+      "openLoops": 0
+    }
+  ],
+  "pieces": [
+    {
+      "piece": 1,
+      "voxelCount": 183,
+      "voxelVolume": 0.183,
+      "voxelComponents": 1,
+      "exteriorFaces": 106,
+      "exteriorGroups": [
+        "x0",
+        "y0",
+        "z0",
+        "x1"
+      ],
+      "planarMates": 3,
+      "curvedOpenLoops": 3,
+      "halfSpaceVertices": 10,
+      "halfSpaceVolume": 0.4,
+      "collapsed": false,
+      "nonmanifoldEdges": 0
+    },
+    {
+      "piece": 2,
+      "voxelCount": 145,
+      "voxelVolume": 0.145,
+      "voxelComponents": 1,
+      "exteriorFaces": 104,
+      "exteriorGroups": [
+        "z0",
+        "x0",
+        "y1",
+        "x1"
+      ],
+      "planarMates": 2,
+      "curvedOpenLoops": 2,
+      "halfSpaceVertices": 8,
+      "halfSpaceVolume": 0.9024999999652547,
+      "collapsed": false,
+      "nonmanifoldEdges": 0
+    },
+    {
+      "piece": 3,
+      "voxelCount": 117,
+      "voxelVolume": 0.117,
+      "voxelComponents": 1,
+      "exteriorFaces": 74,
+      "exteriorGroups": [
+        "z0",
+        "x0",
+        "x1"
+      ],
+      "planarMates": 1,
+      "curvedOpenLoops": 3,
+      "halfSpaceVertices": 10,
+      "halfSpaceVolume": 1,
+      "collapsed": false,
+      "nonmanifoldEdges": 0
+    },
+    {
+      "piece": 4,
+      "voxelCount": 179,
+      "voxelVolume": 0.179,
+      "voxelComponents": 1,
+      "exteriorFaces": 132,
+      "exteriorGroups": [
+        "x0",
+        "y0",
+        "y1",
+        "z1"
+      ],
+      "planarMates": 2,
+      "curvedOpenLoops": 3,
+      "halfSpaceVertices": 10,
+      "halfSpaceVolume": 0.9529397841487702,
+      "collapsed": false,
+      "nonmanifoldEdges": 0
+    },
+    {
+      "piece": 5,
+      "voxelCount": 133,
+      "voxelVolume": 0.133,
+      "voxelComponents": 1,
+      "exteriorFaces": 94,
+      "exteriorGroups": [
+        "y0",
+        "x1",
+        "z1",
+        "y1"
+      ],
+      "planarMates": 3,
+      "curvedOpenLoops": 3,
+      "halfSpaceVertices": 10,
+      "halfSpaceVolume": 0.4650000000130336,
+      "collapsed": false,
+      "nonmanifoldEdges": 0
+    },
+    {
+      "piece": 6,
+      "voxelCount": 32,
+      "voxelVolume": 0.032,
+      "voxelComponents": 1,
+      "exteriorFaces": 24,
+      "exteriorGroups": [
+        "x1",
+        "y0"
+      ],
+      "planarMates": 1,
+      "curvedOpenLoops": 2,
+      "halfSpaceVertices": 8,
+      "halfSpaceVolume": 0.8843110232511642,
+      "collapsed": false,
+      "nonmanifoldEdges": 0
+    },
+    {
+      "piece": 7,
+      "voxelCount": 0,
+      "voxelVolume": 0,
+      "voxelComponents": 0,
+      "exteriorFaces": 0,
+      "exteriorGroups": [],
+      "planarMates": 0,
+      "curvedOpenLoops": 0,
+      "halfSpaceVertices": 8,
+      "halfSpaceVolume": 1,
+      "collapsed": false,
+      "nonmanifoldEdges": 0
+    },
+    {
+      "piece": 8,
+      "voxelCount": 211,
+      "voxelVolume": 0.211,
+      "voxelComponents": 1,
+      "exteriorFaces": 66,
+      "exteriorGroups": [
+        "x1",
+        "z0",
+        "y1",
+        "z1"
+      ],
+      "planarMates": 0,
+      "curvedOpenLoops": 6,
+      "halfSpaceVertices": 8,
+      "halfSpaceVolume": 1,
+      "collapsed": false,
+      "nonmanifoldEdges": 0
+    }
+  ],
+  "dualAssembly": {
+    "note": "Voxel contact graphs of the two assemblies need not match; pieces rearrange. Dual topology here is per-piece voxel count, cube exteriors, and loop correspondence for pairs present in both cubes.",
+    "contactPairsA": [
+      "0-2",
+      "0-7",
+      "2-7",
+      "2-3",
+      "1-2",
+      "0-3",
+      "1-7",
+      "1-3",
+      "0-5",
+      "5-7",
+      "3-7",
+      "0-4",
+      "4-5",
+      "4-7",
+      "3-4",
+      "1-4"
+    ],
+    "contactPairsB": [
+      "1-7",
+      "4-7",
+      "2-4",
+      "1-4",
+      "4-5",
+      "1-5",
+      "0-5",
+      "2-7",
+      "0-4",
+      "0-1",
+      "0-7",
+      "1-3",
+      "3-7",
+      "0-2",
+      "0-3",
+      "2-3"
+    ],
+    "missingInB": [
+      "1-2",
+      "5-7",
+      "3-4"
+    ],
+    "missingInA": [
+      "2-4",
+      "1-5",
+      "0-1"
+    ],
+    "loopCorrespondence": [
+      {
+        "pair": "0-2",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 40,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "0-7",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 56,
+        "facesB": 50,
+        "presentInB": true
+      },
+      {
+        "pair": "2-7",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 48,
+        "facesB": 83,
+        "presentInB": true
+      },
+      {
+        "pair": "2-3",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 17,
+        "facesB": 3,
+        "presentInB": true
+      },
+      {
+        "pair": "1-2",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 41,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "0-3",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 71,
+        "facesB": 40,
+        "presentInB": true
+      },
+      {
+        "pair": "1-7",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 78,
+        "facesB": 30,
+        "presentInB": true
+      },
+      {
+        "pair": "1-3",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 18,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "0-5",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 7,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "5-7",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 23,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "3-7",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 24,
+        "facesB": 82,
+        "presentInB": true
+      },
+      {
+        "pair": "0-4",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 2,
+        "facesA": 19,
+        "facesB": 20,
+        "presentInB": true
+      },
+      {
+        "pair": "0-4",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 2,
+        "facesA": 1,
+        "facesB": 20,
+        "presentInB": true
+      },
+      {
+        "pair": "4-5",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 28,
+        "facesB": 20,
+        "presentInB": true
+      },
+      {
+        "pair": "4-7",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 59,
+        "facesB": 43,
+        "presentInB": true
+      },
+      {
+        "pair": "3-4",
+        "kind": "curved",
+        "loopsA": 1,
+        "loopsB": 0,
+        "facesA": 24,
+        "facesB": 0,
+        "presentInB": false
+      },
+      {
+        "pair": "1-4",
+        "kind": "planar",
+        "loopsA": 1,
+        "loopsB": 1,
+        "facesA": 3,
+        "facesB": 4,
+        "presentInB": true
+      }
+    ],
+    "transformedPlanarMates": [
+      {
+        "pair": "2-3",
+        "transformedNormalsDot": 0.7892938426110495,
+        "originSeparation": 0.8867634864882847
+      },
+      {
+        "pair": "1-3",
+        "transformedNormalsDot": -0.09932740414989355,
+        "originSeparation": 0.9457752062412821
+      },
+      {
+        "pair": "0-5",
+        "transformedNormalsDot": 0.19169295254257518,
+        "originSeparation": 0.5354761375426088
+      },
+      {
+        "pair": "0-4",
+        "transformedNormalsDot": 1,
+        "originSeparation": 0
+      },
+      {
+        "pair": "0-4",
+        "transformedNormalsDot": 1,
+        "originSeparation": 0
+      },
+      {
+        "pair": "1-4",
+        "transformedNormalsDot": -0.49999999998941264,
+        "originSeparation": 0.9963823451756746
+      }
+    ]
+  },
+  "risks": {
+    "disconnectedScaffolds": [
+      {
+        "piece": 7,
+        "components": 0
+      },
+      {
+        "piece": 7,
+        "components": 0,
+        "cube": "B"
+      }
+    ],
+    "collapsedRegions": [],
+    "minVolume": 0,
+    "minVolumeFailures": [
+      6,
+      7
+    ],
+    "minThickness": {
+      "cubeA": 0.1,
+      "cubeB": 0.1,
+      "limit": 0.04
+    },
+    "thicknessRisk": false
+  },
+  "gate": {
+    "canonicalPlanarInterfaces": true,
+    "identicalSurfacesOppositeOrientation": true,
+    "cubeExteriorsPresent": true,
+    "planarHalfSpaceValid": true,
+    "curvedOpenLoopsPaired": true,
+    "noDuplicatePlanarFaces": true,
+    "noUnexplainedGaps": true,
+    "noNonmanifoldPlanarJunctions": true,
+    "dualAssemblyTopology": true,
+    "allPassed": true,
+    "reasons": []
+  },
+  "diagnostics": {
+    "oppositeOrientation": [
+      {
+        "pair": "2-3",
+        "loNormal": [
+          -0.7061968096113342,
+          -0.22997712068783008,
+          0.6696242155529534
+        ],
+        "hiNormal": [
+          0.7061968096113342,
+          0.22997712068783008,
+          -0.6696242155529534
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "1-3",
+        "loNormal": [
+          -0.7660587092454356,
+          -0.6161758963579088,
+          0.18297901173835468
+        ],
+        "hiNormal": [
+          0.7660587092454356,
+          0.6161758963579088,
+          -0.18297901173835468
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "0-5",
+        "loNormal": [
+          0.7952795997293892,
+          0.43782753744205627,
+          0.4193297100274286
+        ],
+        "hiNormal": [
+          -0.7952795997293892,
+          -0.43782753744205627,
+          -0.4193297100274286
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "0-4",
+        "loNormal": [
+          0.577350269190557,
+          0.5773502691932907,
+          0.5773502691850296
+        ],
+        "hiNormal": [
+          -0.577350269190557,
+          -0.5773502691932907,
+          -0.5773502691850296
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "0-4",
+        "loNormal": [
+          1,
+          0,
+          0
+        ],
+        "hiNormal": [
+          -1,
+          0,
+          0
+        ],
+        "antiparallel": true
+      },
+      {
+        "pair": "1-4",
+        "loNormal": [
+          -2.0450992989205257e-11,
+          -0.7071067812144849,
+          0.7071067811586101
+        ],
+        "hiNormal": [
+          2.0450992989205257e-11,
+          0.7071067812144849,
+          -0.7071067811586101
+        ],
+        "antiparallel": true
+      }
+    ],
+    "duplicateFaces": 0,
+    "unexplainedGaps": 0
+  }
+}

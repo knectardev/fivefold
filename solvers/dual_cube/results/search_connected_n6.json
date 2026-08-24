@@ -1,0 +1,82 @@
+{
+  "savedAt": "2026-08-21T18:15:37.715Z",
+  "N": 6,
+  "pieceCount": 8,
+  "radius": 0,
+  "campaignSeed": 20260820,
+  "workers": 4,
+  "note": "candidate_N6_P8.json is a disconnected regression fixture and is not overwritten. Connected CAD candidate is candidate_N6_P8_connected.json (seed 67563909).",
+  "passes": [
+    {
+      "label": "balance-32-rounds-8",
+      "wallMs": 29912.4633,
+      "exact": 1500,
+      "connected": 29,
+      "cadEligible": 0,
+      "connectedRate": 0.019333333333333334,
+      "cadEligibleRate": 0,
+      "connectedMinVolMax": 0.041666666666666664,
+      "connectedMinVolMedian": 0.004629629629629629,
+      "bestConnected": {
+        "connected": 8,
+        "minVol": 0.041666666666666664,
+        "fragileRatio": 0.06018518518518518,
+        "imbalance": 0.6296296296296297,
+        "rough": 1.5092592592592593,
+        "admissibility": {
+          "pass": false,
+          "reasons": [
+            "smallest piece 4.2% < 5.0%",
+            "fragile voxels 6.0% > 5.0%",
+            "roughness 1.509 > 1.00"
+          ]
+        },
+        "cadEligible": false,
+        "cadQueue": "rejected-undersized",
+        "cadBlockers": [
+          "smallest piece 4.2% < 5.0%"
+        ],
+        "cadWarnings": [
+          "fragile voxels / local thickness 6.0% > 5.0%"
+        ],
+        "seed": 44787977,
+        "jobIndex": 2451
+      }
+    },
+    {
+      "label": "balance-48-rounds-10",
+      "wallMs": 36757.549100000004,
+      "exact": 1500,
+      "connected": 27,
+      "cadEligible": 2,
+      "connectedRate": 0.018,
+      "cadEligibleRate": 0.0013333333333333333,
+      "connectedMinVolMax": 0.06944444444444445,
+      "connectedMinVolMedian": 0.009259259259259259,
+      "bestConnected": {
+        "connected": 8,
+        "minVol": 0.06944444444444445,
+        "fragileRatio": 0.06018518518518518,
+        "imbalance": 0.18518518518518517,
+        "rough": 1.6944444444444444,
+        "admissibility": {
+          "pass": false,
+          "reasons": [
+            "fragile voxels 6.0% > 5.0%",
+            "roughness 1.694 > 1.00"
+          ]
+        },
+        "cadEligible": true,
+        "cadQueue": "active",
+        "cadBlockers": [],
+        "cadWarnings": [
+          "fragile voxels / local thickness 6.0% > 5.0%"
+        ],
+        "seed": 67563909,
+        "jobIndex": 4727
+      }
+    }
+  ],
+  "foundConnected": true,
+  "foundCadEligible": true
+}

@@ -1,0 +1,32 @@
+{
+  "minCellsRange": [
+    22,
+    25
+  ],
+  "items": [
+    {
+      "savedAt": "2026-08-23T08:29:06.210Z",
+      "seed": 61559712,
+      "jobIndex": null,
+      "connected": 8,
+      "counts": [
+        163,
+        59,
+        24,
+        55,
+        56,
+        57,
+        24,
+        74
+      ],
+      "minCells": 24,
+      "maxCells": 163,
+      "minVol": 0.046875,
+      "maxVol": 0.318359375,
+      "fragileRatio": 0.015625,
+      "rough": 1.0546875,
+      "cadEligible": false,
+      "note": "volume-repair seed"
+    }
+  ]
+}

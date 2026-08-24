@@ -1,0 +1,2372 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cubic joint · 6 pieces + L-tromino</title>
+  <style>
+    :root {
+      --bg: #1a1d21;
+      --panel: #24282e;
+      --text: #e8eaed;
+      --muted: #9aa0a6;
+      --accent: #7cb8ff;
+      --active: #3d4a5c;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
+      font-family: "Segoe UI", system-ui, sans-serif; }
+    #app {
+      display: grid;
+      grid-template-columns: 300px 1fr 280px;
+      height: 100%;
+    }
+    aside, #orbitPanel {
+      background: var(--panel);
+      padding: 1.1rem 1.2rem;
+      overflow: auto;
+    }
+    aside { border-right: 1px solid #333842; }
+    #orbitPanel { border-left: 1px solid #333842; display: flex; flex-direction: column; padding: 0; }
+    #orbitPanel header {
+      padding: 1rem 1.1rem 0.6rem;
+      border-bottom: 1px solid #333842;
+      flex: 0 0 auto;
+    }
+    #orbitList {
+      flex: 1 1 auto;
+      overflow: auto;
+      padding: 0.4rem;
+    }
+    .orbit-btn {
+      display: flex; width: 100%; text-align: left; align-items: flex-start; gap: 0.45rem;
+      background: transparent; border: 1px solid transparent;
+      color: var(--muted); font: inherit; font-size: 0.78rem;
+      padding: 0.45rem 0.55rem; margin: 0 0 0.25rem; border-radius: 4px;
+      cursor: pointer; line-height: 1.35;
+    }
+    .orbit-btn .orbit-swatch {
+      flex: 0 0 0.85rem; width: 0.85rem; height: 0.85rem;
+      border-radius: 3px; margin-top: 0.12rem;
+      border: 1px solid #0008; box-shadow: inset 0 0 0 1px #fff2;
+    }
+    .orbit-btn .orbit-swatch.none {
+      background: transparent; border-style: dashed; border-color: #6a7078;
+      box-shadow: none;
+    }
+    .orbit-btn .orbit-copy { min-width: 0; }
+    .orbit-btn:hover { background: #2c3138; color: var(--text); }
+    .orbit-btn.active {
+      background: var(--active); border-color: #5a6a80; color: var(--text);
+    }
+    .orbit-btn code { color: var(--accent); font-size: 0.72rem; }
+    .kit-section { margin: 0.15rem 0 0.55rem; }
+    .kit-section-title, .kit-head {
+      font-size: 0.72rem; color: var(--muted);
+      padding: 0.45rem 0.55rem 0.2rem; line-height: 1.35;
+    }
+    .kit-section-title { font-weight: 600; color: var(--text); padding-top: 0.65rem; }
+    .kit-head code { color: var(--accent); font-size: 0.68rem; }
+    .kit-swatches { display: inline-flex; gap: 0.18rem; vertical-align: middle; margin-left: 0.35rem; }
+    .kit-swatches i {
+      display: inline-block; width: 0.62rem; height: 0.62rem; border-radius: 2px;
+      border: 1px solid #0008; box-shadow: inset 0 0 0 1px #fff2;
+    }
+    .kit-group.hidden, .kit-section.hidden, .skel-group.hidden { display: none; }
+    .skel-group {
+      margin: 0 0.4rem 0.4rem; border: 1px solid #333842; border-radius: 5px;
+    }
+    .skel-group > summary {
+      cursor: pointer; padding: 0.45rem 0.55rem; line-height: 1.35;
+      font-size: 0.75rem; color: var(--muted);
+    }
+    .skel-group > summary strong { color: var(--text); }
+    .skel-group[open] { background: #1e2228; }
+    .skel-group .orbit-btn { margin-left: 0.25rem; }
+    .filter-row {
+      display: flex; align-items: center; gap: 0.45rem;
+      margin-top: 0.65rem; font-size: 0.78rem; color: var(--muted);
+    }
+    .filter-row select {
+      flex: 1 1 auto; background: #1a1d21; color: var(--text);
+      border: 1px solid #3d4450; border-radius: 4px;
+      padding: 0.3rem 0.4rem; font: inherit; font-size: 0.78rem;
+    }
+    .orbit-btn.hidden { display: none; }
+    #orbitEmpty.hidden { display: none; }
+    h1 { font-size: 1.05rem; font-weight: 600; margin: 0 0 0.35rem; }
+    h2 { font-size: 0.9rem; font-weight: 600; margin: 0 0 0.35rem; }
+    p, li { font-size: 0.82rem; line-height: 1.45; color: var(--muted); }
+    .ok { color: #8fd49a; }
+    .err { color: #ff8a8a; }
+    label { display: flex; align-items: center; gap: 0.5rem; margin: 0.35rem 0;
+      font-size: 0.85rem; cursor: pointer; color: var(--text); }
+    #viewport { position: relative; min-width: 0; }
+    canvas { display: block; width: 100%; height: 100%; }
+    .hint { position: absolute; left: 1rem; bottom: 1rem; font-size: 0.75rem;
+      color: var(--muted); pointer-events: none; }
+    code { color: var(--accent); font-size: 0.78rem; }
+    ul { padding-left: 1.1rem; margin: 0.4rem 0 0.8rem; }
+    hr { border: none; border-top: 1px solid #333842; margin: 0.85rem 0; }
+    #status { font-size: 0.8rem; color: var(--muted); }
+    .btn {
+      display: block; width: 100%; margin: 0.35rem 0 0;
+      background: #2c3542; color: var(--text); border: 1px solid #4a5568;
+      border-radius: 4px; padding: 0.45rem 0.6rem; font: inherit;
+      font-size: 0.82rem; cursor: pointer; text-align: left;
+    }
+    .btn:hover { background: #3a4556; border-color: #6a7a90; }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    #surfaceMapLegend { font-size: 0.78rem; color: var(--muted); }
+    #surfaceMapLegend.hidden, #kitDef.hidden { display: none; }
+    #kitDefList { padding-left: 1.1rem; margin: 0.15rem 0 0.85rem; }
+    #kitDefList li { margin: 0.2rem 0; }
+    #surfaceMapLegend li { margin: 0.15rem 0; }
+    .swatch {
+      display: inline-block; width: 0.7rem; height: 0.7rem;
+      border-radius: 2px; vertical-align: -0.1rem; margin-right: 0.35rem;
+      border: 1px solid #0006;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <aside>
+      <h1>Cubic joint · 6 + L</h1>
+      <p class="ok">6 joints × volume 4 + L-tromino × 3 = 27 · complete fill · up to Oh</p>
+      <p id="status">Loading orbits…</p>
+      <hr />
+      <label><input type="checkbox" id="showDigonal" checked /> Cubic joint pieces</label>
+      <label><input type="checkbox" id="ghostDigonal" /> Pieces ghosted</label>
+      <label><input type="checkbox" id="showLavender" checked /> Translucent joint cubes</label>
+      <label><input type="checkbox" id="showLPart" checked /> L-tromino part</label>
+      <label><input type="checkbox" id="explode" /> Explode pieces</label>
+      <label><input type="checkbox" id="surfaceMap" /> Five-layout surface colors</label>
+      <label><input type="checkbox" id="grayPieces" /> Gray piece colors</label>
+      <div id="surfaceMapLegend" class="hidden">
+        <p style="margin:0.45rem 0 0.25rem; color:var(--text)">
+          One manufactured kit of seven unique parts. The kit packs the cube
+          in seven ways; five of those are painted as outer-skin sections
+          (#3 and #6 omitted so the split stays readable). A section is
+          painted iff that same local face sits on the outer 3×3×3 skin in
+          that layout — including faces buried in the current packing.
+          Unpainted area keeps the piece color (use Gray piece colors to
+          neutralize it). Explode keeps the marks on each part.
+        </p>
+        <ul id="surfaceMapSwatches" style="list-style:none; padding-left:0; margin:0.35rem 0 0;"></ul>
+      </div>
+      <hr />
+      <p><strong style="color:var(--text)">Export</strong></p>
+      <button type="button" class="btn" id="exportStl">STL combined (one mesh)</button>
+      <button type="button" class="btn" id="exportObj">OBJ separate parts (one file)</button>
+      <button type="button" class="btn" id="exportFiveObj">OBJ five layouts, spaced (one file)</button>
+      <button type="button" class="btn" id="exportStlParts">STL each part (multiple files)</button>
+      <label style="margin-top:0.45rem">
+        <input type="checkbox" id="exportIncludeVoid" checked />
+        Include L-tromino part
+      </label>
+      <p style="margin:0.4rem 0 0; font-size:0.72rem">
+        OBJ uses the same Y-up frame as the browser and downloads a matching
+        .mtl with the family colors (keep both files together). In Rhino leave
+        “Map OBJ Y to Rhino Z” on, and turn on “Set display color from OBJ
+        material color.” If the front corner is yawed, select all and Rotate
+        90° (or 180°) around World Z. STL has no color or object groups.
+      </p>
+      <hr />
+      <div id="kitDef" class="hidden">
+        <p style="margin:0"><strong style="color:var(--text)">Pieces that define this set</strong></p>
+        <p id="kitDefBlurb" style="margin:0.35rem 0 0.4rem"></p>
+        <ul id="kitDefList"></ul>
+      </div>
+      <p><strong style="color:var(--text)">L-tromino cells</strong></p>
+      <code id="voidLabel"></code>
+      <p style="margin-top:0.75rem"><strong style="color:var(--text)">This packing</strong>
+        <span id="pieceColorHint">(color = 3-cube body · clock variants keep that map)</span></p>
+      <ul id="pieceList"></ul>
+      <p id="typeSummary"></p>
+    </aside>
+    <div id="viewport">
+      <div class="hint">Drag to orbit · scroll to zoom · ↑/↓ next body · [ ] clock variant</div>
+    </div>
+    <div id="orbitPanel">
+      <header>
+        <h2>Solution orbits</h2>
+        <p style="margin:0" id="orbitBlurb">Inequivalent packings (rotations identified). Click or use ↑/↓.</p>
+        <label class="filter-row" style="cursor:pointer">
+          <input type="checkbox" id="sameMixFilter" checked />
+          This piece mix only
+          <span id="sameMixCount" style="color:var(--muted)"></span>
+        </label>
+        <label class="filter-row" style="cursor:pointer">
+          <input type="checkbox" id="fiveLayoutFilter" checked />
+          Five-layout set only
+          <span id="fiveLayoutCount" style="color:var(--muted)"></span>
+        </label>
+        <label class="filter-row" style="cursor:pointer">
+          <input type="checkbox" id="collapseClocks" checked />
+          Collapse clock variants
+          <span id="collapseCount" style="color:var(--muted)"></span>
+        </label>
+        <label class="filter-row">
+          Distinct families
+          <select id="uniqueFilter" aria-label="Filter by number of distinct families among the 7 pieces">
+            <option value="all">All</option>
+          </select>
+        </label>
+        <label class="filter-row" style="cursor:pointer">
+          <input type="checkbox" id="lTrominoFilter" checked />
+          6 joints + L only
+          <span id="lTrominoCount" style="color:var(--muted)"></span>
+        </label>
+      </header>
+      <div id="orbitList"></div>
+      <p id="orbitEmpty" class="hidden" style="padding:0.75rem 1rem; margin:0; color:var(--muted); font-size:0.8rem;"></p>
+    </div>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { ConvexGeometry } from 'three/addons/geometries/ConvexGeometry.js';
+import { STLExporter } from 'three/addons/exporters/STLExporter.js';
+
+/** Six categorical hues ~60° apart so joints in one packing stay visually distinct. */
+const KIT_JOINT_COLORS = [
+  0xe53935, // red
+  0xf9a825, // amber (only yellow in the kit)
+  0x43a047, // green
+  0x00acc1, // cyan
+  0x1e88e5, // blue
+  0x8e24aa, // purple
+];
+const L_TROMINO = 'L-tromino';
+const L_COLOR = 0xf5f6fa;
+const GHOST_OPACITY = 0.35;
+const LAVENDER_TINT = 0xbba5e0;
+const PIECE_BASE_GRAY = 0xb0b4ba;
+/** Five of seven Oh packings (skip #3 clock-twin of #2, #6 L-twin of #0). */
+const SURFACE_MAP_ORBITS = [0, 1, 2, 4, 5];
+const SURFACE_MAP_COLORS = [0xf5a623, 0x8bc34a, 0x26c6da, 0x7e57c2, 0x5c6bc0];
+const SURFACE_MAP_P = [0.425, 0.5];
+const KIT_PART_ORDER = ['O-F1F1', 'O-F1F2', 'L-F0F2', 'L-F1F2', 'L-F3F3', 'L-F3F4'];
+const MIX_FAMILY_COLORS = new Map([
+  ['O-F1F1', 0xe53935],
+  ['O-F1F2', 0xf9a825],
+  ['L-F0F2', 0x43a047],
+  ['L-F1F2', 0x00acc1],
+  ['L-F3F3', 0x1e88e5],
+  ['L-F3F4', 0x8e24aa],
+  [L_TROMINO, L_COLOR],
+]);
+const MIX_INVENTORY_FALLBACK = {
+  'O-F1F1': 1,
+  'O-F1F2': 1,
+  'L-F0F2': 1,
+  'L-F1F2': 1,
+  'L-F3F3': 1,
+  'L-F3F4': 1,
+};
+const MIX_FAMILY_NOTES = {
+  'O-F1F1': 'I-joint (straight) · both arms F1',
+  'O-F1F2': 'I-joint (straight) · faces F1 + F2',
+  'L-F0F2': 'L-joint (bent) · faces F0 + F2',
+  'L-F1F2': 'L-joint (bent) · faces F1 + F2',
+  'L-F3F3': 'L-joint (bent) · both arms F3',
+  'L-F3F4': 'L-joint (bent) · faces F3 + F4',
+};
+const OBJ_AXIS_COMMENTS = [
+  '# Axes: Three.js / browser Y-up (same as the viewport).',
+  '# Rhino: leave “Map OBJ Y to Rhino Z” ON (typical default) so the top face stands up.',
+  '# If the front corner is yawed vs the browser, select all and Rotate 90° around World Z',
+  '# (try 180° if it is still opposite). One bulk rotate — no per-part juggling.',
+  '# Browser default camera: eye (6.5, 5.2, 7.2) target (1.5, 1.5, 1.5), up = Y.',
+];
+
+let kitColorMaps = new Map();
+
+function familyCountsOf(rep) {
+  if (rep?.family_counts && Object.keys(rep.family_counts).length) {
+    return { ...rep.family_counts };
+  }
+  const counts = {};
+  for (const p of rep?.pieces || []) {
+    counts[p.family] = (counts[p.family] || 0) + 1;
+  }
+  return counts;
+}
+
+function jointFamiliesSorted(rep) {
+  return Object.keys(familyCountsOf(rep))
+    .filter((f) => f !== L_TROMINO)
+    .sort();
+}
+
+function cubeSetKey(piece) {
+  return [...(piece?.cubes || [])]
+    .map((c) => `${c[0]},${c[1]},${c[2]}`)
+    .sort()
+    .join(';');
+}
+
+/** Unlabeled partition of the 27 cells into seven 3-cube bodies. */
+function skeletonKey(rep) {
+  return (rep?.pieces || []).map(cubeSetKey).sort().join('/');
+}
+
+/** Multiset of joint families; used when clock-collapse is off. */
+function kitKey(rep) {
+  return Object.entries(familyCountsOf(rep))
+    .filter(([f]) => f !== L_TROMINO)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([f, n]) => `${f}:${n}`)
+    .join(',');
+}
+
+function colorsForRep(rep) {
+  const key = skeletonKey(rep);
+  let map = kitColorMaps.get(key);
+  if (map) return map;
+  map = new Map([[L_TROMINO, L_COLOR]]);
+  const joints = (rep.pieces || []).filter((p) => p.family !== L_TROMINO && p.role !== L_TROMINO);
+  const sets = [...new Set(joints.map(cubeSetKey))].sort();
+  sets.forEach((s, i) => {
+    map.set(s, KIT_JOINT_COLORS[i % KIT_JOINT_COLORS.length]);
+  });
+  kitColorMaps.set(key, map);
+  return map;
+}
+
+function pieceColor(piece, rep = current) {
+  if (!piece || piece.family === L_TROMINO || piece.role === L_TROMINO) return L_COLOR;
+  if (useMixDataset()) return MIX_FAMILY_COLORS.get(piece.family) ?? 0x888888;
+  if (!rep) return 0x888888;
+  return colorsForRep(rep).get(cubeSetKey(piece)) ?? 0x888888;
+}
+
+function familyColor(family, rep = current) {
+  if (family === L_TROMINO) return L_COLOR;
+  if (useMixDataset()) return MIX_FAMILY_COLORS.get(family) ?? 0x888888;
+  if (!rep) return 0x888888;
+  const piece = (rep.pieces || []).find((p) => p.family === family);
+  return piece ? pieceColor(piece, rep) : 0x888888;
+}
+
+function kitMateIndices(index) {
+  if (!orbitsData || index == null || index < 0) return [];
+  const key = kitKey(orbitsData.representatives[index]);
+  if (!key) return [];
+  return orbitsData.representatives
+    .map((_, i) => i)
+    .filter((i) => i !== index && kitKey(orbitsData.representatives[i]) === key);
+}
+
+function skeletonMateIndices(index, pool) {
+  if (!orbitsData || index == null || index < 0) return [];
+  const key = skeletonKey(orbitsData.representatives[index]);
+  if (!key) return [];
+  const src = pool || orbitsData.representatives.map((_, i) => i);
+  return src.filter(
+    (i) => i !== index && skeletonKey(orbitsData.representatives[i]) === key,
+  );
+}
+
+function collapseEnabled() {
+  return Boolean(document.getElementById('collapseClocks')?.checked);
+}
+
+function pickGroupRep(idxs) {
+  const reps = orbitsData.representatives;
+  return idxs.slice().sort((a, b) => {
+    const du = uniquePartCount(reps[b]) - uniquePartCount(reps[a]);
+    return du || a - b;
+  })[0];
+}
+
+let current = null;
+let pieceGroups = [];
+let orbitsData = null;
+let poolData = null;
+let mixData = null;
+
+function halfCorners(plane, side) {
+  const corners = [];
+  for (let x = 0; x <= 1; x++)
+    for (let y = 0; y <= 1; y++)
+      for (let z = 0; z <= 1; z++) {
+        const local = [x, y, z];
+        const u = local.map((v) => 2 * v - 1);
+        const val = plane.kind === 'eq'
+          ? u[plane.a] - u[plane.b]
+          : u[plane.a] + u[plane.b];
+        const s = val <= 0 ? 0 : 1;
+        if (s === side || Math.abs(val) < 1e-9) corners.push(local);
+      }
+  const uniq = [];
+  const seen = new Set();
+  for (const c of corners) {
+    const k = c.join(',');
+    if (!seen.has(k)) { seen.add(k); uniq.push(c); }
+  }
+  return uniq;
+}
+
+function cellCenter(c) {
+  return new THREE.Vector3(c[0] + 0.5, c[1] + 0.5, c[2] + 0.5);
+}
+
+function disposeObject(obj) {
+  obj.traverse((child) => {
+    if (child.geometry) child.geometry.dispose();
+    if (child.material) {
+      if (Array.isArray(child.material)) child.material.forEach((m) => m.dispose());
+      else child.material.dispose();
+    }
+  });
+}
+
+function clearGroup(group) {
+  while (group.children.length) {
+    const ch = group.children.pop();
+    disposeObject(ch);
+  }
+}
+
+function makeFaceMaterial(color, ghost) {
+  return new THREE.MeshStandardMaterial({
+    color, // keep family color when ghosted
+    roughness: ghost ? 0.55 : 0.45,
+    metalness: ghost ? 0.02 : 0.05,
+    flatShading: true,
+    transparent: ghost,
+    opacity: ghost ? GHOST_OPACITY : 1,
+    depthWrite: !ghost,
+    side: THREE.DoubleSide,
+  });
+}
+
+function addEdges(mesh, ghost) {
+  const edges = new THREE.EdgesGeometry(mesh.geometry, 20);
+  const line = new THREE.LineSegments(
+    edges,
+    new THREE.LineBasicMaterial({
+      color: ghost ? 0x111111 : 0x1a1a1a,
+      transparent: ghost,
+      opacity: ghost ? 0.9 : 0.55,
+    }),
+  );
+  mesh.add(line);
+}
+
+function makeCubeMesh(cell, color, ghost) {
+  const g = new THREE.BoxGeometry(0.98, 0.98, 0.98);
+  const mesh = new THREE.Mesh(g, makeFaceMaterial(color, ghost));
+  mesh.position.copy(cellCenter(cell));
+  addEdges(mesh, ghost);
+  return mesh;
+}
+
+function makeJointCubeMesh(cell, color, ghost) {
+  const mesh = makeCubeMesh(cell, color, ghost);
+  mesh.material.color.setHex(LAVENDER_TINT);
+  mesh.material.transparent = true;
+  mesh.material.opacity = ghost ? Math.min(GHOST_OPACITY, 0.45) : 0.55;
+  mesh.material.depthWrite = false;
+  mesh.userData.role = 'lavender';
+  return mesh;
+}
+
+function makeWedgeMesh(cell, plane, side, color, ghost) {
+  const corners = halfCorners(plane, side);
+  const pts = corners.map(
+    ([x, y, z]) => new THREE.Vector3(cell[0] + x, cell[1] + y, cell[2] + z),
+  );
+  const ctr = cellCenter(cell);
+  for (const p of pts) p.lerp(ctr, 0.02);
+  const geom = new ConvexGeometry(pts);
+  const mesh = new THREE.Mesh(geom, makeFaceMaterial(color, ghost));
+  addEdges(mesh, ghost);
+  return mesh;
+}
+
+function makeVoidGhost(cell) {
+  const g = new THREE.BoxGeometry(0.98, 0.98, 0.98);
+  const m = new THREE.MeshStandardMaterial({
+    color: 0xff6b6b, transparent: true, opacity: 0.28, depthWrite: false,
+  });
+  const mesh = new THREE.Mesh(g, m);
+  mesh.position.copy(cellCenter(cell));
+  return mesh;
+}
+
+function cellKey(c) {
+  return c.join(',');
+}
+
+function localInWedge(local, plane, side) {
+  const u = local.map((v) => 2 * v - 1);
+  const val = plane.kind === 'eq'
+    ? u[plane.a] - u[plane.b]
+    : u[plane.a] + u[plane.b];
+  const s = val <= 0 ? 0 : 1;
+  return s === side || Math.abs(val) < 1e-9;
+}
+
+function faceLocalCorners(axis, sign) {
+  const a = sign < 0 ? 0 : 1;
+  const u = (axis + 1) % 3;
+  const v = (axis + 2) % 3;
+  const out = [];
+  for (const uu of [0, 1]) {
+    for (const vv of [0, 1]) {
+      const c = [0, 0, 0];
+      c[axis] = a;
+      c[u] = uu;
+      c[v] = vv;
+      out.push(c);
+    }
+  }
+  return out;
+}
+
+function localToUV(axis, sign, loc) {
+  const a1 = (axis + 1) % 3;
+  const a2 = (axis + 2) % 3;
+  return sign > 0 ? [loc[a1], loc[a2]] : [loc[a2], loc[a1]];
+}
+
+function uvToWorld(cell, axis, sign, s, t, bump) {
+  // Sit just outside the 0.98 piece boxes (which span 0.01–0.99 in each cell).
+  const inset = 0.007;
+  const loc = [0, 0, 0];
+  loc[axis] = sign < 0 ? inset : 1 - inset;
+  const a1 = (axis + 1) % 3;
+  const a2 = (axis + 2) % 3;
+  if (sign > 0) { loc[a1] = s; loc[a2] = t; }
+  else { loc[a1] = t; loc[a2] = s; }
+  const p = new THREE.Vector3(cell[0] + loc[0], cell[1] + loc[1], cell[2] + loc[2]);
+  const n = new THREE.Vector3();
+  n.setComponent(axis, sign);
+  return p.addScaledVector(n, bump);
+}
+
+function lCells(rep) {
+  const p = (rep.pieces || []).find((x) => x.family === L_TROMINO || x.role === L_TROMINO);
+  if (p) return p.cubes || [];
+  return rep.l_tromino || [];
+}
+
+function isLPiece(p) {
+  return Boolean(p && (p.family === L_TROMINO || p.role === L_TROMINO));
+}
+
+function occupancyMap(sol) {
+  const voidSet = new Set(lCells(sol).map(cellKey));
+  const cells = new Map();
+  (sol.pieces || []).forEach((p, pi) => {
+    for (const c of p.cubes) {
+      cells.set(cellKey(c), { full: true, wedges: [], cell: c, pieceIdx: pi });
+    }
+    for (const w of p.wedges || []) {
+      const k = cellKey(w.cell);
+      let e = cells.get(k);
+      if (!e) {
+        e = { full: false, wedges: [], cell: w.cell, pieceIdx: pi };
+        cells.set(k, e);
+      }
+      if (!e.full) e.wedges.push({ ...w, pieceIdx: pi });
+    }
+  });
+  return { cells, voidSet };
+}
+
+function buildOH24() {
+  const out = [];
+  for (let i = 0; i < 3; i++)
+    for (let j = 0; j < 3; j++)
+      for (let k = 0; k < 3; k++) {
+        if (new Set([i, j, k]).size < 3) continue;
+        const perm = [i, j, k];
+        for (const sx of [-1, 1])
+          for (const sy of [-1, 1])
+            for (const sz of [-1, 1]) {
+              const signs = [sx, sy, sz];
+              const M = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+              for (let c = 0; c < 3; c++) M[perm[c]][c] = signs[c];
+              const det =
+                M[0][0] * (M[1][1] * M[2][2] - M[1][2] * M[2][1])
+                - M[0][1] * (M[1][0] * M[2][2] - M[1][2] * M[2][0])
+                + M[0][2] * (M[1][0] * M[2][1] - M[1][1] * M[2][0]);
+              if (det === 1) out.push({ perm, signs });
+            }
+      }
+  return out;
+}
+const OH24 = buildOH24();
+
+function rotateXYZ(v, perm, signs) {
+  const q = [0, 0, 0];
+  q[perm[0]] = signs[0] * v[0];
+  q[perm[1]] = signs[1] * v[1];
+  q[perm[2]] = signs[2] * v[2];
+  return q;
+}
+
+function rotateDir(axis, sign, perm, signs) {
+  const n = [0, 0, 0];
+  n[axis] = sign;
+  const r = rotateXYZ(n, perm, signs);
+  for (let a = 0; a < 3; a++) {
+    if (Math.abs(r[a]) === 1) return { axis: a, sign: r[a] };
+  }
+  return { axis, sign };
+}
+
+function sub3(a, b) {
+  return [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+}
+
+function onCubeSkin(cell, axis, sign) {
+  if (sign < 0) return cell[axis] === 0;
+  return cell[axis] === 2;
+}
+
+function sameCellNeighbor(cell, axis, sign, cellSet) {
+  const n = [cell[0], cell[1], cell[2]];
+  n[axis] += sign;
+  return cellSet.has(cellKey(n));
+}
+
+function wedgeForCube(piece, cube) {
+  const wedges = piece.wedges || [];
+  if (!wedges.length) return null;
+  let best = wedges[0];
+  let bestD = 99;
+  for (const w of wedges) {
+    const d = Math.abs(w.cell[0] - cube[0])
+      + Math.abs(w.cell[1] - cube[1])
+      + Math.abs(w.cell[2] - cube[2]);
+    if (d < bestD) { bestD = d; best = w; }
+  }
+  // Lavender joint cube has no own wedge (nearest gray wedge is usually d≥1
+  // on the arm, but the module cube is the unique d=1 neighbor of its wedge).
+  return bestD <= 1 ? best : null;
+}
+
+function moduleIndexForCell(piece, cell) {
+  const k = cellKey(cell);
+  for (let m = 0; m < piece.cubes.length; m++) {
+    if (cellKey(piece.cubes[m]) === k) return m;
+  }
+  for (const w of piece.wedges || []) {
+    if (cellKey(w.cell) !== k) continue;
+    let bestM = 0;
+    let bestD = 99;
+    for (let m = 0; m < piece.cubes.length; m++) {
+      const c = piece.cubes[m];
+      const d = Math.abs(w.cell[0] - c[0])
+        + Math.abs(w.cell[1] - c[1])
+        + Math.abs(w.cell[2] - c[2]);
+      if (d < bestD) { bestD = d; bestM = m; }
+    }
+    return bestM;
+  }
+  return 0;
+}
+
+/** Oh-canonical local frame of a cell relative to the whole piece (works with no wedges). */
+function moduleCanonical(piece, cube) {
+  const identity = { perm: [0, 1, 2], signs: [1, 1, 1] };
+  if (!cube) return identity;
+  const dCubes = (piece.cubes || []).map((c) => sub3(c, cube));
+  const wedges = piece.wedges || [];
+  let best = identity;
+  let bestFp = null;
+  for (const { perm, signs } of OH24) {
+    const cub = dCubes
+      .map((d) => rotateXYZ(d, perm, signs).join(','))
+      .sort()
+      .join(';');
+    const marks = [];
+    for (const w of wedges) {
+      const d = sub3(w.cell, cube);
+      for (let lx = 0; lx <= 1; lx++)
+        for (let ly = 0; ly <= 1; ly++)
+          for (let lz = 0; lz <= 1; lz++) {
+            const local = [lx, ly, lz];
+            if (!localInWedge(local, w.plane, w.side)) continue;
+            marks.push(
+              rotateXYZ([d[0] + lx, d[1] + ly, d[2] + lz], perm, signs).join(','),
+            );
+          }
+    }
+    marks.sort();
+    const fp = `${cub}|${marks.join(';')}`;
+    if (bestFp == null || fp < bestFp) {
+      bestFp = fp;
+      best = { perm, signs };
+    }
+  }
+  return best;
+}
+
+function clockSortKey(p) {
+  const c = Array.isArray(p.clocks) ? p.clocks : [];
+  return [c[0] ?? 99, c[1] ?? 99, p.joint ?? 0];
+}
+
+function copiesOfFamily(sol, family) {
+  return sol.pieces
+    .map((p, i) => ({ p, i }))
+    .filter((x) => x.p.family === family)
+    .sort((a, b) => {
+      const ka = clockSortKey(a.p);
+      const kb = clockSortKey(b.p);
+      for (let i = 0; i < ka.length; i++) {
+        if (ka[i] !== kb[i]) return ka[i] - kb[i];
+      }
+      return a.i - b.i;
+    });
+}
+
+function instanceKey(sol, piece, pieceIdx) {
+  const copies = copiesOfFamily(sol, piece.family);
+  const copy = Math.max(0, copies.findIndex((x) => x.i === pieceIdx));
+  return `${piece.family}:${copy}`;
+}
+
+function cornerKey(corners) {
+  return corners
+    .map((c) => c.join(','))
+    .sort()
+    .join('|');
+}
+
+function pieceCellSet(piece) {
+  const set = new Set();
+  for (const c of piece.cubes) set.add(cellKey(c));
+  for (const w of piece.wedges || []) set.add(cellKey(w.cell));
+  return set;
+}
+
+function facetPolygon(cell, axis, sign, full, wedges) {
+  const face = faceLocalCorners(axis, sign);
+  if (full) return [{ kind: 'square', corners: face }];
+  const out = [];
+  for (const w of wedges) {
+    const kept = face.filter((c) => localInWedge(c, w.plane, w.side));
+    if (kept.length === 4) out.push({ kind: 'square', corners: face });
+    else if (kept.length === 3) out.push({ kind: 'triangle', corners: kept });
+  }
+  return out;
+}
+
+/** All grid faces of a piece except those glued to itself. */
+function pieceSurfaceFacets(piece) {
+  const cellSet = pieceCellSet(piece);
+  const occ = new Map();
+  for (const c of piece.cubes) {
+    occ.set(cellKey(c), { cell: c, full: true, wedges: [] });
+  }
+  for (const w of piece.wedges || []) {
+    const k = cellKey(w.cell);
+    let e = occ.get(k);
+    if (!e) {
+      e = { cell: w.cell, full: false, wedges: [] };
+      occ.set(k, e);
+    }
+    if (!e.full) e.wedges.push(w);
+  }
+  const facets = [];
+  for (const { cell, full, wedges } of occ.values()) {
+    for (const axis of [0, 1, 2]) {
+      for (const sign of [-1, 1]) {
+        if (sameCellNeighbor(cell, axis, sign, cellSet)) continue;
+        for (const poly of facetPolygon(cell, axis, sign, full, wedges)) {
+          facets.push({
+            kind: poly.kind,
+            cell,
+            axis,
+            sign,
+            corners: poly.corners,
+          });
+        }
+      }
+    }
+  }
+  return facets;
+}
+
+function localKeyForFacet(piece, f) {
+  const m = moduleIndexForCell(piece, f.cell);
+  const cube = piece.cubes[m];
+  const { perm, signs } = moduleCanonical(piece, cube);
+  const relCell = rotateXYZ(sub3(f.cell, cube), perm, signs);
+  const dir = rotateDir(f.axis, f.sign, perm, signs);
+  let cornerPart = '';
+  if (f.kind === 'triangle' && f.corners) {
+    const relCorners = f.corners.map((lc) => {
+      const world = [f.cell[0] + lc[0], f.cell[1] + lc[1], f.cell[2] + lc[2]];
+      return rotateXYZ(sub3(world, cube), perm, signs);
+    });
+    cornerPart = cornerKey(relCorners);
+  }
+  return `${m}:${f.kind}:${relCell.join(',')}:${dir.axis}:${dir.sign}:${cornerPart}`;
+}
+
+function exteriorLocalKeys(piece) {
+  const set = new Set();
+  for (const f of pieceSurfaceFacets(piece)) {
+    if (onCubeSkin(f.cell, f.axis, f.sign)) set.add(localKeyForFacet(piece, f));
+  }
+  return set;
+}
+
+let paintCatalog = null;
+
+function surfaceMapOrbits() {
+  if (mixData && Array.isArray(mixData.surface_map_orbits) && mixData.surface_map_orbits.length) {
+    return mixData.surface_map_orbits;
+  }
+  return SURFACE_MAP_ORBITS;
+}
+
+function ensurePaintCatalog() {
+  if (paintCatalog || !mixData) return;
+  paintCatalog = surfaceMapOrbits().map((idx) => {
+    const sol = mixData.representatives[idx];
+    const map = new Map();
+    if (!sol) return map;
+    sol.pieces.forEach((p, pi) => {
+      map.set(instanceKey(sol, p, pi), exteriorLocalKeys(p));
+    });
+    return map;
+  });
+}
+
+function squareSectionUVs(i) {
+  const P = SURFACE_MAP_P;
+  const TL = [0, 1];
+  const TR = [1, 1];
+  const BR = [1, 0];
+  const BL = [0, 0];
+  const top = [0.5, 1];
+  const right = [1, 0.5];
+  const bot = [0.5, 0];
+  const leftLo = [0, 0.28];
+  const leftHi = [0, 0.72];
+  const polys = [
+    [P, leftHi, TL, top],
+    [P, top, TR, right],
+    [P, right, BR, bot],
+    [P, bot, BL, leftLo],
+    [P, leftLo, leftHi],
+  ];
+  return polys[i];
+}
+
+function triangleSectionUVs(i) {
+  const a = i / 5;
+  const b = (i + 1) / 5;
+  const ha = [a, 1 - a];
+  const hb = [b, 1 - b];
+  return [[0, 0], ha, hb];
+}
+
+function insetUV(poly, t) {
+  let cx = 0;
+  let cy = 0;
+  for (const [x, y] of poly) { cx += x; cy += y; }
+  cx /= poly.length;
+  cy /= poly.length;
+  return poly.map(([x, y]) => [x + (cx - x) * t, y + (cy - y) * t]);
+}
+
+function addPolyMesh(group, pts, color) {
+  const positions = [];
+  const push = (a, b, c) => {
+    positions.push(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z);
+  };
+  if (pts.length === 3) push(pts[0], pts[1], pts[2]);
+  else {
+    for (let i = 1; i < pts.length - 1; i++) push(pts[0], pts[i], pts[i + 1]);
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geo.computeVertexNormals();
+  const mat = new THREE.MeshStandardMaterial({
+    color,
+    roughness: 0.5,
+    metalness: 0.04,
+    flatShading: true,
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 0.92,
+    depthWrite: true,
+    polygonOffset: true,
+    polygonOffsetFactor: -1,
+    polygonOffsetUnits: -1,
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  addEdges(mesh, false);
+  group.add(mesh);
+}
+
+function mapWorldPoly(cell, axis, sign, uvs, bump) {
+  return uvs.map(([s, t]) => uvToWorld(cell, axis, sign, s, t, bump));
+}
+
+function triangleFrame(cell, axis, sign, corners) {
+  const uvs = corners.map((c) => localToUV(axis, sign, c));
+  let ra = 0;
+  let best = 1e9;
+  for (let i = 0; i < 3; i++) {
+    const a = uvs[i];
+    const b = uvs[(i + 1) % 3];
+    const c = uvs[(i + 2) % 3];
+    const ab = [b[0] - a[0], b[1] - a[1]];
+    const ac = [c[0] - a[0], c[1] - a[1]];
+    const dot = ab[0] * ac[0] + ab[1] * ac[1];
+    if (Math.abs(dot) < best) { best = Math.abs(dot); ra = i; }
+  }
+  const origin = uvs[ra];
+  const p1 = uvs[(ra + 1) % 3];
+  const p2 = uvs[(ra + 2) % 3];
+  const e1 = [p1[0] - origin[0], p1[1] - origin[1]];
+  const e2 = [p2[0] - origin[0], p2[1] - origin[1]];
+  const cross = e1[0] * e2[1] - e1[1] * e2[0];
+  const U = cross > 0 ? e1 : e2;
+  const V = cross > 0 ? e2 : e1;
+  return { origin, U, V };
+}
+
+function triangleMapWorld(cell, axis, sign, frame, s, t, bump) {
+  const uu = frame.origin[0] + frame.U[0] * s + frame.V[0] * t;
+  const vv = frame.origin[1] + frame.U[1] * s + frame.V[1] * t;
+  return uvToWorld(cell, axis, sign, uu, vv, bump);
+}
+
+function clearPieceOverlays() {
+  for (const g of pieceGroups) {
+    const ov = g.userData.mapOverlay;
+    if (ov) {
+      g.remove(ov);
+      disposeObject(ov);
+      g.userData.mapOverlay = null;
+    }
+  }
+  clearGroup(mapGroup);
+}
+
+function pieceOverlayGroup(pieceIdx) {
+  const g = pieceGroups[pieceIdx];
+  if (!g) return mapGroup;
+  if (!g.userData.mapOverlay) {
+    const ov = new THREE.Group();
+    g.add(ov);
+    g.userData.mapOverlay = ov;
+  }
+  return g.userData.mapOverlay;
+}
+
+function buildSurfaceMap(sol) {
+  clearPieceOverlays();
+  if (!sol || !document.getElementById('surfaceMap').checked) return;
+  ensurePaintCatalog();
+  if (!paintCatalog) return;
+  const bump = 0.001;
+  const nSec = paintCatalog.length;
+  sol.pieces.forEach((piece, pi) => {
+    const key = instanceKey(sol, piece, pi);
+    const host = pieceOverlayGroup(pi);
+    for (const f of pieceSurfaceFacets(piece)) {
+      const local = localKeyForFacet(piece, f);
+      for (let i = 0; i < nSec; i++) {
+        const ext = paintCatalog[i] && paintCatalog[i].get(key);
+        if (!ext || !ext.has(local)) continue;
+        const color = SURFACE_MAP_COLORS[i];
+        if (f.kind === 'square') {
+          const uvs = insetUV(squareSectionUVs(i), 0.08);
+          addPolyMesh(host, mapWorldPoly(f.cell, f.axis, f.sign, uvs, bump), color);
+        } else {
+          const frame = triangleFrame(f.cell, f.axis, f.sign, f.corners);
+          const uvs = insetUV(triangleSectionUVs(i), 0.08);
+          const pts = uvs.map(([s, t]) =>
+            triangleMapWorld(f.cell, f.axis, f.sign, frame, s, t, bump));
+          addPolyMesh(host, pts, color);
+        }
+      }
+    }
+  });
+}
+
+function fillSurfaceMapLegend() {
+  const host = document.getElementById('surfaceMapSwatches');
+  if (!host) return;
+  host.innerHTML = surfaceMapOrbits().map((orbit, i) => {
+    const hex = SURFACE_MAP_COLORS[i].toString(16).padStart(6, '0');
+    return `<li><span class="swatch" style="background:#${hex}"></span>
+      layout ${i + 1} · orbit #${orbit}</li>`;
+  }).join('') + `<li><span class="swatch" style="background:#888"></span> unpainted = piece color (or gray)</li>`;
+}
+
+function useMixDataset() {
+  return Boolean(mixData && document.getElementById('sameMixFilter')?.checked);
+}
+
+function fiveLayoutOnly() {
+  return Boolean(useMixDataset() && document.getElementById('fiveLayoutFilter')?.checked);
+}
+
+function mixInventory() {
+  const inv = mixData?.inventory;
+  if (inv && Object.keys(inv).length) return { ...inv };
+  return { ...MIX_INVENTORY_FALLBACK };
+}
+
+function kitPartsLabel() {
+  const parts = Object.entries(mixInventory())
+    .map(([f, n]) => (n > 1 ? `${f}×${n}` : f));
+  return `{${parts.join(', ')}} + L-tromino`;
+}
+
+function fillKitDef() {
+  const host = document.getElementById('kitDef');
+  const list = document.getElementById('kitDefList');
+  const blurb = document.getElementById('kitDefBlurb');
+  if (!host || !list || !blurb) return;
+  const show = useMixDataset();
+  host.classList.toggle('hidden', !show);
+  if (!show) return;
+  const inv = mixInventory();
+  const nMix = (mixData.representatives || []).length;
+  const nFive = surfaceMapOrbits().length;
+  blurb.textContent =
+    `One manufactured kit of 7 parts. Those parts pack the cube in ${nMix} Oh-inequivalent ways; `
+    + `the five-layout set is ${nFive} of those packings (the surface-color solutions).`;
+  const rows = [
+    ...Object.entries(inv).map(([f, n]) => ({
+      family: f,
+      label: n > 1 ? `${f} × ${n}` : `${f} × 1`,
+      note: MIX_FAMILY_NOTES[f] || 'cubic joint',
+    })),
+    {
+      family: L_TROMINO,
+      label: 'L-tromino × 1',
+      note: 'rigid 3-cell part · no hinge',
+    },
+  ];
+  list.innerHTML = rows.map((row) => {
+    const hex = (MIX_FAMILY_COLORS.get(row.family) ?? 0x888888).toString(16).padStart(6, '0');
+    return `<li><span style="color:#${hex}">●</span> <code>${row.label}</code>
+      <br/>${row.note}</li>`;
+  }).join('');
+}
+
+function syncFiveLayoutControl() {
+  const box = document.getElementById('fiveLayoutFilter');
+  const count = document.getElementById('fiveLayoutCount');
+  if (!box) return;
+  const on = Boolean(mixData && document.getElementById('sameMixFilter')?.checked);
+  box.disabled = !on;
+  if (!on) box.checked = false;
+  if (count) {
+    count.textContent = mixData
+      ? `(${surfaceMapOrbits().length})`
+      : '(missing)';
+  }
+}
+
+function downloadBlob(filename, blob) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function exportStatusFlash(message) {
+  const status = document.getElementById('status');
+  const prev = status.textContent;
+  status.innerHTML = `<span class="ok">${message}</span>`;
+  setTimeout(() => { status.textContent = prev; }, 2800);
+}
+
+function mergeGeometries(geoms) {
+  const positions = [];
+  const normals = [];
+  for (const geo of geoms) {
+    const g = geo.index ? geo.toNonIndexed() : geo.clone();
+    if (!g.getAttribute('normal')) g.computeVertexNormals();
+    const pos = g.getAttribute('position');
+    const nor = g.getAttribute('normal');
+    for (let i = 0; i < pos.count; i++) {
+      positions.push(pos.getX(i), pos.getY(i), pos.getZ(i));
+      normals.push(nor.getX(i), nor.getY(i), nor.getZ(i));
+    }
+    g.dispose();
+  }
+  const out = new THREE.BufferGeometry();
+  out.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  out.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+  return out;
+}
+
+function geometryFromMesh(mesh) {
+  mesh.updateWorldMatrix(true, false);
+  const geo = mesh.geometry.clone();
+  geo.applyMatrix4(mesh.matrixWorld);
+  return geo;
+}
+
+/** One merged BufferGeometry per logical part (digonal piece or void tromino). */
+function buildPartGeometries(sol, includeVoid) {
+  const mat = new THREE.MeshStandardMaterial({ color: 0xcccccc });
+  const parts = [];
+
+  sol.pieces.forEach((piece, idx) => {
+    const geos = [];
+    for (const c of piece.cubes) {
+      const g = new THREE.BoxGeometry(1, 1, 1);
+      const mesh = new THREE.Mesh(g, mat);
+      mesh.position.copy(cellCenter(c));
+      mesh.updateMatrixWorld(true);
+      geos.push(geometryFromMesh(mesh));
+      g.dispose();
+    }
+    for (const w of piece.wedges || []) {
+      const corners = halfCorners(w.plane, w.side);
+      const pts = corners.map(
+        ([x, y, z]) => new THREE.Vector3(w.cell[0] + x, w.cell[1] + y, w.cell[2] + z),
+      );
+      const geom = new ConvexGeometry(pts);
+      const mesh = new THREE.Mesh(geom, mat);
+      mesh.updateMatrixWorld(true);
+      geos.push(geometryFromMesh(mesh));
+      geom.dispose();
+    }
+    parts.push({
+      name: piece.family === L_TROMINO
+        ? 'part_L_tromino'
+        : `part_${idx}_fam${piece.family}_j${piece.joint}`,
+      geometry: mergeGeometries(geos),
+      piece,
+      pieceIdx: idx,
+    });
+    geos.forEach((g) => g.dispose());
+  });
+
+  const alreadyHasL = (sol.pieces || []).some((p) => p.family === L_TROMINO);
+  if (includeVoid && !alreadyHasL && lCells(sol).length) {
+    const geos = [];
+    for (const c of lCells(sol)) {
+      const g = new THREE.BoxGeometry(1, 1, 1);
+      const mesh = new THREE.Mesh(g, mat);
+      mesh.position.copy(cellCenter(c));
+      mesh.updateMatrixWorld(true);
+      geos.push(geometryFromMesh(mesh));
+      g.dispose();
+    }
+    parts.push({
+      name: 'part_L_tromino',
+      geometry: mergeGeometries(geos),
+      piece: { family: L_TROMINO, cubes: lCells(sol), wedges: [] },
+      pieceIdx: sol.pieces.length,
+    });
+    geos.forEach((g) => g.dispose());
+  }
+
+  mat.dispose();
+  return parts;
+}
+
+function geometryToObjChunk(name, geometry, vertexOffset, groupName, materialName) {
+  const pos = geometry.getAttribute('position');
+  const nor = geometry.getAttribute('normal') || (() => {
+    geometry.computeVertexNormals();
+    return geometry.getAttribute('normal');
+  })();
+  const lines = [];
+  if (groupName) lines.push(`g ${groupName}`);
+  lines.push(`o ${name}`);
+  if (materialName) lines.push(`usemtl ${materialName}`);
+  for (let i = 0; i < pos.count; i++) {
+    lines.push(`v ${pos.getX(i)} ${pos.getY(i)} ${pos.getZ(i)}`);
+  }
+  for (let i = 0; i < nor.count; i++) {
+    lines.push(`vn ${nor.getX(i)} ${nor.getY(i)} ${nor.getZ(i)}`);
+  }
+  // Non-indexed triangle list
+  for (let i = 0; i < pos.count; i += 3) {
+    const a = vertexOffset + i + 1;
+    const b = vertexOffset + i + 2;
+    const c = vertexOffset + i + 3;
+    lines.push(`f ${a}//${a} ${b}//${b} ${c}//${c}`);
+  }
+  return { text: lines.join('\n'), nextOffset: vertexOffset + pos.count };
+}
+
+const CUBE_EDGE = 3;
+const FIVE_LAYOUT_GAP = CUBE_EDGE / 2;
+const FIVE_LAYOUT_PITCH = CUBE_EDGE + FIVE_LAYOUT_GAP;
+
+/** 5×7 bitmaps for raised part numbers. */
+const DIGIT_GLYPHS = {
+  1: ['..#..', '.##..', '..#..', '..#..', '..#..', '..#..', '.###.'],
+  2: ['.###.', '#...#', '....#', '.###.', '#....', '#....', '#####'],
+  3: ['.###.', '#...#', '....#', '.###.', '....#', '#...#', '.###.'],
+  4: ['#...#', '#...#', '#...#', '#####', '....#', '....#', '....#'],
+  5: ['#####', '#....', '#....', '####.', '....#', '#...#', '.###.'],
+  6: ['.###.', '#....', '#....', '####.', '#...#', '#...#', '.###.'],
+  7: ['#####', '....#', '...#.', '..#..', '..#..', '..#..', '..#..'],
+  8: ['.###.', '#...#', '#...#', '.###.', '#...#', '#...#', '.###.'],
+  9: ['.###.', '#...#', '#...#', '.####', '....#', '....#', '.###.'],
+};
+
+function familyExportHex(family) {
+  if (family === L_TROMINO) return L_COLOR;
+  return MIX_FAMILY_COLORS.get(family) ?? 0x888888;
+}
+
+function hexToRgb01(hex) {
+  const n = hex & 0xffffff;
+  return [
+    ((n >> 16) & 255) / 255,
+    ((n >> 8) & 255) / 255,
+    (n & 255) / 255,
+  ];
+}
+
+function hexCss(hex) {
+  return `#${(hex & 0xffffff).toString(16).padStart(6, '0')}`;
+}
+
+function materialsFromParts(namedGeos) {
+  const byName = new Map();
+  for (const part of namedGeos) {
+    if (!part.material) continue;
+    if (!byName.has(part.material)) {
+      byName.set(part.material, part.color ?? 0x888888);
+    }
+  }
+  return byName;
+}
+
+function mtlText(materials) {
+  const lines = [
+    '# cell-puzzle family colors (same hues as the viewer kit swatches)',
+    '# Rhino: keep this file next to the .obj and enable',
+    '# “Set display color from OBJ material color”.',
+  ];
+  for (const [name, hex] of materials) {
+    const [r, g, b] = hexToRgb01(hex);
+    const fmt = (x) => x.toFixed(4);
+    lines.push(
+      '',
+      `newmtl ${name}`,
+      `# ${hexCss(hex)}`,
+      `Kd ${fmt(r)} ${fmt(g)} ${fmt(b)}`,
+      'Ka 0.1200 0.1200 0.1200',
+      'Ks 0.0800 0.0800 0.0800',
+      'Ns 8.0000',
+      'd 1.0000',
+      'illum 2',
+    );
+  }
+  return `${lines.join('\n')}\n`;
+}
+
+function downloadObjWithMaterials(objName, objText, namedGeos) {
+  const materials = materialsFromParts(namedGeos);
+  const mtlName = objName.replace(/\.obj$/i, '.mtl');
+  const withLib = `mtllib ${mtlName}\n\n${objText}`;
+  downloadBlob(objName, new Blob([withLib], { type: 'text/plain' }));
+  if (materials.size) {
+    setTimeout(() => {
+      downloadBlob(mtlName, new Blob([mtlText(materials)], { type: 'text/plain' }));
+    }, 250);
+  }
+}
+
+function kitPartCatalog() {
+  const inv = mixInventory();
+  const ids = [];
+  const order = [
+    ...KIT_PART_ORDER,
+    ...Object.keys(inv).filter((f) => !KIT_PART_ORDER.includes(f)),
+  ];
+  for (const f of order) {
+    const n = inv[f] || 0;
+    for (let c = 0; c < n; c++) ids.push(`${f}:${c}`);
+  }
+  ids.push(`${L_TROMINO}:0`);
+  return ids;
+}
+
+function kitPartNumber(sol, piece, pieceIdx) {
+  const key = instanceKey(sol, piece, pieceIdx);
+  const i = kitPartCatalog().indexOf(key);
+  return i >= 0 ? i + 1 : pieceIdx + 1;
+}
+
+function stablePartName(sol, piece, pieceIdx) {
+  const n = kitPartNumber(sol, piece, pieceIdx);
+  const fam = String(piece.family).replace(/[^A-Za-z0-9]+/g, '_');
+  return `p${String(n).padStart(2, '0')}_${fam}`;
+}
+
+function digitGeometry(digit) {
+  const rows = DIGIT_GLYPHS[digit];
+  if (!rows) return null;
+  const h = rows.length;
+  const w = rows[0].length;
+  const geos = [];
+  const inset = 0.12;
+  for (let j = 0; j < h; j++) {
+    for (let i = 0; i < w; i++) {
+      if (rows[j][i] !== '#') continue;
+      const box = new THREE.BoxGeometry(1 - inset, 1 - inset, 1);
+      box.translate(i + 0.5, (h - 1 - j) + 0.5, 0.5);
+      geos.push(box);
+    }
+  }
+  if (!geos.length) return null;
+  const merged = mergeGeometries(geos);
+  geos.forEach((g) => g.dispose());
+  merged.applyMatrix4(new THREE.Matrix4().makeScale(1 / w, 1 / h, 1));
+  return merged;
+}
+
+function facePointCad(cell, axis, sign, s, t) {
+  const loc = [0, 0, 0];
+  loc[axis] = sign < 0 ? 0 : 1;
+  const a1 = (axis + 1) % 3;
+  const a2 = (axis + 2) % 3;
+  if (sign > 0) { loc[a1] = s; loc[a2] = t; }
+  else { loc[a1] = t; loc[a2] = s; }
+  return new THREE.Vector3(cell[0] + loc[0], cell[1] + loc[1], cell[2] + loc[2]);
+}
+
+function pickInscribeFacet(piece) {
+  let best = null;
+  let bestScore = -1;
+  for (const f of pieceSurfaceFacets(piece)) {
+    let score = f.kind === 'square' ? 10 : 2;
+    if (onCubeSkin(f.cell, f.axis, f.sign)) score += 8;
+    if (f.axis === 1 && f.sign > 0) score += 4;
+    else if (f.axis === 2 && f.sign > 0) score += 3;
+    else if (f.axis === 0 && f.sign > 0) score += 2;
+    if (score > bestScore) {
+      bestScore = score;
+      best = f;
+    }
+  }
+  return best;
+}
+
+function inscribeDigitGeometry(digit, facet) {
+  const glyph = digitGeometry(digit);
+  if (!glyph || !facet) return null;
+  const { cell, axis, sign } = facet;
+  const origin = facePointCad(cell, axis, sign, 0.5, 0.5);
+  const u = facePointCad(cell, axis, sign, 1, 0.5).sub(facePointCad(cell, axis, sign, 0, 0.5));
+  const v = facePointCad(cell, axis, sign, 0.5, 1).sub(facePointCad(cell, axis, sign, 0.5, 0));
+  const n = new THREE.Vector3();
+  n.setComponent(axis, sign);
+  n.normalize();
+  const faceScale = 0.52;
+  const depth = 0.07;
+  const basis = new THREE.Matrix4().makeBasis(
+    u.normalize().multiplyScalar(faceScale),
+    v.normalize().multiplyScalar(faceScale),
+    n.clone().multiplyScalar(depth),
+  );
+  const lift = origin.clone().add(n.clone().multiplyScalar(0.012));
+  const m = new THREE.Matrix4()
+    .makeTranslation(lift.x, lift.y, lift.z)
+    .multiply(basis)
+    .multiply(new THREE.Matrix4().makeTranslation(-0.5, -0.5, 0));
+  glyph.applyMatrix4(m);
+  return glyph;
+}
+
+function decorateWithPartNumber(sol, piece, pieceIdx, geometry) {
+  const n = kitPartNumber(sol, piece, pieceIdx);
+  const facet = pickInscribeFacet(piece);
+  const stamp = facet ? inscribeDigitGeometry(n, facet) : null;
+  if (!stamp) return geometry;
+  const merged = mergeGeometries([geometry, stamp]);
+  geometry.dispose();
+  stamp.dispose();
+  return merged;
+}
+
+/** Keep the browser / Three.js Y-up frame. Rhino's default Map Y to Z stands it up. */
+function prepareObjGeometry(geo) {
+  let g = geo.index ? geo.toNonIndexed() : geo;
+  if (g !== geo) geo.dispose();
+  if (!g.getAttribute('normal')) g.computeVertexNormals();
+  return g;
+}
+
+function partsToObjText(chunksHeader, namedGeos) {
+  const chunks = [...chunksHeader];
+  let offset = 0;
+  for (const part of namedGeos) {
+    let geo = part.geometry.index ? part.geometry.toNonIndexed() : part.geometry;
+    if (geo !== part.geometry) part.geometry.dispose();
+    geo = prepareObjGeometry(geo);
+    const { text, nextOffset } = geometryToObjChunk(
+      part.name, geo, offset, part.group || null, part.material || null,
+    );
+    chunks.push(text);
+    offset = nextOffset;
+    geo.dispose();
+  }
+  return chunks.join('\n\n') + '\n';
+}
+
+function isLExportPiece(piece) {
+  return Boolean(piece && (piece.family === L_TROMINO || piece.role === L_TROMINO));
+}
+
+function objPartsFromSolution(sol, includeVoid, { inscribe = false, dx = 0, group = null, namePrefix = '' } = {}) {
+  const parts = buildPartGeometries(sol, includeVoid);
+  const out = [];
+  for (const part of parts) {
+    const piece = part.piece;
+    if (!includeVoid && isLExportPiece(piece)) {
+      part.geometry.dispose();
+      continue;
+    }
+    let geo = part.geometry;
+    if (inscribe && piece) {
+      geo = decorateWithPartNumber(sol, piece, part.pieceIdx, geo);
+    }
+    if (dx) geo.translate(dx, 0, 0);
+    const base = piece ? stablePartName(sol, piece, part.pieceIdx) : part.name;
+    out.push({
+      name: namePrefix ? `${namePrefix}_${base}` : base,
+      group,
+      geometry: geo,
+      material: base,
+      color: familyExportHex(piece?.family || part.piece?.family),
+    });
+  }
+  return out;
+}
+
+function partNumberLegendLines() {
+  return kitPartCatalog().map((id, i) => `#   ${i + 1}  ${id}`);
+}
+
+function exportBaseName() {
+  const uniq = uniquePartCount(current);
+  const nPieces = (current.pieces || []).length;
+  return `orbit-${currentOrbitIndex}_${nPieces}pcs_${uniq}uniq`;
+}
+
+function exportCombinedStl() {
+  if (!current) return;
+  const includeVoid = document.getElementById('exportIncludeVoid').checked;
+  const parts = buildPartGeometries(current, includeVoid);
+  const root = new THREE.Group();
+  const mat = new THREE.MeshStandardMaterial({ color: 0xcccccc });
+  for (const part of parts) {
+    root.add(new THREE.Mesh(part.geometry, mat));
+  }
+  root.updateMatrixWorld(true);
+  const exporter = new STLExporter();
+  const result = exporter.parse(root, { binary: true });
+  parts.forEach((p) => p.geometry.dispose());
+  mat.dispose();
+  const name = `${exportBaseName()}_combined.stl`;
+  downloadBlob(name, new Blob([result], { type: 'application/octet-stream' }));
+  exportStatusFlash(`Exported ${name}`);
+}
+
+function exportObjParts() {
+  if (!current) return;
+  const includeVoid = document.getElementById('exportIncludeVoid').checked;
+  const named = objPartsFromSolution(current, includeVoid, {
+    group: `orbit${currentOrbitIndex}`,
+  });
+  const header = [
+    `# cell-puzzle cubic-joint orbit ${currentOrbitIndex}`,
+    `# ${named.length} objects`,
+    ...OBJ_AXIS_COMMENTS,
+    '# Colors: companion .mtl uses the same family hues as the viewer.',
+    '# Rhino: enable “Set display color from OBJ material color”; keep .mtl next to .obj.',
+    '# Materials / object names (same physical piece across layouts):',
+    ...partNumberLegendLines(),
+  ];
+  const text = partsToObjText(header, named);
+  const name = `${exportBaseName()}_parts.obj`;
+  downloadObjWithMaterials(name, text, named);
+  exportStatusFlash(`Exported ${name} + .mtl (${named.length} objects)`);
+}
+
+function exportFiveLayoutObj() {
+  if (!mixData) {
+    exportStatusFlash('Need the unique-kit mix JSON for the five-layout OBJ');
+    return;
+  }
+  const includeVoid = document.getElementById('exportIncludeVoid').checked;
+  const orbits = surfaceMapOrbits();
+  const named = [];
+  orbits.forEach((orbitId, slot) => {
+    const sol = mixData.representatives[orbitId];
+    if (!sol) return;
+    const group = `layout${slot + 1}_orbit${orbitId}`;
+    named.push(...objPartsFromSolution(sol, includeVoid, {
+      dx: slot * FIVE_LAYOUT_PITCH,
+      group,
+      namePrefix: `layout${slot + 1}`,
+    }));
+  });
+  const header = [
+    '# cell-puzzle cubic-joint five-layout analog',
+    `# ${orbits.length} layouts · ${named.length} objects`,
+    `# Layout orbit indices: ${orbits.join(', ')}`,
+    `# Spacing: cube edge ${CUBE_EDGE}, gap ${FIVE_LAYOUT_GAP} (half edge), pitch ${FIVE_LAYOUT_PITCH}`,
+    '# Layout n (0-based) sits at x = n * pitch so the 3×3×3 boxes do not overlap.',
+    ...OBJ_AXIS_COMMENTS,
+    '# Colors: companion .mtl uses the same family hues as the viewer.',
+    '# Rhino: enable “Set display color from OBJ material color”; keep .mtl next to .obj.',
+    '# Materials / object names identify the same manufactured piece across layouts:',
+    ...partNumberLegendLines(),
+  ];
+  const text = partsToObjText(header, named);
+  const name = 'cubic_joint_five_layouts_spaced.obj';
+  downloadObjWithMaterials(name, text, named);
+  exportStatusFlash(`Exported ${name} + .mtl (${orbits.length} layouts, ${named.length} objects)`);
+}
+
+function exportStlEachPart() {
+  if (!current) return;
+  const includeVoid = document.getElementById('exportIncludeVoid').checked;
+  const parts = buildPartGeometries(current, includeVoid);
+  const exporter = new STLExporter();
+  const mat = new THREE.MeshStandardMaterial({ color: 0xcccccc });
+  const base = exportBaseName();
+  parts.forEach((part, i) => {
+    const mesh = new THREE.Mesh(part.geometry, mat);
+    mesh.updateMatrixWorld(true);
+    const result = exporter.parse(mesh, { binary: true });
+    downloadBlob(
+      `${base}_${part.name}.stl`,
+      new Blob([result], { type: 'application/octet-stream' }),
+    );
+    part.geometry.dispose();
+  });
+  mat.dispose();
+  exportStatusFlash(`Exported ${parts.length} STL files`);
+}
+
+const viewport = document.getElementById('viewport');
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x1a1d21);
+const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+camera.position.set(6.5, 5.2, 7.2);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+viewport.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(1.5, 1.5, 1.5);
+controls.update();
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+const key = new THREE.DirectionalLight(0xffffff, 0.85);
+key.position.set(5, 8, 4);
+scene.add(key);
+scene.add(new THREE.DirectionalLight(0xaaccff, 0.25).translateX(-4).translateY(2).translateZ(-3));
+
+{
+  const edges = new THREE.EdgesGeometry(new THREE.BoxGeometry(3, 3, 3));
+  const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x555b66 }));
+  line.position.set(1.5, 1.5, 1.5);
+  scene.add(line);
+}
+
+const digonalGroup = new THREE.Group();
+const lGroup = new THREE.Group();
+const voidGroup = new THREE.Group();
+const mapGroup = new THREE.Group();
+scene.add(digonalGroup, lGroup, voidGroup, mapGroup);
+
+function buildSolution(sol) {
+  current = sol;
+  clearGroup(digonalGroup);
+  clearGroup(lGroup);
+  clearGroup(voidGroup);
+  pieceGroups = [];
+
+  const ghost = document.getElementById('ghostDigonal').checked;
+
+  for (const piece of sol.pieces) {
+    const isL = piece.family === L_TROMINO || piece.role === L_TROMINO;
+    const g = new THREE.Group();
+    const grayBase = document.getElementById('grayPieces').checked;
+    const color = grayBase && !isL ? PIECE_BASE_GRAY : pieceColor(piece, sol);
+    const centers = [];
+    piece.cubes.forEach((c, ci) => {
+      const tintJoint = !isL && ci === 0 && document.getElementById('showLavender').checked;
+      g.add(tintJoint ? makeJointCubeMesh(c, color, ghost) : makeCubeMesh(c, color, ghost));
+      centers.push(cellCenter(c));
+    });
+    for (const w of piece.wedges || []) {
+      g.add(makeWedgeMesh(w.cell, w.plane, w.side, color, ghost));
+      centers.push(cellCenter(w.cell));
+    }
+    g.userData.home = centers
+      .reduce((a, b) => a.add(b.clone()), new THREE.Vector3())
+      .multiplyScalar(1 / centers.length);
+    g.userData.isL = isL;
+    if (isL) lGroup.add(g);
+    else digonalGroup.add(g);
+    pieceGroups.push(g);
+  }
+
+  document.getElementById('voidLabel').textContent =
+    lCells(sol).map((c) => `(${c.join(',')})`).join(' · ');
+
+  const hint = document.getElementById('pieceColorHint');
+  if (hint) {
+    hint.textContent = useMixDataset()
+      ? '(family-stable colors · same part keeps its hue across layouts)'
+      : '(color = 3-cube body · clock variants keep that map)';
+  }
+  const list = document.getElementById('pieceList');
+  list.innerHTML = '';
+  const counts = {};
+  sol.pieces.forEach((p) => { counts[p.family] = (counts[p.family] || 0) + 1; });
+  sol.pieces.forEach((p) => {
+    const li = document.createElement('li');
+    const hex = pieceColor(p, sol).toString(16).padStart(6, '0');
+    const dup = counts[p.family] > 1 ? ' <em>(dup)</em>' : '';
+    const clocks = isLPiece(p)
+      ? ''
+      : (Array.isArray(p.clocks) && p.clocks.length ? ` c${p.clocks.join('')}` : ` j${p.joint}`);
+    li.innerHTML = `<span style="color:#${hex}">●</span> <code>${p.family}</code>${clocks}${dup}
+      — ${p.cubes.map((c) => `(${c})`).join('–')}`;
+    list.appendChild(li);
+  });
+  const nDistinct = Object.keys(counts).length;
+  const idx = orbitsData ? orbitsData.representatives.indexOf(sol) : -1;
+  const vis = orbitsData ? filteredIndices() : [];
+  const clockMates = skeletonMateIndices(idx, vis.length ? vis : undefined);
+  const clockNote = clockMates.length
+    ? `${clockMates.length + 1} clockings on the same 7 cube bodies (#${[idx, ...clockMates].sort((a, b) => a - b).join(', #')})`
+    : 'unique cube body';
+  document.getElementById('typeSummary').innerHTML =
+    `<strong style="color:var(--text)">Volume 27:</strong> 6 joints × 4 + L × 3.
+     <strong style="color:var(--text)">Families:</strong> ${nDistinct} distinct among the 7 pieces ·
+     <strong style="color:var(--text)">Cube body:</strong> ${clockNote} ·
+     <code>${JSON.stringify(counts)}</code>`;
+
+  buildSurfaceMap(sol);
+  syncVisibility();
+}
+
+function syncVisibility() {
+  const mapMode = Boolean(document.getElementById('surfaceMap')?.checked);
+  mapGroup.visible = mapMode;
+  document.getElementById('surfaceMapLegend')?.classList.toggle('hidden', !mapMode);
+
+  digonalGroup.visible = document.getElementById('showDigonal').checked;
+  lGroup.visible = document.getElementById('showLPart').checked;
+  voidGroup.visible = false;
+
+  const explode = document.getElementById('explode').checked;
+  const origin = new THREE.Vector3(1.5, 1.5, 1.5);
+  for (const g of pieceGroups) {
+    if (!explode) g.position.set(0, 0, 0);
+    else {
+      const dir = g.userData.home.clone().sub(origin);
+      if (dir.lengthSq() < 1e-8) dir.set(1, 0, 0);
+      else dir.normalize();
+      g.position.copy(dir.multiplyScalar(1.15));
+    }
+  }
+}
+
+function applyPieceBaseColor() {
+  if (!current) return;
+  const grayBase = document.getElementById('grayPieces').checked;
+  pieceGroups.forEach((g, i) => {
+    const piece = current.pieces[i];
+    if (!piece) return;
+    const color = grayBase && !isLPiece(piece) ? PIECE_BASE_GRAY : pieceColor(piece, current);
+    const overlay = g.userData.mapOverlay;
+    for (const child of g.children) {
+      if (child === overlay) continue;
+      child.traverse((obj) => {
+        if (obj.isMesh && obj.material && obj.material.color) {
+          if (obj.userData && obj.userData.role === 'lavender') {
+            obj.material.color.setHex(LAVENDER_TINT);
+          } else {
+            obj.material.color.setHex(color);
+          }
+        }
+      });
+    }
+  });
+}
+
+function rebuildForGhost() {
+  if (current) buildSolution(current);
+}
+
+for (const id of ['showDigonal', 'showLPart', 'explode']) {
+  document.getElementById(id).addEventListener('change', syncVisibility);
+}
+document.getElementById('ghostDigonal').addEventListener('change', rebuildForGhost);
+document.getElementById('showLavender').addEventListener('change', rebuildForGhost);
+document.getElementById('grayPieces').addEventListener('change', applyPieceBaseColor);
+document.getElementById('surfaceMap').addEventListener('change', () => {
+  if (document.getElementById('surfaceMap').checked && mixData) {
+    const mixBox = document.getElementById('sameMixFilter');
+    if (!mixBox.checked) {
+      mixBox.checked = true;
+      syncActiveDataset();
+      return;
+    }
+  }
+  if (current) buildSurfaceMap(current);
+  syncVisibility();
+});
+
+function resize() {
+  const w = viewport.clientWidth;
+  const h = viewport.clientHeight;
+  camera.aspect = w / Math.max(h, 1);
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h, false);
+}
+resize();
+addEventListener('resize', resize);
+
+function frame() {
+  controls.update();
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+frame();
+
+function uniquePartCount(rep) {
+  if (rep.family_counts) return Object.keys(rep.family_counts).length;
+  const seen = new Set((rep.pieces || []).map((p) => p.family));
+  return seen.size;
+}
+
+function jointsLine(rep) {
+  return (rep.pieces || [])
+    .map((p) => {
+      if (isLPiece(p)) return L_TROMINO;
+      const clocks = Array.isArray(p.clocks) && p.clocks.length ? `c${p.clocks.join('')}` : `j${p.joint}`;
+      return `${p.family}${clocks}`;
+    })
+    .join(' ');
+}
+
+function cellsFaceAdjacent(a, b) {
+  return Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) + Math.abs(a[2] - b[2]) === 1;
+}
+
+function voidConnected(cells) {
+  if (cells.length === 0) return false;
+  const seen = new Set([0]);
+  const stack = [0];
+  while (stack.length) {
+    const i = stack.pop();
+    for (let j = 0; j < cells.length; j++) {
+      if (!seen.has(j) && cellsFaceAdjacent(cells[i], cells[j])) {
+        seen.add(j);
+        stack.push(j);
+      }
+    }
+  }
+  return seen.size === cells.length;
+}
+
+function voidIsStraight(cells) {
+  const varying = [0, 1, 2].filter(
+    (ax) => new Set(cells.map((c) => c[ax])).size > 1,
+  );
+  return varying.length === 1;
+}
+
+/** Complete fill: six joints plus a bent L-tromino part, no empty cells. */
+function voidIsLTromino(rep) {
+  const joints = (rep.pieces || []).filter((p) => !isLPiece(p));
+  const cells = lCells(rep);
+  return joints.length === 6
+    && cells.length === 3
+    && voidConnected(cells)
+    && !voidIsStraight(cells);
+}
+
+function filteredIndices() {
+  const sel = document.getElementById('uniqueFilter');
+  const val = sel ? sel.value : 'all';
+  const lOnly = document.getElementById('lTrominoFilter')?.checked;
+  const fiveOnly = fiveLayoutOnly();
+  const paint = new Set(surfaceMapOrbits());
+  const reps = orbitsData.representatives;
+  const idxs = reps
+    .map((rep, i) => {
+      if (fiveOnly && !paint.has(i)) return -1;
+      if (lOnly && !voidIsLTromino(rep)) return -1;
+      if (val !== 'all' && uniquePartCount(rep) !== Number(val)) return -1;
+      return i;
+    })
+    .filter((i) => i >= 0);
+  if (fiveOnly) return surfaceMapOrbits().filter((i) => idxs.includes(i));
+  return idxs;
+}
+
+function refreshUniqueFilterOptions() {
+  const filter = document.getElementById('uniqueFilter');
+  const prev = filter.value;
+  const lOnly = document.getElementById('lTrominoFilter')?.checked;
+  const base = orbitsData.representatives.filter(
+    (rep) => !lOnly || voidIsLTromino(rep),
+  );
+  const counts = [...new Set(base.map(uniquePartCount))].sort((a, b) => a - b);
+
+  filter.innerHTML = '';
+  const allOpt = document.createElement('option');
+  allOpt.value = 'all';
+  allOpt.textContent = `All (${base.length})`;
+  filter.appendChild(allOpt);
+
+  counts.forEach((n) => {
+    const howMany = base.filter((r) => uniquePartCount(r) === n).length;
+    const opt = document.createElement('option');
+    opt.value = String(n);
+    opt.textContent = `${n} families (${howMany})`;
+    filter.appendChild(opt);
+  });
+
+  // Keep prior selection if still valid; otherwise fall back to All
+  const stillValid = [...filter.options].some((o) => o.value === prev);
+  filter.value = stillValid ? prev : 'all';
+}
+
+function groupedVisible() {
+  const vis = filteredIndices();
+  const buckets = new Map();
+  for (const i of vis) {
+    const k = skeletonKey(orbitsData.representatives[i]);
+    if (!buckets.has(k)) buckets.set(k, []);
+    buckets.get(k).push(i);
+  }
+  return [...buckets.values()].map((idxs) => ({
+    idxs,
+    rep: pickGroupRep(idxs),
+  }));
+}
+
+function navIndices() {
+  if (fiveLayoutOnly()) return filteredIndices();
+  if (collapseEnabled()) return groupedVisible().map((g) => g.rep);
+  return filteredIndices();
+}
+
+function variantIndices(index) {
+  const vis = filteredIndices();
+  const key = skeletonKey(orbitsData.representatives[index]);
+  return vis.filter((i) => skeletonKey(orbitsData.representatives[i]) === key);
+}
+
+function applyFilters() {
+  const visible = new Set(filteredIndices());
+  document.querySelectorAll('.orbit-btn').forEach((btn) => {
+    const i = Number(btn.dataset.index);
+    btn.classList.toggle('hidden', !visible.has(i));
+  });
+  document.querySelectorAll('.kit-group, .kit-section, .skel-group').forEach((g) => {
+    const any = [...g.querySelectorAll('.orbit-btn')].some(
+      (b) => !b.classList.contains('hidden'),
+    );
+    g.classList.toggle('hidden', !any);
+  });
+
+  const empty = document.getElementById('orbitEmpty');
+  const fiveOnly = fiveLayoutOnly();
+  const collapsed = collapseEnabled() && !fiveOnly;
+  const groups = collapsed ? groupedVisible() : null;
+  const n = collapsed ? groups.length : visible.size;
+  const total = orbitsData.representatives.length;
+  const sel = document.getElementById('uniqueFilter').value;
+  const lOnly = document.getElementById('lTrominoFilter').checked;
+  const bits = [];
+  if (sel !== 'all') bits.push(`${sel} distinct families`);
+  if (fiveOnly) bits.push('five-layout set');
+  if (lOnly) bits.push('6 joints + L');
+  if (collapsed && !fiveOnly) bits.push('clock-collapsed');
+
+  const blurb = document.getElementById('orbitBlurb');
+  if (blurb) {
+    if (useMixDataset()) {
+      const raw = orbitsData.raw_solutions != null
+        ? ` ${Number(orbitsData.raw_solutions).toLocaleString()} raw solutions.`
+        : '';
+      const done = orbitsData.exhaustive
+        ? ' Exhaustive under cube rotations and reflections.'
+        : ' Enumeration may be incomplete.';
+      const kit = kitPartsLabel();
+      if (fiveOnly) {
+        blurb.textContent =
+          `${surfaceMapOrbits().length} product layouts of ${kit}.` +
+          `${raw}${done} Uncheck “Five-layout set only” to browse all ${orbitsData.representatives.length} packings of this kit.`;
+      } else {
+        const nPaint = surfaceMapOrbits().length;
+        const bodyNote = collapsed
+          ? `${n} cube bodies (${visible.size} clockings).`
+          : `${visible.size} packings.`;
+        blurb.textContent =
+          `${bodyNote} Kit ${kit}.` +
+          `${raw}${done} The five-layout set (${nPaint}) is listed first.`;
+      }
+    } else {
+      const suffix = collapsed
+        ? `${n} cube bodies (${visible.size} clockings) of ${total}.`
+        : bits.length
+          ? `${visible.size} of ${total} matching ${bits.join(' + ')}.`
+          : `${total} packings of 6 cubic joints (vol. 4) + one L-tromino (vol. 3).`;
+      blurb.textContent =
+        `${suffix} Same 3-cube occupancy with different joint clocks is one body; [ ] cycles those orientations.`;
+    }
+  }
+
+  if (!n) {
+    empty.classList.remove('hidden');
+    empty.textContent = bits.length
+      ? `No solutions match ${bits.join(' + ')}. Try clearing one filter.`
+      : 'No solutions.';
+    return;
+  }
+  empty.classList.add('hidden');
+  empty.textContent = '';
+
+  const idxs = [...visible];
+  if (!idxs.includes(currentOrbitIndex)) selectOrbit(idxs[0]);
+}
+
+function selectOrbit(index) {
+  const n = orbitsData.representatives.length;
+  index = ((index % n) + n) % n;
+  const rep = orbitsData.representatives[index];
+  buildSolution(rep);
+  document.querySelectorAll('.orbit-btn').forEach((btn) => {
+    btn.classList.toggle('active', Number(btn.dataset.index) === index);
+  });
+  const active = document.querySelector('.orbit-btn.active:not(.hidden)');
+  if (active) active.scrollIntoView({ block: 'nearest' });
+  const raw = orbitsData.raw_solutions != null
+    ? ` · raw ${Number(orbitsData.raw_solutions).toLocaleString()}`
+    : '';
+  const uniq = uniquePartCount(rep);
+  const lTag = voidIsLTromino(rep) ? ' · L part' : '';
+  const clockings = variantIndices(index);
+  const clockTag = clockings.length > 1
+    ? ` · clock ${clockings.indexOf(index) + 1}/${clockings.length}`
+    : '';
+  document.getElementById('status').textContent =
+    `Orbit ${index} / ${n - 1} · 6×4+3=27 · ${uniq} families${lTag}${clockTag}${raw}`;
+  currentOrbitIndex = index;
+  document.querySelectorAll('.skel-group').forEach((g) => {
+    const members = (g.dataset.members || '').split(',').map(Number);
+    if (members.includes(index)) g.open = true;
+  });
+}
+
+let currentOrbitIndex = 0;
+
+function onKeyNav(e) {
+  if (!orbitsData) return;
+  const tag = (e.target && e.target.tagName) || '';
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    const idxs = navIndices();
+    if (!idxs.length) return;
+    const curKey = skeletonKey(orbitsData.representatives[currentOrbitIndex]);
+    let pos = idxs.findIndex(
+      (i) => skeletonKey(orbitsData.representatives[i]) === curKey,
+    );
+    if (pos < 0) pos = idxs.indexOf(currentOrbitIndex);
+    if (pos < 0) pos = 0;
+    const delta = e.key === 'ArrowDown' ? 1 : -1;
+    const next = idxs[(pos + delta + idxs.length) % idxs.length];
+    selectOrbit(next);
+    return;
+  }
+  if (e.key === '[' || e.key === ']') {
+    e.preventDefault();
+    const idxs = variantIndices(currentOrbitIndex);
+    if (idxs.length < 2) return;
+    let pos = idxs.indexOf(currentOrbitIndex);
+    if (pos < 0) pos = 0;
+    const delta = e.key === ']' ? 1 : -1;
+    selectOrbit(idxs[(pos + delta + idxs.length) % idxs.length]);
+  }
+}
+window.addEventListener('keydown', onKeyNav);
+
+function surfaceMapColorForOrbit(index) {
+  if (!useMixDataset()) return null;
+  const slot = surfaceMapOrbits().indexOf(index);
+  if (slot < 0) return null;
+  return SURFACE_MAP_COLORS[slot];
+}
+
+function appendOrbitButton(host, i) {
+  const rep = orbitsData.representatives[i];
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'orbit-btn';
+  btn.dataset.index = String(i);
+  btn.dataset.unique = String(uniquePartCount(rep));
+  const voidStr = lCells(rep).map((c) => c.join(',')).join(' · ');
+  const joints = jointsLine(rep);
+  const countsStr = JSON.stringify(rep.family_counts || {});
+  const uniq = uniquePartCount(rep);
+  const clocks = skeletonMateIndices(i);
+  const lMark = voidIsLTromino(rep) ? ' · L' : '';
+  const kitMark = clocks.length
+    ? ` · ${clocks.length + 1} clocks`
+    : '';
+  const mapColor = surfaceMapColorForOrbit(i);
+  const swatch = mapColor != null
+    ? `<span class="orbit-swatch" style="background:#${mapColor.toString(16).padStart(6, '0')}" title="Surface-map color"></span>`
+    : (useMixDataset()
+      ? `<span class="orbit-swatch none" title="Not one of the five paint layouts"></span>`
+      : '');
+  btn.innerHTML = `${swatch}<span class="orbit-copy"><strong style="color:var(--text)">#${i}</strong>
+    · ${uniq} families${lMark}${kitMark}
+    <code>${voidStr}</code><br/><code>${joints}</code></span>`;
+  btn.title = `Void ${voidStr} · ${joints} · ${countsStr}`;
+  btn.addEventListener('click', () => selectOrbit(i));
+  host.appendChild(btn);
+}
+
+function kitSwatchesHtml(rep) {
+  if (useMixDataset()) {
+    const fams = jointFamiliesSorted(rep);
+    return `<span class="kit-swatches" aria-hidden="true">${
+      fams
+        .map((f) => {
+          const hex = (MIX_FAMILY_COLORS.get(f) ?? 0x888888).toString(16).padStart(6, '0');
+          return `<i style="background:#${hex}"></i>`;
+        })
+        .join('')
+    }</span>`;
+  }
+  const map = colorsForRep(rep);
+  const joints = (rep.pieces || []).filter((p) => !isLPiece(p));
+  const sets = [...new Set(joints.map(cubeSetKey))].sort();
+  return `<span class="kit-swatches" aria-hidden="true">${
+    sets
+      .map((s) => `<i style="background:#${map.get(s).toString(16).padStart(6, '0')}"></i>`)
+      .join('')
+  }</span>`;
+}
+
+function renderMixOrbitList() {
+  const host = document.getElementById('orbitList');
+  const paint = surfaceMapOrbits();
+  const paintSet = new Set(paint);
+  const fiveWrap = document.createElement('div');
+  fiveWrap.className = 'kit-section';
+  const fiveTitle = document.createElement('div');
+  fiveTitle.className = 'kit-section-title';
+  fiveTitle.textContent = `Five-layout set (${paint.length})`;
+  fiveWrap.appendChild(fiveTitle);
+  const fiveHead = document.createElement('div');
+  fiveHead.className = 'kit-head';
+  fiveHead.innerHTML =
+    `Same 7 unique manufactured parts: <code>${kitPartsLabel()}</code>. `
+    + `These five packings are the painted layouts (of seven).`;
+  fiveWrap.appendChild(fiveHead);
+  paint.forEach((i) => appendOrbitButton(fiveWrap, i));
+  host.appendChild(fiveWrap);
+
+  if (fiveLayoutOnly()) return;
+
+  const restIdxs = orbitsData.representatives
+    .map((_, i) => i)
+    .filter((i) => !paintSet.has(i));
+  if (!restIdxs.length) return;
+
+  if (collapseEnabled()) {
+    renderCollapsedOrbitList(restIdxs, `Rest of this kit · ${restIdxs.length} packings`);
+    return;
+  }
+  const restWrap = document.createElement('div');
+  restWrap.className = 'kit-section';
+  const restTitle = document.createElement('div');
+  restTitle.className = 'kit-section-title';
+  restTitle.textContent = `Rest of this kit (${restIdxs.length})`;
+  restWrap.appendChild(restTitle);
+  restIdxs.forEach((i) => appendOrbitButton(restWrap, i));
+  host.appendChild(restWrap);
+}
+
+function renderCollapsedOrbitList(onlyIdxs, heading) {
+  const host = document.getElementById('orbitList');
+  const reps = orbitsData.representatives;
+  const src = onlyIdxs || reps.map((_, i) => i);
+  const buckets = new Map();
+  src.forEach((i) => {
+    const k = skeletonKey(reps[i]);
+    if (!buckets.has(k)) buckets.set(k, []);
+    buckets.get(k).push(i);
+  });
+  const ordered = [...buckets.values()].sort(
+    (a, b) => b.length - a.length || a[0] - b[0],
+  );
+  const wrap = document.createElement('div');
+  wrap.className = 'kit-section';
+  const title = document.createElement('div');
+  title.className = 'kit-section-title';
+  title.textContent = heading
+    || `${ordered.length} cube bodies · ${src.length} clockings`;
+  wrap.appendChild(title);
+  ordered.forEach((idxs) => {
+    const n = idxs.length;
+    if (n === 1) {
+      appendOrbitButton(wrap, idxs[0]);
+      return;
+    }
+    const g = document.createElement('details');
+    g.className = 'skel-group';
+    g.dataset.members = idxs.join(',');
+    const sum = document.createElement('summary');
+    const L = lCells(reps[idxs[0]]).map((c) => c.join(',')).join(' · ');
+    const ids = idxs.map((i) => `#${i}`).join(', ');
+    sum.innerHTML =
+      `<strong>${n} orientations</strong>${kitSwatchesHtml(reps[idxs[0]])} · ${ids}<br/><code>L ${L}</code>`;
+    g.appendChild(sum);
+    idxs.forEach((i) => appendOrbitButton(g, i));
+    wrap.appendChild(g);
+  });
+  host.appendChild(wrap);
+}
+
+function renderOrbitList() {
+  const host = document.getElementById('orbitList');
+  host.innerHTML = '';
+  if (useMixDataset()) {
+    renderMixOrbitList();
+    return;
+  }
+  if (collapseEnabled()) {
+    renderCollapsedOrbitList();
+    return;
+  }
+  const reps = orbitsData.representatives;
+  const byKit = new Map();
+  reps.forEach((rep, i) => {
+    const k = kitKey(rep);
+    if (!byKit.has(k)) byKit.set(k, []);
+    byKit.get(k).push(i);
+  });
+
+  const sevenShared = [];
+  const sevenSolo = [];
+  const other = [];
+  for (const [k, idxs] of byKit) {
+    const n = uniquePartCount(reps[idxs[0]]);
+    if (n === 7 && idxs.length > 1) sevenShared.push({ k, idxs });
+    else if (n === 7) sevenSolo.push({ k, idxs });
+    else other.push({ k, idxs, n });
+  }
+  sevenShared.sort((a, b) => a.idxs[0] - b.idxs[0]);
+  sevenSolo.sort((a, b) => a.idxs[0] - b.idxs[0]);
+  other.sort((a, b) => a.idxs[0] - b.idxs[0]);
+
+  const sevenWrap = document.createElement('div');
+  sevenWrap.className = 'kit-section';
+  const sevenTitle = document.createElement('div');
+  sevenTitle.className = 'kit-section-title';
+  sevenTitle.textContent = `7 distinct families (${sevenShared.reduce((n, k) => n + k.idxs.length, 0) + sevenSolo.length})`;
+  sevenWrap.appendChild(sevenTitle);
+
+  if (sevenShared.length) {
+    sevenShared.forEach((kit) => {
+      const g = document.createElement('div');
+      g.className = 'kit-group';
+      const head = document.createElement('div');
+      head.className = 'kit-head';
+      const fams = jointFamiliesSorted(reps[kit.idxs[0]]).join(' ');
+      head.innerHTML = `<strong>Same 6 joint shapes · ${kit.idxs.length} packings</strong>${kitSwatchesHtml(reps[kit.idxs[0]])}<br/><code>${fams}</code>`;
+      g.appendChild(head);
+      kit.idxs.forEach((i) => appendOrbitButton(g, i));
+      sevenWrap.appendChild(g);
+    });
+  }
+
+  const soloGroup = document.createElement('div');
+  soloGroup.className = 'kit-group';
+  const soloHead = document.createElement('div');
+  soloHead.className = 'kit-head';
+  soloHead.innerHTML = `<strong>Unique shape mixes (${sevenSolo.length})</strong> — each packing has its own 6-hue map`;
+  soloGroup.appendChild(soloHead);
+  sevenSolo.forEach((kit) => kit.idxs.forEach((i) => appendOrbitButton(soloGroup, i)));
+  sevenWrap.appendChild(soloGroup);
+  host.appendChild(sevenWrap);
+
+  if (other.length) {
+    const otherWrap = document.createElement('div');
+    otherWrap.className = 'kit-section';
+    const otherTitle = document.createElement('div');
+    otherTitle.className = 'kit-section-title';
+    otherTitle.textContent = `Repeated families (${other.reduce((n, k) => n + k.idxs.length, 0)})`;
+    otherWrap.appendChild(otherTitle);
+    other.forEach((kit) => {
+      if (kit.idxs.length > 1) {
+        const g = document.createElement('div');
+        g.className = 'kit-group';
+        const head = document.createElement('div');
+        head.className = 'kit-head';
+        const fams = jointFamiliesSorted(reps[kit.idxs[0]])
+          .map((f) => `${f}×${familyCountsOf(reps[kit.idxs[0]])[f]}`)
+          .join(' ');
+        head.innerHTML = `<strong>Same shapes · ${kit.idxs.length} packings</strong>${kitSwatchesHtml(reps[kit.idxs[0]])}<br/><code>${fams}</code>`;
+        g.appendChild(head);
+        kit.idxs.forEach((i) => appendOrbitButton(g, i));
+        otherWrap.appendChild(g);
+      } else {
+        kit.idxs.forEach((i) => appendOrbitButton(otherWrap, i));
+      }
+    });
+    host.appendChild(otherWrap);
+  }
+}
+
+function syncActiveDataset() {
+  orbitsData = useMixDataset() ? mixData : poolData;
+  kitColorMaps = new Map();
+  syncFiveLayoutControl();
+  fillKitDef();
+  renderOrbitList();
+  refreshUniqueFilterOptions();
+  const nBodies = new Set(orbitsData.representatives.map(skeletonKey)).size;
+  const nL = orbitsData.representatives.filter(voidIsLTromino).length;
+  document.getElementById('lTrominoCount').textContent = `(${nL})`;
+  const cc = document.getElementById('collapseCount');
+  if (cc) {
+    cc.textContent = `(${orbitsData.representatives.length} → ${nBodies})`;
+  }
+  applyFilters();
+  const idxs = filteredIndices();
+  if (idxs.length) selectOrbit(idxs[0]);
+}
+
+async function init() {
+  const status = document.getElementById('status');
+  try {
+    const res = await fetch('./cubic_joint_orbits.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    poolData = await res.json();
+    orbitsData = poolData;
+
+    try {
+      const mixRes = await fetch('./cubic_joint_unique6_orbits.json');
+      if (mixRes.ok) {
+        mixData = await mixRes.json();
+        paintCatalog = null;
+        const nMix = (mixData.representatives || []).length;
+        document.getElementById('sameMixCount').textContent = `(${nMix})`;
+      }
+    } catch (_) {
+      mixData = null;
+    }
+
+    if (!mixData) {
+      const box = document.getElementById('sameMixFilter');
+      box.checked = false;
+      box.disabled = true;
+      document.getElementById('sameMixCount').textContent = '(missing)';
+      const mapBox = document.getElementById('surfaceMap');
+      mapBox.checked = false;
+      mapBox.disabled = true;
+      const fiveBox = document.getElementById('fiveLayoutFilter');
+      fiveBox.checked = false;
+      fiveBox.disabled = true;
+      const fiveObj = document.getElementById('exportFiveObj');
+      if (fiveObj) fiveObj.disabled = true;
+    }
+
+    status.innerHTML = `<span class="ok">Loaded ${poolData.inequivalent_orbits} pool orbits`
+      + (mixData ? ` · ${mixData.inequivalent_orbits} of this mix` : '')
+      + `</span>`;
+
+    const filter = document.getElementById('uniqueFilter');
+    filter.addEventListener('change', applyFilters);
+    document.getElementById('lTrominoFilter').addEventListener('change', () => {
+      refreshUniqueFilterOptions();
+      applyFilters();
+    });
+    document.getElementById('collapseClocks').addEventListener('change', () => {
+      renderOrbitList();
+      applyFilters();
+    });
+    document.getElementById('sameMixFilter').addEventListener('change', () => {
+      if (!document.getElementById('sameMixFilter').checked) {
+        document.getElementById('surfaceMap').checked = false;
+        document.getElementById('fiveLayoutFilter').checked = false;
+      }
+      syncActiveDataset();
+    });
+    document.getElementById('fiveLayoutFilter').addEventListener('change', () => {
+      if (document.getElementById('fiveLayoutFilter').checked && mixData) {
+        const mixBox = document.getElementById('sameMixFilter');
+        if (!mixBox.checked) {
+          mixBox.checked = true;
+          syncActiveDataset();
+          return;
+        }
+      }
+      fillKitDef();
+      renderOrbitList();
+      applyFilters();
+    });
+    document.getElementById('exportStl').addEventListener('click', exportCombinedStl);
+    document.getElementById('exportObj').addEventListener('click', exportObjParts);
+    document.getElementById('exportFiveObj').addEventListener('click', exportFiveLayoutObj);
+    document.getElementById('exportStlParts').addEventListener('click', exportStlEachPart);
+    fillSurfaceMapLegend();
+    if (mixData) {
+      const q = new URLSearchParams(location.search);
+      if (q.has('surface') || q.get('map') === '1' || q.get('five') === '1') {
+        document.getElementById('sameMixFilter').checked = true;
+        document.getElementById('fiveLayoutFilter').checked = true;
+        document.getElementById('surfaceMap').checked = true;
+        document.getElementById('grayPieces').checked = true;
+      }
+    }
+
+    syncActiveDataset();
+  } catch (err) {
+    status.innerHTML = `<span class="err">Failed to load orbits: ${err.message}</span>
+      <br/>Run <code>python solvers/cubic_joint_search.py --enumerate6 --l-tromino</code>
+      and serve this folder over HTTP.`;
+  }
+}
+
+init();
+  </script>
+</body>
+</html>

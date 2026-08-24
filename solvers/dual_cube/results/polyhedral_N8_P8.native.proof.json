@@ -1,0 +1,28 @@
+{
+  "schema": "dual-cube-polyhedral-candidate",
+  "version": 1,
+  "phase": "native-stage1",
+  "halt": "native-no-connected-sheet",
+  "improved": false,
+  "note": "Any-cell 45° splits with the frozen eight transforms do produce coplanar sheets, but the assignments seen so far disconnect pieces. This is not a visualization artifact: the search is using half-cubes as atoms. A connected product-quality sheet was not obtained before the cap-16 SAT run was stopped.",
+  "evidence": {
+    "eligibleCells": 512,
+    "transformsFrozen": true,
+    "cap8": {
+      "satStatus": 2,
+      "splits": 8,
+      "objective": 7992,
+      "interpretation": "eight coplanar adjacent split pairs (sheet proxy) minus eight splits",
+      "connectivityCuts": 37,
+      "nogoods": 5
+    },
+    "cap16": {
+      "note": "SAT still searching; process stopped after hanging past the wall-clock timeout"
+    }
+  },
+  "fixture": {
+    "splitCellCount": 1,
+    "mergedDiagonalArea": 2.8284271247461903,
+    "maxDiagonalFace": 1.4142135623730951
+  }
+}

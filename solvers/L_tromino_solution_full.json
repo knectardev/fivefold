@@ -1,0 +1,374 @@
+{
+  "void_L": [
+    [
+      0,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      2
+    ],
+    [
+      1,
+      2,
+      2
+    ]
+  ],
+  "pieces": [
+    {
+      "family": 0,
+      "joint": 0,
+      "cubes": [
+        [
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          2,
+          1
+        ]
+      ],
+      "wedges": [
+        {
+          "cell": [
+            1,
+            2,
+            0
+          ],
+          "plane": {
+            "kind": "eq",
+            "a": 0,
+            "b": 1
+          },
+          "side": 0
+        },
+        {
+          "cell": [
+            1,
+            2,
+            1
+          ],
+          "plane": {
+            "kind": "eq",
+            "a": 0,
+            "b": 1
+          },
+          "side": 0
+        }
+      ]
+    },
+    {
+      "family": 1,
+      "joint": 0,
+      "cubes": [
+        [
+          2,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ]
+      ],
+      "wedges": [
+        {
+          "cell": [
+            2,
+            2,
+            0
+          ],
+          "plane": {
+            "kind": "sum",
+            "a": 1,
+            "b": 2
+          },
+          "side": 0
+        },
+        {
+          "cell": [
+            1,
+            2,
+            0
+          ],
+          "plane": {
+            "kind": "eq",
+            "a": 0,
+            "b": 1
+          },
+          "side": 1
+        }
+      ]
+    },
+    {
+      "family": 2,
+      "joint": 0,
+      "cubes": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          0,
+          0,
+          2
+        ]
+      ],
+      "wedges": [
+        {
+          "cell": [
+            0,
+            1,
+            1
+          ],
+          "plane": {
+            "kind": "sum",
+            "a": 0,
+            "b": 2
+          },
+          "side": 1
+        },
+        {
+          "cell": [
+            0,
+            0,
+            1
+          ],
+          "plane": {
+            "kind": "eq",
+            "a": 0,
+            "b": 2
+          },
+          "side": 0
+        }
+      ]
+    },
+    {
+      "family": 3,
+      "joint": 3,
+      "cubes": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "wedges": [
+        {
+          "cell": [
+            0,
+            1,
+            1
+          ],
+          "plane": {
+            "kind": "sum",
+            "a": 0,
+            "b": 2
+          },
+          "side": 0
+        },
+        {
+          "cell": [
+            1,
+            0,
+            0
+          ],
+          "plane": {
+            "kind": "sum",
+            "a": 0,
+            "b": 1
+          },
+          "side": 0
+        }
+      ]
+    },
+    {
+      "family": 7,
+      "joint": 2,
+      "cubes": [
+        [
+          1,
+          0,
+          2
+        ],
+        [
+          1,
+          0,
+          1
+        ]
+      ],
+      "wedges": [
+        {
+          "cell": [
+            2,
+            0,
+            2
+          ],
+          "plane": {
+            "kind": "eq",
+            "a": 0,
+            "b": 2
+          },
+          "side": 0
+        },
+        {
+          "cell": [
+            0,
+            0,
+            1
+          ],
+          "plane": {
+            "kind": "eq",
+            "a": 0,
+            "b": 2
+          },
+          "side": 1
+        }
+      ]
+    },
+    {
+      "family": 8,
+      "joint": 3,
+      "cubes": [
+        [
+          2,
+          2,
+          1
+        ],
+        [
+          2,
+          2,
+          2
+        ]
+      ],
+      "wedges": [
+        {
+          "cell": [
+            2,
+            2,
+            0
+          ],
+          "plane": {
+            "kind": "sum",
+            "a": 1,
+            "b": 2
+          },
+          "side": 1
+        },
+        {
+          "cell": [
+            2,
+            1,
+            2
+          ],
+          "plane": {
+            "kind": "sum",
+            "a": 1,
+            "b": 2
+          },
+          "side": 1
+        }
+      ]
+    },
+    {
+      "family": 10,
+      "joint": 1,
+      "cubes": [
+        [
+          2,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "wedges": [
+        {
+          "cell": [
+            2,
+            1,
+            2
+          ],
+          "plane": {
+            "kind": "sum",
+            "a": 1,
+            "b": 2
+          },
+          "side": 0
+        },
+        {
+          "cell": [
+            1,
+            2,
+            1
+          ],
+          "plane": {
+            "kind": "eq",
+            "a": 0,
+            "b": 1
+          },
+          "side": 1
+        }
+      ]
+    },
+    {
+      "family": 11,
+      "joint": 3,
+      "cubes": [
+        [
+          2,
+          0,
+          1
+        ],
+        [
+          2,
+          0,
+          0
+        ]
+      ],
+      "wedges": [
+        {
+          "cell": [
+            2,
+            0,
+            2
+          ],
+          "plane": {
+            "kind": "eq",
+            "a": 0,
+            "b": 2
+          },
+          "side": 1
+        },
+        {
+          "cell": [
+            1,
+            0,
+            0
+          ],
+          "plane": {
+            "kind": "sum",
+            "a": 0,
+            "b": 1
+          },
+          "side": 1
+        }
+      ]
+    }
+  ],
+  "note": "8 distinct digonal families + solid L-tromino exception fills 3x3x3"
+}

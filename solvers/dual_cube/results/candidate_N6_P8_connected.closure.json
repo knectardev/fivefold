@@ -1,0 +1,5646 @@
+{
+  "schema": "dual-cube-closure",
+  "version": 3,
+  "note": "Four metrics are separate: discrete doubled-lattice mate identity, carrier incidence, continuous trim mismatch about N/2, and shell closure. Carriers stay frozen until topology is stable. Junction residuals are decomposed by constraint count. GPU is not used for topology.",
+  "metrics": {
+    "discreteMateIdentity": {
+      "checked": 109,
+      "mismatches": 0,
+      "exact": true
+    },
+    "carrierIncidence": {
+      "rms": 0.08875740835983134,
+      "max": 1.0596918421965875
+    },
+    "continuousTrimMismatch": {
+      "rms": 0.0024744721794408603,
+      "max": 0.009735770094130753,
+      "initialRms": 0.00992641739016676,
+      "initialMax": 0.029481627480661455
+    },
+    "shellClosure": {
+      "openEdges": 86,
+      "nonmanifoldAfterDissolve": 0,
+      "nonmanifoldBeforeDissolve": 7,
+      "diagnosis": [
+        {
+          "piece": 1,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 30,
+          "shellCount": 5,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 16,
+              "signedVolume": -0.28395061728395066,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0.16666666666666666,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  1,
+                  1,
+                  1
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 1,
+              "signedVolume": -0.0632716049382716,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.16666666666666666,
+                  0.5,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  0.6666666666666666,
+                  1,
+                  0.6666666666666666
+                ]
+              }
+            },
+            {
+              "id": 3,
+              "patches": 1,
+              "signedVolume": -0.0447530864197531,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0.16666666666666666,
+                  0.5
+                ],
+                "hi": [
+                  0.6666666666666666,
+                  0.5,
+                  1
+                ]
+              }
+            },
+            {
+              "id": 4,
+              "patches": 1,
+              "signedVolume": -0.021604938271604934,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0.16666666666666666,
+                  0.5
+                ],
+                "hi": [
+                  0.3333333333333333,
+                  0.3333333333333333,
+                  1
+                ]
+              }
+            },
+            {
+              "id": 5,
+              "patches": 1,
+              "signedVolume": -0.09567901234567906,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0.5,
+                  0.6666666666666666
+                ],
+                "hi": [
+                  1,
+                  1,
+                  0.8333333333333334
+                ]
+              }
+            }
+          ],
+          "interpretation": "reconstruction-topology-defect"
+        },
+        {
+          "piece": 2,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 36,
+          "shellCount": 2,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 1,
+              "signedVolume": -0.04783950617283952,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.5,
+                  0,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  1,
+                  0.5,
+                  0.5
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 12,
+              "signedVolume": -0.37191358024691396,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  1,
+                  0.6666666666666666,
+                  1
+                ]
+              }
+            }
+          ],
+          "interpretation": "weak-edge-or-point-connection"
+        },
+        {
+          "piece": 3,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 15,
+          "shellCount": 3,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 9,
+              "signedVolume": -0.0771604938271605,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  0.5,
+                  0.5,
+                  1
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 1,
+              "signedVolume": -0.021604938271604937,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  0.5,
+                  0.5,
+                  0.5
+                ]
+              }
+            },
+            {
+              "id": 3,
+              "patches": 1,
+              "signedVolume": -0.020061728395061724,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.16666666666666666,
+                  0.16666666666666666,
+                  0.5
+                ],
+                "hi": [
+                  0.3333333333333333,
+                  0.5,
+                  1
+                ]
+              }
+            }
+          ],
+          "interpretation": "reconstruction-topology-defect"
+        },
+        {
+          "piece": 4,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 30,
+          "shellCount": 3,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 1,
+              "signedVolume": -0.05709876543209878,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0,
+                  0
+                ],
+                "hi": [
+                  0.6666666666666666,
+                  0.5,
+                  0.5
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 8,
+              "signedVolume": -0.25617283950617303,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0,
+                  0
+                ],
+                "hi": [
+                  1,
+                  1,
+                  0.5
+                ]
+              }
+            },
+            {
+              "id": 3,
+              "patches": 1,
+              "signedVolume": -0.04783950617283951,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.5,
+                  0,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  1,
+                  0.5,
+                  0.5
+                ]
+              }
+            }
+          ],
+          "interpretation": "reconstruction-topology-defect"
+        },
+        {
+          "piece": 5,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 27,
+          "shellCount": 1,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 10,
+              "signedVolume": -0.5262345679012355,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0.3333333333333333,
+                  0.6666666666666666
+                ],
+                "hi": [
+                  1,
+                  1,
+                  1
+                ]
+              }
+            }
+          ],
+          "interpretation": "single-shell"
+        },
+        {
+          "piece": 6,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 32,
+          "shellCount": 2,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 13,
+              "signedVolume": -0.15123456790123468,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0,
+                  0
+                ],
+                "hi": [
+                  0.6666666666666666,
+                  0.6666666666666666,
+                  0.5
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 1,
+              "signedVolume": -0.012345679012345678,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0.3333333333333333,
+                  0.3333333333333333
+                ],
+                "hi": [
+                  0.5,
+                  0.6666666666666666,
+                  0.5
+                ]
+              }
+            }
+          ],
+          "interpretation": "weak-edge-or-point-connection"
+        },
+        {
+          "piece": 7,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 23,
+          "shellCount": 2,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 8,
+              "signedVolume": -0.22376543209876565,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0,
+                  0.5,
+                  0
+                ],
+                "hi": [
+                  0.6666666666666666,
+                  1,
+                  0.6666666666666666
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 1,
+              "signedVolume": -0.046296296296296294,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.16666666666666666,
+                  0.5,
+                  0.5
+                ],
+                "hi": [
+                  0.5,
+                  1,
+                  0.6666666666666666
+                ]
+              }
+            }
+          ],
+          "interpretation": "weak-edge-or-point-connection"
+        },
+        {
+          "piece": 8,
+          "sourceVoxelComponents": 1,
+          "sourceVoxelCount": 23,
+          "shellCount": 4,
+          "shells": [
+            {
+              "id": 1,
+              "patches": 11,
+              "signedVolume": -0.23765432098765443,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0.5,
+                  0
+                ],
+                "hi": [
+                  1,
+                  1,
+                  0.6666666666666666
+                ]
+              }
+            },
+            {
+              "id": 2,
+              "patches": 1,
+              "signedVolume": -0.06327160493827161,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.5,
+                  0.5,
+                  0
+                ],
+                "hi": [
+                  1,
+                  1,
+                  0.3333333333333333
+                ]
+              }
+            },
+            {
+              "id": 3,
+              "patches": 1,
+              "signedVolume": -0.026234567901234563,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.3333333333333333,
+                  0.8333333333333334,
+                  0
+                ],
+                "hi": [
+                  0.6666666666666666,
+                  1,
+                  0.5
+                ]
+              }
+            },
+            {
+              "id": 4,
+              "patches": 1,
+              "signedVolume": -0.029320987654320993,
+              "orientation": "negative",
+              "bbox": {
+                "lo": [
+                  0.5,
+                  0.6666666666666666,
+                  0.5
+                ],
+                "hi": [
+                  1,
+                  1,
+                  0.6666666666666666
+                ]
+              }
+            }
+          ],
+          "interpretation": "reconstruction-topology-defect"
+        }
+      ],
+      "openEdgeAttribution": {
+        "openEdges": 86,
+        "explainedByUnresolvedOpening": 86,
+        "explainedByFittedUntrimmed": 0,
+        "unexplainedCount": 0,
+        "byOpening": {
+          "S4": 7,
+          "S9": 7,
+          "S7": 10,
+          "S19": 7,
+          "S21": 6,
+          "S35": 7,
+          "S41": 6,
+          "S45": 6,
+          "S50": 6,
+          "S74": 7,
+          "S84": 7,
+          "S92": 3,
+          "S99": 6,
+          "S91": 6
+        },
+        "byFittedUntrimmed": {},
+        "unexplained": [],
+        "fittedUntrimmed": []
+      }
+    }
+  },
+  "carriers": {
+    "patchCount": 101,
+    "carrierCount": 84,
+    "frozenCount": 70,
+    "unfittedCount": 14,
+    "types": {
+      "plane": 59,
+      "unfitted-curved": 14,
+      "cylinder": 4,
+      "generalQuadric": 6,
+      "cone": 1
+    },
+    "items": [
+      {
+        "id": "C1",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S1",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 5
+          }
+        ]
+      },
+      {
+        "id": "C2",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S2",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": "S51"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S96"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C3",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S3",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": "S51"
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": "S83"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          },
+          {
+            "patch": "S15",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C4",
+        "piece": 1,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S4",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 12
+          }
+        ]
+      },
+      {
+        "id": "C5",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S5",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S74"
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": "S26"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S10",
+            "cubeA": {
+              "mate": 2,
+              "matePatch": "S26"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S49"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C6",
+        "piece": 1,
+        "type": "cylinder",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S6",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 13
+          }
+        ]
+      },
+      {
+        "id": "C7",
+        "piece": 1,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S7",
+            "cubeA": {
+              "mate": 2,
+              "matePatch": "S26"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 10
+          }
+        ]
+      },
+      {
+        "id": "C8",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S8",
+            "cubeA": {
+              "mate": 2,
+              "matePatch": "S28"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S95"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C9",
+        "piece": 1,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S9",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": "S41"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S49"
+            },
+            "kind": "curved",
+            "areaFaces": 8
+          }
+        ]
+      },
+      {
+        "id": "C10",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S11",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S35"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C11",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S12",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": "S84"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S41"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C12",
+        "piece": 1,
+        "type": "generalQuadric",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S13",
+            "cubeA": {
+              "mate": 5,
+              "matePatch": "S56"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 13
+          }
+        ]
+      },
+      {
+        "id": "C13",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S14",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C14",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S16",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C15",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S17",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C16",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S18",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C17",
+        "piece": 1,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S19",
+            "cubeA": {
+              "mate": 5,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 5,
+              "matePatch": "S56"
+            },
+            "kind": "curved",
+            "areaFaces": 14
+          }
+        ]
+      },
+      {
+        "id": "C18",
+        "piece": 1,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S20",
+            "cubeA": {
+              "mate": 2,
+              "matePatch": "S29"
+            },
+            "cubeB": {
+              "mate": 5,
+              "matePatch": "S56"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          }
+        ]
+      },
+      {
+        "id": "C19",
+        "piece": 2,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S21",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": "S50"
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": "S71"
+            },
+            "kind": "curved",
+            "areaFaces": 10
+          }
+        ]
+      },
+      {
+        "id": "C20",
+        "piece": 2,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S22",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": "S38"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S4"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          }
+        ]
+      },
+      {
+        "id": "C21",
+        "piece": 2,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S23",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 39
+          }
+        ]
+      },
+      {
+        "id": "C22",
+        "piece": 2,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S24",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S73"
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": "S71"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C23",
+        "piece": 2,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S25",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": "S50"
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          },
+          {
+            "patch": "S28",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S8"
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": "S86"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C24",
+        "piece": 2,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S26",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S7"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S4"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 9
+          }
+        ]
+      },
+      {
+        "id": "C25",
+        "piece": 2,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S27",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S100"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S50"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C26",
+        "piece": 2,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S29",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S20"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S50"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 5
+          }
+        ]
+      },
+      {
+        "id": "C27",
+        "piece": 2,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S30",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": "S38"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S44"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S31",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S7"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S43"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C28",
+        "piece": 2,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S32",
+            "cubeA": {
+              "mate": 5,
+              "matePatch": "S63"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          },
+          {
+            "patch": "S33",
+            "cubeA": {
+              "mate": 5,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S50"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          }
+        ]
+      },
+      {
+        "id": "C29",
+        "piece": 3,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S34",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 21
+          }
+        ]
+      },
+      {
+        "id": "C30",
+        "piece": 3,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S35",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S71"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 8
+          }
+        ]
+      },
+      {
+        "id": "C31",
+        "piece": 3,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 6,
+        "regions": [
+          {
+            "patch": "S36",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S71"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S53"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S37",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S71"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S52"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S40",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": "S82"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S52"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S42",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": "S82"
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": "S32"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S43",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          },
+          {
+            "patch": "S44",
+            "cubeA": {
+              "mate": 5,
+              "matePatch": "S61"
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": "S30"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C32",
+        "piece": 3,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S38",
+            "cubeA": {
+              "mate": 2,
+              "matePatch": "S22"
+            },
+            "cubeB": {
+              "mate": 5,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 5
+          }
+        ]
+      },
+      {
+        "id": "C33",
+        "piece": 3,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S39",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S72"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S89"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C34",
+        "piece": 3,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S41",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S9"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S13"
+            },
+            "kind": "curved",
+            "areaFaces": 8
+          }
+        ]
+      },
+      {
+        "id": "C35",
+        "piece": 4,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S45",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 12
+          }
+        ]
+      },
+      {
+        "id": "C36",
+        "piece": 4,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S46",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 35
+          }
+        ]
+      },
+      {
+        "id": "C37",
+        "piece": 4,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S47",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": "S67"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S92"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C38",
+        "piece": 4,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S48",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S92"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          }
+        ]
+      },
+      {
+        "id": "C39",
+        "piece": 4,
+        "type": "generalQuadric",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S49",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S91"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 11
+          }
+        ]
+      },
+      {
+        "id": "C40",
+        "piece": 4,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S50",
+            "cubeA": {
+              "mate": 2,
+              "matePatch": "S21"
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 10
+          }
+        ]
+      },
+      {
+        "id": "C41",
+        "piece": 4,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S51",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S1"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C42",
+        "piece": 4,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S52",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          },
+          {
+            "patch": "S53",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S91"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S36"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C43",
+        "piece": 4,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S54",
+            "cubeA": {
+              "mate": 2,
+              "matePatch": "S21"
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": "S84"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C44",
+        "piece": 5,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S55",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 39
+          }
+        ]
+      },
+      {
+        "id": "C45",
+        "piece": 5,
+        "type": "generalQuadric",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S56",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 17
+          }
+        ]
+      },
+      {
+        "id": "C46",
+        "piece": 5,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 3,
+        "regions": [
+          {
+            "patch": "S57",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": "S87"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S19"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S58",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": "S87"
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": "S69"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          },
+          {
+            "patch": "S61",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": "S44"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S38"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C47",
+        "piece": 5,
+        "type": "cylinder",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S59",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S19"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S91"
+            },
+            "kind": "curved",
+            "areaFaces": 9
+          }
+        ]
+      },
+      {
+        "id": "C48",
+        "piece": 5,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S60",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S101"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S91"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C49",
+        "piece": 5,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S62",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S13"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S38"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C50",
+        "piece": 5,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S63",
+            "cubeA": {
+              "mate": 2,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S38"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          },
+          {
+            "patch": "S64",
+            "cubeA": {
+              "mate": 2,
+              "matePatch": "S33"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S91"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C51",
+        "piece": 6,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S65",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 31
+          }
+        ]
+      },
+      {
+        "id": "C52",
+        "piece": 6,
+        "type": "cone",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S66",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": "S45"
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": "S81"
+            },
+            "kind": "curved",
+            "areaFaces": 6
+          }
+        ]
+      },
+      {
+        "id": "C53",
+        "piece": 6,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S67",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S6"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C54",
+        "piece": 6,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S68",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": "S45"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S98"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 5
+          }
+        ]
+      },
+      {
+        "id": "C55",
+        "piece": 6,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S69",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": "S80"
+            },
+            "cubeB": {
+              "mate": 5,
+              "matePatch": "S58"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C56",
+        "piece": 6,
+        "type": "cylinder",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S70",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": "S80"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S6"
+            },
+            "kind": "curved",
+            "areaFaces": 5
+          }
+        ]
+      },
+      {
+        "id": "C57",
+        "piece": 6,
+        "type": "generalQuadric",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S71",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": "S21"
+            },
+            "kind": "curved",
+            "areaFaces": 9
+          }
+        ]
+      },
+      {
+        "id": "C58",
+        "piece": 6,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S72",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": "S81"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C59",
+        "piece": 6,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S73",
+            "cubeA": {
+              "mate": 2,
+              "matePatch": "S24"
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": "S81"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C60",
+        "piece": 6,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S74",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S6"
+            },
+            "kind": "curved",
+            "areaFaces": 4
+          }
+        ]
+      },
+      {
+        "id": "C61",
+        "piece": 6,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S75",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S93"
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": "S97"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C62",
+        "piece": 6,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S76",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S93"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S6"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S77",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S1"
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": "S21"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C63",
+        "piece": 6,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S78",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S1"
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": "S21"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C64",
+        "piece": 7,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S79",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 25
+          }
+        ]
+      },
+      {
+        "id": "C65",
+        "piece": 7,
+        "type": "generalQuadric",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S80",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 7
+          }
+        ]
+      },
+      {
+        "id": "C66",
+        "piece": 7,
+        "type": "generalQuadric",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S81",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 9
+          }
+        ]
+      },
+      {
+        "id": "C67",
+        "piece": 7,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S82",
+            "cubeA": {
+              "mate": 3,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S45"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          },
+          {
+            "patch": "S87",
+            "cubeA": {
+              "mate": 5,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": "S45"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 3
+          }
+        ]
+      },
+      {
+        "id": "C68",
+        "piece": 7,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S83",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S4"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S3"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C69",
+        "piece": 7,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S84",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S4"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 9
+          }
+        ]
+      },
+      {
+        "id": "C70",
+        "piece": 7,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S85",
+            "cubeA": {
+              "mate": 8,
+              "matePatch": "S92"
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": "S25"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C71",
+        "piece": 7,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S86",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S4"
+            },
+            "cubeB": {
+              "mate": 2,
+              "matePatch": null
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C72",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S88",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": "S81"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S7"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          }
+        ]
+      },
+      {
+        "id": "C73",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S89",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": "S48"
+            },
+            "cubeB": {
+              "mate": 3,
+              "matePatch": "S39"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C74",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S90",
+            "cubeA": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": "exterior",
+              "matePatch": null
+            },
+            "kind": "cube-exterior",
+            "areaFaces": 18
+          }
+        ]
+      },
+      {
+        "id": "C75",
+        "piece": 8,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S91",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 5,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 14
+          }
+        ]
+      },
+      {
+        "id": "C76",
+        "piece": 8,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S92",
+            "cubeA": {
+              "mate": 7,
+              "matePatch": "S81"
+            },
+            "cubeB": {
+              "mate": 4,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 6
+          }
+        ]
+      },
+      {
+        "id": "C77",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S93",
+            "cubeA": {
+              "mate": 6,
+              "matePatch": null
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S7"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      },
+      {
+        "id": "C78",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S94",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": "S49"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S7"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C79",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S95",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": "S52"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": "S8"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C80",
+        "piece": 8,
+        "type": "cylinder",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S96",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S6"
+            },
+            "cubeB": {
+              "mate": 1,
+              "matePatch": null
+            },
+            "kind": "curved",
+            "areaFaces": 4
+          }
+        ]
+      },
+      {
+        "id": "C81",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 2,
+        "regions": [
+          {
+            "patch": "S97",
+            "cubeA": {
+              "mate": 4,
+              "matePatch": "S49"
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": "S75"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          },
+          {
+            "patch": "S100",
+            "cubeA": {
+              "mate": 2,
+              "matePatch": "S27"
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": "S68"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 1
+          }
+        ]
+      },
+      {
+        "id": "C82",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S98",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S6"
+            },
+            "cubeB": {
+              "mate": 6,
+              "matePatch": "S68"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 4
+          }
+        ]
+      },
+      {
+        "id": "C83",
+        "piece": 8,
+        "type": "unfitted-curved",
+        "frozen": false,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S99",
+            "cubeA": {
+              "mate": 1,
+              "matePatch": "S6"
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": "S80"
+            },
+            "kind": "curved",
+            "areaFaces": 5
+          }
+        ]
+      },
+      {
+        "id": "C84",
+        "piece": 8,
+        "type": "plane",
+        "frozen": true,
+        "regionCount": 1,
+        "regions": [
+          {
+            "patch": "S101",
+            "cubeA": {
+              "mate": 5,
+              "matePatch": "S60"
+            },
+            "cubeB": {
+              "mate": 7,
+              "matePatch": "S80"
+            },
+            "kind": "planar-mate",
+            "areaFaces": 2
+          }
+        ]
+      }
+    ]
+  },
+  "assemblies": {
+    "A": {
+      "junctionRMS": 0.08875740835983134,
+      "junctionMax": 1.0596918421965875,
+      "mateRMS": 0.05865286960863401,
+      "mateMax": 0.16650522852382799,
+      "analyticTrims": 117,
+      "unmatchedTrims": 0,
+      "openEdges": 86,
+      "nonmanifoldEdges": 0
+    },
+    "B": {
+      "junctionRMS": 0.0024744721794408603,
+      "junctionMax": 0.009735770094130753,
+      "mateRMS": 0.0024744721794408603,
+      "mateMax": 0.009735770094130753,
+      "voxelCorrespondenceRms": 0,
+      "voxelCorrespondenceMax": 0,
+      "initialRms": 0.00992641739016676,
+      "initialMax": 0.029481627480661455,
+      "analyticTrims": 117,
+      "unmatchedTrims": 0,
+      "openEdges": 86,
+      "nonmanifoldEdges": 0
+    }
+  },
+  "pieces": [
+    {
+      "piece": 1,
+      "patches": 20,
+      "carriers": 18,
+      "analyticTrims": 13,
+      "unmatchedTrims": 29,
+      "openEdges": 29,
+      "duplicateEdges": 0,
+      "nonmanifoldEdges": 0,
+      "nonmanifoldBeforeDissolve": 4,
+      "shells": 5,
+      "shellsBeforeDissolve": 5,
+      "volumePositive": true,
+      "connectedSolid": false,
+      "sourceVoxelVolume": 0.1388888888888889,
+      "unresolvedCurvedOpenings": 4,
+      "fittedCurved": 2,
+      "shellMembers": [
+        {
+          "id": 1,
+          "patchIds": [
+            "S1",
+            "S2",
+            "S3",
+            "S5",
+            "S6",
+            "S8",
+            "S10",
+            "S11",
+            "S12",
+            "S13",
+            "S14",
+            "S15",
+            "S16",
+            "S17",
+            "S18",
+            "S20"
+          ]
+        },
+        {
+          "id": 2,
+          "patchIds": [
+            "S4"
+          ]
+        },
+        {
+          "id": 3,
+          "patchIds": [
+            "S7"
+          ]
+        },
+        {
+          "id": 4,
+          "patchIds": [
+            "S9"
+          ]
+        },
+        {
+          "id": 5,
+          "patchIds": [
+            "S19"
+          ]
+        }
+      ]
+    },
+    {
+      "piece": 2,
+      "patches": 13,
+      "carriers": 10,
+      "analyticTrims": 24,
+      "unmatchedTrims": 6,
+      "openEdges": 6,
+      "duplicateEdges": 0,
+      "nonmanifoldEdges": 0,
+      "nonmanifoldBeforeDissolve": 0,
+      "shells": 2,
+      "shellsBeforeDissolve": 2,
+      "volumePositive": true,
+      "connectedSolid": false,
+      "sourceVoxelVolume": 0.16666666666666666,
+      "unresolvedCurvedOpenings": 1,
+      "fittedCurved": 0,
+      "shellMembers": [
+        {
+          "id": 1,
+          "patchIds": [
+            "S21"
+          ]
+        },
+        {
+          "id": 2,
+          "patchIds": [
+            "S22",
+            "S23",
+            "S24",
+            "S25",
+            "S26",
+            "S27",
+            "S28",
+            "S29",
+            "S30",
+            "S31",
+            "S32",
+            "S33"
+          ]
+        }
+      ]
+    },
+    {
+      "piece": 3,
+      "patches": 11,
+      "carriers": 6,
+      "analyticTrims": 13,
+      "unmatchedTrims": 12,
+      "openEdges": 12,
+      "duplicateEdges": 0,
+      "nonmanifoldEdges": 0,
+      "nonmanifoldBeforeDissolve": 0,
+      "shells": 3,
+      "shellsBeforeDissolve": 3,
+      "volumePositive": true,
+      "connectedSolid": false,
+      "sourceVoxelVolume": 0.06944444444444445,
+      "unresolvedCurvedOpenings": 2,
+      "fittedCurved": 0,
+      "shellMembers": [
+        {
+          "id": 1,
+          "patchIds": [
+            "S34",
+            "S36",
+            "S37",
+            "S38",
+            "S39",
+            "S40",
+            "S42",
+            "S43",
+            "S44"
+          ]
+        },
+        {
+          "id": 2,
+          "patchIds": [
+            "S35"
+          ]
+        },
+        {
+          "id": 3,
+          "patchIds": [
+            "S41"
+          ]
+        }
+      ]
+    },
+    {
+      "piece": 4,
+      "patches": 10,
+      "carriers": 9,
+      "analyticTrims": 6,
+      "unmatchedTrims": 11,
+      "openEdges": 11,
+      "duplicateEdges": 0,
+      "nonmanifoldEdges": 0,
+      "nonmanifoldBeforeDissolve": 2,
+      "shells": 3,
+      "shellsBeforeDissolve": 3,
+      "volumePositive": true,
+      "connectedSolid": false,
+      "sourceVoxelVolume": 0.1388888888888889,
+      "unresolvedCurvedOpenings": 2,
+      "fittedCurved": 1,
+      "shellMembers": [
+        {
+          "id": 1,
+          "patchIds": [
+            "S45"
+          ]
+        },
+        {
+          "id": 2,
+          "patchIds": [
+            "S46",
+            "S47",
+            "S48",
+            "S49",
+            "S51",
+            "S52",
+            "S53",
+            "S54"
+          ]
+        },
+        {
+          "id": 3,
+          "patchIds": [
+            "S50"
+          ]
+        }
+      ]
+    },
+    {
+      "piece": 5,
+      "patches": 10,
+      "carriers": 7,
+      "analyticTrims": 15,
+      "unmatchedTrims": 0,
+      "openEdges": 0,
+      "duplicateEdges": 0,
+      "nonmanifoldEdges": 0,
+      "nonmanifoldBeforeDissolve": 0,
+      "shells": 1,
+      "shellsBeforeDissolve": 1,
+      "volumePositive": true,
+      "connectedSolid": true,
+      "sourceVoxelVolume": 0.125,
+      "unresolvedCurvedOpenings": 0,
+      "fittedCurved": 2,
+      "shellMembers": [
+        {
+          "id": 1,
+          "patchIds": [
+            "S55",
+            "S56",
+            "S57",
+            "S58",
+            "S59",
+            "S60",
+            "S61",
+            "S62",
+            "S63",
+            "S64"
+          ]
+        }
+      ]
+    },
+    {
+      "piece": 6,
+      "patches": 14,
+      "carriers": 13,
+      "analyticTrims": 22,
+      "unmatchedTrims": 7,
+      "openEdges": 7,
+      "duplicateEdges": 0,
+      "nonmanifoldEdges": 0,
+      "nonmanifoldBeforeDissolve": 0,
+      "shells": 2,
+      "shellsBeforeDissolve": 2,
+      "volumePositive": true,
+      "connectedSolid": false,
+      "sourceVoxelVolume": 0.14814814814814814,
+      "unresolvedCurvedOpenings": 1,
+      "fittedCurved": 3,
+      "shellMembers": [
+        {
+          "id": 1,
+          "patchIds": [
+            "S65",
+            "S66",
+            "S67",
+            "S68",
+            "S69",
+            "S70",
+            "S71",
+            "S72",
+            "S73",
+            "S75",
+            "S76",
+            "S77",
+            "S78"
+          ]
+        },
+        {
+          "id": 2,
+          "patchIds": [
+            "S74"
+          ]
+        }
+      ]
+    },
+    {
+      "piece": 7,
+      "patches": 9,
+      "carriers": 8,
+      "analyticTrims": 6,
+      "unmatchedTrims": 7,
+      "openEdges": 7,
+      "duplicateEdges": 0,
+      "nonmanifoldEdges": 0,
+      "nonmanifoldBeforeDissolve": 0,
+      "shells": 2,
+      "shellsBeforeDissolve": 2,
+      "volumePositive": true,
+      "connectedSolid": false,
+      "sourceVoxelVolume": 0.10648148148148148,
+      "unresolvedCurvedOpenings": 1,
+      "fittedCurved": 2,
+      "shellMembers": [
+        {
+          "id": 1,
+          "patchIds": [
+            "S79",
+            "S80",
+            "S81",
+            "S82",
+            "S83",
+            "S85",
+            "S86",
+            "S87"
+          ]
+        },
+        {
+          "id": 2,
+          "patchIds": [
+            "S84"
+          ]
+        }
+      ]
+    },
+    {
+      "piece": 8,
+      "patches": 14,
+      "carriers": 13,
+      "analyticTrims": 18,
+      "unmatchedTrims": 14,
+      "openEdges": 14,
+      "duplicateEdges": 0,
+      "nonmanifoldEdges": 0,
+      "nonmanifoldBeforeDissolve": 1,
+      "shells": 4,
+      "shellsBeforeDissolve": 4,
+      "volumePositive": true,
+      "connectedSolid": false,
+      "sourceVoxelVolume": 0.10648148148148148,
+      "unresolvedCurvedOpenings": 3,
+      "fittedCurved": 1,
+      "shellMembers": [
+        {
+          "id": 1,
+          "patchIds": [
+            "S88",
+            "S89",
+            "S90",
+            "S93",
+            "S94",
+            "S95",
+            "S96",
+            "S97",
+            "S98",
+            "S100",
+            "S101"
+          ]
+        },
+        {
+          "id": 2,
+          "patchIds": [
+            "S91"
+          ]
+        },
+        {
+          "id": 3,
+          "patchIds": [
+            "S92"
+          ]
+        },
+        {
+          "id": 4,
+          "patchIds": [
+            "S99"
+          ]
+        }
+      ]
+    }
+  ],
+  "junctions": {
+    "count": 160,
+    "rms": 0.08875740835983134,
+    "max": 1.0596918421965875,
+    "byCarrierCount": {
+      "1": {
+        "count": 14,
+        "rms": 0.00003247625906480759,
+        "max": 0.00004417398715310383
+      },
+      "2": {
+        "count": 78,
+        "rms": 0.04928361645754116,
+        "max": 0.5182257174921572
+      },
+      "3": {
+        "count": 67,
+        "rms": 0.11138182297144225,
+        "max": 1.0596918421965875
+      },
+      "4": {
+        "count": 1,
+        "rms": 0.48970618775002756,
+        "max": 0.9722647146424979
+      }
+    },
+    "newlyFitted": {
+      "count": 73,
+      "rms": 0.12885822334887204,
+      "max": 1.0596918421965875
+    },
+    "worst": [
+      {
+        "id": "J5:6,5,4",
+        "piece": 5,
+        "incidenceRms": 0.6118170289559368,
+        "incidenceMax": 1.0596918421965875,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "cylinder"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S59"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J1:3,3,2",
+        "piece": 1,
+        "incidenceRms": 0.48970618775002756,
+        "incidenceMax": 0.9722647146424979,
+        "incidentCarrierCount": 4,
+        "carrierFamilies": [
+          "plane",
+          "cylinder"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S6"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J6:4,2,0",
+        "piece": 6,
+        "incidenceRms": 0.49133097209949705,
+        "incidenceMax": 0.8510071322917262,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "cone"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S66"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J1:6,5,4",
+        "piece": 1,
+        "incidenceRms": 0.3666899655051047,
+        "incidenceMax": 0.5182257174921572,
+        "incidentCarrierCount": 2,
+        "carrierFamilies": [
+          "cylinder",
+          "plane"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S6"
+          ],
+          "unresolved": [
+            "S19"
+          ],
+          "resolvedCount": 1,
+          "unresolvedCount": 1
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J5:6,4,5",
+        "piece": 5,
+        "incidenceRms": 0.2513819779143019,
+        "incidenceMax": 0.4326055414061545,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "cylinder"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S59"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J5:3,3,5",
+        "piece": 5,
+        "incidenceRms": 0.15009669022502575,
+        "incidenceMax": 0.25059339644889733,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "generalQuadric",
+          "cylinder",
+          "plane"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S56",
+            "S59"
+          ],
+          "unresolved": [],
+          "resolvedCount": 2,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J5:3,6,4",
+        "piece": 5,
+        "incidenceRms": 0.1439071634979096,
+        "incidenceMax": 0.22143100695872883,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "generalQuadric",
+          "cylinder"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S56",
+            "S59"
+          ],
+          "unresolved": [],
+          "resolvedCount": 2,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J1:3,4,2",
+        "piece": 1,
+        "incidenceRms": 0.13137173408137837,
+        "incidenceMax": 0.18578768786670202,
+        "incidentCarrierCount": 2,
+        "carrierFamilies": [
+          "plane",
+          "cylinder"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S6"
+          ],
+          "unresolved": [
+            "S4"
+          ],
+          "resolvedCount": 1,
+          "unresolvedCount": 1
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J5:0,2,5",
+        "piece": 5,
+        "incidenceRms": 0.09780431182793256,
+        "incidenceMax": 0.1675269116281588,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "generalQuadric"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S56"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J6:2,4,1",
+        "piece": 6,
+        "incidenceRms": 0.0949915995069911,
+        "incidenceMax": 0.1645302732045134,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "cylinder"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S70"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J6:2,4,2",
+        "piece": 6,
+        "incidenceRms": 0.11171939184815287,
+        "incidenceMax": 0.15799507808328306,
+        "incidentCarrierCount": 2,
+        "carrierFamilies": [
+          "cylinder",
+          "plane"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S70"
+          ],
+          "unresolved": [
+            "S74"
+          ],
+          "resolvedCount": 1,
+          "unresolvedCount": 1
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J5:4,6,4",
+        "piece": 5,
+        "incidenceRms": 0.0885950810148999,
+        "incidenceMax": 0.15345113840441735,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "cylinder"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S59"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J7:2,4,2",
+        "piece": 7,
+        "incidenceRms": 0.08934376152746511,
+        "incidenceMax": 0.14452712380471436,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "generalQuadric",
+          "plane"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S80",
+            "S81"
+          ],
+          "unresolved": [],
+          "resolvedCount": 2,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J5:1,6,4",
+        "piece": 5,
+        "incidenceRms": 0.07326600715474545,
+        "incidenceMax": 0.1268699614539678,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "generalQuadric"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S56"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J6:2,1,3",
+        "piece": 6,
+        "incidenceRms": 0.06961029197122613,
+        "incidenceMax": 0.12055811987498735,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "generalQuadric",
+          "plane"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S71"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J7:4,6,3",
+        "piece": 7,
+        "incidenceRms": 0.09285098664070017,
+        "incidenceMax": 0.11373314203079343,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane"
+        ],
+        "neighboringOpenings": {
+          "resolved": [],
+          "unresolved": [],
+          "resolvedCount": 0,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": false
+      },
+      {
+        "id": "J6:3,2,3",
+        "piece": 6,
+        "incidenceRms": 0.07544936037434292,
+        "incidenceMax": 0.1067014184388645,
+        "incidentCarrierCount": 2,
+        "carrierFamilies": [
+          "cone",
+          "plane"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S66"
+          ],
+          "unresolved": [
+            "S74"
+          ],
+          "resolvedCount": 1,
+          "unresolvedCount": 1
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J6:0,3,2",
+        "piece": 6,
+        "incidenceRms": 0.05686321610101139,
+        "incidenceMax": 0.0907981717097122,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "cylinder",
+          "generalQuadric"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S70",
+            "S71"
+          ],
+          "unresolved": [],
+          "resolvedCount": 2,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J8:3,4,2",
+        "piece": 8,
+        "incidenceRms": 0.07058396786433421,
+        "incidenceMax": 0.08814923364625116,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "cylinder"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S96"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J6:2,2,3",
+        "piece": 6,
+        "incidenceRms": 0.0734598406692811,
+        "incidenceMax": 0.08362019815875993,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "generalQuadric",
+          "plane"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S71"
+          ],
+          "unresolved": [
+            "S74"
+          ],
+          "resolvedCount": 1,
+          "unresolvedCount": 1
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J8:4,3,2",
+        "piece": 8,
+        "incidenceRms": 0.06804138402702267,
+        "incidenceMax": 0.08333998907248896,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "cylinder"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S96"
+          ],
+          "unresolved": [
+            "S91"
+          ],
+          "resolvedCount": 1,
+          "unresolvedCount": 1
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J5:1,2,6",
+        "piece": 5,
+        "incidenceRms": 0.06804138221929198,
+        "incidenceMax": 0.08333374759629897,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane"
+        ],
+        "neighboringOpenings": {
+          "resolved": [],
+          "unresolved": [],
+          "resolvedCount": 0,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": false
+      },
+      {
+        "id": "J5:1,2,5",
+        "piece": 5,
+        "incidenceRms": 0.06804138180930823,
+        "incidenceMax": 0.08333365994239006,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "generalQuadric",
+          "plane"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S56"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J2:5,3,3",
+        "piece": 2,
+        "incidenceRms": 0.08333333333333331,
+        "incidenceMax": 0.08333333333333337,
+        "incidentCarrierCount": 2,
+        "carrierFamilies": [
+          "plane"
+        ],
+        "neighboringOpenings": {
+          "resolved": [],
+          "unresolved": [
+            "S21"
+          ],
+          "resolvedCount": 0,
+          "unresolvedCount": 1
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": false
+      }
+    ],
+    "samples": [
+      {
+        "id": "J5:6,5,4",
+        "piece": 5,
+        "incidenceRms": 0.6118170289559368,
+        "incidenceMax": 1.0596918421965875,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "cylinder"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S59"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J1:3,3,2",
+        "piece": 1,
+        "incidenceRms": 0.48970618775002756,
+        "incidenceMax": 0.9722647146424979,
+        "incidentCarrierCount": 4,
+        "carrierFamilies": [
+          "plane",
+          "cylinder"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S6"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J6:4,2,0",
+        "piece": 6,
+        "incidenceRms": 0.49133097209949705,
+        "incidenceMax": 0.8510071322917262,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "cone"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S66"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J1:6,5,4",
+        "piece": 1,
+        "incidenceRms": 0.3666899655051047,
+        "incidenceMax": 0.5182257174921572,
+        "incidentCarrierCount": 2,
+        "carrierFamilies": [
+          "cylinder",
+          "plane"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S6"
+          ],
+          "unresolved": [
+            "S19"
+          ],
+          "resolvedCount": 1,
+          "unresolvedCount": 1
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J5:6,4,5",
+        "piece": 5,
+        "incidenceRms": 0.2513819779143019,
+        "incidenceMax": 0.4326055414061545,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "cylinder"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S59"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J5:3,3,5",
+        "piece": 5,
+        "incidenceRms": 0.15009669022502575,
+        "incidenceMax": 0.25059339644889733,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "generalQuadric",
+          "cylinder",
+          "plane"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S56",
+            "S59"
+          ],
+          "unresolved": [],
+          "resolvedCount": 2,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J5:3,6,4",
+        "piece": 5,
+        "incidenceRms": 0.1439071634979096,
+        "incidenceMax": 0.22143100695872883,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "generalQuadric",
+          "cylinder"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S56",
+            "S59"
+          ],
+          "unresolved": [],
+          "resolvedCount": 2,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J1:3,4,2",
+        "piece": 1,
+        "incidenceRms": 0.13137173408137837,
+        "incidenceMax": 0.18578768786670202,
+        "incidentCarrierCount": 2,
+        "carrierFamilies": [
+          "plane",
+          "cylinder"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S6"
+          ],
+          "unresolved": [
+            "S4"
+          ],
+          "resolvedCount": 1,
+          "unresolvedCount": 1
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J5:0,2,5",
+        "piece": 5,
+        "incidenceRms": 0.09780431182793256,
+        "incidenceMax": 0.1675269116281588,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "generalQuadric"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S56"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J6:2,4,1",
+        "piece": 6,
+        "incidenceRms": 0.0949915995069911,
+        "incidenceMax": 0.1645302732045134,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "cylinder"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S70"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J6:2,4,2",
+        "piece": 6,
+        "incidenceRms": 0.11171939184815287,
+        "incidenceMax": 0.15799507808328306,
+        "incidentCarrierCount": 2,
+        "carrierFamilies": [
+          "cylinder",
+          "plane"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S70"
+          ],
+          "unresolved": [
+            "S74"
+          ],
+          "resolvedCount": 1,
+          "unresolvedCount": 1
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J5:4,6,4",
+        "piece": 5,
+        "incidenceRms": 0.0885950810148999,
+        "incidenceMax": 0.15345113840441735,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "cylinder"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S59"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J7:2,4,2",
+        "piece": 7,
+        "incidenceRms": 0.08934376152746511,
+        "incidenceMax": 0.14452712380471436,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "generalQuadric",
+          "plane"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S80",
+            "S81"
+          ],
+          "unresolved": [],
+          "resolvedCount": 2,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J5:1,6,4",
+        "piece": 5,
+        "incidenceRms": 0.07326600715474545,
+        "incidenceMax": 0.1268699614539678,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane",
+          "generalQuadric"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S56"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J6:2,1,3",
+        "piece": 6,
+        "incidenceRms": 0.06961029197122613,
+        "incidenceMax": 0.12055811987498735,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "generalQuadric",
+          "plane"
+        ],
+        "neighboringOpenings": {
+          "resolved": [
+            "S71"
+          ],
+          "unresolved": [],
+          "resolvedCount": 1,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": true
+      },
+      {
+        "id": "J7:4,6,3",
+        "piece": 7,
+        "incidenceRms": 0.09285098664070017,
+        "incidenceMax": 0.11373314203079343,
+        "incidentCarrierCount": 3,
+        "carrierFamilies": [
+          "plane"
+        ],
+        "neighboringOpenings": {
+          "resolved": [],
+          "unresolved": [],
+          "resolvedCount": 0,
+          "unresolvedCount": 0
+        },
+        "assemblies": {
+          "A": true,
+          "B": true,
+          "both": true
+        },
+        "bordersNewSurface": false
+      }
+    ]
+  },
+  "trims": {
+    "uniqueRecords": 241,
+    "analytic": 117,
+    "unmatched": 0,
+    "role": {
+      "intersection": 199,
+      "carrierSeam": 42,
+      "missing": 0
+    },
+    "status": {
+      "resolved": 153,
+      "openUnfitted": 88,
+      "missing": 0
+    },
+    "family": {
+      "plane-plane": 53,
+      "cylinder-plane": 22,
+      "generalQuadric-plane": 28,
+      "cylinder-generalQuadric": 2,
+      "cone-plane": 5,
+      "generalQuadric-generalQuadric": 1
+    },
+    "consistent": true
+  },
+  "audit": {
+    "cubeB": {
+      "schema": "dual-cube-mate-audit",
+      "version": 2,
+      "note": "Discrete mate identity is exact doubled-lattice equality f2B(i)=f2B(j) and dB(i)=-dB(j). Continuous geometricGap uses rotation about N/2.",
+      "pairCount": 36,
+      "discrete": {
+        "checked": 109,
+        "mismatches": 0,
+        "exact": true
+      },
+      "voxelRms": 0,
+      "voxelMax": 0,
+      "geometricRms": 0,
+      "geometricMax": 0,
+      "worst10": [
+        {
+          "patch": "S2",
+          "matePatch": "S96",
+          "piece": 1,
+          "matePiece": 8,
+          "cubeA": {
+            "mate": 4,
+            "matePatch": "S51"
+          },
+          "cubeB": {
+            "mate": 8,
+            "matePatch": "S96"
+          },
+          "transformP": {
+            "r": 7,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 6,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.6666666666666666,
+              0.4166666666666667,
+              0.4166666666666667
+            ],
+            "seedB": [
+              0.6666666666666666,
+              0.4166666666666667,
+              0.5833333333333334
+            ],
+            "mateA": [
+              0.6666666666666666,
+              0.5833333333333334,
+              0.5833333333333334
+            ],
+            "mateB": [
+              0.6666666666666666,
+              0.4166666666666667,
+              0.5833333333333334
+            ],
+            "f2B": [
+              8,
+              5,
+              7
+            ],
+            "f2Mate": [
+              8,
+              5,
+              7
+            ]
+          }
+        },
+        {
+          "patch": "S3",
+          "matePatch": "S83",
+          "piece": 1,
+          "matePiece": 7,
+          "cubeA": {
+            "mate": 4,
+            "matePatch": "S51"
+          },
+          "cubeB": {
+            "mate": 7,
+            "matePatch": "S83"
+          },
+          "transformP": {
+            "r": 7,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 20,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.5833333333333334,
+              0.3333333333333333,
+              0.4166666666666667
+            ],
+            "seedB": [
+              0.5833333333333334,
+              0.4166666666666667,
+              0.6666666666666666
+            ],
+            "mateA": [
+              0.3333333333333333,
+              0.5833333333333334,
+              0.4166666666666667
+            ],
+            "mateB": [
+              0.5833333333333334,
+              0.4166666666666667,
+              0.6666666666666666
+            ],
+            "f2B": [
+              7,
+              5,
+              8
+            ],
+            "f2Mate": [
+              7,
+              5,
+              8
+            ]
+          }
+        },
+        {
+          "patch": "S8",
+          "matePatch": "S95",
+          "piece": 1,
+          "matePiece": 8,
+          "cubeA": {
+            "mate": 2,
+            "matePatch": "S28"
+          },
+          "cubeB": {
+            "mate": 8,
+            "matePatch": "S95"
+          },
+          "transformP": {
+            "r": 7,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 6,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.9166666666666666,
+              0.5,
+              0.5833333333333334
+            ],
+            "seedB": [
+              0.9166666666666666,
+              0.5833333333333334,
+              0.5
+            ],
+            "mateA": [
+              0.9166666666666666,
+              0.5,
+              0.4166666666666667
+            ],
+            "mateB": [
+              0.9166666666666666,
+              0.5833333333333334,
+              0.5
+            ],
+            "f2B": [
+              11,
+              7,
+              6
+            ],
+            "f2Mate": [
+              11,
+              7,
+              6
+            ]
+          }
+        },
+        {
+          "patch": "S10",
+          "matePatch": "S49",
+          "piece": 1,
+          "matePiece": 4,
+          "cubeA": {
+            "mate": 2,
+            "matePatch": "S26"
+          },
+          "cubeB": {
+            "mate": 4,
+            "matePatch": "S49"
+          },
+          "transformP": {
+            "r": 7,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 1,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.4166666666666667,
+              0.16666666666666666,
+              0.5833333333333334
+            ],
+            "seedB": [
+              0.4166666666666667,
+              0.5833333333333334,
+              0.8333333333333334
+            ],
+            "mateA": [
+              0.5833333333333334,
+              0.5833333333333334,
+              0.16666666666666666
+            ],
+            "mateB": [
+              0.4166666666666667,
+              0.5833333333333334,
+              0.8333333333333334
+            ],
+            "f2B": [
+              5,
+              7,
+              10
+            ],
+            "f2Mate": [
+              5,
+              7,
+              10
+            ]
+          }
+        },
+        {
+          "patch": "S11",
+          "matePatch": "S35",
+          "piece": 1,
+          "matePiece": 3,
+          "cubeA": {
+            "mate": 3,
+            "matePatch": null
+          },
+          "cubeB": {
+            "mate": 3,
+            "matePatch": "S35"
+          },
+          "transformP": {
+            "r": 7,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 2,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.16666666666666666,
+              0.4166666666666667,
+              0.5833333333333334
+            ],
+            "seedB": [
+              0.16666666666666666,
+              0.5833333333333334,
+              0.5833333333333334
+            ],
+            "mateA": [
+              0.16666666666666666,
+              0.4166666666666667,
+              0.4166666666666667
+            ],
+            "mateB": [
+              0.16666666666666666,
+              0.5833333333333334,
+              0.5833333333333334
+            ],
+            "f2B": [
+              2,
+              7,
+              7
+            ],
+            "f2Mate": [
+              2,
+              7,
+              7
+            ]
+          }
+        },
+        {
+          "patch": "S12",
+          "matePatch": "S41",
+          "piece": 1,
+          "matePiece": 3,
+          "cubeA": {
+            "mate": 7,
+            "matePatch": "S84"
+          },
+          "cubeB": {
+            "mate": 3,
+            "matePatch": "S41"
+          },
+          "transformP": {
+            "r": 7,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 2,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.16666666666666666,
+              0.5833333333333334,
+              0.5833333333333334
+            ],
+            "seedB": [
+              0.16666666666666666,
+              0.5833333333333334,
+              0.4166666666666667
+            ],
+            "mateA": [
+              0.16666666666666666,
+              0.4166666666666667,
+              0.5833333333333334
+            ],
+            "mateB": [
+              0.16666666666666666,
+              0.5833333333333334,
+              0.4166666666666667
+            ],
+            "f2B": [
+              2,
+              7,
+              5
+            ],
+            "f2Mate": [
+              2,
+              7,
+              5
+            ]
+          }
+        },
+        {
+          "patch": "S19",
+          "matePatch": "S56",
+          "piece": 1,
+          "matePiece": 5,
+          "cubeA": {
+            "mate": 5,
+            "matePatch": null
+          },
+          "cubeB": {
+            "mate": 5,
+            "matePatch": "S56"
+          },
+          "transformP": {
+            "r": 7,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 15,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.5833333333333334,
+              0.75,
+              0.6666666666666666
+            ],
+            "seedB": [
+              0.5833333333333334,
+              0.6666666666666666,
+              0.25
+            ],
+            "mateA": [
+              0.25,
+              0.5833333333333334,
+              0.6666666666666666
+            ],
+            "mateB": [
+              0.5833333333333334,
+              0.6666666666666666,
+              0.25
+            ],
+            "f2B": [
+              7,
+              8,
+              3
+            ],
+            "f2Mate": [
+              7,
+              8,
+              3
+            ]
+          }
+        },
+        {
+          "patch": "S20",
+          "matePatch": "S56",
+          "piece": 1,
+          "matePiece": 5,
+          "cubeA": {
+            "mate": 2,
+            "matePatch": "S29"
+          },
+          "cubeB": {
+            "mate": 5,
+            "matePatch": "S56"
+          },
+          "transformP": {
+            "r": 7,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 15,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.75,
+              0.5,
+              0.75
+            ],
+            "seedB": [
+              0.75,
+              0.75,
+              0.5
+            ],
+            "mateA": [
+              0.5,
+              0.75,
+              0.75
+            ],
+            "mateB": [
+              0.75,
+              0.75,
+              0.5
+            ],
+            "f2B": [
+              9,
+              9,
+              6
+            ],
+            "f2Mate": [
+              9,
+              9,
+              6
+            ]
+          }
+        },
+        {
+          "patch": "S21",
+          "matePatch": "S71",
+          "piece": 2,
+          "matePiece": 6,
+          "cubeA": {
+            "mate": 4,
+            "matePatch": "S50"
+          },
+          "cubeB": {
+            "mate": 6,
+            "matePatch": "S71"
+          },
+          "transformP": {
+            "r": 16,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 21,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.6666666666666666,
+              0.08333333333333333,
+              0.4166666666666667
+            ],
+            "seedB": [
+              0.5833333333333334,
+              0.3333333333333333,
+              0.08333333333333333
+            ],
+            "mateA": [
+              0.08333333333333333,
+              0.3333333333333333,
+              0.4166666666666667
+            ],
+            "mateB": [
+              0.5833333333333334,
+              0.3333333333333333,
+              0.08333333333333333
+            ],
+            "f2B": [
+              7,
+              4,
+              1
+            ],
+            "f2Mate": [
+              7,
+              4,
+              1
+            ]
+          }
+        },
+        {
+          "patch": "S22",
+          "matePatch": "S4",
+          "piece": 2,
+          "matePiece": 1,
+          "cubeA": {
+            "mate": 3,
+            "matePatch": "S38"
+          },
+          "cubeB": {
+            "mate": 1,
+            "matePatch": "S4"
+          },
+          "transformP": {
+            "r": 16,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "transformQ": {
+            "r": 7,
+            "t": [
+              0,
+              0,
+              0
+            ]
+          },
+          "orientationReversal": 1,
+          "discreteFails": 0,
+          "voxelRms": 0,
+          "voxelMax": 0,
+          "geometricRms": 0,
+          "geometricMax": 0,
+          "branch": "doubled-lattice-face-center",
+          "endpointIdentity": true,
+          "sample": {
+            "voxelGap": 0,
+            "discreteEqual": true,
+            "normalsOpposite": true,
+            "doubledGap": 0,
+            "geometricGap": 0,
+            "orientationDot": 1,
+            "branch": "doubled-lattice-face-center",
+            "endpointIdentity": true,
+            "seedA": [
+              0.5,
+              0.08333333333333333,
+              0.4166666666666667
+            ],
+            "seedB": [
+              0.5833333333333334,
+              0.5,
+              0.08333333333333333
+            ],
+            "mateA": [
+              0.5833333333333334,
+              0.9166666666666666,
+              0.5
+            ],
+            "mateB": [
+              0.5833333333333334,
+              0.5,
+              0.08333333333333333
+            ],
+            "f2B": [
+              7,
+              6,
+              1
+            ],
+            "f2Mate": [
+              7,
+              6,
+              1
+            ]
+          }
+        }
+      ]
+    },
+    "frozenSolve": {
+      "schema": "dual-cube-frozen-solve",
+      "version": 1,
+      "note": "One Cube-B variable per mated sample, transformed about N/2. Carriers stay frozen. Incompatible pairs are reported, not snapped.",
+      "pairCount": 21,
+      "initialRms": 0.00992641739016676,
+      "initialMax": 0.029481627480661455,
+      "finalRms": 0.0024744721794408603,
+      "finalMax": 0.009735770094130753,
+      "incompatibleCount": 0,
+      "perCarrier": {
+        "plane": {
+          "rms": 0.0019712444821923087,
+          "max": 0.009735770094130753,
+          "n": 33
+        },
+        "cylinder": {
+          "rms": 0.0017949068036255118,
+          "max": 0.0017949068036255118,
+          "n": 1
+        },
+        "generalQuadric": {
+          "rms": 0.004231878567486509,
+          "max": 0.009735770094130753,
+          "n": 7
+        },
+        "cone": {
+          "rms": 0.0005930474015062331,
+          "max": 0.0005930474015062331,
+          "n": 1
+        }
+      },
+      "worst": [
+        {
+          "patch": "S101",
+          "matePatch": "S80",
+          "piece": 8,
+          "matePiece": 7,
+          "carrierP": "plane",
+          "carrierQ": "generalQuadric",
+          "initialB": 0.023295778926374362,
+          "finalB": 0.009735770094130753,
+          "surfaceRmsP": 0.000012910664227816504,
+          "surfaceRmsQ": 0.000012907741343716311,
+          "surfaceMax": 0.000012910664227816504,
+          "incompatible": false,
+          "snapped": false
+        },
+        {
+          "patch": "S20",
+          "matePatch": "S56",
+          "piece": 1,
+          "matePiece": 5,
+          "carrierP": "plane",
+          "carrierQ": "generalQuadric",
+          "initialB": 0.007359162847915665,
+          "finalB": 0.003793603780007495,
+          "surfaceRmsP": 0.0000049507693688603804,
+          "surfaceRmsQ": 0.000004952078403593126,
+          "surfaceMax": 0.000004952078403593126,
+          "incompatible": false,
+          "snapped": false
+        },
+        {
+          "patch": "S72",
+          "matePatch": "S81",
+          "piece": 6,
+          "matePiece": 7,
+          "carrierP": "plane",
+          "carrierQ": "generalQuadric",
+          "initialB": 0.029481627480661455,
+          "finalB": 0.0035596480047038527,
+          "surfaceRmsP": 0.000005123407145656705,
+          "surfaceRmsQ": 0.000005127317945506563,
+          "surfaceMax": 0.000005127317945506563,
+          "incompatible": false,
+          "snapped": false
+        },
+        {
+          "patch": "S2",
+          "matePatch": "S96",
+          "piece": 1,
+          "matePiece": 8,
+          "carrierP": "plane",
+          "carrierQ": "cylinder",
+          "initialB": 0.01642619075934829,
+          "finalB": 0.0017949068036255118,
+          "surfaceRmsP": 0.0000026202253038398737,
+          "surfaceRmsQ": 0.000002617646519015304,
+          "surfaceMax": 0.0000026202253038398737,
+          "incompatible": false,
+          "snapped": false
+        },
+        {
+          "patch": "S73",
+          "matePatch": "S81",
+          "piece": 6,
+          "matePiece": 7,
+          "carrierP": "plane",
+          "carrierQ": "generalQuadric",
+          "initialB": 0.004872271182708276,
+          "finalB": 0.0014046692063366258,
+          "surfaceRmsP": 0.0000019076738633216905,
+          "surfaceRmsQ": 0.000001907717305380451,
+          "surfaceMax": 0.000001907717305380451,
+          "incompatible": false,
+          "snapped": false
+        },
+        {
+          "patch": "S24",
+          "matePatch": "S71",
+          "piece": 2,
+          "matePiece": 6,
+          "carrierP": "plane",
+          "carrierQ": "generalQuadric",
+          "initialB": 0.01690046984963763,
+          "finalB": 0.001019722091893621,
+          "surfaceRmsP": 0.0000015206619831120705,
+          "surfaceRmsQ": 0.0000015369164341443255,
+          "surfaceMax": 0.0000015369164341443255,
+          "incompatible": false,
+          "snapped": false
+        },
+        {
+          "patch": "S66",
+          "matePatch": "S81",
+          "piece": 6,
+          "matePiece": 7,
+          "carrierP": "cone",
+          "carrierQ": "generalQuadric",
+          "initialB": 0.004424985797686616,
+          "finalB": 0.0005930474015062331,
+          "surfaceRmsP": 8.428199573251582e-7,
+          "surfaceRmsQ": 8.414382973650528e-7,
+          "surfaceMax": 8.428199573251582e-7,
+          "incompatible": false,
+          "snapped": false
+        },
+        {
+          "patch": "S10",
+          "matePatch": "S49",
+          "piece": 1,
+          "matePiece": 4,
+          "carrierP": "plane",
+          "carrierQ": "generalQuadric",
+          "initialB": 0.0021040209063069044,
+          "finalB": 0.00038625981211111194,
+          "surfaceRmsP": 5.406283450914984e-7,
+          "surfaceRmsQ": 5.407082467139957e-7,
+          "surfaceMax": 5.407082467139957e-7,
+          "incompatible": false,
+          "snapped": false
+        },
+        {
+          "patch": "S68",
+          "matePatch": "S98",
+          "piece": 6,
+          "matePiece": 8,
+          "carrierP": "plane",
+          "carrierQ": "plane",
+          "initialB": 2.0014830212433607e-16,
+          "finalB": 3.3306690738754696e-16,
+          "surfaceRmsP": 2.7755575615628914e-17,
+          "surfaceRmsQ": 6.938893903907228e-17,
+          "surfaceMax": 6.938893903907228e-17,
+          "incompatible": false,
+          "snapped": false
+        },
+        {
+          "patch": "S3",
+          "matePatch": "S83",
+          "piece": 1,
+          "matePiece": 7,
+          "carrierP": "plane",
+          "carrierQ": "plane",
+          "initialB": 0,
+          "finalB": 0,
+          "surfaceRmsP": 0,
+          "surfaceRmsQ": 0,
+          "surfaceMax": 0,
+          "incompatible": false,
+          "snapped": false
+        }
+      ]
+    },
+    "aMate": {
+      "rms": 0.05865286960863401,
+      "max": 0.16650522852382799,
+      "count": 142,
+      "worst": [
+        {
+          "patch": "S36",
+          "matePatch": "S71",
+          "piece": 3,
+          "matePiece": 6,
+          "initial": 0.16650522852382799,
+          "final": 0.16650522852382799,
+          "surfaceMax": 0.000033405692630303
+        },
+        {
+          "patch": "S36",
+          "matePatch": "S71",
+          "piece": 3,
+          "matePiece": 6,
+          "initial": 0.16650522852382799,
+          "final": 0.16650522852382799,
+          "surfaceMax": 0.000033405692630303
+        },
+        {
+          "patch": "S37",
+          "matePatch": "S71",
+          "piece": 3,
+          "matePiece": 6,
+          "initial": 0.13051839322579012,
+          "final": 0.13051839322579012,
+          "surfaceMax": 0.00003332000533119717
+        },
+        {
+          "patch": "S37",
+          "matePatch": "S71",
+          "piece": 3,
+          "matePiece": 6,
+          "initial": 0.13051839322579012,
+          "final": 0.13051839322579012,
+          "surfaceMax": 0.00003332000533119717
+        },
+        {
+          "patch": "S69",
+          "matePatch": "S80",
+          "piece": 6,
+          "matePiece": 7,
+          "initial": 0.12936976805631503,
+          "final": 0.12936976805631503,
+          "surfaceMax": 0.00003332000533119717
+        },
+        {
+          "patch": "S69",
+          "matePatch": "S80",
+          "piece": 6,
+          "matePiece": 7,
+          "initial": 0.12936976805631503,
+          "final": 0.12936976805631503,
+          "surfaceMax": 0.00003332000533119717
+        },
+        {
+          "patch": "S13",
+          "matePatch": "S56",
+          "piece": 1,
+          "matePiece": 5,
+          "initial": 0.11559853716100504,
+          "final": 0.11559853716100504,
+          "surfaceMax": 0.00004325601082444711
+        },
+        {
+          "patch": "S39",
+          "matePatch": "S72",
+          "piece": 3,
+          "matePiece": 6,
+          "initial": 0.10202126411032167,
+          "final": 0.10202126411032167,
+          "surfaceMax": 0.00003332000533118329
+        }
+      ]
+    },
+    "nonmanifold": [],
+    "shells": [
+      {
+        "piece": 1,
+        "sourceVoxelComponents": 1,
+        "sourceVoxelCount": 30,
+        "shellCount": 5,
+        "shells": [
+          {
+            "id": 1,
+            "patches": 16,
+            "signedVolume": -0.28395061728395066,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0,
+                0.16666666666666666,
+                0.3333333333333333
+              ],
+              "hi": [
+                1,
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "patches": 1,
+            "signedVolume": -0.0632716049382716,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.16666666666666666,
+                0.5,
+                0.3333333333333333
+              ],
+              "hi": [
+                0.6666666666666666,
+                1,
+                0.6666666666666666
+              ]
+            }
+          },
+          {
+            "id": 3,
+            "patches": 1,
+            "signedVolume": -0.0447530864197531,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.3333333333333333,
+                0.16666666666666666,
+                0.5
+              ],
+              "hi": [
+                0.6666666666666666,
+                0.5,
+                1
+              ]
+            }
+          },
+          {
+            "id": 4,
+            "patches": 1,
+            "signedVolume": -0.021604938271604934,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0,
+                0.16666666666666666,
+                0.5
+              ],
+              "hi": [
+                0.3333333333333333,
+                0.3333333333333333,
+                1
+              ]
+            }
+          },
+          {
+            "id": 5,
+            "patches": 1,
+            "signedVolume": -0.09567901234567906,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.3333333333333333,
+                0.5,
+                0.6666666666666666
+              ],
+              "hi": [
+                1,
+                1,
+                0.8333333333333334
+              ]
+            }
+          }
+        ],
+        "interpretation": "reconstruction-topology-defect"
+      },
+      {
+        "piece": 2,
+        "sourceVoxelComponents": 1,
+        "sourceVoxelCount": 36,
+        "shellCount": 2,
+        "shells": [
+          {
+            "id": 1,
+            "patches": 1,
+            "signedVolume": -0.04783950617283952,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.5,
+                0,
+                0.3333333333333333
+              ],
+              "hi": [
+                1,
+                0.5,
+                0.5
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "patches": 12,
+            "signedVolume": -0.37191358024691396,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.3333333333333333,
+                0,
+                0.3333333333333333
+              ],
+              "hi": [
+                1,
+                0.6666666666666666,
+                1
+              ]
+            }
+          }
+        ],
+        "interpretation": "weak-edge-or-point-connection"
+      },
+      {
+        "piece": 3,
+        "sourceVoxelComponents": 1,
+        "sourceVoxelCount": 15,
+        "shellCount": 3,
+        "shells": [
+          {
+            "id": 1,
+            "patches": 9,
+            "signedVolume": -0.0771604938271605,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0,
+                0,
+                0.3333333333333333
+              ],
+              "hi": [
+                0.5,
+                0.5,
+                1
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "patches": 1,
+            "signedVolume": -0.021604938271604937,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0,
+                0,
+                0.3333333333333333
+              ],
+              "hi": [
+                0.5,
+                0.5,
+                0.5
+              ]
+            }
+          },
+          {
+            "id": 3,
+            "patches": 1,
+            "signedVolume": -0.020061728395061724,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.16666666666666666,
+                0.16666666666666666,
+                0.5
+              ],
+              "hi": [
+                0.3333333333333333,
+                0.5,
+                1
+              ]
+            }
+          }
+        ],
+        "interpretation": "reconstruction-topology-defect"
+      },
+      {
+        "piece": 4,
+        "sourceVoxelComponents": 1,
+        "sourceVoxelCount": 30,
+        "shellCount": 3,
+        "shells": [
+          {
+            "id": 1,
+            "patches": 1,
+            "signedVolume": -0.05709876543209878,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.3333333333333333,
+                0,
+                0
+              ],
+              "hi": [
+                0.6666666666666666,
+                0.5,
+                0.5
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "patches": 8,
+            "signedVolume": -0.25617283950617303,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.3333333333333333,
+                0,
+                0
+              ],
+              "hi": [
+                1,
+                1,
+                0.5
+              ]
+            }
+          },
+          {
+            "id": 3,
+            "patches": 1,
+            "signedVolume": -0.04783950617283951,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.5,
+                0,
+                0.3333333333333333
+              ],
+              "hi": [
+                1,
+                0.5,
+                0.5
+              ]
+            }
+          }
+        ],
+        "interpretation": "reconstruction-topology-defect"
+      },
+      {
+        "piece": 5,
+        "sourceVoxelComponents": 1,
+        "sourceVoxelCount": 27,
+        "shellCount": 1,
+        "shells": [
+          {
+            "id": 1,
+            "patches": 10,
+            "signedVolume": -0.5262345679012355,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0,
+                0.3333333333333333,
+                0.6666666666666666
+              ],
+              "hi": [
+                1,
+                1,
+                1
+              ]
+            }
+          }
+        ],
+        "interpretation": "single-shell"
+      },
+      {
+        "piece": 6,
+        "sourceVoxelComponents": 1,
+        "sourceVoxelCount": 32,
+        "shellCount": 2,
+        "shells": [
+          {
+            "id": 1,
+            "patches": 13,
+            "signedVolume": -0.15123456790123468,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0,
+                0,
+                0
+              ],
+              "hi": [
+                0.6666666666666666,
+                0.6666666666666666,
+                0.5
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "patches": 1,
+            "signedVolume": -0.012345679012345678,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.3333333333333333,
+                0.3333333333333333,
+                0.3333333333333333
+              ],
+              "hi": [
+                0.5,
+                0.6666666666666666,
+                0.5
+              ]
+            }
+          }
+        ],
+        "interpretation": "weak-edge-or-point-connection"
+      },
+      {
+        "piece": 7,
+        "sourceVoxelComponents": 1,
+        "sourceVoxelCount": 23,
+        "shellCount": 2,
+        "shells": [
+          {
+            "id": 1,
+            "patches": 8,
+            "signedVolume": -0.22376543209876565,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0,
+                0.5,
+                0
+              ],
+              "hi": [
+                0.6666666666666666,
+                1,
+                0.6666666666666666
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "patches": 1,
+            "signedVolume": -0.046296296296296294,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.16666666666666666,
+                0.5,
+                0.5
+              ],
+              "hi": [
+                0.5,
+                1,
+                0.6666666666666666
+              ]
+            }
+          }
+        ],
+        "interpretation": "weak-edge-or-point-connection"
+      },
+      {
+        "piece": 8,
+        "sourceVoxelComponents": 1,
+        "sourceVoxelCount": 23,
+        "shellCount": 4,
+        "shells": [
+          {
+            "id": 1,
+            "patches": 11,
+            "signedVolume": -0.23765432098765443,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.3333333333333333,
+                0.5,
+                0
+              ],
+              "hi": [
+                1,
+                1,
+                0.6666666666666666
+              ]
+            }
+          },
+          {
+            "id": 2,
+            "patches": 1,
+            "signedVolume": -0.06327160493827161,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.5,
+                0.5,
+                0
+              ],
+              "hi": [
+                1,
+                1,
+                0.3333333333333333
+              ]
+            }
+          },
+          {
+            "id": 3,
+            "patches": 1,
+            "signedVolume": -0.026234567901234563,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.3333333333333333,
+                0.8333333333333334,
+                0
+              ],
+              "hi": [
+                0.6666666666666666,
+                1,
+                0.5
+              ]
+            }
+          },
+          {
+            "id": 4,
+            "patches": 1,
+            "signedVolume": -0.029320987654320993,
+            "orientation": "negative",
+            "bbox": {
+              "lo": [
+                0.5,
+                0.6666666666666666,
+                0.5
+              ],
+              "hi": [
+                1,
+                1,
+                0.6666666666666666
+              ]
+            }
+          }
+        ],
+        "interpretation": "reconstruction-topology-defect"
+      }
+    ]
+  },
+  "gate": {
+    "topology": {
+      "zeroNonmanifold": true,
+      "zeroUnmatched": false,
+      "carrierSeamsDissolved": true,
+      "oneShellPerPiece": false,
+      "positiveVolume": true,
+      "pass": false
+    },
+    "geometric": {
+      "junctionRmsBelow01": false,
+      "mateRmsABelow01": false,
+      "mateRmsBBelow01": true,
+      "noResidualAbove03": false,
+      "pass": false
+    },
+    "cadReady": false,
+    "everyPieceNonempty": true,
+    "everyPieceConnectedSolid": false,
+    "zeroOpenEdges": false,
+    "zeroNonmanifold": true,
+    "zeroUnresolvedOpenings": false,
+    "cubeAClosed": false,
+    "cubeBClosed": false,
+    "bothAssembliesClosed": false,
+    "rhinoReady": false
+  }
+}

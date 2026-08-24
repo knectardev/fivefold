@@ -1,0 +1,1745 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Exact-Cover Dual-Cube Solver</title>
+<style>
+:root{
+  --bg:#081018;--panel:#121b27;--line:#2a3748;--text:#eef4fb;--muted:#9ba9ba;
+  --ok:#78d99a;--warn:#f1c969;--bad:#ff7d87;--blue:#76bfff
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+#app{display:grid;grid-template-columns:minmax(0,1fr) 420px;height:100%}
+#main{position:relative;min-height:760px;overflow:hidden}
+canvas{display:block;width:100%;height:100%;touch-action:none}
+#head{position:absolute;left:18px;top:14px;z-index:3;pointer-events:none}
+h1{font-size:18px;margin:0 0 4px}
+#head p{font-size:12px;color:var(--muted);margin:0;max-width:840px}
+.badge{display:inline-block;margin-top:7px;padding:4px 7px;border-radius:999px;background:#183124;border:1px solid #397354;font-size:11px;color:#a7efc0}
+aside{background:var(--panel);border-left:1px solid var(--line);padding:16px;overflow:auto}
+section{padding-bottom:15px;margin-bottom:15px;border-bottom:1px solid var(--line)}
+section:last-child{border:0}
+h2{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:#cbd5e2;margin:0 0 9px}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:7px 0}
+button{background:#202a39;color:var(--text);border:1px solid #45536a;border-radius:8px;padding:8px 10px;font:inherit;cursor:pointer}
+button:hover{background:#2a3548}
+button.active{background:#3b4c68;border-color:#7185a8}
+button.primary{background:#28543a;border-color:#4b8e68}
+button.danger{background:#5a2d34;border-color:#8b4b55}
+label{font-size:12px;color:#cbd4df;display:block;margin-top:9px}
+input[type=range]{width:100%}
+.val{margin-left:auto;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
+.metric{display:flex;justify-content:space-between;padding:7px 8px;background:#0e151f;border:1px solid #253143;border-radius:7px;margin:5px 0;font-size:12px}
+.good{color:var(--ok);font-weight:700}.warn{color:var(--warn);font-weight:700}.bad{color:var(--bad);font-weight:700}
+.status{font-size:12px;padding:8px;border-radius:7px;background:#0e151f;border:1px solid #253143;line-height:1.45}
+.note{font-size:11px;line-height:1.45;color:var(--muted)}
+.inventory{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.card{background:#0e151f;border:1px solid #263345;border-radius:7px;padding:7px;font-size:11px}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+.orient{color:#a8c8ef;margin-top:3px}
+.archive{display:grid;gap:5px}
+.archiveitem{display:grid;grid-template-columns:34px 1fr auto;gap:7px;align-items:center;padding:7px;border:1px solid #26364a;border-radius:7px;background:#0c141e;font-size:11px}
+.archiveitem.best{border-color:#4f8a68}
+.archiveitem.selected{outline:2px solid #76bfff;outline-offset:1px;background:#132236}
+.archiveitem.best.selected{border-color:#4f8a68;outline-color:#9dd7ff}
+.reject{color:var(--bad);font-weight:700}
+.exactonly{color:var(--warn);font-weight:700}
+.tipwrap{position:relative;display:inline-flex;align-items:center;gap:6px}
+.help{display:inline-grid;place-items:center;width:17px;height:17px;border-radius:50%;border:1px solid #5d7390;color:#bdd5ef;font-size:11px;font-weight:700;cursor:help;background:#1b2838}
+.tooltip{position:absolute;left:0;top:24px;z-index:50;width:300px;padding:10px 11px;border-radius:8px;background:#07101a;border:1px solid #42617f;box-shadow:0 10px 28px rgba(0,0,0,.45);font-size:11px;line-height:1.45;color:#dce8f5;display:none;pointer-events:none}
+.tipwrap:hover .tooltip,.tipwrap:focus-within .tooltip,.tipwrap.open .tooltip{display:block}
+.progress{height:8px;background:#1c2938;border-radius:999px;overflow:hidden}
+.progress span{display:block;height:100%;width:0%;background:#69b8ff;transition:width .15s}
+.verdict{padding:9px;border-radius:8px;border:1px solid #36506c;background:#0d1824;font-size:12px}
+@media(max-width:960px){
+  #app{grid-template-columns:1fr;grid-template-rows:minmax(760px,68vh) auto;height:auto;min-height:100%}
+  aside{border-left:0;border-top:1px solid var(--line)}
+}
+
+.presetgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.presetbtn{min-height:68px;text-align:left;padding:9px}
+.presetbtn b{display:block;margin-bottom:3px;color:#fff}
+.presetbtn span{display:block;font-size:10px;line-height:1.35;color:var(--muted)}
+.presetbtn.recommended{border-color:#4f8a68;background:#173326}
+.presetstatus{margin-top:8px;padding:8px;border:1px solid #304158;border-radius:7px;background:#0d1620;font-size:11px;line-height:1.45}
+.strategy{display:grid;grid-template-columns:1fr auto;gap:8px;padding:6px 0;border-bottom:1px solid #253143;font-size:11px}
+.strategy:last-child{border-bottom:0}
+.conf-high{color:var(--ok);font-weight:700}.conf-med{color:var(--warn);font-weight:700}.conf-low{color:var(--bad);font-weight:700}
+
+.livepill{display:inline-block;padding:3px 7px;border-radius:999px;background:#15304a;border:1px solid #3b6d97;color:#bfe1ff;font-size:10px}
+.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.statcard{padding:7px;border:1px solid #2a3a4f;border-radius:7px;background:#0e151f;font-size:11px}
+.statcard strong{display:block;font-size:14px;margin-top:3px}
+.nearitem{display:grid;grid-template-columns:34px 1fr auto;gap:7px;align-items:center;padding:7px;border:1px solid #493c2b;border-radius:7px;background:#17130e;font-size:11px}
+.nearitem.selected{outline:2px solid #76bfff;outline-offset:1px}
+
+.exportOverlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.68);display:none;align-items:center;justify-content:center;padding:20px}
+.exportOverlay.open{display:flex}
+.exportDialog{width:min(760px,96vw);max-height:88vh;overflow:auto;background:#111b27;border:1px solid #4b6685;border-radius:12px;padding:16px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.exportDialog h3{margin:0 0 8px;font-size:16px}.exportDialog textarea{width:100%;height:230px;background:#07101a;color:#dce8f5;border:1px solid #33485f;border-radius:8px;padding:10px;font:11px/1.4 ui-monospace,SFMono-Regular,Consolas,monospace}
+.exportLink{display:inline-block;background:#28543a;color:#fff;border:1px solid #4b8e68;border-radius:8px;padding:9px 12px;text-decoration:none}
+.studioGrid{display:grid;grid-template-columns:1fr 1fr;gap:6px}.studioCard{padding:8px;background:#0e151f;border:1px solid #26364a;border-radius:7px;font-size:11px}.studioCard strong{display:block;font-size:14px;margin-top:3px}
+.modebtn.active{background:#3b4c68;border-color:#76bfff}.approx{color:#f1c969;font-weight:700}.exactBadge{color:#78d99a;font-weight:700}
+</style>
+</head>
+<body>
+<div id="app">
+<main id="main">
+  <div id="head">
+    <h1>Exact-Cover Dual-Cube Solver</h1>
+    <p>Each candidate assigns every Cube A voxel to one of the selected rigid piece transforms and solves a perfect source-to-destination matching.</p>
+    <span class="badge">Accepted candidates have exact closure: zero overlap · zero void · zero out of bounds</span>
+  </div>
+  <canvas id="c"></canvas>
+</main>
+
+<aside>
+<section>
+  <h2>Search presets</h2>
+  <div class="presetgrid">
+    <button class="presetbtn recommended" data-preset="coherent">
+      <b>Coherent exact — recommended</b>
+      <span>Best first attempt at connected, balanced pieces. Uses cube rotations only.</span>
+    </button>
+    <button class="presetbtn" data-preset="baseline">
+      <b>Clean baseline</b>
+      <span>Highest chance of simple connected territories; less asymmetric and potentially bland.</span>
+    </button>
+    <button class="presetbtn" data-preset="asymmetric">
+      <b>Controlled asymmetry</b>
+      <span>More Voronoi-like geometry while retaining strong coherence and exact closure.</span>
+    </button>
+    <button class="presetbtn" data-preset="translation">
+      <b>Translation exploration</b>
+      <span>Allows ±1 lattice translations. More novel, but exact feasible transform sets are much rarer.</span>
+    </button>
+  </div>
+  <div id="presetStatus" class="presetstatus">
+    <b>Active preset:</b> Coherent exact — recommended.<br>
+    Presets reset the current archive and counters so candidates from incompatible parameter regimes are not mixed. The labels below are relative heuristics, not measured probabilities.
+  </div>
+  <div style="margin-top:9px">
+    <div class="strategy"><span>Exact-closure probability</span><span id="closureConfidence" class="conf-high">High</span></div>
+    <div class="strategy"><span>Connected-piece probability</span><span id="connectConfidence" class="conf-med">Medium–high</span></div>
+    <div class="strategy"><span>Expected visual asymmetry</span><span id="asymConfidence" class="conf-med">Medium</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Exact-cover search</h2>
+
+  <label><span class="tipwrap" tabindex="0">Number of puzzle pieces <span class="help">?</span>
+    <span class="tooltip"><b>Total number of physical pieces in both cube configurations.</b><br>
+    Fewer pieces make each solid simpler and more manufacturable, but make a nontrivial exact dissection harder to discover.
+    More pieces give the exact-cover solver more freedom, but increase fragmentation, tiny-piece, interface-count, and assembly-complexity risks.</span>
+  </span></label>
+  <div class="row"><input id="pieceCount" type="range" min="6" max="12" step="1" value="8"><span id="pieceCountv" class="val">8 pieces</span></div>
+  <div id="pieceCountAdvice" class="status">8 pieces: recommended compromise between search flexibility and physical simplicity.</div>
+
+  <label><span class="tipwrap" tabindex="0">Grid resolution <span class="help">?</span>
+    <span class="tooltip"><b>Voxel count along one cube edge.</b><br>Higher values reveal finer topology but increase matching cost sharply. Start at 6³ or 8³.</span>
+  </span></label>
+  <div class="row"><input id="res" type="range" min="6" max="10" step="2" value="8"><span id="resv" class="val">8³</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Transform sets per batch <span class="help">?</span>
+    <span class="tooltip"><b>Independent sets of Cube B rigid transforms—one per selected piece—tested per batch.</b><br>More sets explore more assembly structures.</span>
+  </span></label>
+  <div class="row"><input id="sets" type="range" min="1" max="30" step="1" value="6"><span id="setsv" class="val">6</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Matching refinements <span class="help">?</span>
+    <span class="tooltip"><b>Repeated exact min-cost matchings with updated piece-volume biases.</b><br>Higher values improve volume balance but take longer.</span>
+  </span></label>
+  <div class="row"><input id="rounds" type="range" min="1" max="12" step="1" value="3"><span id="roundsv" class="val">3</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Connectivity refinement strength <span class="help">?</span>
+    <span class="tooltip"><b>Reweights later exact matchings to favor piece labels already supported by neighboring voxels in both cubes.</b><br>Increase to suppress salt-and-pepper ownership and merge fragments. Excessive values can freeze a mediocre topology.</span>
+  </span></label>
+  <div class="row"><input id="connRefine" type="range" min="0" max="6" step=".1" value="3.2"><span id="connRefinev" class="val">3.2</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Extra lattice translation <span class="help">?</span>
+    <span class="tooltip"><b>Additional integer translation after rotation about the cube center.</b><br>At 0, every transform is a cube permutation and exact matching is guaranteed. At 1, more unusual placements are explored but many transform sets become infeasible.</span>
+  </span></label>
+  <div class="row"><input id="radius" type="range" min="0" max="1" step="1" value="0"><span id="radiusv" class="val">0</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Minimum moved pieces <span class="help">?</span>
+    <span class="tooltip"><b>Minimum number of pieces whose Cube B transform differs from Cube A.</b><br>A value near 75% of the total piece count is a strong nontriviality target; requiring every piece to move is most demanding.</span>
+  </span></label>
+  <div class="row"><input id="minMoved" type="range" min="1" max="8" step="1" value="6"><span id="minMovedv" class="val">6</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Search workers <span class="help">?</span>
+    <span class="tooltip"><b>Persistent CPU worker pool. Default 4.</b><br>
+    Additional workers above 6 usually lower efficiency. This is not GPU compute. Module workers require HTTP (<code>npm run dev</code>).</span>
+  </span></label>
+  <div class="row"><input id="workers" type="range" min="1" max="12" step="1" value="4"><span id="workersv" class="val">4</span></div>
+  <div id="workerWarn" class="note" style="display:none">Above 6 workers, measured efficiency falls. Prefer 4 unless you are specifically testing contention.</div>
+
+  <label><span class="tipwrap" tabindex="0">Queue depth <span class="help">?</span>
+    <span class="tooltip"><b>How many jobs may sit queued plus in-flight.</b><br>
+    Independent of worker count so four workers stay occupied. Pause keeps this queue; resume does not reissue completed job indexes.</span>
+  </span></label>
+  <div class="row"><input id="queueDepth" type="range" min="4" max="64" step="1" value="16"><span id="queueDepthv" class="val">16</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Campaign seed <span class="help">?</span>
+    <span class="tooltip"><b>Deterministic seed for the worker job stream.</b><br>Job i uses mulberry32(campaignSeed + i). Reload a checkpoint to continue the same stream.</span>
+  </span></label>
+  <div class="row"><input id="campaignSeed" type="number" value="20260820" step="1" style="width:100%;background:#0e151f;color:#eef4fb;border:1px solid #45536a;border-radius:8px;padding:8px 10px;font:inherit"><span id="campaignSeedv" class="val">20260820</span></div>
+
+  <div class="row">
+    <button id="batch" class="primary">Search one batch</button>
+    <button id="run">Run continuously</button>
+    <button id="pause">Pause</button>
+    <button id="resume">Resume</button>
+    <button id="stop" class="danger">Stop</button>
+  </div>
+  <div class="row">
+    <button id="saveCheckpoint">Save checkpoint</button>
+    <button id="loadCheckpointBtn">Load checkpoint</button>
+    <input id="loadCheckpoint" type="file" accept=".json,application/json" hidden>
+  </div>
+  <div class="progress"><span id="progressBar"></span></div>
+  <div id="httpNotice" class="status" style="margin-bottom:8px;display:none"></div>
+  <div id="status" class="status">Ready. Every archived result will be an exact voxel tiling.</div>
+</section>
+
+<section>
+  <h2>Shape bias</h2>
+
+  <label><span class="tipwrap" tabindex="0">Cube A coherence <span class="help">?</span>
+    <span class="tooltip"><b>How strongly source voxels prefer compact territories around one off-grid seed per selected piece.</b><br>Increase for more connected, Voronoi-like pieces in Cube A.</span>
+  </span></label>
+  <div class="row"><input id="cohA" type="range" min="0" max="5" step=".1" value="2.6"><span id="cohAv" class="val">2.6</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Cube B coherence <span class="help">?</span>
+    <span class="tooltip"><b>How strongly destination voxels prefer a second, different seed composition.</b><br>Increase for coherent territories in Cube B; too high can fragment Cube A pieces.</span>
+  </span></label>
+  <div class="row"><input id="cohB" type="range" min="0" max="5" step=".1" value="2.2"><span id="cohBv" class="val">2.2</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Seed asymmetry <span class="help">?</span>
+    <span class="tooltip"><b>Moves the source and destination design seeds away from octant centers.</b><br>Increase for more skew, less sub-cube-like pieces.</span>
+  </span></label>
+  <div class="row"><input id="asym" type="range" min="0" max="100" step="1" value="72"><span id="asymv" class="val">72%</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Volume-balance learning <span class="help">?</span>
+    <span class="tooltip"><b>Adjusts piece-specific edge costs between exact matching rounds.</b><br>Increase when one piece becomes too large or too small.</span>
+  </span></label>
+  <div class="row"><input id="balance" type="range" min="0" max="20" step=".5" value="8"><span id="balancev" class="val">8.0</span></div>
+</section>
+
+<section>
+  <h2>Structural admissibility</h2>
+
+  <label><span class="tipwrap" tabindex="0">Minimum piece volume <span class="help">?</span>
+    <span class="tooltip"><b>Smallest permitted share of the cube for any piece.</b><br>A candidate can be an exact cover while assigning only one or two voxels to a “piece.” Five percent is a reasonable first filter.</span>
+  </span></label>
+  <div class="row"><input id="minVolume" type="range" min="1" max="12" step=".5" value="5"><span id="minVolumev" class="val">5.0%</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Maximum fragile-voxel ratio <span class="help">?</span>
+    <span class="tooltip"><b>Maximum percentage of voxels having one or fewer same-piece face neighbors.</b><br>High values indicate speckles, one-voxel hairs, and weak tendrils. Lower is more robust.</span>
+  </span></label>
+  <div class="row"><input id="maxFragile" type="range" min="0" max="30" step=".5" value="6"><span id="maxFragilev" class="val">6.0%</span></div>
+
+  <label><span class="tipwrap" tabindex="0">Maximum interface roughness <span class="help">?</span>
+    <span class="tooltip"><b>Maximum combined A/B boundary area per cube voxel.</b><br>Lower values favor coherent territories instead of salt-and-pepper ownership.</span>
+  </span></label>
+  <div class="row"><input id="maxRough" type="range" min=".2" max="3" step=".05" value="1.05"><span id="maxRoughv" class="val">1.05</span></div>
+
+  <label class="row" style="justify-content:space-between">
+    <span>Archive only structurally admissible candidates</span>
+    <input id="admissibleOnly" type="checkbox" checked style="width:auto">
+  </label>
+  <p class="note">All candidates are exact voxel covers. “Admissible” additionally requires every selected piece to be connected, adequately sized, low in fragile voxels, and within the roughness limit.</p>
+</section>
+
+<section>
+  <h2>View</h2>
+  <label>Voxel opacity</label>
+  <div class="row"><input id="opacity" type="range" min=".18" max="1" step=".01" value=".78"><span id="opacityv" class="val">0.78</span></div>
+  <div class="row">
+    <button id="shell" class="active">Cube shells</button>
+    <button id="surfaceOnly">Surface voxels only</button>
+    <button id="rotate">Auto rotate</button>
+  </div>
+</section>
+
+<section>
+  <h2>Current exact candidate</h2>
+  <div id="verdict" class="verdict">No exact candidate selected yet.</div>
+  <div id="metrics"></div>
+</section>
+
+<section>
+  <h2>Canonical pieces</h2>
+  <div id="inventory" class="inventory"></div>
+</section>
+
+<section>
+  <h2>Search outcomes</h2>
+  <div class="row"><button id="followLive" class="active">Follow live best</button><button id="saveJSON">Download selected candidate JSON</button></div>
+  <div id="exportNotice" class="status">Exports open a visible save dialog. If automatic download is blocked, use the persistent Download link or Copy button.</div>
+  <div class="statgrid">
+    <div class="statcard">Exact matchings<strong id="statExact">0</strong></div>
+    <div class="statcard">Admissible found<strong id="statAdmissible">0</strong></div>
+    <div class="statcard">Rejected exact covers<strong id="statRejected">0</strong></div>
+    <div class="statcard">Admissible rate<strong id="statRate">0.00%</strong></div>
+  </div>
+</section>
+
+<section>
+  <h2>Structurally admissible archive</h2>
+  <div class="row"><button id="restoreBest">Restore admissible best</button></div>
+  <div id="archive" class="archive"></div>
+  <p class="note">Only candidates passing connectivity, minimum-volume, fragility, and roughness filters appear here.</p>
+</section>
+
+<section>
+  <h2>Best exact near-misses</h2>
+  <div id="nearArchive" class="archive"></div>
+  <p class="note">These still have exact closure, but fail one or more structural tests. They remain visible so progress does not appear frozen.</p>
+</section>
+
+<section>
+  <h2>Repair &amp; smooth studio</h2>
+  <p class="note">This stage starts from the selected exact near-miss. Detached islands are not simply discarded: an exact matching reassigns them while preserving zero overlap, zero void, and zero out-of-bounds material. Undersized pieces can also be expanded toward a target minimum volume before smoothing. Smoothing is then tested separately and reports any dual-state fit error it introduces.</p>
+
+  <label>Exact repair rounds</label><div class="row"><input id="repairRounds" type="range" min="1" max="24" step="1" value="12"><span id="repairRoundsv" class="val">12</span></div>
+  <label>Preserve original ownership</label><div class="row"><input id="repairPreserve" type="range" min="0" max="20" step=".5" value="5"><span id="repairPreservev" class="val">5.0</span></div>
+  <label>Largest-component core lock</label><div class="row"><input id="repairCore" type="range" min="0" max="60" step="1" value="28"><span id="repairCorev" class="val">28</span></div>
+  <label>Connectivity pressure</label><div class="row"><input id="repairConn" type="range" min="0" max="12" step=".25" value="7"><span id="repairConnv" class="val">7.00</span></div>
+  <label>Target minimum piece volume</label><div class="row"><input id="repairMinVolume" type="range" min="1" max="12" step=".5" value="5"><span id="repairMinVolumev" class="val">5.0%</span></div>
+  <label>Tiny-piece rescue pressure</label><div class="row"><input id="repairTiny" type="range" min="0" max="40" step="1" value="18"><span id="repairTinyv" class="val">18</span></div>
+  <div class="row"><button id="repairSelected" class="primary">Repair connectivity &amp; tiny pieces</button></div>
+
+  <label>Smooth supersampling</label><div class="row"><input id="smoothFactor" type="range" min="2" max="4" step="1" value="3"><span id="smoothFactorv" class="val">3×</span></div>
+  <label>Maximum smoothing passes</label><div class="row"><input id="smoothPasses" type="range" min="0" max="16" step="1" value="8"><span id="smoothPassesv" class="val">8</span></div>
+  <label>Shape-preservation weight</label><div class="row"><input id="smoothPreserve" type="range" min="0" max="8" step=".25" value="2.5"><span id="smoothPreservev" class="val">2.50</span></div>
+  <label>Allowed Cube B smooth-fit defect</label><div class="row"><input id="smoothTolerance" type="range" min="0" max="5" step=".05" value=".5"><span id="smoothTolerancev" class="val">0.50%</span></div>
+  <label>Mesh relaxation passes</label><div class="row"><input id="meshPasses" type="range" min="0" max="20" step="1" value="8"><span id="meshPassesv" class="val">8</span></div>
+  <div class="row"><button id="buildSmooth">Find best-fit smooth preview</button></div>
+
+  <div class="row"><button id="viewSearch" class="modebtn active">Search candidate</button><button id="viewRepair" class="modebtn">Exact repair</button><button id="viewSmooth" class="modebtn">Smooth preview</button></div>
+  <div id="studioStatus" class="status">Select a near-miss, then run exact repair.</div>
+  <div id="studioMetrics" class="studioGrid"></div>
+  <div class="row">
+    <button id="saveRepairJSON">Prepare repair project JSON</button>
+    <button id="saveObjCombined" class="primary">Prepare combined A + B OBJ</button>
+    <button id="saveObjBoth">Prepare colored OBJ + MTL ZIP</button>
+    <button id="saveObjA">Prepare Cube A OBJ</button>
+    <button id="saveObjB">Prepare Cube B OBJ</button>
+  </div>
+  <p class="note">
+    <b>Combined A + B OBJ</b> is one geometry file: Cube A is at X = 0 and Cube B is at X = 3 cube-edge lengths.
+    The colored ZIP contains that OBJ plus a companion MTL file. Standard OBJ requires the MTL to carry object colors.
+  </p>
+</section>
+
+<section>
+  <h2>What is exact here?</h2>
+  <p class="note">
+    The solver creates a bipartite graph from Cube A voxels to Cube B voxels. Each edge represents assigning one source voxel
+    to one of the selected rigidly transformed pieces. A min-cost perfect matching uses every source and destination voxel exactly once.
+    Therefore every displayed candidate has zero overlap, zero void, and zero out-of-bounds material. That is exact occupancy, not automatically a usable puzzle. Structural admissibility additionally requires connected, adequately sized, non-speckled pieces with bounded interface roughness. CAD reconstruction is promoted only after every piece is nonempty, face-connected, and above the minimum volume.
+  </p>
+</section>
+</aside>
+</div>
+
+<div id="exportOverlay" class="exportOverlay" aria-hidden="true">
+  <div class="exportDialog">
+    <h3 id="exportTitle">Export ready</h3>
+    <p id="exportMessage" class="note"></p>
+    <div id="embeddedNotice" class="status" style="margin-bottom:8px"></div>
+    <div class="row">
+      <a id="exportDownload" class="exportLink primary" href="#" target="_blank" rel="noopener" download>Download prepared file</a>
+      <a id="exportObjPart" class="exportLink" href="#" target="_blank" rel="noopener" download style="display:none">Download OBJ separately</a>
+      <a id="exportMtlPart" class="exportLink" href="#" target="_blank" rel="noopener" download style="display:none">Download MTL separately</a>
+      <button id="exportShare">Share / Save to Files</button>
+      <button id="exportOpen">Open prepared file</button>
+      <button id="exportNavigate">Open raw text in this tab</button>
+      <button id="exportCopy">Copy text contents</button>
+      <button id="exportClose">Close</button>
+    </div>
+    <textarea id="exportText" spellcheck="false"></textarea>
+  </div>
+</div>
+
+<script>
+const C=document.getElementById('c'),ctx=C.getContext('2d'),$=id=>document.getElementById(id);
+const colors=['#e64b45','#f39a32','#e7c83e','#3fa55b','#20a7b5','#397fd0','#7a58c7','#c34f86','#8b6b3f','#69b95b','#df6fa8','#6b9fa8'];
+let N=8,PIECES=8,current=null,selectedArchiveIndex=-1,archive=[],nearArchive=[],running=false,followLive=true,setsTested=0,exactFound=0,failedSets=0,admissibleFound=0,rejectedExact=0,activePreset='coherent';
+let repairCandidate=null,smoothState=null,viewMode='search',exportURL=null,exportPayload=null,exportPartURLs=[];
+let yaw=-.72,pitch=.56,zoom=.86,auto=false,showShell=true,surfaceOnly=false;
+const ARCHIVE_LIMIT=10;
+const SOLVER_BUILD='js-kernel-0.1.0';
+let searchWorkers=[],workerMode=false,nextJobId=1,searchSeedSeq=1,campaignJobIndex=0,searchPaused=false,campaignQueue=[];
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const idx=(x,y,z)=>x+N*(y+N*z);
+const unidx=i=>[i%N,Math.floor(i/N)%N,Math.floor(i/(N*N))];
+
+function rotations24(){
+  const perms=[[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]],out=[];
+  for(const p of perms)for(const sx of [-1,1])for(const sy of [-1,1])for(const sz of [-1,1]){
+    const M=[[0,0,0],[0,0,0],[0,0,0]];
+    M[0][p[0]]=sx;M[1][p[1]]=sy;M[2][p[2]]=sz;
+    const det=M[0][0]*(M[1][1]*M[2][2]-M[1][2]*M[2][1])
+      -M[0][1]*(M[1][0]*M[2][2]-M[1][2]*M[2][0])
+      +M[0][2]*(M[1][0]*M[2][1]-M[1][1]*M[2][0]);
+    if(det===1)out.push(M);
+  }
+  return out;
+}
+const ROT=rotations24();
+
+function applyRot(v,M){
+  return [
+    M[0][0]*v[0]+M[0][1]*v[1]+M[0][2]*v[2],
+    M[1][0]*v[0]+M[1][1]*v[1]+M[1][2]*v[2],
+    M[2][0]*v[0]+M[2][1]*v[1]+M[2][2]*v[2]
+  ];
+}
+function transformVoxel(v,pl){
+  const c=[v[0]-(N-1)/2,v[1]-(N-1)/2,v[2]-(N-1)/2];
+  const q=applyRot(c,ROT[pl.r]);
+  return [
+    Math.round(q[0]+(N-1)/2+pl.t[0]),
+    Math.round(q[1]+(N-1)/2+pl.t[1]),
+    Math.round(q[2]+(N-1)/2+pl.t[2])
+  ];
+}
+function rand(a,b){return a+Math.random()*(b-a)}
+function randomSeedLayout(){
+  const A=+$('asym').value/100;
+  const levels=[.16,.34,.50,.66,.84],candidates=[];
+  for(const x of levels)for(const y of levels)for(const z of levels){
+    if(Math.abs(x-.5)<.01&&Math.abs(y-.5)<.01&&Math.abs(z-.5)<.01)continue;
+    candidates.push([x,y,z]);
+  }
+  const chosen=[];
+  chosen.push(candidates[Math.floor(Math.random()*candidates.length)]);
+  while(chosen.length<PIECES){
+    let best=null,bestD=-1;
+    for(const c of candidates){
+      if(chosen.includes(c))continue;
+      let nearest=Infinity;
+      for(const s of chosen){
+        const d=(c[0]-s[0])**2+(c[1]-s[1])**2+(c[2]-s[2])**2;
+        nearest=Math.min(nearest,d);
+      }
+      if(nearest>bestD){bestD=nearest;best=c}
+    }
+    chosen.push(best);
+  }
+  return chosen.map((s,i)=>[
+    clamp(s[0]+A*rand(-.16,.16)+.025*Math.sin(i*1.73),.04,.96),
+    clamp(s[1]+A*rand(-.16,.16)+.025*Math.cos(i*1.31),.04,.96),
+    clamp(s[2]+A*rand(-.16,.16)+.025*Math.sin(i*.91+.7),.04,.96)
+  ]);
+}
+function randomTransforms(){
+  const radius=+$('radius').value,minMoved=+$('minMoved').value;
+  const p=Array.from({length:PIECES},()=>({
+    r:Math.floor(Math.random()*24),
+    t:[radius?Math.floor(rand(-radius,radius+1)):0,radius?Math.floor(rand(-radius,radius+1)):0,radius?Math.floor(rand(-radius,radius+1)):0]
+  }));
+  let moved=p.filter(x=>x.r!==0||x.t.some(v=>v!==0)).length;
+  while(moved<minMoved){
+    const k=Math.floor(Math.random()*PIECES);
+    p[k].r=1+Math.floor(Math.random()*23);
+    moved=p.filter(x=>x.r!==0||x.t.some(v=>v!==0)).length;
+  }
+  return p;
+}
+function dist2(v,s){
+  const x=v[0]/(N-1)-s[0],y=v[1]/(N-1)-s[1],z=v[2]/(N-1)-s[2];
+  return x*x+y*y+z*z;
+}
+function neighborSupport(labels,index,piece){
+  if(!labels)return 0;
+  const [x,y,z]=unidx(index);let support=0;
+  for(const d of [[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]]){
+    const X=x+d[0],Y=y+d[1],Z=z+d[2];
+    if(X<0||Y<0||Z<0||X>=N||Y>=N||Z>=N)continue;
+    if(labels[idx(X,Y,Z)]===piece)support++;
+  }
+  return support;
+}
+function labelCentroids(labels,fallback){
+  const sum=Array.from({length:PIECES},()=>[0,0,0,0]);
+  for(let i=0;i<labels.length;i++){
+    const k=labels[i],[x,y,z]=unidx(i);sum[k][0]+=x;sum[k][1]+=y;sum[k][2]+=z;sum[k][3]++;
+  }
+  return sum.map((s,k)=>s[3]?[s[0]/s[3]/(N-1),s[1]/s[3]/(N-1),s[2]/s[3]/(N-1)]:fallback[k]);
+}
+function blendSeeds(oldSeeds,newSeeds,amount=.38){
+  return oldSeeds.map((s,k)=>s.map((v,a)=>v*(1-amount)+newSeeds[k][a]*amount));
+}
+function makeEdges(placements,seedsA,seedsB,bias,priorA=null,priorB=null){
+  const n=N*N*N,wA=+$('cohA').value,wB=+$('cohB').value,edges=Array.from({length:n},()=>[]);
+  let minCost=Infinity;
+  for(let x=0;x<n;x++){
+    const v=unidx(x);
+    for(let k=0;k<PIECES;k++){
+      const yv=transformVoxel(v,placements[k]);
+      const [X,Y,Z]=yv;
+      if(X<0||Y<0||Z<0||X>=N||Y>=N||Z>=N)continue;
+      const y=idx(X,Y,Z);
+      const wobble=.035*Math.sin((v[0]*1.7+v[1]*2.3+v[2]*1.1+k)*2.1);
+      const supportA=neighborSupport(priorA,x,k),supportB=neighborSupport(priorB,y,k);
+      const connectivityPenalty=+$('connRefine').value*((12-supportA-supportB)/12);
+      const cost=wA*dist2(v,seedsA[k])+wB*dist2(yv,seedsB[k])+bias[k]+wobble+connectivityPenalty;
+      edges[x].push({y,piece:k,cost});
+      minCost=Math.min(minCost,cost);
+    }
+  }
+  const shift=minCost<0?-minCost:0;
+  for(const list of edges)for(const e of list)e.cost+=shift;
+  return edges;
+}
+
+// Sparse min-cost perfect matching via successive shortest augmenting paths.
+async function minCostPerfectMatching(edges,onProgress){
+  const n=edges.length,V=2+n+n,S=2*n,T=2*n+1;
+  const G=Array.from({length:V},()=>[]);
+  function addEdge(u,v,cap,cost,piece=-1,source=-1){
+    const a={to:v,rev:G[v].length,cap,cost,piece,source,original:cap};
+    const b={to:u,rev:G[u].length,cap:0,cost:-cost,piece:-1,source:-1,original:0};
+    G[u].push(a);G[v].push(b);
+  }
+  for(let x=0;x<n;x++){
+    addEdge(S,x,1,0);
+    for(const e of edges[x])addEdge(x,n+e.y,1,e.cost,e.piece,x);
+  }
+  for(let y=0;y<n;y++)addEdge(n+y,T,1,0);
+
+  const pot=new Float64Array(V),dist=new Float64Array(V),prevV=new Int32Array(V),prevE=new Int32Array(V);
+  let flow=0,totalCost=0;
+  const heap=[];
+  function push(item){
+    heap.push(item);let i=heap.length-1;
+    while(i>0){const p=(i-1)>>1;if(heap[p][0]<=item[0])break;heap[i]=heap[p];i=p}
+    heap[i]=item;
+  }
+  function pop(){
+    const root=heap[0],last=heap.pop();
+    if(heap.length){
+      let i=0;heap[0]=last;
+      while(true){
+        let l=i*2+1,r=l+1,b=i;
+        if(l<heap.length&&heap[l][0]<heap[b][0])b=l;
+        if(r<heap.length&&heap[r][0]<heap[b][0])b=r;
+        if(b===i)break;[heap[i],heap[b]]=[heap[b],heap[i]];i=b;
+      }
+    }
+    return root;
+  }
+
+  while(flow<n){
+    dist.fill(Infinity);prevV.fill(-1);prevE.fill(-1);dist[S]=0;heap.length=0;push([0,S]);
+    while(heap.length){
+      const [d,u]=pop();if(d!==dist[u])continue;
+      for(let ei=0;ei<G[u].length;ei++){
+        const e=G[u][ei];if(e.cap<=0)continue;
+        const nd=d+e.cost+pot[u]-pot[e.to];
+        if(nd+1e-12<dist[e.to]){
+          dist[e.to]=nd;prevV[e.to]=u;prevE[e.to]=ei;push([nd,e.to]);
+        }
+      }
+    }
+    if(!Number.isFinite(dist[T]))return null;
+    for(let v=0;v<V;v++)if(Number.isFinite(dist[v]))pot[v]+=dist[v];
+    let v=T;
+    while(v!==S){
+      const u=prevV[v],ei=prevE[v],e=G[u][ei];
+      e.cap--;G[v][e.rev].cap++;totalCost+=e.cost;v=u;
+    }
+    flow++;
+    if(flow%48===0){
+      onProgress?.(flow/n);
+      await new Promise(requestAnimationFrame);
+      if(!running&&window.__singleBatchAbort)return null;
+    }
+  }
+
+  const labelsA=new Uint8Array(n),labelsB=new Uint8Array(n),destOf=new Int32Array(n);
+  labelsB.fill(255);destOf.fill(-1);
+  for(let x=0;x<n;x++){
+    let found=false;
+    for(const e of G[x]){
+      if(e.to>=n&&e.to<2*n&&e.original===1&&e.cap===0&&e.piece>=0){
+        const y=e.to-n;labelsA[x]=e.piece;labelsB[y]=e.piece;destOf[x]=y;found=true;break;
+      }
+    }
+    if(!found)return null;
+  }
+  return {labelsA,labelsB,destOf,totalCost};
+}
+
+function connectedComponents(labels,k){
+  const n=labels.length,seen=new Uint8Array(n),nb=[[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
+  let comps=0,largest=0,total=0;
+  for(let i=0;i<n;i++)if(labels[i]===k)total++;
+  for(let i=0;i<n;i++)if(labels[i]===k&&!seen[i]){
+    comps++;let count=0,q=[i];seen[i]=1;
+    for(let h=0;h<q.length;h++){
+      const j=q[h],[x,y,z]=unidx(j);count++;
+      for(const d of nb){
+        const X=x+d[0],Y=y+d[1],Z=z+d[2];
+        if(X<0||Y<0||Z<0||X>=N||Y>=N||Z>=N)continue;
+        const t=idx(X,Y,Z);
+        if(!seen[t]&&labels[t]===k){seen[t]=1;q.push(t)}
+      }
+    }
+    largest=Math.max(largest,count);
+  }
+  return {comps,largest,total,ratio:total?largest/total:0};
+}
+function interfaceRoughness(labels){
+  let r=0;
+  for(let z=0;z<N;z++)for(let y=0;y<N;y++)for(let x=0;x<N;x++){
+    const k=labels[idx(x,y,z)];
+    if(x+1<N&&labels[idx(x+1,y,z)]!==k)r++;
+    if(y+1<N&&labels[idx(x,y+1,z)]!==k)r++;
+    if(z+1<N&&labels[idx(x,y,z+1)]!==k)r++;
+  }
+  return r/(N*N*N);
+}
+
+function fragileVoxelRatio(labels){
+  let fragile=0,total=labels.length;
+  const nb=[[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
+  for(let i=0;i<labels.length;i++){
+    const [x,y,z]=unidx(i),k=labels[i];let same=0;
+    for(const d of nb){
+      const X=x+d[0],Y=y+d[1],Z=z+d[2];
+      if(X<0||Y<0||Z<0||X>=N||Y>=N||Z>=N)continue;
+      if(labels[idx(X,Y,Z)]===k)same++;
+    }
+    if(same<=1)fragile++;
+  }
+  return fragile/Math.max(1,total);
+}
+function admissibility(c){
+  const minVolume=+$('minVolume').value/100;
+  const maxFragile=+$('maxFragile').value/100;
+  const maxRough=+$('maxRough').value;
+  const reasons=[];
+  if(c.connected<PIECES)reasons.push(`${PIECES-c.connected} disconnected piece${PIECES-c.connected===1?'':'s'}`);
+  if(c.minVol<minVolume)reasons.push(`smallest piece ${(100*c.minVol).toFixed(1)}% < ${(100*minVolume).toFixed(1)}%`);
+  if(c.fragileRatio>maxFragile)reasons.push(`fragile voxels ${(100*c.fragileRatio).toFixed(1)}% > ${(100*maxFragile).toFixed(1)}%`);
+  if(c.roughA+c.roughB>maxRough)reasons.push(`roughness ${(c.roughA+c.roughB).toFixed(3)} > ${maxRough.toFixed(2)}`);
+  return {pass:reasons.length===0,reasons};
+}
+
+function adjacencySet(labels){
+  const set=new Set();
+  for(let z=0;z<N;z++)for(let y=0;y<N;y++)for(let x=0;x<N;x++){
+    const a=labels[idx(x,y,z)];
+    for(const d of [[1,0,0],[0,1,0],[0,0,1]]){
+      const X=x+d[0],Y=y+d[1],Z=z+d[2];
+      if(X>=N||Y>=N||Z>=N)continue;
+      const b=labels[idx(X,Y,Z)];
+      if(a!==b)set.add(a<b?`${a}-${b}`:`${b}-${a}`);
+    }
+  }
+  return set;
+}
+function octantRegularity(labels){
+  const stats=Array.from({length:PIECES},()=>({n:0,min:[N,N,N],max:[-1,-1,-1],sum:[0,0,0]}));
+  for(let i=0;i<labels.length;i++){
+    const k=labels[i],[x,y,z]=unidx(i),s=stats[k];s.n++;s.sum[0]+=x;s.sum[1]+=y;s.sum[2]+=z;
+    for(let a=0;a<3;a++){s.min[a]=Math.min(s.min[a],[x,y,z][a]);s.max[a]=Math.max(s.max[a],[x,y,z][a])}
+  }
+  const ideals=[[.25,.25,.25],[.75,.25,.25],[.25,.75,.25],[.75,.75,.25],[.25,.25,.75],[.75,.25,.75],[.25,.75,.75],[.75,.75,.75]];
+  let reg=0;
+  for(const s of stats){
+    if(!s.n){reg+=2;continue}
+    const c=s.sum.map(q=>q/s.n/(N-1));let near=Infinity;
+    for(const p of ideals)near=Math.min(near,(c[0]-p[0])**2+(c[1]-p[1])**2+(c[2]-p[2])**2);
+    const d=s.max.map((q,i)=>q-s.min[i]+1),mean=(d[0]+d[1]+d[2])/3;
+    const cubic=1-(Math.abs(d[0]-mean)+Math.abs(d[1]-mean)+Math.abs(d[2]-mean))/(3*Math.max(1,mean));
+    reg+=Math.exp(-near*18)*Math.max(0,cubic);
+  }
+  return reg/PIECES;
+}
+function evaluateCandidate(match,placements){
+  const counts=new Int32Array(PIECES),components=[],n=N*N*N;
+  for(const k of match.labelsA)counts[k]++;
+  for(let k=0;k<PIECES;k++)components.push(connectedComponents(match.labelsA,k));
+  const connected=components.filter(c=>c.comps===1).length;
+  const target=n/PIECES;
+  const imbalance=[...counts].reduce((s,x)=>s+Math.abs(x-target),0)/n;
+  const roughA=interfaceRoughness(match.labelsA),roughB=interfaceRoughness(match.labelsB),fragileRatio=Math.max(fragileVoxelRatio(match.labelsA),fragileVoxelRatio(match.labelsB));
+  const regularity=octantRegularity(match.labelsA);
+  const moved=placements.filter(p=>p.r!==0||p.t.some(v=>v!==0)).length;
+  let same=0;for(let i=0;i<n;i++)if(match.labelsA[i]===match.labelsB[i])same++;
+  const similarity=same/n;
+  const adjA=adjacencySet(match.labelsA),adjB=adjacencySet(match.labelsB);
+  let inter=0;for(const x of adjA)if(adjB.has(x))inter++;
+  const union=new Set([...adjA,...adjB]).size||1;
+  const adjacencyDifference=1-inter/union;
+  const minVol=Math.min(...counts)/n;
+  const disconnected=PIECES-connected;
+  const score=
+    disconnected*100000+
+    Math.max(0,.05-minVol)*400000+
+    imbalance*6000+
+    (roughA+roughB)*350+
+    regularity*250+
+    similarity*500-
+    adjacencyDifference*220-
+    moved*20;
+  return {
+    placements:placements.map(p=>({r:p.r,t:[...p.t]})),
+    labelsA:match.labelsA,labelsB:match.labelsB,destOf:match.destOf,
+    counts,components,connected,imbalance,roughA,roughB,regularity,moved,similarity,
+    adjacencyDifference,minVol,fragileRatio,score,totalCost:match.totalCost,
+    exact:true
+  };
+}
+function candidateKey(c){
+  return [PIECES-c.connected,Math.max(0,(.40/PIECES)-c.minVol),c.fragileRatio,c.imbalance,c.roughA+c.roughB,c.regularity,c.similarity,-c.adjacencyDifference,-c.moved];
+}
+function compareKey(a,b){
+  const A=candidateKey(a),B=candidateKey(b);
+  for(let i=0;i<A.length;i++){if(A[i]<B[i]-1e-9)return -1;if(A[i]>B[i]+1e-9)return 1}
+  return 0;
+}
+function archiveCandidate(c){
+  const structural=admissibility(c);
+  if(structural.pass){
+    admissibleFound++;
+    archive.push(c);archive.sort(compareKey);archive=archive.slice(0,ARCHIVE_LIMIT);
+  }else{
+    rejectedExact++;
+    nearArchive.push(c);nearArchive.sort(compareKey);nearArchive=nearArchive.slice(0,ARCHIVE_LIMIT);
+  }
+  if(followLive&&(!current||compareKey(c,current)<0)){
+    current=c;selectedArchiveIndex=archive.indexOf(c);repairCandidate=null;smoothState=null;viewMode='search';
+  }else if(!current){
+    current=c;selectedArchiveIndex=-1;
+  }
+  updateUI();
+  return structural.pass;
+}
+async function solveTransformSet(progressBase,progressSpan){
+  const placements=randomTransforms();let seedsA=randomSeedLayout(),seedsB=randomSeedLayout();
+  const rounds=+$('rounds').value,n=N*N*N,target=n/PIECES,bias=new Float64Array(PIECES);
+  let bestLocal=null,priorA=null,priorB=null;
+  for(let r=0;r<rounds;r++){
+    const edges=makeEdges(placements,seedsA,seedsB,bias,priorA,priorB);
+    if(edges.some(x=>x.length===0)){failedSets++;return null}
+    window.__singleBatchAbort=false;
+    const match=await minCostPerfectMatching(edges,p=>{
+      $('progressBar').style.width=`${100*(progressBase+progressSpan*(r+p)/rounds)}%`;
+    });
+    if(!match){failedSets++;return null}
+    exactFound++;
+    const cand=evaluateCandidate(match,placements);
+    if(!bestLocal||compareKey(cand,bestLocal)<0)bestLocal=cand;
+    priorA=match.labelsA;priorB=match.labelsB;
+    seedsA=blendSeeds(seedsA,labelCentroids(match.labelsA,seedsA));
+    seedsB=blendSeeds(seedsB,labelCentroids(match.labelsB,seedsB));
+    const lr=+$('balance').value;
+    for(let k=0;k<PIECES;k++)bias[k]+=lr*(cand.counts[k]-target)/target;
+  }
+  if(bestLocal)archiveCandidate(bestLocal);
+  return bestLocal;
+}
+function desiredWorkerCount(){
+  return Math.max(1,Math.min(12,+$('workers').value||1));
+}
+function teardownSearchWorkers(){
+  for(const slot of searchWorkers){try{slot.w.terminate()}catch{}}
+  searchWorkers=[];workerMode=false;
+}
+async function ensureSearchWorkers(){
+  const n=desiredWorkerCount();
+  if(n<=1){teardownSearchWorkers();return false}
+  if(workerMode&&searchWorkers.length===n)return true;
+  teardownSearchWorkers();
+  try{
+    const url=new URL('../solvers/dual_cube/search.worker.mjs',location.href);
+    const pool=[];
+    for(let i=0;i<n;i++){
+      const w=new Worker(url,{type:'module'});
+      pool.push({w,busy:false});
+    }
+    searchWorkers=pool;
+    await new Promise((resolve,reject)=>{
+      const probe=pool[0].w;
+      const t=setTimeout(()=>reject(new Error('worker start timeout')),4000);
+      const onErr=e=>{clearTimeout(t);reject(e.error||e)};
+      probe.addEventListener('error',onErr,{once:true});
+      probe.addEventListener('message',()=>{clearTimeout(t);probe.removeEventListener('error',onErr);resolve()},{once:true});
+      probe.postMessage({type:'solveSet',id:-1,N:6,pieceCount:6,radius:0,params:{rounds:1,cohA:1,cohB:1,asym:0,balance:0,connRefine:0,minVolume:1,maxFragile:100,maxRough:10,minMoved:1},seed:1});
+    });
+    workerMode=true;return true;
+  }catch(err){
+    teardownSearchWorkers();
+    $('status').innerHTML=`<span class="warn">Worker pool unavailable (${err.message||err}).</span> Falling back to the main-thread matcher. Serve this page over HTTP so <code>search.worker.mjs</code> can load.`;
+    return false;
+  }
+}
+function dispatchSolveSet(slot,payload){
+  return new Promise((resolve,reject)=>{
+    const onMsg=e=>{
+      if(e.data?.id!==payload.id)return;
+      slot.w.removeEventListener('message',onMsg);
+      slot.w.removeEventListener('error',onErr);
+      slot.busy=false;resolve(e.data);
+    };
+    const onErr=e=>{
+      slot.w.removeEventListener('message',onMsg);
+      slot.w.removeEventListener('error',onErr);
+      slot.busy=false;reject(e.error||e);
+    };
+    slot.busy=true;
+    slot.w.addEventListener('message',onMsg);
+    slot.w.addEventListener('error',onErr);
+    slot.w.postMessage(payload);
+  });
+}
+function reviveCandidate(c){
+  if(!c)return null;
+  const cand={
+    ...c,
+    labelsA:new Uint8Array(c.labelsA),
+    labelsB:new Uint8Array(c.labelsB),
+    destOf:new Int32Array(c.destOf),
+    counts:new Int32Array(c.counts)
+  };
+  if(!cand.components){
+    cand.components=[];
+    for(let k=0;k<PIECES;k++)cand.components.push(connectedComponents(cand.labelsA,k));
+  }
+  return cand;
+}
+async function searchBatchWorkers(total){
+  const params={
+    cohA:+$('cohA').value,cohB:+$('cohB').value,asym:+$('asym').value,balance:+$('balance').value,
+    connRefine:+$('connRefine').value,minVolume:+$('minVolume').value,maxFragile:+$('maxFragile').value,
+    maxRough:+$('maxRough').value,rounds:+$('rounds').value,minMoved:+$('minMoved').value
+  };
+  const radius=+$('radius').value;
+  const campaignSeed=(+$('campaignSeed').value||0)>>>0;
+  const depth=Math.max(searchWorkers.length,+$('queueDepth').value||16);
+  let started=campaignQueue.length,completed=0;
+  function enqueue(){
+    while(campaignQueue.length<depth&&started<total){
+      const jobIndex=campaignJobIndex++;
+      campaignQueue.push({jobIndex,seed:(campaignSeed+jobIndex*10007)>>>0});
+      started++;
+    }
+  }
+  async function runSlot(slot){
+    while(true){
+      while(searchPaused&&!window.__singleBatchAbort)await new Promise(r=>setTimeout(r,40));
+      if(window.__singleBatchAbort)break;
+      enqueue();
+      const job=campaignQueue.shift();
+      if(!job){
+        if(started>=total)break;
+        await new Promise(r=>setTimeout(r,20));
+        continue;
+      }
+      const id=nextJobId++;
+      try{
+        const msg=await dispatchSolveSet(slot,{type:'solveSet',id,N,pieceCount:PIECES,radius,params,seed:job.seed});
+        completed++;setsTested++;
+        if(!msg.ok||msg.infeasible||!msg.candidate)failedSets++;
+        else{
+          exactFound+=msg.timing?.rounds||1;
+          const cand=reviveCandidate(msg.candidate);
+          cand.seed=job.seed;
+          cand.jobIndex=job.jobIndex;
+          cand.archiveKey=msg.diagnostics?.archiveKey||null;
+          archiveCandidate(cand);
+        }
+      }catch(err){
+        campaignQueue.unshift(job);
+        $('status').innerHTML=`<span class="warn">Worker failure; requeued job ${job.jobIndex}.</span> ${err.message||err}`;
+        await new Promise(r=>setTimeout(r,80));
+        continue;
+      }
+      $('progressBar').style.width=`${100*Math.min(1,completed/total)}%`;
+      $('status').innerHTML=`Workers <b>${searchWorkers.length}</b> · queue <b>${campaignQueue.length}</b> · seed <b>${campaignSeed}</b> · job <b>${campaignJobIndex}</b> · tested <b>${setsTested}</b> · exact <b>${exactFound}</b> · admissible <b>${admissibleFound}</b> · rejected <b>${rejectedExact}</b> · infeasible <b>${failedSets}</b>.`;
+    }
+  }
+  enqueue();
+  await Promise.all(searchWorkers.map(runSlot));
+}
+async function searchBatch(){
+  if(running&&window.__batchActive)return;
+  N=+$('res').value;window.__batchActive=true;window.__singleBatchAbort=false;
+  const total=+$('sets').value;
+  const usedWorkers=await ensureSearchWorkers();
+  $('status').innerHTML=usedWorkers
+    ?`Searching ${total} transform sets at ${N}³ with ${searchWorkers.length} CPU workers…`
+    :`Searching ${total} transform sets at ${N}³ on the main thread…`;
+  if(usedWorkers)await searchBatchWorkers(total);
+  else{
+    for(let s=0;s<total;s++){
+      while(searchPaused&&!window.__singleBatchAbort)await new Promise(r=>setTimeout(r,40));
+      if(window.__singleBatchAbort)break;
+      setsTested++;
+      await solveTransformSet(s/total,1/total);
+      $('progressBar').style.width=`${100*(s+1)/total}%`;
+      $('status').innerHTML=`Tested <b>${setsTested}</b> transform sets · exact matchings <b>${exactFound}</b> · admissible <b>${admissibleFound}</b> · rejected exact covers <b>${rejectedExact}</b> · infeasible sets <b>${failedSets}</b>.`;
+      await new Promise(requestAnimationFrame);
+    }
+  }
+  window.__batchActive=false;
+  $('progressBar').style.width='0%';
+  if(running)setTimeout(searchBatch,0);
+}
+function updateUI(){
+  updateMetrics();updateInventory();updateArchive();updateNearArchive();updateOutcomeStats();
+}
+function updateMetrics(){
+  const root=$('metrics');root.innerHTML='';
+  if(!current){$('verdict').textContent='No exact candidate selected yet.';return}
+  const c=current,structural=admissibility(c);
+  const promotable=structural.pass&&c.moved>=+$('minMoved').value&&c.similarity<.6;
+  if(promotable){
+    $('verdict').innerHTML='<span class="good">Exact closure and structurally admissible.</span> Candidate is suitable for interface refinement.';
+  }else if(structural.pass){
+    $('verdict').innerHTML='<span class="exactonly">Exact and robust, but not sufficiently distinct yet.</span>';
+  }else{
+    $('verdict').innerHTML=`<span class="reject">Exact occupancy only — structurally rejected.</span><br>${structural.reasons.join(' · ')}`;
+  }
+  const vals=[
+    ['Exact Cube A coverage','100%','good'],
+    ['Exact Cube B coverage','100%','good'],
+    ['Overlap / void / out of bounds','0 / 0 / 0','good'],
+    ['Connected pieces',`${c.connected}/${PIECES}`,c.connected===PIECES?'good':'bad'],
+    ['Smallest piece',(100*c.minVol).toFixed(1)+'%',c.minVol>=.05?'good':'warn'],
+    ['Volume imbalance',(100*c.imbalance).toFixed(1)+'%',c.imbalance<.15?'good':'warn'],
+    ['Fragile voxels',(100*c.fragileRatio).toFixed(1)+'%',c.fragileRatio<=+$('maxFragile').value/100?'good':'bad'],
+    ['Interface roughness',(c.roughA+c.roughB).toFixed(3),(c.roughA+c.roughB)<=+$('maxRough').value?'good':'warn'],
+    ['Octant regularity',c.regularity.toFixed(3),c.regularity<.3?'good':'warn'],
+    ['Moved pieces',`${c.moved}/${PIECES}`,c.moved>=+$('minMoved').value?'good':'warn'],
+    ['A/B ownership similarity',(100*c.similarity).toFixed(1)+'%',c.similarity<.5?'good':'warn'],
+    ['Adjacency difference',(100*c.adjacencyDifference).toFixed(1)+'%',c.adjacencyDifference>.25?'good':'warn']
+  ];
+  for(const [a,b,k] of vals){const d=document.createElement('div');d.className='metric';d.innerHTML=`<span>${a}</span><span class="${k}">${b}</span>`;root.appendChild(d)}
+}
+function updateInventory(){
+  const root=$('inventory');root.innerHTML='';if(!current)return;
+  for(let k=0;k<PIECES;k++){
+    const c=document.createElement('div');c.className='card';
+    const p=current.placements[k],comp=current.components[k];
+    c.innerHTML=`<div><span class="sw" style="background:${colors[k]}"></span><b>P${k+1}</b></div>
+      <div>${(100*current.counts[k]/(N*N*N)).toFixed(1)}%</div>
+      <div class="orient">B: R${p.r} · [${p.t.join(',')}]</div>
+      <div class="${comp.comps===1?'good':'bad'}">${comp.comps===1?'connected':comp.comps+' components'}</div>`;
+    root.appendChild(c);
+  }
+}
+function updateArchive(){
+  const root=$('archive');root.innerHTML='';
+  archive.forEach((c,i)=>{
+    const structural=admissibility(c),d=document.createElement('div');
+    const selected=current===c||selectedArchiveIndex===i;
+    d.className='archiveitem'+(i===0?' best':'')+(selected?' selected':'');
+    d.innerHTML=`<b>#${i+1}</b><span>${structural.pass?'admissible':'exact only'} · ${c.connected}/${PIECES} connected · min ${(100*c.minVol).toFixed(1)}%<br>fragile ${(100*c.fragileRatio).toFixed(1)}% · rough ${(c.roughA+c.roughB).toFixed(3)} · A/B ${(100*c.similarity).toFixed(1)}%</span><span>${c.moved}/${PIECES}</span>`;
+    d.onclick=()=>selectCandidate(c,i);
+    root.appendChild(d);
+  });
+}
+function updateOutcomeStats(){
+  $('statExact').textContent=exactFound;
+  $('statAdmissible').textContent=admissibleFound;
+  $('statRejected').textContent=rejectedExact;
+  $('statRate').textContent=exactFound?`${(100*admissibleFound/exactFound).toFixed(3)}%`:'0.000%';
+}
+function selectCandidate(c,archiveIndex=-1){
+  current=c;selectedArchiveIndex=archiveIndex;followLive=false;repairCandidate=null;smoothState=null;viewMode='search';setViewButtons();updateStudio();
+  $('followLive').classList.remove('active');updateUI();
+}
+function updateNearArchive(){
+  const root=$('nearArchive');root.innerHTML='';
+  nearArchive.forEach((c,i)=>{
+    const structural=admissibility(c),d=document.createElement('div');
+    d.className='nearitem'+(current===c?' selected':'');
+    d.innerHTML=`<b>#${i+1}</b><span>${c.connected}/${PIECES} connected · min ${(100*c.minVol).toFixed(1)}% · fragile ${(100*c.fragileRatio).toFixed(1)}%<br>${structural.reasons.slice(0,2).join(' · ')}</span><span>rough ${(c.roughA+c.roughB).toFixed(2)}</span>`;
+    d.onclick=()=>selectCandidate(c,-1);root.appendChild(d);
+  });
+}
+
+function componentLists(labels,k){
+  const seen=new Uint8Array(labels.length),comps=[],nb=[[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
+  for(let i=0;i<labels.length;i++)if(labels[i]===k&&!seen[i]){
+    const comp=[],q=[i];seen[i]=1;
+    for(let h=0;h<q.length;h++){
+      const j=q[h];comp.push(j);const [x,y,z]=unidx(j);
+      for(const d of nb){const X=x+d[0],Y=y+d[1],Z=z+d[2];if(X<0||Y<0||Z<0||X>=N||Y>=N||Z>=N)continue;const t=idx(X,Y,Z);if(labels[t]===k&&!seen[t]){seen[t]=1;q.push(t)}}
+    }
+    comps.push(comp);
+  }
+  comps.sort((a,b)=>b.length-a.length);return comps;
+}
+function coreOwnership(labels){
+  const owner=new Int8Array(labels.length);owner.fill(-1);let detached=0;
+  for(let k=0;k<PIECES;k++){
+    const comps=componentLists(labels,k);if(!comps.length)continue;
+    for(const i of comps[0])owner[i]=k;
+    for(let c=1;c<comps.length;c++)detached+=comps[c].length;
+  }
+  return {owner,detached};
+}
+function makeRepairEdges(base,priorA,priorB,bias){
+  const n=N*N*N,edges=Array.from({length:n},()=>[]),cores=coreOwnership(priorA);
+  const seedsA=labelCentroids(priorA,randomSeedLayout()),seedsB=labelCentroids(priorB,randomSeedLayout());
+  const preserve=+$('repairPreserve').value,coreLock=+$('repairCore').value,conn=+$('repairConn').value;
+  const minTarget=+$('repairMinVolume').value/100*n,tinyPressure=+$('repairTiny').value;
+  const priorCounts=new Int32Array(PIECES);for(const k of priorA)priorCounts[k]++;
+  let minCost=Infinity;
+  for(let x=0;x<n;x++){
+    const v=unidx(x),orig=base.labelsA[x],isCore=cores.owner[x]>=0;
+    for(let k=0;k<PIECES;k++){
+      const yv=transformVoxel(v,base.placements[k]),[X,Y,Z]=yv;if(X<0||Y<0||Z<0||X>=N||Y>=N||Z>=N)continue;
+      const y=idx(X,Y,Z),support=neighborSupport(priorA,x,k)+neighborSupport(priorB,y,k);
+      const deficit=Math.max(0,minTarget-priorCounts[k])/Math.max(1,minTarget);
+      let cost=2.2*dist2(v,seedsA[k])+2.2*dist2(yv,seedsB[k])+conn*(12-support)/12+bias[k]-tinyPressure*deficit;
+      if(orig!==k)cost+=preserve*(isCore?1:.2);
+      if(cores.owner[x]>=0&&cores.owner[x]!==k)cost+=coreLock;
+      edges[x].push({y,piece:k,cost});minCost=Math.min(minCost,cost);
+    }
+  }
+  const shift=minCost<0?-minCost:0;for(const list of edges)for(const e of list)e.cost+=shift;
+  return edges;
+}
+async function repairSelectedExact(){
+  if(!current){$('studioStatus').textContent='Select a candidate first.';return}
+  running=false;window.__singleBatchAbort=false;
+  const base=current,rounds=+$('repairRounds').value,target=N*N*N/PIECES,bias=new Float64Array(PIECES);
+  let priorA=new Uint8Array(base.labelsA),priorB=new Uint8Array(base.labelsB),best=base;
+  $('studioStatus').innerHTML='Running exact component repair…';
+  for(let r=0;r<rounds;r++){
+    const edges=makeRepairEdges(base,priorA,priorB,bias);
+    const match=await minCostPerfectMatching(edges,p=>{$('progressBar').style.width=`${100*(r+p)/rounds}%`});
+    if(!match)break;
+    const cand=evaluateCandidate(match,base.placements);
+    if(compareKey(cand,best)<0)best=cand;
+    priorA=match.labelsA;priorB=match.labelsB;
+    const minTarget=+$('repairMinVolume').value/100*N*N*N,tinyPressure=+$('repairTiny').value;
+    for(let k=0;k<PIECES;k++){
+      bias[k]+=8*(cand.counts[k]-target)/target;
+      if(cand.counts[k]<minTarget)bias[k]-=tinyPressure*(minTarget-cand.counts[k])/Math.max(1,minTarget);
+    }
+    await new Promise(requestAnimationFrame);
+  }
+  repairCandidate=best;smoothState=null;viewMode='repair';current=best;followLive=false;
+  $('followLive').classList.remove('active');setViewButtons();updateUI();updateStudio();
+  $('progressBar').style.width='0%';
+  const improved=compareKey(best,base)<0;
+  $('studioStatus').innerHTML=improved?'<span class="exactBadge">Exact repair improved the candidate.</span> Zero overlap/void is preserved.':'<span class="approx">No better exact repair was found.</span> The original candidate is retained.';
+}
+function idxM(x,y,z,M){return x+M*(y+M*z)}
+function unidxM(i,M){return[i%M,Math.floor(i/M)%M,Math.floor(i/(M*M))]}
+function upsampleLabels(labels,f){
+  const M=N*f,out=new Uint8Array(M*M*M);
+  for(let z=0;z<M;z++)for(let y=0;y<M;y++)for(let x=0;x<M;x++)out[idxM(x,y,z,M)]=labels[idx(Math.floor(x/f),Math.floor(y/f),Math.floor(z/f))];
+  return {labels:out,M};
+}
+function smoothOne(labels,base,M,preserve){
+  const out=new Uint8Array(labels),nb=[[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
+  for(let z=1;z<M-1;z++)for(let y=1;y<M-1;y++)for(let x=1;x<M-1;x++){
+    const i=idxM(x,y,z,M),score=new Float32Array(PIECES);score[base[i]]+=preserve;score[labels[i]]+=1;
+    for(const d of nb)score[labels[idxM(x+d[0],y+d[1],z+d[2],M)]]+=1;
+    let bk=labels[i],bs=score[bk];for(let k=0;k<PIECES;k++)if(score[k]>bs){bk=k;bs=score[k]}
+    out[i]=bk;
+  }
+  return out;
+}
+function transformHigh(v,pl,M,f){
+  const c=[v[0]-(M-1)/2,v[1]-(M-1)/2,v[2]-(M-1)/2],q=applyRot(c,ROT[pl.r]);
+  return[Math.round(q[0]+(M-1)/2+pl.t[0]*f),Math.round(q[1]+(M-1)/2+pl.t[1]*f),Math.round(q[2]+(M-1)/2+pl.t[2]*f)];
+}
+function roughnessM(labels,M){
+  let r=0;for(let z=0;z<M;z++)for(let y=0;y<M;y++)for(let x=0;x<M;x++){const k=labels[idxM(x,y,z,M)];if(x+1<M&&labels[idxM(x+1,y,z,M)]!==k)r++;if(y+1<M&&labels[idxM(x,y+1,z,M)]!==k)r++;if(z+1<M&&labels[idxM(x,y,z+1,M)]!==k)r++}return r/(M*M*M);
+}
+function evaluateSmooth(labelsA,M,cand,f){
+  const occ=new Uint8Array(M*M*M),labelsB=new Uint8Array(M*M*M);labelsB.fill(255);let out=0;
+  for(let i=0;i<labelsA.length;i++){
+    const k=labelsA[i],v=unidxM(i,M),t=transformHigh(v,cand.placements[k],M,f),[x,y,z]=t;
+    if(x<0||y<0||z<0||x>=M||y>=M||z>=M){out++;continue}
+    const j=idxM(x,y,z,M);occ[j]++;if(occ[j]===1)labelsB[j]=k;else labelsB[j]=254;
+  }
+  let gaps=0,overlaps=0;for(let i=0;i<occ.length;i++){if(occ[i]===0)gaps++;if(occ[i]>1)overlaps+=occ[i]-1}
+  return {labelsA,labelsB,M,f,gaps,overlaps,out,defects:gaps+overlaps+out,defectRate:(gaps+overlaps+out)/(M*M*M),roughness:roughnessM(labelsA,M)};
+}
+async function buildSmoothPreview(){
+  const cand=repairCandidate||current;if(!cand){$('studioStatus').textContent='Select and repair a candidate first.';return}
+  const f=+$('smoothFactor').value,maxPass=+$('smoothPasses').value,preserve=+$('smoothPreserve').value,tol=+$('smoothTolerance').value/100;
+  const up=upsampleLabels(cand.labelsA,f),base=new Uint8Array(up.labels);let labels=new Uint8Array(base),best=evaluateSmooth(labels,up.M,cand,f);best.passes=0;
+  for(let p=1;p<=maxPass;p++){
+    labels=smoothOne(labels,base,up.M,preserve);const e=evaluateSmooth(labels,up.M,cand,f);e.passes=p;
+    if(e.defectRate<=tol&&e.roughness<best.roughness)best=e;
+    await new Promise(requestAnimationFrame);
+  }
+  smoothState=best;viewMode='smooth';setViewButtons();updateStudio();
+  $('studioStatus').innerHTML=best.passes>0?`<span class="approx">Best-fit smooth preview:</span> ${best.passes} passes, ${(100*best.defectRate).toFixed(3)}% sampled Cube B defects.`:'<span class="exactBadge">Only the unsmoothed exact geometry met the selected tolerance.</span> Increase tolerance or reduce preservation to explore approximations.';
+}
+function setViewButtons(){
+  $('viewSearch').classList.toggle('active',viewMode==='search');$('viewRepair').classList.toggle('active',viewMode==='repair');$('viewSmooth').classList.toggle('active',viewMode==='smooth');
+}
+function updateStudio(){
+  const root=$('studioMetrics');root.innerHTML='';const c=repairCandidate||current;
+  const vals=[];
+  if(c){vals.push(['Exact repaired closure','0 / 0 / 0'],['Connected pieces',`${c.connected}/${PIECES}`],['Smallest piece',`${(100*c.minVol).toFixed(1)}%`]);}
+  if(smoothState){vals.push(['Smooth passes',smoothState.passes],['Smooth B defect',`${(100*smoothState.defectRate).toFixed(3)}%`],['Smooth roughness',smoothState.roughness.toFixed(3)]);}
+  for(const [a,b] of vals){const d=document.createElement('div');d.className='studioCard';d.innerHTML=`${a}<strong>${b}</strong>`;root.appendChild(d)}
+}
+function getViewData(){
+  if(viewMode==='smooth'&&smoothState)return {A:smoothState.labelsA,B:smoothState.labelsB,M:smoothState.M,la:'Cube A — best-fit smooth label field',lb:'Cube B — transformed smooth fit'};
+  if(viewMode==='repair'&&repairCandidate)return {A:repairCandidate.labelsA,B:repairCandidate.labelsB,M:N,la:'Cube A — exact repaired partition',lb:'Cube B — exact repaired alternate tiling'};
+  return {A:current?.labelsA,B:current?.labelsB,M:N,la:'Cube A — canonical exact partition',lb:'Cube B — same pieces, exact alternate tiling'};
+}
+function buildSurfaceMesh(labels,M,relaxPasses){
+  const verts=[],vmap=new Map(),faces=Array.from({length:PIECES},()=>[]),adj=[];
+  const key=(x,y,z)=>`${x},${y},${z}`;
+  function vid(x,y,z){const s=key(x,y,z);if(vmap.has(s))return vmap.get(s);const id=verts.length;vmap.set(s,id);verts.push([x/M,y/M,z/M]);adj.push(new Set());return id}
+  const dirs=[
+    [1,0,0,[[1,0,0],[1,1,0],[1,1,1],[1,0,1]]],[-1,0,0,[[0,0,0],[0,0,1],[0,1,1],[0,1,0]]],
+    [0,1,0,[[0,1,0],[0,1,1],[1,1,1],[1,1,0]]],[0,-1,0,[[0,0,0],[1,0,0],[1,0,1],[0,0,1]]],
+    [0,0,1,[[0,0,1],[1,0,1],[1,1,1],[0,1,1]]],[0,0,-1,[[0,0,0],[0,1,0],[1,1,0],[1,0,0]]]
+  ];
+  for(let z=0;z<M;z++)for(let y=0;y<M;y++)for(let x=0;x<M;x++){
+    const k=labels[idxM(x,y,z,M)];if(k>=PIECES)continue;
+    for(const [dx,dy,dz,corners] of dirs){const X=x+dx,Y=y+dy,Z=z+dz;if(X>=0&&Y>=0&&Z>=0&&X<M&&Y<M&&Z<M&&labels[idxM(X,Y,Z,M)]===k)continue;
+      const q=corners.map(c=>vid(x+c[0],y+c[1],z+c[2]));faces[k].push(q);for(let i=0;i<4;i++){adj[q[i]].add(q[(i+1)%4]);adj[q[(i+1)%4]].add(q[i])}
+    }
+  }
+  let pos=verts.map(v=>[...v]);const fixed=pos.map(v=>v.some(q=>q===0||q===1));
+  for(let it=0;it<relaxPasses;it++){const next=pos.map(v=>[...v]);for(let i=0;i<pos.length;i++)if(!fixed[i]&&adj[i].size){const av=[0,0,0];for(const j of adj[i]){av[0]+=pos[j][0];av[1]+=pos[j][1];av[2]+=pos[j][2]}const n=adj[i].size;for(let a=0;a<3;a++)next[i][a]=pos[i][a]*.72+av[a]/n*.28}pos=next}
+  return {verts:pos,faces};
+}
+function appendMeshOBJ(mesh,cand,assemblyB=false,xOffset=0,startIndex=0){
+  let out='',offset=startIndex;
+  const assemblyName=assemblyB?'CubeB':'CubeA';
+  for(let k=0;k<PIECES;k++){
+    const used=[...new Set(mesh.faces[k].flat())],map=new Map();
+    out+=`o ${assemblyName}_Piece_${k+1}\n`;
+    out+=`g ${assemblyName}_Piece_${k+1}\n`;
+    out+=`usemtl Piece_${k+1}\n`;
+    for(const id of used){
+      let v=[...mesh.verts[id]];
+      if(assemblyB){
+        const c=[v[0]-.5,v[1]-.5,v[2]-.5],q=applyRot(c,ROT[cand.placements[k].r]);
+        v=[
+          q[0]+.5+cand.placements[k].t[0]/N,
+          q[1]+.5+cand.placements[k].t[1]/N,
+          q[2]+.5+cand.placements[k].t[2]/N
+        ];
+      }
+      v[0]+=xOffset;
+      map.set(id,++offset);
+      out+=`v ${v[0]} ${v[1]} ${v[2]}\n`;
+    }
+    for(const f of mesh.faces[k])out+=`f ${f.map(id=>map.get(id)).join(' ')}\n`;
+  }
+  return {text:out,nextIndex:offset};
+}
+function meshOBJ(mesh,cand,assemblyB=false,xOffset=0,mtlName='dual_cube_materials.mtl'){
+  const body=appendMeshOBJ(mesh,cand,assemblyB,xOffset,0);
+  return `# Best-fit smooth dual-cube puzzle mesh
+# Cube edge length = 1.0
+mtllib ${mtlName}
+${body.text}`;
+}
+function meshOBJBoth(mesh,cand,cubeBOffsetX=3,mtlName='dual_cube_materials.mtl'){
+  const a=appendMeshOBJ(mesh,cand,false,0,0);
+  const b=appendMeshOBJ(mesh,cand,true,cubeBOffsetX,a.nextIndex);
+  return `# Best-fit smooth dual-cube puzzle mesh — both configurations
+# Cube edge length = 1.0
+# Cube A origin: X = 0
+# Cube B offset: X = ${cubeBOffsetX}
+# Separation is measured in cube-edge lengths.
+mtllib ${mtlName}
+g Cube_A
+${a.text}g Cube_B_Offset_${cubeBOffsetX}
+${b.text}`;
+}
+
+function hexRGB01(hex){
+  const n=parseInt(hex.replace('#',''),16);
+  return [((n>>16)&255)/255,((n>>8)&255)/255,(n&255)/255];
+}
+function pieceMTL(){
+  let out='# Dual-cube piece materials\n';
+  for(let k=0;k<PIECES;k++){
+    const [r,g,b]=hexRGB01(colors[k]);
+    out+=`newmtl Piece_${k+1}\n`;
+    out+=`Ka ${(r*.18).toFixed(6)} ${(g*.18).toFixed(6)} ${(b*.18).toFixed(6)}\n`;
+    out+=`Kd ${r.toFixed(6)} ${g.toFixed(6)} ${b.toFixed(6)}\n`;
+    out+=`Ks 0.080000 0.080000 0.080000\n`;
+    out+=`Ns 18.000000\n`;
+    out+=`d 1.000000\n`;
+    out+=`illum 2\n\n`;
+  }
+  return out;
+}
+function crc32(bytes){
+  if(!crc32.table){
+    crc32.table=new Uint32Array(256);
+    for(let n=0;n<256;n++){
+      let c=n;
+      for(let k=0;k<8;k++)c=(c&1)?(0xEDB88320^(c>>>1)):(c>>>1);
+      crc32.table[n]=c>>>0;
+    }
+  }
+  let c=0xFFFFFFFF;
+  for(const b of bytes)c=crc32.table[(c^b)&0xFF]^(c>>>8);
+  return (c^0xFFFFFFFF)>>>0;
+}
+function u16(a,v){a.push(v&255,(v>>>8)&255)}
+function u32(a,v){a.push(v&255,(v>>>8)&255,(v>>>16)&255,(v>>>24)&255)}
+function makeStoredZip(files){
+  const enc=new TextEncoder(),local=[],central=[];
+  let offset=0;
+  for(const file of files){
+    const name=enc.encode(file.name);
+    const data=typeof file.data==='string'?enc.encode(file.data):file.data;
+    const crc=crc32(data);
+
+    const header=[];
+    u32(header,0x04034b50);u16(header,20);u16(header,0);u16(header,0);
+    u16(header,0);u16(header,0);u32(header,crc);u32(header,data.length);u32(header,data.length);
+    u16(header,name.length);u16(header,0);
+    local.push(new Uint8Array(header),name,data);
+
+    const cent=[];
+    u32(cent,0x02014b50);u16(cent,20);u16(cent,20);u16(cent,0);u16(cent,0);
+    u16(cent,0);u16(cent,0);u32(cent,crc);u32(cent,data.length);u32(cent,data.length);
+    u16(cent,name.length);u16(cent,0);u16(cent,0);u16(cent,0);u16(cent,0);
+    u32(cent,0);u32(cent,offset);
+    central.push(new Uint8Array(cent),name);
+
+    offset+=header.length+name.length+data.length;
+  }
+  const centralSize=central.reduce((s,x)=>s+x.length,0);
+  const end=[];
+  u32(end,0x06054b50);u16(end,0);u16(end,0);u16(end,files.length);u16(end,files.length);
+  u32(end,centralSize);u32(end,offset);u16(end,0);
+
+  const all=[...local,...central,new Uint8Array(end)];
+  const size=all.reduce((s,x)=>s+x.length,0),out=new Uint8Array(size);
+  let p=0;for(const x of all){out.set(x,p);p+=x.length}
+  return out;
+}
+async function presentBinaryExport(filename,bytes,mime='application/zip',parts=[]){
+  if(exportURL)URL.revokeObjectURL(exportURL);
+  for(const url of exportPartURLs)URL.revokeObjectURL(url);
+  exportPartURLs=[];
+
+  const blob=new Blob([bytes],{type:mime});
+  exportURL=URL.createObjectURL(blob);
+
+  const preparedParts=parts.map(part=>{
+    const partBlob=new Blob([part.data],{type:part.mime||'text/plain'});
+    const url=URL.createObjectURL(partBlob);
+    exportPartURLs.push(url);
+    return {...part,blob:partBlob,url};
+  });
+
+  exportPayload={
+    filename,
+    text:'[Binary ZIP bundle: OBJ + MTL]',
+    mime,
+    blob,
+    url:exportURL,
+    parts:preparedParts
+  };
+
+  $('exportTitle').textContent=filename;
+  const embedded=window.self!==window.top;
+  $('embeddedNotice').innerHTML=embedded
+    ? '<span class="warn">Embedded preview detected.</span> ZIP downloads may be blocked. Use the separate OBJ and MTL links, or open this HTML locally in Chrome.'
+    : '<span class="good">Standalone page detected.</span> Normal browser downloads should work.';
+  $('exportMessage').innerHTML=
+    'The ZIP, OBJ, and MTL have been generated in memory. Keep the OBJ and MTL together when importing into Rhino.';
+
+  $('exportText').value=
+    'Binary ZIP bundle containing:\n• dual_cube_colored.obj\n• dual_cube_materials.mtl';
+
+  const main=$('exportDownload');
+  main.href=exportURL;
+  main.download=filename;
+  main.textContent='Download ZIP';
+
+  const obj=$('exportObjPart'),mtl=$('exportMtlPart');
+  obj.style.display='none';mtl.style.display='none';
+
+  const objPart=preparedParts.find(p=>/\.obj$/i.test(p.name));
+  const mtlPart=preparedParts.find(p=>/\.mtl$/i.test(p.name));
+
+  if(objPart){
+    obj.href=objPart.url;
+    obj.download=objPart.name;
+    obj.style.display='';
+  }
+  if(mtlPart){
+    mtl.href=mtlPart.url;
+    mtl.download=mtlPart.name;
+    mtl.style.display='';
+  }
+
+  $('exportCopy').style.display='none';
+  $('exportOverlay').classList.add('open');
+  $('exportOverlay').setAttribute('aria-hidden','false');
+}
+
+function projectJSON(){
+  const cand=repairCandidate||current;if(!cand)return null;
+  return {schema:'dual-cube-repair-smooth-project',version:2,savedAt:new Date().toISOString(),gridResolution:N,N,pieceCount:PIECES,selectedCandidate:{placements:cand.placements,labelsA:Array.from(cand.labelsA),labelsB:Array.from(cand.labelsB),destOf:Array.from(cand.destOf||[]),metrics:{connected:cand.connected,minVol:cand.minVol,imbalance:cand.imbalance,roughA:cand.roughA,roughB:cand.roughB,fragileRatio:cand.fragileRatio,similarity:cand.similarity,adjacencyDifference:cand.adjacencyDifference}},repairParameters:{rounds:+$('repairRounds').value,preserve:+$('repairPreserve').value,coreLock:+$('repairCore').value,connectivity:+$('repairConn').value,targetMinimumVolume:+$('repairMinVolume').value,tinyPieceRescue:+$('repairTiny').value},objExport:{cubeEdgeLength:1,cubeAOffsetX:0,cubeBOffsetX:3,materials:'Wavefront MTL',pieceMaterials:Array.from({length:PIECES},(_,i)=>`Piece_${i+1}`)},smooth:smoothState?{M:smoothState.M,factor:smoothState.f,passes:smoothState.passes,gaps:smoothState.gaps,overlaps:smoothState.overlaps,out:smoothState.out,defectRate:smoothState.defectRate,roughness:smoothState.roughness,labelsA:Array.from(smoothState.labelsA),labelsB:Array.from(smoothState.labelsB)}:null};
+}
+async function presentExport(filename,text,mime='application/octet-stream'){
+  if(exportURL)URL.revokeObjectURL(exportURL);
+  for(const url of exportPartURLs)URL.revokeObjectURL(url);
+  exportPartURLs=[];
+
+  const blob=new Blob([text],{type:mime});
+  exportURL=URL.createObjectURL(blob);
+  exportPayload={filename,text,mime,blob,url:exportURL,parts:[]};
+
+  $('exportTitle').textContent=filename;
+  const embedded=window.self!==window.top;
+  $('embeddedNotice').innerHTML=embedded
+    ? '<span class="warn">Embedded preview detected.</span> This viewer may block browser-generated downloads. The same HTML opened locally in Chrome can download normally. Copy or open the raw text here as a guaranteed fallback.'
+    : '<span class="good">Standalone page detected.</span> Normal browser downloads should work.';
+  $('exportMessage').innerHTML=
+    'The file has been generated in memory. Use Download prepared file, or use Copy/Open raw text when the preview blocks downloads.';
+  $('exportText').value=text;
+
+  const link=$('exportDownload');
+  link.href=exportURL;
+  link.download=filename;
+  link.textContent='Download prepared file';
+
+  $('exportObjPart').style.display='none';
+  $('exportMtlPart').style.display='none';
+  $('exportCopy').style.display='';
+  $('exportOverlay').classList.add('open');
+  $('exportOverlay').setAttribute('aria-hidden','false');
+}
+async function shareExportFile(){
+  if(!exportPayload)return;
+  const {filename,mime,blob}=exportPayload;
+  try{
+    const file=new File([blob],filename,{type:mime,lastModified:Date.now()});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){
+      await navigator.share({files:[file],title:filename});
+      $('exportMessage').innerHTML='<span class="good">Share sheet opened.</span> Choose Save to Files or another destination.';
+    }else{
+      $('exportMessage').innerHTML='<span class="warn">File sharing is unavailable in this browser.</span> Use Save As, Direct file link, or Open raw file.';
+    }
+  }catch(e){if(e.name!=='AbortError')$('exportMessage').innerHTML=`<span class="bad">Share failed:</span> ${String(e.message||e)}`}
+}
+
+function openRawInThisTab(){
+  if(!exportPayload)return;
+  if(!confirm('This will replace the solver page with the raw export. Save your candidate JSON first if needed. Continue?'))return;
+  const payload=exportPayload;
+  if(payload.mime&&payload.mime.includes('zip')){
+    $('exportMessage').innerHTML='<span class="warn">ZIP is binary and cannot be displayed as text.</span> Use the separate OBJ and MTL links instead.';
+    return;
+  }
+  const text=typeof payload.text==='string'?payload.text:$('exportText').value;
+  const blob=new Blob([text],{type:payload.mime||'text/plain'});
+  const url=URL.createObjectURL(blob);
+  window.location.assign(url);
+}
+
+function openRawExport(){
+  if(!exportPayload)return;
+  const {text,mime,url}=exportPayload;
+  let opened=window.open(url,'_blank','noopener');
+  if(!opened&&typeof text==='string'&&text.length<1500000&&!mime.includes('zip')){
+    const dataURL=`data:${mime};charset=utf-8,${encodeURIComponent(text)}`;
+    opened=window.open(dataURL,'_blank','noopener');
+  }
+  $('exportMessage').innerHTML=opened
+    ? '<span class="good">Prepared file opened in a new tab.</span> For ZIP files, the browser should download it; for text files, use the browser Save command.'
+    : '<span class="bad">The preview blocked the new tab.</span> Use one of the direct download links above.';
+}
+
+function viewPoint(p,offset){
+  const q=[p[0]-.5-offset,p[1]-.5,p[2]-.5],cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch);
+  const x=cy*q[0]+sy*q[2],z=-sy*q[0]+cy*q[2],y=q[1];return[x,cp*y-sp*z,sp*y+cp*z];
+}
+function project(p,w,h,offset,shift){
+  const q=viewPoint(p,offset),cam=3.5/zoom,s=Math.min(w/2,h)*.82/(cam-q[2]);
+  return[shift+q[0]*s,h*.49-q[1]*s,q[2]];
+}
+
+function isBoundaryVoxelR(labels,x,y,z,M){
+  const k=labels[idxM(x,y,z,M)];
+  for(const d of [[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]]){const X=x+d[0],Y=y+d[1],Z=z+d[2];if(X<0||Y<0||Z<0||X>=M||Y>=M||Z>=M||labels[idxM(X,Y,Z,M)]!==k)return true}return false;
+}
+function drawCubeR(labels,M,offset,shift,w,h,label){
+  if(!labels)return;const vox=[],op=+$('opacity').value;
+  for(let z=0;z<M;z++)for(let y=0;y<M;y++)for(let x=0;x<M;x++){
+    if(surfaceOnly&&!isBoundaryVoxelR(labels,x,y,z,M))continue;const k=labels[idxM(x,y,z,M)],p=[(x+.5)/M+offset,(y+.5)/M,(z+.5)/M],pr=project(p,w,h,offset,shift);vox.push({pr,k});
+  }
+  vox.sort((a,b)=>a.pr[2]-b.pr[2]);const s=Math.max(1.2,Math.min(w/2,h)*.43/M);
+  for(const v of vox){ctx.globalAlpha=op;ctx.fillStyle=v.k===255?'#ffffff':v.k===254?'#ff3344':colors[v.k];ctx.fillRect(v.pr[0]-s/2,v.pr[1]-s/2,s,s)}ctx.globalAlpha=1;
+  if(showShell){const Q=[[0,0,0],[1,0,0],[0,1,0],[1,1,0],[0,0,1],[1,0,1],[0,1,1],[1,1,1]].map(p=>[p[0]+offset,p[1],p[2]]),E=[[0,1],[0,2],[0,4],[1,3],[1,5],[2,3],[2,6],[3,7],[4,5],[4,6],[5,7],[6,7]];ctx.strokeStyle='rgba(255,255,255,.6)';ctx.lineWidth=1.5;for(const e of E){const a=project(Q[e[0]],w,h,offset,shift),b=project(Q[e[1]],w,h,offset,shift);ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke()}}
+  ctx.fillStyle='#eef4fb';ctx.font='700 14px system-ui';ctx.textAlign='center';ctx.fillText(label,shift,h-28);
+}
+function render(){
+  const dpr=Math.min(devicePixelRatio||1,2),r=C.getBoundingClientRect(),w=r.width,h=r.height;if(C.width!==Math.round(w*dpr)||C.height!==Math.round(h*dpr)){C.width=Math.round(w*dpr);C.height=Math.round(h*dpr)}ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+  const v=getViewData();drawCubeR(v.A,v.M,0,w*.27,w,h,v.la);drawCubeR(v.B,v.M,2,w*.73,w,h,v.lb);if(auto)yaw+=.003;requestAnimationFrame(render);
+}
+
+function serializeArchiveItem(c){
+  return {
+    placements:c.placements,
+    labelsA:Array.from(c.labelsA),labelsB:Array.from(c.labelsB),destOf:Array.from(c.destOf||[]),
+    counts:Array.from(c.counts),connected:c.connected,imbalance:c.imbalance,roughA:c.roughA,roughB:c.roughB,
+    regularity:c.regularity,moved:c.moved,similarity:c.similarity,adjacencyDifference:c.adjacencyDifference,
+    minVol:c.minVol,fragileRatio:c.fragileRatio,score:c.score,totalCost:c.totalCost,exact:true,
+    seed:c.seed??null,archiveKey:c.archiveKey||null,admissibility:c.admissibility||admissibility(c)
+  };
+}
+async function downloadCheckpoint(){
+  const data={
+    schema:'dual-cube-search-checkpoint',version:2,savedAt:new Date().toISOString(),
+    gridResolution:N,pieceCount:PIECES,campaignSeed:(+$('campaignSeed').value||0)>>>0,campaignJobIndex,
+    pendingJobs:campaignQueue.map(j=>({jobIndex:j.jobIndex,seed:j.seed})),
+    setsTested,exactFound,failedSets,admissibleFound,rejectedExact,activePreset,
+    searchParameters:{
+      coherenceA:+$('cohA').value,coherenceB:+$('cohB').value,asymmetry:+$('asym').value,
+      balanceLearning:+$('balance').value,connectivityRefinement:+$('connRefine').value,
+      extraTranslation:+$('radius').value,rounds:+$('rounds').value,minMoved:+$('minMoved').value,
+      workers:desiredWorkerCount(),queueDepth:+$('queueDepth').value,sets:+$('sets').value
+    },
+    archive:archive.map(serializeArchiveItem),
+    nearArchive:nearArchive.map(serializeArchiveItem)
+  };
+  await presentExport(`dual-cube-checkpoint-${N}x${N}x${N}-${Date.now()}.json`,JSON.stringify(data,null,2),'application/json');
+}
+async function loadCheckpointObject(data){
+  if(data.schema!=='dual-cube-search-checkpoint')throw new Error('Not a dual-cube-search-checkpoint file.');
+  running=false;searchPaused=false;window.__singleBatchAbort=true;
+  N=+data.gridResolution||+data.N;PIECES=+data.pieceCount;
+  setControlValue('res',N);setControlValue('pieceCount',PIECES);
+  if(data.searchParameters){
+    const p=data.searchParameters;
+    if(p.coherenceA!=null)setControlValue('cohA',p.coherenceA);
+    if(p.coherenceB!=null)setControlValue('cohB',p.coherenceB);
+    if(p.asymmetry!=null)setControlValue('asym',p.asymmetry);
+    if(p.balanceLearning!=null)setControlValue('balance',p.balanceLearning);
+    if(p.connectivityRefinement!=null)setControlValue('connRefine',p.connectivityRefinement);
+    if(p.extraTranslation!=null)setControlValue('radius',p.extraTranslation);
+    if(p.rounds!=null)setControlValue('rounds',p.rounds);
+    if(p.minMoved!=null)setControlValue('minMoved',p.minMoved);
+    if(p.workers!=null)setControlValue('workers',p.workers);
+    if(p.queueDepth!=null)setControlValue('queueDepth',p.queueDepth);
+    if(p.sets!=null)setControlValue('sets',p.sets);
+  }
+  if(data.campaignSeed!=null)setControlValue('campaignSeed',data.campaignSeed);
+  campaignJobIndex=+data.campaignJobIndex||0;
+  campaignQueue=Array.isArray(data.pendingJobs)?data.pendingJobs.map(j=>({jobIndex:+j.jobIndex,seed:+j.seed})):[] ;
+  setsTested=+data.setsTested||0;exactFound=+data.exactFound||0;failedSets=+data.failedSets||0;
+  admissibleFound=+data.admissibleFound||0;rejectedExact=+data.rejectedExact||0;
+  archive=(data.archive||[]).map(reviveCandidate);
+  nearArchive=(data.nearArchive||[]).map(reviveCandidate);
+  current=archive[0]||nearArchive[0]||null;
+  selectedArchiveIndex=current?archive.indexOf(current):-1;
+  updatePieceCount(false);updateUI();
+  $('status').innerHTML=`<span class="good">Checkpoint loaded.</span> Job index ${campaignJobIndex}, ${setsTested} sets tested, ${admissibleFound} admissible.`;
+}
+
+function cadEligibilityFromCandidate(c, pieceCount){
+  const arr=c?.counts?Array.from(c.counts):[];
+  const n=pieceCount??arr.length;
+  const empty=[];
+  for(let i=0;i<n;i++) if(!arr[i]) empty.push(i+1);
+  const disconnected=[];
+  if(c?.components){
+    for(let i=0;i<n;i++){
+      const comps=typeof c.components[i]==='number'?c.components[i]:c.components[i]?.comps;
+      if(arr[i]&&comps!=null&&comps!==1) disconnected.push(i+1);
+    }
+  }
+  const reasons=[];
+  if(empty.length) reasons.push(`empty piece(s): ${empty.join(', ')} — not a CAD reconstruction candidate`);
+  if(disconnected.length) reasons.push(`disconnected source topology: piece(s) ${disconnected.join(', ')} — exact occupancy with invalid pieces; regression fixture, not a CAD candidate`);
+  else if(c?.connected!=null&&c.connected<(n-empty.length)) reasons.push(`${n-empty.length-c.connected} disconnected piece(s) — not a CAD reconstruction candidate`);
+  const minVolume=(+$('minVolume')?.value||5)/100;
+  if(!empty.length&&c?.minVol!=null&&c.minVol<minVolume) reasons.push(`smallest piece ${(100*c.minVol).toFixed(1)}% < ${(100*minVolume).toFixed(1)}%`);
+  let cadQueue='active';
+  if(empty.length) cadQueue='rejected-empty-piece';
+  else if(disconnected.length||(c?.connected!=null&&c.connected<(n-empty.length))) cadQueue='rejected-disconnected-source';
+  else if(reasons.length) cadQueue='rejected-undersized';
+  return {cadEligible:reasons.length===0&&n>0, cadQueue, emptyPieces:empty, disconnectedPieces:disconnected, reasons};
+}
+
+async function downloadJSON(){
+  if(!current){$('exportNotice').innerHTML='<span class="bad">No candidate is selected.</span>';return}
+  const searchParameters={
+    coherenceA:+$('cohA').value,coherenceB:+$('cohB').value,asymmetry:+$('asym').value,
+    balanceLearning:+$('balance').value,connectivityRefinement:+$('connRefine').value,
+    extraTranslation:+$('radius').value,rounds:+$('rounds').value,minMoved:+$('minMoved').value,
+    workers:desiredWorkerCount()
+  };
+  const metrics={
+    connected:current.connected,imbalance:current.imbalance,roughA:current.roughA,roughB:current.roughB,
+    regularity:current.regularity,moved:current.moved,similarity:current.similarity,
+    adjacencyDifference:current.adjacencyDifference,minVol:current.minVol,fragileRatio:current.fragileRatio,
+    admissibility:admissibility(current)
+  };
+  const n=N*N*N;
+  const seen=new Uint8Array(n);let overlap=0,oob=0,voidCount=0,mismatch=0;
+  if(current.destOf&&current.destOf.length===n){
+    for(let x=0;x<n;x++){
+      const y=current.destOf[x];
+      if(y<0||y>=n){oob++;continue}
+      if(seen[y])overlap++;else seen[y]=1;
+      if(current.labelsB[y]!==current.labelsA[x])mismatch++;
+    }
+    voidCount=n-[...seen].reduce((s,v)=>s+v,0);
+  }
+  const cad=cadEligibilityFromCandidate(current,PIECES);
+  const data={
+    schema:'dual-cube-candidate',version:2,savedAt:new Date().toISOString(),
+    gridResolution:N,N,pieceCount:PIECES,
+    placements:current.placements,
+    labelsA:Array.from(current.labelsA),labelsB:Array.from(current.labelsB),
+    destOf:Array.from(current.destOf||[]),counts:Array.from(current.counts),
+    metrics,activePreset,
+    cadEligible:cad.cadEligible,
+    cadQueue:cad.cadQueue,
+    cadBlockers:cad.reasons,
+    cadBlockers:cad.reasons,
+    searchMetadata:{solverBuild:SOLVER_BUILD,seed:current.seed??null,activePreset,provenance:current.provenance||'original',searchParameters},
+    validation:{
+      exactClosure:{ok:overlap===0&&oob===0&&voidCount===0&&mismatch===0,reasons:[],coverageA:1,coverageB:1-voidCount/n,overlap,voidCount,oob},
+      connectivity:{connected:current.connected,pieceCount:PIECES,minVol:current.minVol,fragileRatio:current.fragileRatio},
+      scores:metrics
+    },
+    searchParameters
+  };
+  if(!cad.cadEligible)$('exportNotice').innerHTML=`<span class="warn">Not a CAD reconstruction candidate.</span> ${cad.reasons.join(' ')} JSON is still saved for search diagnostics.`;
+  await presentExport(`exact-dual-cube-${N}x${N}x${N}-${Date.now()}.json`,JSON.stringify(data,null,2),'application/json');
+}
+
+
+
+function pieceCountGuidance(){
+  if(PIECES<=7)return `${PIECES} pieces: hardest nontrivial exact search, but the strongest target for simple, substantial, manufacturable solids.`;
+  if(PIECES<=9)return `${PIECES} pieces: recommended compromise between exact-cover flexibility and manageable interface complexity.`;
+  return `${PIECES} pieces: more exact-cover freedom, but disconnected, tiny, and high-interface-count pieces become more likely.`;
+}
+function updatePieceCount(reset=true){
+  PIECES=+$('pieceCount').value;
+  $('pieceCountv').textContent=`${PIECES} pieces`;
+  $('pieceCountAdvice').textContent=pieceCountGuidance();
+
+  const moved=$('minMoved');
+  moved.max=PIECES;
+  if(+moved.value>PIECES)moved.value=PIECES;
+  $('minMovedv').textContent=moved.value;
+
+  const theoreticalMax=Math.floor((100/PIECES)*10)/10;
+  const minVol=$('minVolume');
+  minVol.max=Math.min(12,theoreticalMax);
+  if(+minVol.value>+minVol.max)minVol.value=minVol.max;
+  $('minVolumev').textContent=`${(+minVol.value).toFixed(1)}%`;
+
+  const repairMin=$('repairMinVolume');
+  if(repairMin){
+    repairMin.max=Math.min(12,theoreticalMax);
+    if(+repairMin.value>+repairMin.max)repairMin.value=repairMin.max;
+    $('repairMinVolumev').textContent=`${(+repairMin.value).toFixed(1)}%`;
+  }
+  if(reset)resetSearchState();
+}
+
+const PRESETS={
+  coherent:{
+    label:'Coherent exact — recommended',
+    description:'Strong coherence in both cubes, moderate asymmetry, cube rotations only, and strict structural filters.',
+    values:{res:8,sets:14,rounds:8,connRefine:3.4,radius:0,minMoved:6,cohA:4.4,cohB:4.0,asym:38,balance:12,minVolume:5,maxFragile:5,maxRough:1.00,opacity:.78},
+    confidence:['High','Experimental','Medium'],
+    classes:['conf-high','conf-med','conf-med']
+  },
+  baseline:{
+    label:'Clean baseline',
+    description:'Prioritizes compact connected territories and balanced volumes. Useful for confirming that the exact-cover kernel is behaving sensibly.',
+    values:{res:8,sets:12,rounds:9,connRefine:4.2,radius:0,minMoved:5,cohA:5.0,cohB:4.6,asym:12,balance:14,minVolume:6,maxFragile:3,maxRough:.88,opacity:.78},
+    confidence:['High','Experimental','Low'],
+    classes:['conf-high','conf-high','conf-low']
+  },
+  asymmetric:{
+    label:'Controlled asymmetry',
+    description:'Pushes seed layouts off the octant pattern while retaining enough coherence to avoid salt-and-pepper matchings.',
+    values:{res:8,sets:20,rounds:9,connRefine:3.6,radius:0,minMoved:7,cohA:4.7,cohB:4.2,asym:68,balance:13,minVolume:5,maxFragile:6,maxRough:1.08,opacity:.78},
+    confidence:['High','Experimental','High'],
+    classes:['conf-high','conf-med','conf-high']
+  },
+  translation:{
+    label:'Translation exploration',
+    description:'Tests rotations plus ±1 lattice translations. This expands the design space but many transform sets have no perfect matching.',
+    values:{res:8,sets:24,rounds:9,connRefine:3.2,radius:1,minMoved:7,cohA:4.8,cohB:4.4,asym:48,balance:15,minVolume:4.5,maxFragile:7,maxRough:1.15,opacity:.78},
+    confidence:['Low–medium','Experimental','High'],
+    classes:['conf-med','conf-med','conf-high']
+  }
+};
+function setControlValue(id,value){
+  const el=$(id);
+  if(!el)return;
+  el.value=value;
+  el.dispatchEvent(new Event('input'));
+}
+function resetSearchState(){
+  running=false;searchPaused=false;window.__singleBatchAbort=true;window.__batchActive=false;
+  current=null;selectedArchiveIndex=-1;archive=[];nearArchive=[];followLive=true;repairCandidate=null;smoothState=null;viewMode='search';
+  setsTested=0;exactFound=0;failedSets=0;admissibleFound=0;rejectedExact=0;campaignJobIndex=0;
+  $('progressBar').style.width='0%';
+  updateUI();
+}
+function applyPreset(name){
+  const preset=PRESETS[name];if(!preset)return;
+  activePreset=name;
+  resetSearchState();
+  for(const [id,value] of Object.entries(preset.values)){
+    if(id==='minMoved')setControlValue(id,Math.min(PIECES,Math.max(1,Math.round(PIECES*.75))));
+    else setControlValue(id,value);
+  }
+  updatePieceCount(false);
+  $('admissibleOnly').checked=true;
+  $('presetStatus').innerHTML=`<b>Active preset:</b> ${preset.label}.<br>${preset.description}<br><span class="good">Archive and counters reset.</span>`;
+  const ids=['closureConfidence','connectConfidence','asymConfidence'];
+  ids.forEach((id,i)=>{
+    $(id).textContent=preset.confidence[i];
+    $(id).className=preset.classes[i];
+  });
+  document.querySelectorAll('[data-preset]').forEach(btn=>btn.classList.toggle('active',btn.dataset.preset===name));
+  $('status').innerHTML=`Preset applied: <b>${preset.label}</b>. Press Search one batch or Run continuously.`;
+}
+document.querySelectorAll('[data-preset]').forEach(btn=>btn.onclick=()=>applyPreset(btn.dataset.preset));
+
+for(const id of ['pieceCount','res','sets','rounds','connRefine','radius','minMoved','workers','queueDepth','campaignSeed','cohA','cohB','asym','balance','minVolume','maxFragile','maxRough','opacity','repairRounds','repairPreserve','repairCore','repairConn','repairMinVolume','repairTiny','smoothFactor','smoothPasses','smoothPreserve','smoothTolerance','meshPasses']){
+  $(id).oninput=()=>{
+    const v=$(id).value;
+    $(id+'v').textContent=id==='pieceCount'?`${v} pieces`:id==='res'?`${v}³`:id==='smoothFactor'?`${v}×`:['asym','minVolume','maxFragile','repairMinVolume','smoothTolerance'].includes(id)?`${(+v).toFixed(id==='asym'?0:id==='repairMinVolume'?1:2)}%`:['cohA','cohB','connRefine','balance','maxRough','opacity','repairPreserve','repairConn','smoothPreserve'].includes(id)?(+v).toFixed(2):v;
+  };
+}
+
+$('pieceCount').addEventListener('change',()=>updatePieceCount(true));
+
+for(const id of ['minVolume','maxFragile','maxRough']){
+  $(id).addEventListener('input',()=>updateUI());
+}
+$('admissibleOnly').onchange=()=>updateUI();
+
+$('batch').onclick=()=>{running=false;window.__singleBatchAbort=false;searchBatch()};
+$('run').onclick=()=>{running=true;searchPaused=false;window.__singleBatchAbort=false;searchBatch()};
+$('pause').onclick=()=>{searchPaused=true;$('status').textContent='Paused. In-flight worker jobs will finish, then the queue waits.'};
+$('resume').onclick=()=>{searchPaused=false;running=true;window.__singleBatchAbort=false;if(!window.__batchActive)searchBatch();$('status').textContent='Resumed.'};
+$('stop').onclick=()=>{running=false;searchPaused=false;window.__singleBatchAbort=true;campaignQueue=[];$('status').textContent='Stopped. Queued jobs discarded; in-flight jobs will finish and be ignored if abort is set.'};
+$('saveCheckpoint').onclick=()=>downloadCheckpoint();
+$('loadCheckpointBtn').onclick=()=>$('loadCheckpoint').click();
+$('loadCheckpoint').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{await loadCheckpointObject(JSON.parse(await f.text()))}catch(err){$('status').innerHTML=`<span class="bad">Checkpoint load failed:</span> ${err.message||err}`}};
+$('restoreBest').onclick=()=>{if(archive.length)selectCandidate(archive[0],0)};
+$('followLive').onclick=e=>{followLive=!followLive;e.target.classList.toggle('active',followLive);if(followLive){const candidates=[...archive,...nearArchive];if(candidates.length){candidates.sort(compareKey);current=candidates[0];selectedArchiveIndex=archive.indexOf(current)}updateUI()}};
+$('saveJSON').onclick=downloadJSON;
+$('repairSelected').onclick=repairSelectedExact;
+$('buildSmooth').onclick=buildSmoothPreview;
+$('viewSearch').onclick=()=>{viewMode='search';setViewButtons()};
+$('viewRepair').onclick=()=>{if(repairCandidate){viewMode='repair';setViewButtons()}};
+$('viewSmooth').onclick=()=>{if(smoothState){viewMode='smooth';setViewButtons()}};
+$('saveRepairJSON').onclick=async()=>{const data=projectJSON();if(data)await presentExport(`dual-cube-repair-project-${Date.now()}.json`,JSON.stringify(data,null,2),'application/json')};
+
+$('saveObjCombined').onclick=async()=>{
+  if(!smoothState){$('studioStatus').textContent='Build a smooth preview first.';return}
+  const mesh=buildSurfaceMesh(smoothState.labelsA,smoothState.M,+$('meshPasses').value);
+  const obj=meshOBJBoth(mesh,repairCandidate||current,3,'dual_cube_materials.mtl');
+  await presentExport(
+    `dual-cube-both-configurations-${Date.now()}.obj`,
+    obj,
+    'text/plain'
+  );
+};
+
+$('saveObjBoth').onclick=async()=>{
+  if(!smoothState){$('studioStatus').textContent='Build a smooth preview first.';return}
+  const mesh=buildSurfaceMesh(smoothState.labelsA,smoothState.M,+$('meshPasses').value);
+  const objName='dual_cube_colored.obj';
+  const mtlName='dual_cube_materials.mtl';
+  const obj=meshOBJBoth(mesh,repairCandidate||current,3,mtlName);
+  const mtl=pieceMTL();
+  const zip=makeStoredZip([
+    {name:objName,data:obj},
+    {name:mtlName,data:mtl}
+  ]);
+  await presentBinaryExport(
+    `dual-cube-colored-both-configurations-${Date.now()}.zip`,
+    zip,
+    'application/zip',
+    [
+      {name:objName,data:obj,mime:'text/plain'},
+      {name:mtlName,data:mtl,mime:'text/plain'}
+    ]
+  );
+};
+$('saveObjA').onclick=async()=>{
+  if(!smoothState){$('studioStatus').textContent='Build a smooth preview first.';return}
+  const mesh=buildSurfaceMesh(smoothState.labelsA,smoothState.M,+$('meshPasses').value);
+  await presentExport(
+    `dual-cube-cube-A-${Date.now()}.obj`,
+    meshOBJ(mesh,repairCandidate||current,false,0,'dual_cube_materials.mtl'),
+    'text/plain'
+  );
+};
+$('saveObjB').onclick=async()=>{
+  if(!smoothState){$('studioStatus').textContent='Build a smooth preview first.';return}
+  const mesh=buildSurfaceMesh(smoothState.labelsA,smoothState.M,+$('meshPasses').value);
+  await presentExport(
+    `dual-cube-cube-B-${Date.now()}.obj`,
+    meshOBJ(mesh,repairCandidate||current,true,0,'dual_cube_materials.mtl'),
+    'text/plain'
+  );
+};
+$('exportShare').onclick=shareExportFile;
+$('exportDownload').onclick=()=>{$('exportMessage').innerHTML='<span class="good">Download requested.</span> Check the browser download shelf or Downloads folder. If nothing appears, use the separate OBJ and MTL links.'};
+$('exportObjPart').onclick=()=>{$('exportMessage').innerHTML='<span class="good">OBJ download requested.</span> Keep it beside the MTL file.'};
+$('exportMtlPart').onclick=()=>{$('exportMessage').innerHTML='<span class="good">MTL download requested.</span> Keep it beside the OBJ file.'};
+$('exportOpen').onclick=openRawExport;
+$('exportNavigate').onclick=openRawInThisTab;
+$('exportClose').onclick=()=>{$('exportOverlay').classList.remove('open');$('exportOverlay').setAttribute('aria-hidden','true')};
+$('exportCopy').onclick=async()=>{try{await navigator.clipboard.writeText($('exportText').value);$('exportMessage').innerHTML='<span class="good">Copied to clipboard.</span>'}catch(e){$('exportText').select();document.execCommand('copy')}};
+$('exportOverlay').onclick=e=>{if(e.target===$('exportOverlay'))$('exportClose').click()};
+$('shell').onclick=e=>{showShell=!showShell;e.target.classList.toggle('active',showShell)};
+$('surfaceOnly').onclick=e=>{surfaceOnly=!surfaceOnly;e.target.classList.toggle('active',surfaceOnly)};
+$('rotate').onclick=e=>{auto=!auto;e.target.classList.toggle('active',auto)};
+
+let drag=false,lx=0,ly=0;
+C.onpointerdown=e=>{drag=true;lx=e.clientX;ly=e.clientY;C.setPointerCapture(e.pointerId)};
+C.onpointermove=e=>{if(!drag)return;yaw+=(e.clientX-lx)*.008;pitch=clamp(pitch+(e.clientY-ly)*.008,-1.35,1.35);lx=e.clientX;ly=e.clientY};
+C.onpointerup=()=>drag=false;C.onpointercancel=()=>drag=false;
+C.addEventListener('wheel',e=>{e.preventDefault();zoom=clamp(zoom*Math.exp(-e.deltaY*.001),.55,2.1)},{passive:false});
+document.addEventListener('click',e=>{
+  const help=e.target.closest('.help');
+  document.querySelectorAll('.tipwrap.open').forEach(x=>{if(!help||x!==help.parentElement)x.classList.remove('open')});
+  if(help){e.preventDefault();e.stopPropagation();help.parentElement.classList.toggle('open')}
+});
+document.querySelector('[data-preset="coherent"]')?.classList.add('active');updatePieceCount(false);setViewButtons();updateStudio();
+if(location.protocol==='file:'){
+  const n=$('httpNotice');
+  n.style.display='block';
+  n.innerHTML='<span class="warn">Worker mode requires HTTP.</span> Run <code>npm run dev</code> and open the local server URL. file:// falls back to the main-thread matcher.';
+}
+function updateWorkerWarn(){
+  const w=desiredWorkerCount();
+  $('workerWarn').style.display=w>6?'block':'none';
+}
+$('workers').addEventListener('input',updateWorkerWarn);
+updateWorkerWarn();
+render();
+</script>
+</body>
+</html>

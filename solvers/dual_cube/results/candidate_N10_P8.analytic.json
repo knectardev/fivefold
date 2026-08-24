@@ -1,0 +1,167 @@
+{
+  "schema": "dual-cube-analytic-report",
+  "version": 1,
+  "gridResolution": 10,
+  "pieceCount": 8,
+  "representation": "canonical-mating-surface-cpu",
+  "note": "CPU analytic track start. Shared mating models come from the current fitter; closed-cell Booleans and trim-curve solids are not yet constructed. Mesh deformation is not used as the export geometry.",
+  "studioBaseline": {
+    "extractMs": 77.15839999999999,
+    "fitMs": 23.43779999999998,
+    "patchCount": 34,
+    "plane": 20,
+    "quadric": 12,
+    "freeform": 2,
+    "cubeB_matingRMS": 0.021829188847588183,
+    "cubeB_matingMax": 0.07428192262650925
+  },
+  "hierarchy": {
+    "order": [
+      "plane",
+      "standardQuadric",
+      "generalQuadric",
+      "lowDegreeNurbs"
+    ],
+    "usedThrough": "freeform-fallback"
+  },
+  "topology": {
+    "cubeA": {
+      "disconnected": 1,
+      "pieces": [
+        {
+          "comps": 1,
+          "largest": 183,
+          "total": 183,
+          "ratio": 1
+        },
+        {
+          "comps": 1,
+          "largest": 145,
+          "total": 145,
+          "ratio": 1
+        },
+        {
+          "comps": 1,
+          "largest": 117,
+          "total": 117,
+          "ratio": 1
+        },
+        {
+          "comps": 1,
+          "largest": 179,
+          "total": 179,
+          "ratio": 1
+        },
+        {
+          "comps": 1,
+          "largest": 133,
+          "total": 133,
+          "ratio": 1
+        },
+        {
+          "comps": 1,
+          "largest": 32,
+          "total": 32,
+          "ratio": 1
+        },
+        {
+          "comps": 0,
+          "largest": 0,
+          "total": 0,
+          "ratio": 0
+        },
+        {
+          "comps": 1,
+          "largest": 211,
+          "total": 211,
+          "ratio": 1
+        }
+      ]
+    },
+    "cubeB": {
+      "disconnected": 1,
+      "pieces": [
+        {
+          "comps": 1,
+          "largest": 183,
+          "total": 183,
+          "ratio": 1
+        },
+        {
+          "comps": 1,
+          "largest": 145,
+          "total": 145,
+          "ratio": 1
+        },
+        {
+          "comps": 1,
+          "largest": 117,
+          "total": 117,
+          "ratio": 1
+        },
+        {
+          "comps": 1,
+          "largest": 179,
+          "total": 179,
+          "ratio": 1
+        },
+        {
+          "comps": 1,
+          "largest": 133,
+          "total": 133,
+          "ratio": 1
+        },
+        {
+          "comps": 1,
+          "largest": 32,
+          "total": 32,
+          "ratio": 1
+        },
+        {
+          "comps": 0,
+          "largest": 0,
+          "total": 0,
+          "ratio": 0
+        },
+        {
+          "comps": 1,
+          "largest": 211,
+          "total": 211,
+          "ratio": 1
+        }
+      ]
+    }
+  },
+  "minThickness": {
+    "cubeA": 0.1,
+    "cubeB": 0.1,
+    "limit": 0.04
+  },
+  "volumes": [
+    183,
+    145,
+    117,
+    179,
+    133,
+    32,
+    0,
+    211
+  ],
+  "tolerances": {
+    "gap": 0.02,
+    "overlap": 0.02,
+    "minThickness": 0.04,
+    "minVolume": 0.05
+  },
+  "exportGate": {
+    "rhinoReady": false,
+    "reasons": [
+      "1 disconnected Cube A piece(s)",
+      "1 disconnected Cube B piece(s)",
+      "2 freeform patches (need plane→quadric→NURBS hierarchy)",
+      "Cube B mating RMS 0.0218 > 0.02",
+      "piece 6 volume 3.2% < 5%",
+      "piece 7 volume 0.0% < 5%"
+    ]
+  }
+}

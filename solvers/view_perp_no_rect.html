@@ -1,0 +1,1440 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>12-pool digonal · perp joints · no easy rectangles</title>
+  <style>
+    :root {
+      --bg: #1a1d21;
+      --panel: #24282e;
+      --text: #e8eaed;
+      --muted: #9aa0a6;
+      --accent: #7cb8ff;
+      --active: #3d4a5c;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
+      font-family: "Segoe UI", system-ui, sans-serif; }
+    #app {
+      display: grid;
+      grid-template-columns: 300px 1fr 280px;
+      height: 100%;
+    }
+    aside, #orbitPanel {
+      background: var(--panel);
+      padding: 1.1rem 1.2rem;
+      overflow: auto;
+    }
+    aside { border-right: 1px solid #333842; }
+    #orbitPanel { border-left: 1px solid #333842; display: flex; flex-direction: column; padding: 0; }
+    #orbitPanel header {
+      padding: 1rem 1.1rem 0.6rem;
+      border-bottom: 1px solid #333842;
+      flex: 0 0 auto;
+    }
+    #orbitList {
+      flex: 1 1 auto;
+      overflow: auto;
+      padding: 0.4rem;
+    }
+    .orbit-btn {
+      display: flex; width: 100%; text-align: left; align-items: flex-start; gap: 0.45rem;
+      background: transparent; border: 1px solid transparent;
+      color: var(--muted); font: inherit; font-size: 0.78rem;
+      padding: 0.45rem 0.55rem; margin: 0 0 0.25rem; border-radius: 4px;
+      cursor: pointer; line-height: 1.35;
+    }
+    .orbit-btn .orbit-swatch {
+      flex: 0 0 0.85rem; width: 0.85rem; height: 0.85rem;
+      border-radius: 3px; margin-top: 0.12rem;
+      border: 1px solid #0008; box-shadow: inset 0 0 0 1px #fff2;
+    }
+    .orbit-btn .orbit-swatch.none {
+      background: transparent; border-style: dashed; border-color: #6a7078;
+      box-shadow: none;
+    }
+    .orbit-btn .orbit-copy { min-width: 0; }
+    .orbit-btn:hover { background: #2c3138; color: var(--text); }
+    .orbit-btn.active {
+      background: var(--active); border-color: #5a6a80; color: var(--text);
+    }
+    .orbit-btn code { color: var(--accent); font-size: 0.72rem; }
+    .filter-row {
+      display: flex; align-items: center; gap: 0.45rem;
+      margin-top: 0.65rem; font-size: 0.78rem; color: var(--muted);
+    }
+    .filter-row select {
+      flex: 1 1 auto; background: #1a1d21; color: var(--text);
+      border: 1px solid #3d4450; border-radius: 4px;
+      padding: 0.3rem 0.4rem; font: inherit; font-size: 0.78rem;
+    }
+    .orbit-btn.hidden { display: none; }
+    #orbitEmpty.hidden { display: none; }
+    h1 { font-size: 1.05rem; font-weight: 600; margin: 0 0 0.35rem; }
+    h2 { font-size: 0.9rem; font-weight: 600; margin: 0 0 0.35rem; }
+    p, li { font-size: 0.82rem; line-height: 1.45; color: var(--muted); }
+    .ok { color: #8fd49a; }
+    .err { color: #ff8a8a; }
+    label { display: flex; align-items: center; gap: 0.5rem; margin: 0.35rem 0;
+      font-size: 0.85rem; cursor: pointer; color: var(--text); }
+    #viewport { position: relative; min-width: 0; }
+    canvas { display: block; width: 100%; height: 100%; }
+    .hint { position: absolute; left: 1rem; bottom: 1rem; font-size: 0.75rem;
+      color: var(--muted); pointer-events: none; }
+    code { color: var(--accent); font-size: 0.78rem; }
+    ul { padding-left: 1.1rem; margin: 0.4rem 0 0.8rem; }
+    hr { border: none; border-top: 1px solid #333842; margin: 0.85rem 0; }
+    #status { font-size: 0.8rem; color: var(--muted); }
+    .btn {
+      display: block; width: 100%; margin: 0.35rem 0 0;
+      background: #2c3542; color: var(--text); border: 1px solid #4a5568;
+      border-radius: 4px; padding: 0.45rem 0.6rem; font: inherit;
+      font-size: 0.82rem; cursor: pointer; text-align: left;
+    }
+    .btn:hover { background: #3a4556; border-color: #6a7a90; }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    #surfaceMapLegend { font-size: 0.78rem; color: var(--muted); }
+    #surfaceMapLegend.hidden { display: none; }
+    #surfaceMapLegend li { margin: 0.15rem 0; }
+    .swatch {
+      display: inline-block; width: 0.7rem; height: 0.7rem;
+      border-radius: 2px; vertical-align: -0.1rem; margin-right: 0.35rem;
+      border: 1px solid #0006;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <aside>
+      <h1>12-pool · perp allowed</h1>
+      <p class="ok">No L · easy 2×3 rectangles banned · up to Oh</p>
+      <p id="status">Loading orbits…</p>
+      <hr />
+      <label><input type="checkbox" id="showDigonal" checked /> Digonal pieces</label>
+      <label><input type="checkbox" id="ghostDigonal" /> Digonal ghosted (Rhino-style)</label>
+      <label><input type="checkbox" id="showL" /> Solid void cells</label>
+      <label><input type="checkbox" id="showVoid" checked /> Void ghost</label>
+      <label><input type="checkbox" id="explode" /> Explode pieces</label>
+      <label><input type="checkbox" id="surfaceMap" /> Five-solution surface colors</label>
+      <label><input type="checkbox" id="grayPieces" /> Gray piece colors</label>
+      <div id="surfaceMapLegend" class="hidden">
+        <p style="margin:0.45rem 0 0.25rem; color:var(--text)">
+          Each piece-face is split into five sections. A section is painted
+          if that same face of that part sits on the outer 3×3×3 skin in
+          that solution — including faces that are buried in the current
+          packing. Unpainted area keeps the piece color
+          (use Gray piece colors to neutralize it).
+          (use Gray piece colors to neutralize it).
+          Skip #2 (4↔8 swap of #1). Explode keeps the marks on each part.
+        </p>
+        <ul id="surfaceMapSwatches" style="list-style:none; padding-left:0; margin:0.35rem 0 0;"></ul>
+      </div>
+      <hr />
+      <p><strong style="color:var(--text)">Export</strong></p>
+      <button type="button" class="btn" id="exportStl">STL combined (one mesh)</button>
+      <button type="button" class="btn" id="exportObj">OBJ separate parts (one file)</button>
+      <button type="button" class="btn" id="exportStlParts">STL each part (multiple files)</button>
+      <label style="margin-top:0.45rem">
+        <input type="checkbox" id="exportIncludeVoid" checked />
+        Include void cells
+      </label>
+      <p style="margin:0.4rem 0 0; font-size:0.72rem">
+        STL has no object groups — use OBJ (or separate STLs) for Rhino parts.
+      </p>
+      <hr />
+      <p><strong style="color:var(--text)">Void cells</strong></p>
+      <code id="voidLabel"></code>
+      <p style="margin-top:0.75rem"><strong style="color:var(--text)">Pieces</strong>
+        (family IDs · same family ⇒ same color)</p>
+      <ul id="pieceList"></ul>
+      <p id="typeSummary"></p>
+    </aside>
+    <div id="viewport">
+      <div class="hint">Drag to orbit · scroll to zoom · ↑/↓ next solution</div>
+    </div>
+    <div id="orbitPanel">
+      <header>
+        <h2>Solution orbits</h2>
+        <p style="margin:0" id="orbitBlurb">Inequivalent packings (rotations identified). Click or use ↑/↓.</p>
+        <label class="filter-row">
+          Unique parts
+          <select id="uniqueFilter" aria-label="Filter by number of unique parts">
+            <option value="all">All</option>
+          </select>
+        </label>
+        <label class="filter-row" style="cursor:pointer">
+          <input type="checkbox" id="lTrominoFilter" />
+          L-tromino void only
+          <span id="lTrominoCount" style="color:var(--muted)"></span>
+        </label>
+        <label class="filter-row" style="cursor:pointer">
+          <input type="checkbox" id="sameMixFilter" checked />
+          This piece mix only
+          <span id="sameMixCount" style="color:var(--muted)"></span>
+        </label>
+      </header>
+      <div id="orbitList"></div>
+      <p id="orbitEmpty" class="hidden" style="padding:0.75rem 1rem; margin:0; color:var(--muted); font-size:0.8rem;"></p>
+    </div>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { ConvexGeometry } from 'three/addons/geometries/ConvexGeometry.js';
+import { STLExporter } from 'three/addons/exporters/STLExporter.js';
+
+const PALETTE = [
+  0xe74c3c, 0xe67e22, 0xf1c40f, 0x2ecc71,
+  0x1abc9c, 0x3498db, 0x9b59b6, 0xfd79a8,
+  0x00cec9, 0x6c5ce7, 0xa3e635, 0xf97316,
+];
+const L_COLOR = 0xf5f6fa;
+const GHOST_OPACITY = 0.35;
+
+const FAMILY_IDS = [1, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14];
+const familyColorMap = new Map(FAMILY_IDS.map((id, i) => [id, PALETTE[i]]));
+const familyColor = (family) => familyColorMap.get(family) ?? 0x888888;
+
+/** Mix-orbit indices for the five layouts (skip #2, the 4↔8 seat swap of #1). */
+const SURFACE_MAP_ORBITS = [0, 1, 3, 4, 5];
+const SURFACE_MAP_COLORS = [0xf5a623, 0x8bc34a, 0x26c6da, 0x7e57c2, 0x5c6bc0];
+const SURFACE_MAP_GRAY = 0xc5c8ce;
+const PIECE_BASE_GRAY = 0xb0b4ba;
+const SURFACE_MAP_P = [0.425, 0.5];
+
+let current = null;
+let pieceGroups = [];
+let orbitsData = null;
+let poolData = null;
+let mixData = null;
+
+function halfCorners(plane, side) {
+  const corners = [];
+  for (let x = 0; x <= 1; x++)
+    for (let y = 0; y <= 1; y++)
+      for (let z = 0; z <= 1; z++) {
+        const local = [x, y, z];
+        const u = local.map((v) => 2 * v - 1);
+        const val = plane.kind === 'eq'
+          ? u[plane.a] - u[plane.b]
+          : u[plane.a] + u[plane.b];
+        const s = val <= 0 ? 0 : 1;
+        if (s === side || Math.abs(val) < 1e-9) corners.push(local);
+      }
+  const uniq = [];
+  const seen = new Set();
+  for (const c of corners) {
+    const k = c.join(',');
+    if (!seen.has(k)) { seen.add(k); uniq.push(c); }
+  }
+  return uniq;
+}
+
+function cellCenter(c) {
+  return new THREE.Vector3(c[0] + 0.5, c[1] + 0.5, c[2] + 0.5);
+}
+
+function disposeObject(obj) {
+  obj.traverse((child) => {
+    if (child.geometry) child.geometry.dispose();
+    if (child.material) {
+      if (Array.isArray(child.material)) child.material.forEach((m) => m.dispose());
+      else child.material.dispose();
+    }
+  });
+}
+
+function clearGroup(group) {
+  while (group.children.length) {
+    const ch = group.children.pop();
+    disposeObject(ch);
+  }
+}
+
+function makeFaceMaterial(color, ghost) {
+  return new THREE.MeshStandardMaterial({
+    color, // keep family color when ghosted
+    roughness: ghost ? 0.55 : 0.45,
+    metalness: ghost ? 0.02 : 0.05,
+    flatShading: true,
+    transparent: ghost,
+    opacity: ghost ? GHOST_OPACITY : 1,
+    depthWrite: !ghost,
+    side: THREE.DoubleSide,
+  });
+}
+
+function addEdges(mesh, ghost) {
+  const edges = new THREE.EdgesGeometry(mesh.geometry, 20);
+  const line = new THREE.LineSegments(
+    edges,
+    new THREE.LineBasicMaterial({
+      color: ghost ? 0x111111 : 0x1a1a1a,
+      transparent: ghost,
+      opacity: ghost ? 0.9 : 0.55,
+    }),
+  );
+  mesh.add(line);
+}
+
+function makeCubeMesh(cell, color, ghost) {
+  const g = new THREE.BoxGeometry(0.98, 0.98, 0.98);
+  const mesh = new THREE.Mesh(g, makeFaceMaterial(color, ghost));
+  mesh.position.copy(cellCenter(cell));
+  addEdges(mesh, ghost);
+  return mesh;
+}
+
+function makeWedgeMesh(cell, plane, side, color, ghost) {
+  const corners = halfCorners(plane, side);
+  const pts = corners.map(
+    ([x, y, z]) => new THREE.Vector3(cell[0] + x, cell[1] + y, cell[2] + z),
+  );
+  const ctr = cellCenter(cell);
+  for (const p of pts) p.lerp(ctr, 0.02);
+  const geom = new ConvexGeometry(pts);
+  const mesh = new THREE.Mesh(geom, makeFaceMaterial(color, ghost));
+  addEdges(mesh, ghost);
+  return mesh;
+}
+
+function makeVoidGhost(cell) {
+  const g = new THREE.BoxGeometry(0.98, 0.98, 0.98);
+  const m = new THREE.MeshStandardMaterial({
+    color: 0xff6b6b, transparent: true, opacity: 0.28, depthWrite: false,
+  });
+  const mesh = new THREE.Mesh(g, m);
+  mesh.position.copy(cellCenter(cell));
+  return mesh;
+}
+
+function cellKey(c) {
+  return c.join(',');
+}
+
+function localInWedge(local, plane, side) {
+  const u = local.map((v) => 2 * v - 1);
+  const val = plane.kind === 'eq'
+    ? u[plane.a] - u[plane.b]
+    : u[plane.a] + u[plane.b];
+  const s = val <= 0 ? 0 : 1;
+  return s === side || Math.abs(val) < 1e-9;
+}
+
+function faceLocalCorners(axis, sign) {
+  const a = sign < 0 ? 0 : 1;
+  const u = (axis + 1) % 3;
+  const v = (axis + 2) % 3;
+  const out = [];
+  for (const uu of [0, 1]) {
+    for (const vv of [0, 1]) {
+      const c = [0, 0, 0];
+      c[axis] = a;
+      c[u] = uu;
+      c[v] = vv;
+      out.push(c);
+    }
+  }
+  return out;
+}
+
+function localToUV(axis, sign, loc) {
+  const a1 = (axis + 1) % 3;
+  const a2 = (axis + 2) % 3;
+  return sign > 0 ? [loc[a1], loc[a2]] : [loc[a2], loc[a1]];
+}
+
+function uvToWorld(cell, axis, sign, s, t, bump) {
+  // Sit just outside the 0.98 piece boxes (which span 0.01–0.99 in each cell).
+  const inset = 0.007;
+  const loc = [0, 0, 0];
+  loc[axis] = sign < 0 ? inset : 1 - inset;
+  const a1 = (axis + 1) % 3;
+  const a2 = (axis + 2) % 3;
+  if (sign > 0) { loc[a1] = s; loc[a2] = t; }
+  else { loc[a1] = t; loc[a2] = s; }
+  const p = new THREE.Vector3(cell[0] + loc[0], cell[1] + loc[1], cell[2] + loc[2]);
+  const n = new THREE.Vector3();
+  n.setComponent(axis, sign);
+  return p.addScaledVector(n, bump);
+}
+
+function occupancyMap(sol) {
+  const voidSet = new Set((sol.void_L || []).map(cellKey));
+  const cells = new Map();
+  (sol.pieces || []).forEach((p, pi) => {
+    for (const c of p.cubes) {
+      cells.set(cellKey(c), { full: true, wedges: [], cell: c, pieceIdx: pi });
+    }
+    for (const w of p.wedges) {
+      const k = cellKey(w.cell);
+      let e = cells.get(k);
+      if (!e) {
+        e = { full: false, wedges: [], cell: w.cell, pieceIdx: pi };
+        cells.set(k, e);
+      }
+      if (!e.full) e.wedges.push({ ...w, pieceIdx: pi });
+    }
+  });
+  return { cells, voidSet };
+}
+
+function buildOH24() {
+  const out = [];
+  for (let i = 0; i < 3; i++)
+    for (let j = 0; j < 3; j++)
+      for (let k = 0; k < 3; k++) {
+        if (new Set([i, j, k]).size < 3) continue;
+        const perm = [i, j, k];
+        for (const sx of [-1, 1])
+          for (const sy of [-1, 1])
+            for (const sz of [-1, 1]) {
+              const signs = [sx, sy, sz];
+              const M = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+              for (let c = 0; c < 3; c++) M[perm[c]][c] = signs[c];
+              const det =
+                M[0][0] * (M[1][1] * M[2][2] - M[1][2] * M[2][1])
+                - M[0][1] * (M[1][0] * M[2][2] - M[1][2] * M[2][0])
+                + M[0][2] * (M[1][0] * M[2][1] - M[1][1] * M[2][0]);
+              if (det === 1) out.push({ perm, signs });
+            }
+      }
+  return out;
+}
+const OH24 = buildOH24();
+
+function rotateXYZ(v, perm, signs) {
+  const q = [0, 0, 0];
+  q[perm[0]] = signs[0] * v[0];
+  q[perm[1]] = signs[1] * v[1];
+  q[perm[2]] = signs[2] * v[2];
+  return q;
+}
+
+function rotateDir(axis, sign, perm, signs) {
+  const n = [0, 0, 0];
+  n[axis] = sign;
+  const r = rotateXYZ(n, perm, signs);
+  for (let a = 0; a < 3; a++) {
+    if (Math.abs(r[a]) === 1) return { axis: a, sign: r[a] };
+  }
+  return { axis, sign };
+}
+
+function sub3(a, b) {
+  return [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+}
+
+function onCubeSkin(cell, axis, sign) {
+  if (sign < 0) return cell[axis] === 0;
+  return cell[axis] === 2;
+}
+
+function sameCellNeighbor(cell, axis, sign, cellSet) {
+  const n = [cell[0], cell[1], cell[2]];
+  n[axis] += sign;
+  return cellSet.has(cellKey(n));
+}
+
+function wedgeForCube(piece, cube) {
+  let best = piece.wedges[0];
+  let bestD = 99;
+  for (const w of piece.wedges) {
+    const d = Math.abs(w.cell[0] - cube[0])
+      + Math.abs(w.cell[1] - cube[1])
+      + Math.abs(w.cell[2] - cube[2]);
+    if (d < bestD) { bestD = d; best = w; }
+  }
+  return best;
+}
+
+function moduleIndexForCell(piece, cell) {
+  const k = cellKey(cell);
+  for (let m = 0; m < piece.cubes.length; m++) {
+    if (cellKey(piece.cubes[m]) === k) return m;
+  }
+  for (let m = 0; m < piece.cubes.length; m++) {
+    const w = wedgeForCube(piece, piece.cubes[m]);
+    if (w && cellKey(w.cell) === k) return m;
+  }
+  return 0;
+}
+
+function moduleCanonical(cube, wedge) {
+  const d = sub3(wedge.cell, cube);
+  let best = null;
+  let bestFp = null;
+  for (const { perm, signs } of OH24) {
+    const w = rotateXYZ(d, perm, signs);
+    const marks = [];
+    for (let lx = 0; lx <= 1; lx++)
+      for (let ly = 0; ly <= 1; ly++)
+        for (let lz = 0; lz <= 1; lz++) {
+          const local = [lx, ly, lz];
+          if (!localInWedge(local, wedge.plane, wedge.side)) continue;
+          const rel = rotateXYZ([d[0] + lx, d[1] + ly, d[2] + lz], perm, signs);
+          marks.push(rel.join(','));
+        }
+    marks.sort();
+    const fp = `${w.join(',')}|${marks.join(';')}`;
+    if (bestFp == null || fp < bestFp) {
+      bestFp = fp;
+      best = { perm, signs };
+    }
+  }
+  return best;
+}
+
+function copiesOfFamily(sol, family) {
+  return sol.pieces
+    .map((p, i) => ({ p, i }))
+    .filter((x) => x.p.family === family)
+    .sort((a, b) => a.p.joint - b.p.joint || a.i - b.i);
+}
+
+function instanceKey(sol, piece, pieceIdx) {
+  const copies = copiesOfFamily(sol, piece.family);
+  const copy = Math.max(0, copies.findIndex((x) => x.i === pieceIdx));
+  return `${piece.family}:${copy}`;
+}
+
+function cornerKey(corners) {
+  return corners
+    .map((c) => c.join(','))
+    .sort()
+    .join('|');
+}
+
+function pieceCellSet(piece) {
+  const set = new Set();
+  for (const c of piece.cubes) set.add(cellKey(c));
+  for (const w of piece.wedges) set.add(cellKey(w.cell));
+  return set;
+}
+
+function facetPolygon(cell, axis, sign, full, wedges) {
+  const face = faceLocalCorners(axis, sign);
+  if (full) return [{ kind: 'square', corners: face }];
+  const out = [];
+  for (const w of wedges) {
+    const kept = face.filter((c) => localInWedge(c, w.plane, w.side));
+    if (kept.length === 4) out.push({ kind: 'square', corners: face });
+    else if (kept.length === 3) out.push({ kind: 'triangle', corners: kept });
+  }
+  return out;
+}
+
+/** All grid faces of a piece except those glued to itself. */
+function pieceSurfaceFacets(piece) {
+  const cellSet = pieceCellSet(piece);
+  const occ = new Map();
+  for (const c of piece.cubes) {
+    occ.set(cellKey(c), { cell: c, full: true, wedges: [] });
+  }
+  for (const w of piece.wedges) {
+    const k = cellKey(w.cell);
+    let e = occ.get(k);
+    if (!e) {
+      e = { cell: w.cell, full: false, wedges: [] };
+      occ.set(k, e);
+    }
+    if (!e.full) e.wedges.push(w);
+  }
+  const facets = [];
+  for (const { cell, full, wedges } of occ.values()) {
+    for (const axis of [0, 1, 2]) {
+      for (const sign of [-1, 1]) {
+        if (sameCellNeighbor(cell, axis, sign, cellSet)) continue;
+        for (const poly of facetPolygon(cell, axis, sign, full, wedges)) {
+          facets.push({
+            kind: poly.kind,
+            cell,
+            axis,
+            sign,
+            corners: poly.corners,
+          });
+        }
+      }
+    }
+  }
+  return facets;
+}
+
+function localKeyForFacet(piece, f) {
+  const m = moduleIndexForCell(piece, f.cell);
+  const cube = piece.cubes[m];
+  const wedge = wedgeForCube(piece, cube);
+  const { perm, signs } = moduleCanonical(cube, wedge);
+  const relCell = rotateXYZ(sub3(f.cell, cube), perm, signs);
+  const dir = rotateDir(f.axis, f.sign, perm, signs);
+  let cornerPart = '';
+  if (f.kind === 'triangle' && f.corners) {
+    const relCorners = f.corners.map((lc) => {
+      const world = [f.cell[0] + lc[0], f.cell[1] + lc[1], f.cell[2] + lc[2]];
+      return rotateXYZ(sub3(world, cube), perm, signs);
+    });
+    cornerPart = cornerKey(relCorners);
+  }
+  return `${m}:${f.kind}:${relCell.join(',')}:${dir.axis}:${dir.sign}:${cornerPart}`;
+}
+
+function exteriorLocalKeys(piece) {
+  const set = new Set();
+  for (const f of pieceSurfaceFacets(piece)) {
+    if (onCubeSkin(f.cell, f.axis, f.sign)) set.add(localKeyForFacet(piece, f));
+  }
+  return set;
+}
+
+let paintCatalog = null;
+
+function ensurePaintCatalog() {
+  if (paintCatalog || !mixData) return;
+  paintCatalog = SURFACE_MAP_ORBITS.map((idx) => {
+    const sol = mixData.representatives[idx];
+    const map = new Map();
+    if (!sol) return map;
+    sol.pieces.forEach((p, pi) => {
+      map.set(instanceKey(sol, p, pi), exteriorLocalKeys(p));
+    });
+    return map;
+  });
+}
+
+function squareSectionUVs(i) {
+  const P = SURFACE_MAP_P;
+  const TL = [0, 1];
+  const TR = [1, 1];
+  const BR = [1, 0];
+  const BL = [0, 0];
+  const top = [0.5, 1];
+  const right = [1, 0.5];
+  const bot = [0.5, 0];
+  const leftLo = [0, 0.28];
+  const leftHi = [0, 0.72];
+  const polys = [
+    [P, leftHi, TL, top],
+    [P, top, TR, right],
+    [P, right, BR, bot],
+    [P, bot, BL, leftLo],
+    [P, leftLo, leftHi],
+  ];
+  return polys[i];
+}
+
+function triangleSectionUVs(i) {
+  const a = i / 5;
+  const b = (i + 1) / 5;
+  const ha = [a, 1 - a];
+  const hb = [b, 1 - b];
+  return [[0, 0], ha, hb];
+}
+
+function insetUV(poly, t) {
+  let cx = 0;
+  let cy = 0;
+  for (const [x, y] of poly) { cx += x; cy += y; }
+  cx /= poly.length;
+  cy /= poly.length;
+  return poly.map(([x, y]) => [x + (cx - x) * t, y + (cy - y) * t]);
+}
+
+function addPolyMesh(group, pts, color) {
+  const positions = [];
+  const push = (a, b, c) => {
+    positions.push(a.x, a.y, a.z, b.x, b.y, b.z, c.x, c.y, c.z);
+  };
+  if (pts.length === 3) push(pts[0], pts[1], pts[2]);
+  else {
+    for (let i = 1; i < pts.length - 1; i++) push(pts[0], pts[i], pts[i + 1]);
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geo.computeVertexNormals();
+  const mat = new THREE.MeshStandardMaterial({
+    color,
+    roughness: 0.5,
+    metalness: 0.04,
+    flatShading: true,
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 0.92,
+    depthWrite: true,
+    polygonOffset: true,
+    polygonOffsetFactor: -1,
+    polygonOffsetUnits: -1,
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  addEdges(mesh, false);
+  group.add(mesh);
+}
+
+function mapWorldPoly(cell, axis, sign, uvs, bump) {
+  return uvs.map(([s, t]) => uvToWorld(cell, axis, sign, s, t, bump));
+}
+
+function triangleFrame(cell, axis, sign, corners) {
+  const uvs = corners.map((c) => localToUV(axis, sign, c));
+  let ra = 0;
+  let best = 1e9;
+  for (let i = 0; i < 3; i++) {
+    const a = uvs[i];
+    const b = uvs[(i + 1) % 3];
+    const c = uvs[(i + 2) % 3];
+    const ab = [b[0] - a[0], b[1] - a[1]];
+    const ac = [c[0] - a[0], c[1] - a[1]];
+    const dot = ab[0] * ac[0] + ab[1] * ac[1];
+    if (Math.abs(dot) < best) { best = Math.abs(dot); ra = i; }
+  }
+  const origin = uvs[ra];
+  const p1 = uvs[(ra + 1) % 3];
+  const p2 = uvs[(ra + 2) % 3];
+  const e1 = [p1[0] - origin[0], p1[1] - origin[1]];
+  const e2 = [p2[0] - origin[0], p2[1] - origin[1]];
+  const cross = e1[0] * e2[1] - e1[1] * e2[0];
+  const U = cross > 0 ? e1 : e2;
+  const V = cross > 0 ? e2 : e1;
+  return { origin, U, V };
+}
+
+function triangleMapWorld(cell, axis, sign, frame, s, t, bump) {
+  const uu = frame.origin[0] + frame.U[0] * s + frame.V[0] * t;
+  const vv = frame.origin[1] + frame.U[1] * s + frame.V[1] * t;
+  return uvToWorld(cell, axis, sign, uu, vv, bump);
+}
+
+function clearPieceOverlays() {
+  for (const g of pieceGroups) {
+    const ov = g.userData.mapOverlay;
+    if (ov) {
+      g.remove(ov);
+      disposeObject(ov);
+      g.userData.mapOverlay = null;
+    }
+  }
+  clearGroup(mapGroup);
+}
+
+function pieceOverlayGroup(pieceIdx) {
+  const g = pieceGroups[pieceIdx];
+  if (!g) return mapGroup;
+  if (!g.userData.mapOverlay) {
+    const ov = new THREE.Group();
+    g.add(ov);
+    g.userData.mapOverlay = ov;
+  }
+  return g.userData.mapOverlay;
+}
+
+function buildSurfaceMap(sol) {
+  clearPieceOverlays();
+  if (!sol || !document.getElementById('surfaceMap').checked) return;
+  ensurePaintCatalog();
+  if (!paintCatalog) return;
+  const bump = 0.001;
+  sol.pieces.forEach((piece, pi) => {
+    const key = instanceKey(sol, piece, pi);
+    const host = pieceOverlayGroup(pi);
+    for (const f of pieceSurfaceFacets(piece)) {
+      const local = localKeyForFacet(piece, f);
+      for (let i = 0; i < 5; i++) {
+        const ext = paintCatalog[i] && paintCatalog[i].get(key);
+        if (!ext || !ext.has(local)) continue;
+        const color = SURFACE_MAP_COLORS[i];
+        if (f.kind === 'square') {
+          const uvs = insetUV(squareSectionUVs(i), 0.08);
+          addPolyMesh(host, mapWorldPoly(f.cell, f.axis, f.sign, uvs, bump), color);
+        } else {
+          const frame = triangleFrame(f.cell, f.axis, f.sign, f.corners);
+          const uvs = insetUV(triangleSectionUVs(i), 0.08);
+          const pts = uvs.map(([s, t]) =>
+            triangleMapWorld(f.cell, f.axis, f.sign, frame, s, t, bump));
+          addPolyMesh(host, pts, color);
+        }
+      }
+    }
+  });
+}
+
+function fillSurfaceMapLegend() {
+  const host = document.getElementById('surfaceMapSwatches');
+  if (!host) return;
+  host.innerHTML = SURFACE_MAP_ORBITS.map((orbit, i) => {
+    const hex = SURFACE_MAP_COLORS[i].toString(16).padStart(6, '0');
+    return `<li><span class="swatch" style="background:#${hex}"></span>
+      solution ${i + 1} · orbit #${orbit}</li>`;
+  }).join('') + `<li><span class="swatch" style="background:#888"></span> unpainted = piece color (or gray)</li>`;
+}
+
+function downloadBlob(filename, blob) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function exportStatusFlash(message) {
+  const status = document.getElementById('status');
+  const prev = status.textContent;
+  status.innerHTML = `<span class="ok">${message}</span>`;
+  setTimeout(() => { status.textContent = prev; }, 2800);
+}
+
+function mergeGeometries(geoms) {
+  const positions = [];
+  const normals = [];
+  for (const geo of geoms) {
+    const g = geo.index ? geo.toNonIndexed() : geo.clone();
+    if (!g.getAttribute('normal')) g.computeVertexNormals();
+    const pos = g.getAttribute('position');
+    const nor = g.getAttribute('normal');
+    for (let i = 0; i < pos.count; i++) {
+      positions.push(pos.getX(i), pos.getY(i), pos.getZ(i));
+      normals.push(nor.getX(i), nor.getY(i), nor.getZ(i));
+    }
+    g.dispose();
+  }
+  const out = new THREE.BufferGeometry();
+  out.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  out.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+  return out;
+}
+
+function geometryFromMesh(mesh) {
+  mesh.updateWorldMatrix(true, false);
+  const geo = mesh.geometry.clone();
+  geo.applyMatrix4(mesh.matrixWorld);
+  return geo;
+}
+
+/** One merged BufferGeometry per logical part (digonal piece or void tromino). */
+function buildPartGeometries(sol, includeVoid) {
+  const mat = new THREE.MeshStandardMaterial({ color: 0xcccccc });
+  const parts = [];
+
+  sol.pieces.forEach((piece, idx) => {
+    const geos = [];
+    for (const c of piece.cubes) {
+      const g = new THREE.BoxGeometry(1, 1, 1);
+      const mesh = new THREE.Mesh(g, mat);
+      mesh.position.copy(cellCenter(c));
+      mesh.updateMatrixWorld(true);
+      geos.push(geometryFromMesh(mesh));
+      g.dispose();
+    }
+    for (const w of piece.wedges) {
+      const corners = halfCorners(w.plane, w.side);
+      const pts = corners.map(
+        ([x, y, z]) => new THREE.Vector3(w.cell[0] + x, w.cell[1] + y, w.cell[2] + z),
+      );
+      const geom = new ConvexGeometry(pts);
+      const mesh = new THREE.Mesh(geom, mat);
+      mesh.updateMatrixWorld(true);
+      geos.push(geometryFromMesh(mesh));
+      geom.dispose();
+    }
+    parts.push({
+      name: `part_${idx}_fam${piece.family}_j${piece.joint}`,
+      geometry: mergeGeometries(geos),
+    });
+    geos.forEach((g) => g.dispose());
+  });
+
+  if (includeVoid && (sol.void_L || []).length) {
+    const geos = [];
+    for (const c of sol.void_L) {
+      const g = new THREE.BoxGeometry(1, 1, 1);
+      const mesh = new THREE.Mesh(g, mat);
+      mesh.position.copy(cellCenter(c));
+      mesh.updateMatrixWorld(true);
+      geos.push(geometryFromMesh(mesh));
+      g.dispose();
+    }
+    parts.push({
+      name: 'void_tromino',
+      geometry: mergeGeometries(geos),
+    });
+    geos.forEach((g) => g.dispose());
+  }
+
+  mat.dispose();
+  return parts;
+}
+
+function geometryToObjChunk(name, geometry, vertexOffset) {
+  const pos = geometry.getAttribute('position');
+  const nor = geometry.getAttribute('normal') || (() => {
+    geometry.computeVertexNormals();
+    return geometry.getAttribute('normal');
+  })();
+  const lines = [`o ${name}`];
+  for (let i = 0; i < pos.count; i++) {
+    lines.push(`v ${pos.getX(i)} ${pos.getY(i)} ${pos.getZ(i)}`);
+  }
+  for (let i = 0; i < nor.count; i++) {
+    lines.push(`vn ${nor.getX(i)} ${nor.getY(i)} ${nor.getZ(i)}`);
+  }
+  // Non-indexed triangle list
+  for (let i = 0; i < pos.count; i += 3) {
+    const a = vertexOffset + i + 1;
+    const b = vertexOffset + i + 2;
+    const c = vertexOffset + i + 3;
+    lines.push(`f ${a}//${a} ${b}//${b} ${c}//${c}`);
+  }
+  return { text: lines.join('\n'), nextOffset: vertexOffset + pos.count };
+}
+
+function exportBaseName() {
+  const uniq = uniquePartCount(current);
+  const nPieces = (current.pieces || []).length;
+  return `orbit-${currentOrbitIndex}_${nPieces}pcs_${uniq}uniq`;
+}
+
+function exportCombinedStl() {
+  if (!current) return;
+  const includeVoid = document.getElementById('exportIncludeVoid').checked;
+  const parts = buildPartGeometries(current, includeVoid);
+  const root = new THREE.Group();
+  const mat = new THREE.MeshStandardMaterial({ color: 0xcccccc });
+  for (const part of parts) {
+    root.add(new THREE.Mesh(part.geometry, mat));
+  }
+  root.updateMatrixWorld(true);
+  const exporter = new STLExporter();
+  const result = exporter.parse(root, { binary: true });
+  parts.forEach((p) => p.geometry.dispose());
+  mat.dispose();
+  const name = `${exportBaseName()}_combined.stl`;
+  downloadBlob(name, new Blob([result], { type: 'application/octet-stream' }));
+  exportStatusFlash(`Exported ${name}`);
+}
+
+function exportObjParts() {
+  if (!current) return;
+  const includeVoid = document.getElementById('exportIncludeVoid').checked;
+  const parts = buildPartGeometries(current, includeVoid);
+  const chunks = [`# cell-puzzle orbit ${currentOrbitIndex}`, `# ${parts.length} objects`];
+  let offset = 0;
+  for (const part of parts) {
+    const geo = part.geometry.index
+      ? part.geometry.toNonIndexed()
+      : part.geometry;
+    if (geo !== part.geometry) part.geometry.dispose();
+    if (!geo.getAttribute('normal')) geo.computeVertexNormals();
+    const { text, nextOffset } = geometryToObjChunk(part.name, geo, offset);
+    chunks.push(text);
+    offset = nextOffset;
+    geo.dispose();
+  }
+  const name = `${exportBaseName()}_parts.obj`;
+  downloadBlob(name, new Blob([chunks.join('\n\n') + '\n'], { type: 'text/plain' }));
+  exportStatusFlash(`Exported ${name} (${parts.length} objects)`);
+}
+
+function exportStlEachPart() {
+  if (!current) return;
+  const includeVoid = document.getElementById('exportIncludeVoid').checked;
+  const parts = buildPartGeometries(current, includeVoid);
+  const exporter = new STLExporter();
+  const mat = new THREE.MeshStandardMaterial({ color: 0xcccccc });
+  const base = exportBaseName();
+  parts.forEach((part, i) => {
+    const mesh = new THREE.Mesh(part.geometry, mat);
+    mesh.updateMatrixWorld(true);
+    const result = exporter.parse(mesh, { binary: true });
+    downloadBlob(
+      `${base}_${part.name}.stl`,
+      new Blob([result], { type: 'application/octet-stream' }),
+    );
+    part.geometry.dispose();
+  });
+  mat.dispose();
+  exportStatusFlash(`Exported ${parts.length} STL files`);
+}
+
+const viewport = document.getElementById('viewport');
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x1a1d21);
+const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+camera.position.set(6.5, 5.2, 7.2);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+viewport.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(1.5, 1.5, 1.5);
+controls.update();
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+const key = new THREE.DirectionalLight(0xffffff, 0.85);
+key.position.set(5, 8, 4);
+scene.add(key);
+scene.add(new THREE.DirectionalLight(0xaaccff, 0.25).translateX(-4).translateY(2).translateZ(-3));
+
+{
+  const edges = new THREE.EdgesGeometry(new THREE.BoxGeometry(3, 3, 3));
+  const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x555b66 }));
+  line.position.set(1.5, 1.5, 1.5);
+  scene.add(line);
+}
+
+const digonalGroup = new THREE.Group();
+const lGroup = new THREE.Group();
+const voidGroup = new THREE.Group();
+const mapGroup = new THREE.Group();
+scene.add(digonalGroup, lGroup, voidGroup, mapGroup);
+
+function buildSolution(sol) {
+  current = sol;
+  clearGroup(digonalGroup);
+  clearGroup(lGroup);
+  clearGroup(voidGroup);
+  pieceGroups = [];
+
+  const ghost = document.getElementById('ghostDigonal').checked;
+
+  for (const piece of sol.pieces) {
+    const g = new THREE.Group();
+    const grayBase = document.getElementById('grayPieces').checked;
+    const color = grayBase ? PIECE_BASE_GRAY : familyColor(piece.family);
+    const centers = [];
+    for (const c of piece.cubes) {
+      g.add(makeCubeMesh(c, color, ghost));
+      centers.push(cellCenter(c));
+    }
+    for (const w of piece.wedges) {
+      g.add(makeWedgeMesh(w.cell, w.plane, w.side, color, ghost));
+      centers.push(cellCenter(w.cell));
+    }
+    g.userData.home = centers
+      .reduce((a, b) => a.add(b.clone()), new THREE.Vector3())
+      .multiplyScalar(1 / centers.length);
+    digonalGroup.add(g);
+    pieceGroups.push(g);
+  }
+
+  for (const c of sol.void_L) {
+    lGroup.add(makeCubeMesh(c, L_COLOR, false));
+    voidGroup.add(makeVoidGhost(c));
+  }
+
+  document.getElementById('voidLabel').textContent =
+    sol.void_L.map((c) => `(${c.join(',')})`).join(' · ');
+
+  const list = document.getElementById('pieceList');
+  list.innerHTML = '';
+  const counts = {};
+  sol.pieces.forEach((p) => { counts[p.family] = (counts[p.family] || 0) + 1; });
+  sol.pieces.forEach((p) => {
+    const li = document.createElement('li');
+    const hex = familyColor(p.family).toString(16).padStart(6, '0');
+    const dup = counts[p.family] > 1 ? ' <em>(dup)</em>' : '';
+    li.innerHTML = `<span style="color:#${hex}">●</span> family <code>${p.family}</code> j${p.joint}${dup}
+      — ${p.cubes.map((c) => `(${c})`).join('–')}`;
+    list.appendChild(li);
+  });
+  const nDistinct = Object.keys(counts).length;
+  document.getElementById('typeSummary').innerHTML =
+    `<strong style="color:var(--text)">Types:</strong> ${nDistinct} distinct · counts
+     <code>${JSON.stringify(counts)}</code>`;
+
+  buildSurfaceMap(sol);
+  syncVisibility();
+}
+
+function syncVisibility() {
+  const mapMode = document.getElementById('surfaceMap').checked;
+  mapGroup.visible = mapMode;
+  document.getElementById('surfaceMapLegend').classList.toggle('hidden', !mapMode);
+
+  digonalGroup.visible = document.getElementById('showDigonal').checked;
+  const showL = document.getElementById('showL').checked;
+  lGroup.visible = showL;
+  voidGroup.visible = document.getElementById('showVoid').checked && !showL;
+
+  const explode = document.getElementById('explode').checked;
+  const origin = new THREE.Vector3(1.5, 1.5, 1.5);
+  for (const g of pieceGroups) {
+    if (!explode) g.position.set(0, 0, 0);
+    else {
+      const dir = g.userData.home.clone().sub(origin);
+      if (dir.lengthSq() < 1e-8) dir.set(1, 0, 0);
+      else dir.normalize();
+      g.position.copy(dir.multiplyScalar(1.15));
+    }
+  }
+  if (explode && current) {
+    const lHome = current.void_L
+      .map(cellCenter)
+      .reduce((a, b) => a.add(b), new THREE.Vector3())
+      .multiplyScalar(1 / 3);
+    const dir = lHome.sub(origin);
+    if (dir.lengthSq() < 1e-8) dir.set(0, 1, 0);
+    else dir.normalize();
+    lGroup.position.copy(dir.multiplyScalar(1.15));
+    voidGroup.position.copy(lGroup.position);
+  } else {
+    lGroup.position.set(0, 0, 0);
+    voidGroup.position.set(0, 0, 0);
+  }
+}
+
+function applyPieceBaseColor() {
+  if (!current) return;
+  const grayBase = document.getElementById('grayPieces').checked;
+  pieceGroups.forEach((g, i) => {
+    const piece = current.pieces[i];
+    if (!piece) return;
+    const color = grayBase ? PIECE_BASE_GRAY : familyColor(piece.family);
+    const overlay = g.userData.mapOverlay;
+    for (const child of g.children) {
+      if (child === overlay) continue;
+      child.traverse((obj) => {
+        if (obj.isMesh && obj.material && obj.material.color) {
+          obj.material.color.setHex(color);
+        }
+      });
+    }
+  });
+}
+
+function rebuildForGhost() {
+  if (current) buildSolution(current);
+}
+
+for (const id of ['showDigonal', 'showL', 'showVoid', 'explode']) {
+  document.getElementById(id).addEventListener('change', syncVisibility);
+}
+document.getElementById('ghostDigonal').addEventListener('change', rebuildForGhost);
+document.getElementById('surfaceMap').addEventListener('change', () => {
+  if (current) buildSurfaceMap(current);
+  syncVisibility();
+});
+document.getElementById('grayPieces').addEventListener('change', applyPieceBaseColor);
+
+function resize() {
+  const w = viewport.clientWidth;
+  const h = viewport.clientHeight;
+  camera.aspect = w / Math.max(h, 1);
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h, false);
+}
+resize();
+addEventListener('resize', resize);
+
+function frame() {
+  controls.update();
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+frame();
+
+function uniquePartCount(rep) {
+  if (rep.family_counts) return Object.keys(rep.family_counts).length;
+  const seen = new Set((rep.pieces || []).map((p) => p.family));
+  return seen.size;
+}
+
+function jointsLine(rep) {
+  return (rep.pieces || [])
+    .map((p) => `${p.family}j${p.joint}`)
+    .join(' ');
+}
+
+function useMixDataset() {
+  return Boolean(mixData && document.getElementById('sameMixFilter')?.checked);
+}
+
+function cellsFaceAdjacent(a, b) {
+  return Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) + Math.abs(a[2] - b[2]) === 1;
+}
+
+function voidConnected(cells) {
+  if (cells.length === 0) return false;
+  const seen = new Set([0]);
+  const stack = [0];
+  while (stack.length) {
+    const i = stack.pop();
+    for (let j = 0; j < cells.length; j++) {
+      if (!seen.has(j) && cellsFaceAdjacent(cells[i], cells[j])) {
+        seen.add(j);
+        stack.push(j);
+      }
+    }
+  }
+  return seen.size === cells.length;
+}
+
+function voidIsStraight(cells) {
+  const varying = [0, 1, 2].filter(
+    (ax) => new Set(cells.map((c) => c[ax])).size > 1,
+  );
+  return varying.length === 1;
+}
+
+/** Face-connected 3-cell void that is not a straight tromino. */
+function voidIsLTromino(rep) {
+  const cells = rep.void_L || [];
+  return cells.length === 3 && voidConnected(cells) && !voidIsStraight(cells);
+}
+
+function filteredIndices() {
+  const sel = document.getElementById('uniqueFilter');
+  const val = sel ? sel.value : 'all';
+  const lOnly = document.getElementById('lTrominoFilter')?.checked;
+  const reps = orbitsData.representatives;
+  return reps
+    .map((rep, i) => {
+      if (lOnly && !voidIsLTromino(rep)) return -1;
+      if (val !== 'all' && uniquePartCount(rep) !== Number(val)) return -1;
+      return i;
+    })
+    .filter((i) => i >= 0);
+}
+
+function refreshUniqueFilterOptions() {
+  const filter = document.getElementById('uniqueFilter');
+  const prev = filter.value;
+  const lOnly = document.getElementById('lTrominoFilter')?.checked;
+  const base = orbitsData.representatives.filter(
+    (rep) => !lOnly || voidIsLTromino(rep),
+  );
+  const counts = [...new Set(base.map(uniquePartCount))].sort((a, b) => a - b);
+
+  filter.innerHTML = '';
+  const allOpt = document.createElement('option');
+  allOpt.value = 'all';
+  allOpt.textContent = `All (${base.length})`;
+  filter.appendChild(allOpt);
+
+  counts.forEach((n) => {
+    const howMany = base.filter((r) => uniquePartCount(r) === n).length;
+    const opt = document.createElement('option');
+    opt.value = String(n);
+    opt.textContent = `${n} unique (${howMany})`;
+    filter.appendChild(opt);
+  });
+
+  // Keep prior selection if still valid; otherwise fall back to All
+  const stillValid = [...filter.options].some((o) => o.value === prev);
+  filter.value = stillValid ? prev : 'all';
+}
+
+function applyFilters() {
+  const visible = new Set(filteredIndices());
+  document.querySelectorAll('.orbit-btn').forEach((btn) => {
+    const i = Number(btn.dataset.index);
+    btn.classList.toggle('hidden', !visible.has(i));
+  });
+
+  const empty = document.getElementById('orbitEmpty');
+  const n = visible.size;
+  const total = orbitsData.representatives.length;
+  const sel = document.getElementById('uniqueFilter').value;
+  const lOnly = document.getElementById('lTrominoFilter').checked;
+  const bits = [];
+  if (sel !== 'all') bits.push(`${sel} unique`);
+  if (lOnly) bits.push('L-tromino void');
+
+  const blurb = document.getElementById('orbitBlurb');
+  if (blurb) {
+    if (useMixDataset()) {
+      const raw = orbitsData.raw_solutions != null
+        ? ` ${Number(orbitsData.raw_solutions).toLocaleString()} raw solutions.`
+        : '';
+      const done = orbitsData.exhaustive
+        ? ' Exhaustive under cube rotations and reflections.'
+        : ' Enumeration may be incomplete.';
+      blurb.textContent =
+        `${n} L-void packing${n === 1 ? '' : 's'} of {1,4,7,8,9,10,11×2}.` +
+        `${raw}${done} Straight or disconnected 3-cell voids are not listed.`;
+    } else {
+      const suffix = bits.length
+        ? `${n} of ${total} matching ${bits.join(' + ')}.`
+        : `${total} inequivalent 8-piece packings from the 12-family pool.`;
+      blurb.textContent =
+        `${suffix} 9-piece full cube remains impossible under digonal geometry.`;
+    }
+  }
+
+  if (!n) {
+    empty.classList.remove('hidden');
+    empty.textContent = bits.length
+      ? `No solutions match ${bits.join(' + ')}. Try clearing one filter.`
+      : 'No solutions.';
+    return;
+  }
+  empty.classList.add('hidden');
+  empty.textContent = '';
+
+  const idxs = [...visible];
+  if (!idxs.includes(currentOrbitIndex)) selectOrbit(idxs[0]);
+}
+
+function selectOrbit(index) {
+  const n = orbitsData.representatives.length;
+  index = ((index % n) + n) % n;
+  const rep = orbitsData.representatives[index];
+  buildSolution(rep);
+  document.querySelectorAll('.orbit-btn').forEach((btn) => {
+    btn.classList.toggle('active', Number(btn.dataset.index) === index);
+  });
+  const active = document.querySelector('.orbit-btn.active:not(.hidden)');
+  if (active) active.scrollIntoView({ block: 'nearest' });
+  const raw = orbitsData.raw_solutions != null
+    ? ` · raw ${Number(orbitsData.raw_solutions).toLocaleString()}`
+    : '';
+  const uniq = uniquePartCount(rep);
+  const lTag = voidIsLTromino(rep) ? ' · L-void' : '';
+  document.getElementById('status').textContent =
+    `Orbit ${index} / ${n - 1} · ${uniq} unique${lTag}${raw}`;
+  currentOrbitIndex = index;
+}
+
+let currentOrbitIndex = 0;
+
+function onKeyNav(e) {
+  if (!orbitsData) return;
+  const tag = (e.target && e.target.tagName) || '';
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    const idxs = filteredIndices();
+    if (!idxs.length) return;
+    let pos = idxs.indexOf(currentOrbitIndex);
+    if (pos < 0) pos = 0;
+    const delta = e.key === 'ArrowDown' ? 1 : -1;
+    const next = idxs[(pos + delta + idxs.length) % idxs.length];
+    selectOrbit(next);
+  }
+}
+window.addEventListener('keydown', onKeyNav);
+
+function surfaceMapColorForOrbit(index) {
+  if (!useMixDataset()) return null;
+  const slot = SURFACE_MAP_ORBITS.indexOf(index);
+  if (slot < 0) return null;
+  return SURFACE_MAP_COLORS[slot];
+}
+
+function renderOrbitList() {
+  const host = document.getElementById('orbitList');
+  host.innerHTML = '';
+  orbitsData.representatives.forEach((rep, i) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'orbit-btn';
+    btn.dataset.index = String(i);
+    btn.dataset.unique = String(uniquePartCount(rep));
+    const voidStr = (rep.void_L || []).map((c) => c.join(',')).join(' · ');
+    const joints = jointsLine(rep);
+    const countsStr = JSON.stringify(rep.family_counts || {});
+    const uniq = uniquePartCount(rep);
+    const lMark = voidIsLTromino(rep) ? ' · L' : '';
+    const mixNote = useMixDataset() && i === 0 && mixData.pinned_from_pool != null
+      ? ` · was #${mixData.pinned_from_pool}`
+      : '';
+    const mapColor = surfaceMapColorForOrbit(i);
+    const swapNote = useMixDataset() && i === 2 ? ' · same marks as #1' : '';
+    const swatch = mapColor != null
+      ? `<span class="orbit-swatch" style="background:#${mapColor.toString(16).padStart(6, '0')}" title="Surface-map color"></span>`
+      : (useMixDataset()
+        ? `<span class="orbit-swatch none" title="No unique surface-map color"></span>`
+        : '');
+    btn.innerHTML = `${swatch}<span class="orbit-copy"><strong style="color:var(--text)">#${i}</strong>
+      · ${uniq} unique${lMark}${mixNote}${swapNote}
+      <code>${voidStr}</code><br/><code>${joints}</code></span>`;
+    btn.title = `Void ${voidStr} · ${joints} · ${countsStr}`;
+    btn.addEventListener('click', () => selectOrbit(i));
+    host.appendChild(btn);
+  });
+}
+
+function syncActiveDataset() {
+  orbitsData = useMixDataset() ? mixData : poolData;
+  renderOrbitList();
+  refreshUniqueFilterOptions();
+  const nL = orbitsData.representatives.filter(voidIsLTromino).length;
+  document.getElementById('lTrominoCount').textContent = `(${nL})`;
+  applyFilters();
+  const idxs = filteredIndices();
+  if (idxs.length) selectOrbit(idxs[0]);
+}
+
+async function init() {
+  const status = document.getElementById('status');
+  try {
+    const res = await fetch('./perp_no_rect_orbits.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    poolData = await res.json();
+    orbitsData = poolData;
+
+    try {
+      const mixRes = await fetch('./inventory_20_L_orbits.json');
+      if (mixRes.ok) {
+        mixData = await mixRes.json();
+        const nMix = (mixData.representatives || []).length;
+        document.getElementById('sameMixCount').textContent = `(${nMix})`;
+      }
+    } catch (_) {
+      mixData = null;
+    }
+
+    if (!mixData) {
+      const box = document.getElementById('sameMixFilter');
+      box.checked = false;
+      box.disabled = true;
+      document.getElementById('sameMixCount').textContent = '(missing)';
+    }
+
+    status.innerHTML = `<span class="ok">Loaded ${poolData.inequivalent_orbits} pool orbits`
+      + (mixData ? ` · ${mixData.inequivalent_orbits} of this mix` : '')
+      + `</span>`;
+
+    const filter = document.getElementById('uniqueFilter');
+    filter.addEventListener('change', applyFilters);
+    document.getElementById('lTrominoFilter').addEventListener('change', () => {
+      refreshUniqueFilterOptions();
+      applyFilters();
+    });
+    document.getElementById('sameMixFilter').addEventListener('change', syncActiveDataset);
+    document.getElementById('exportStl').addEventListener('click', exportCombinedStl);
+    document.getElementById('exportObj').addEventListener('click', exportObjParts);
+    document.getElementById('exportStlParts').addEventListener('click', exportStlEachPart);
+    fillSurfaceMapLegend();
+    if (!mixData) {
+      const mapBox = document.getElementById('surfaceMap');
+      mapBox.checked = false;
+      mapBox.disabled = true;
+    } else {
+      const q = new URLSearchParams(location.search);
+      if (q.has('surface') || q.get('map') === '1') {
+        document.getElementById('sameMixFilter').checked = true;
+        document.getElementById('surfaceMap').checked = true;
+        document.getElementById('grayPieces').checked = true;
+      }
+    }
+
+    syncActiveDataset();
+  } catch (err) {
+    status.innerHTML = `<span class="err">Failed to load orbits: ${err.message}</span>
+      <br/>Serve this folder over HTTP (e.g. <code>python -m http.server</code>).`;
+  }
+}
+
+init();
+  </script>
+</body>
+</html>

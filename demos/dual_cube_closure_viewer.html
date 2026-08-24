@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dual-cube closure diagnostic</title>
+  <style>
+    :root { --bg: #1a1d21; --panel: #24282e; --text: #e8eaed; --muted: #9aa0a6; --accent: #7cb8ff; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
+      font-family: "Segoe UI", system-ui, sans-serif; }
+    #app { display: grid; grid-template-columns: 300px 1fr; height: 100%; }
+    aside { background: var(--panel); padding: 1rem 1.1rem; overflow: auto; border-right: 1px solid #333842; }
+    h1 { font-size: 0.95rem; margin: 0 0 0.8rem; }
+    label { display: flex; gap: 0.45rem; align-items: center; margin: 0.35rem 0; color: var(--muted); font-size: 0.82rem; }
+    button, select, input[type=file] { font: inherit; }
+    button { background: #3d4a5c; color: var(--text); border: 0; padding: 0.35rem 0.55rem; border-radius: 4px; cursor: pointer; }
+    button:disabled { opacity: 0.45; cursor: default; }
+    select { width: 100%; background: #1a1d21; color: var(--text); border: 1px solid #333842; padding: 0.35rem 0.45rem; border-radius: 4px; }
+    .field { margin: 0.7rem 0 0.35rem; }
+    .field span { display: block; color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.25rem; }
+    .nav { display: flex; gap: 0.35rem; margin: 0.4rem 0 0.6rem; }
+    .nav button { flex: 1; }
+    .row { display: flex; flex-wrap: wrap; gap: 0.55rem 0.9rem; margin: 0.25rem 0 0.5rem; }
+    .slider-row { display: grid; grid-template-columns: 1fr auto; gap: 0.45rem; align-items: center; margin: 0.15rem 0 0.55rem; }
+    .slider-row input[type=range] { width: 100%; accent-color: var(--accent); }
+    .slider-row .val { min-width: 2.6rem; text-align: right; color: var(--text); font-variant-numeric: tabular-nums; }
+    #c { width: 100%; height: 100%; display: block; }
+    .stat { color: var(--muted); font-size: 0.78rem; line-height: 1.45; }
+    .hit { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <aside>
+      <h1>Closure viewer</h1>
+      <p class="stat">Pinned Three.js 0.185.1. Orbit does not change the selected patch or layers.</p>
+      <div class="field">
+        <span>Snapshot</span>
+        <select id="snapshot"></select>
+      </div>
+      <div class="field">
+        <span>Patch</span>
+        <select id="patch"></select>
+      </div>
+      <div class="nav">
+        <button type="button" id="prevOpening">Previous</button>
+        <button type="button" id="nextOpening">Next</button>
+      </div>
+      <p><button type="button" id="reload">Reload snapshot</button></p>
+      <input id="file" type="file" accept="application/json" />
+      <div class="field"><span>Assembly</span></div>
+      <div class="row">
+        <label><input type="radio" name="asm" value="A" /> Cube A</label>
+        <label><input type="radio" name="asm" value="B" /> Cube B</label>
+        <label><input type="radio" name="asm" value="both" checked /> A + B</label>
+      </div>
+      <label><input type="checkbox" id="voxels" checked /> Voxels</label>
+      <label><input type="checkbox" id="analytic" /> Analytic carriers</label>
+      <label><input type="checkbox" id="resolvedTrims" /> Resolved trims</label>
+      <label><input type="checkbox" id="openEdges" checked /> Open edges</label>
+      <label><input type="checkbox" id="openings" /> Unresolved openings</label>
+      <label><input type="checkbox" id="residuals" /> Residual ticks</label>
+      <label><input type="checkbox" id="explodePieces" /> Explode pieces</label>
+      <label><input type="checkbox" id="explodeShells" /> Explode shells</label>
+      <div class="field">
+        <span>Explode distance</span>
+        <div class="slider-row">
+          <input id="explodeDistance" type="range" min="0" max="300" value="140" />
+          <span id="explodeDistanceVal" class="val">1.40</span>
+        </div>
+      </div>
+      <div class="field">
+        <span>Voxel opacity</span>
+        <div class="slider-row">
+          <input id="voxelOpacity" type="range" min="0" max="100" value="36" />
+          <span id="voxelOpacityVal" class="val">36%</span>
+        </div>
+      </div>
+      <div id="summary" class="stat"></div>
+    </aside>
+    <canvas id="c"></canvas>
+  </div>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const SNAPSHOTS = [
+  {
+    id: 'locked86',
+    label: 'N=6 locked · 86 open edges',
+    url: new URL('../solvers/dual_cube/results/candidate_N6_P8_connected.closure_view.json', import.meta.url),
+  },
+];
+
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x1a1d21);
+const camera = new THREE.PerspectiveCamera(50, 1, 0.01, 40);
+camera.position.set(1.1, 0.9, 2.2);
+const controls = new OrbitControls(camera, canvas);
+controls.target.set(0.5, 0.5, 0.5);
+controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };
+scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+const key = new THREE.DirectionalLight(0xffffff, 0.85);
+key.position.set(2, 3, 4);
+scene.add(key);
+
+const groups = {
+  voxels: new THREE.Group(),
+  analytic: new THREE.Group(),
+  resolvedTrims: new THREE.Group(),
+  openEdges: new THREE.Group(),
+  openings: new THREE.Group(),
+  residuals: new THREE.Group(),
+};
+Object.values(groups).forEach((g) => scene.add(g));
+const pickables = [];
+let view = null;
+let selectedId = null;
+let pointer = null;
+const patchSelect = document.getElementById('patch');
+const snapshotSelect = document.getElementById('snapshot');
+snapshotSelect.innerHTML = SNAPSHOTS.map((s) => `<option value="${s.id}">${s.label}</option>`).join('');
+
+function assemblyMode() {
+  return document.querySelector('input[name="asm"]:checked')?.value || 'A';
+}
+
+function bOffset() {
+  const extra = document.getElementById('explodePieces')?.checked ? explodeDistance() * 2.15 : 0;
+  return new THREE.Vector3(3.25 + extra, 0, 0);
+}
+
+const centroidCache = new Map();
+
+function explodeDistance() {
+  return Number(document.getElementById('explodeDistance').value) / 100;
+}
+
+function pieceCentroid(piece, assembly = 'A') {
+  const key = `${assembly}:${piece}`;
+  if (centroidCache.has(key)) return centroidCache.get(key).clone();
+  const pts = (view.voxels || []).filter((v) => v.piece === piece && (v.assembly || 'A') === assembly);
+  let c;
+  if (pts.length) {
+    const s = pts.reduce((a, v) => a.add(new THREE.Vector3(...v.position)), new THREE.Vector3());
+    c = s.multiplyScalar(1 / pts.length);
+  } else if (assembly === 'B') {
+    c = pieceCentroid(piece, 'A');
+  } else {
+    const stored = view?.pieceCentroids?.[piece];
+    c = stored ? new THREE.Vector3(...stored) : new THREE.Vector3(0.5, 0.5, 0.5);
+  }
+  centroidCache.set(key, c.clone());
+  return c;
+}
+
+function layoutOffset(rec) {
+  const p = new THREE.Vector3();
+  const asm = rec.assembly || 'A';
+  if (asm === 'B') p.add(bOffset());
+  if (document.getElementById('explodePieces').checked && rec.piece) {
+    const c = pieceCentroid(rec.piece, asm);
+    const d = c.clone().sub(new THREE.Vector3(0.5, 0.5, 0.5));
+    if (d.lengthSq() < 1e-8) d.set((rec.piece - 4.5) * 0.12, 0.15, 0);
+    p.add(d.normalize().multiplyScalar(explodeDistance()));
+  }
+  if (document.getElementById('explodeShells').checked && rec.id) {
+    const shell = (view.shells || []).find((s) => s.patchIds?.includes(rec.id) || s.patchIds?.includes(rec.a));
+    if (shell?.explode) p.add(new THREE.Vector3(...shell.explode));
+  }
+  return p;
+}
+
+function place(obj, rec) {
+  const rest = rec.rest || [0, 0, 0];
+  obj.position.set(...rest).add(layoutOffset(rec));
+}
+
+function clearGroup(g) {
+  while (g.children.length) {
+    const ch = g.children.pop();
+    ch.geometry?.dispose?.();
+    ch.material?.dispose?.();
+  }
+}
+
+function voxelOpacity() {
+  return Number(document.getElementById('voxelOpacity').value) / 100;
+}
+
+function applyVoxelOpacity() {
+  const opacity = voxelOpacity();
+  document.getElementById('voxelOpacityVal').textContent = `${Math.round(opacity * 100)}%`;
+  groups.voxels.traverse((obj) => {
+    const mat = obj.material;
+    if (!mat) return;
+    mat.opacity = opacity;
+    mat.transparent = opacity < 1;
+    mat.depthWrite = opacity >= 1;
+    mat.needsUpdate = true;
+  });
+}
+
+function meshFromPositions(positions, color, opacity = 0.85) {
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+  geo.computeVertexNormals();
+  return new THREE.Mesh(geo, new THREE.MeshStandardMaterial({
+    color, opacity, transparent: opacity < 1, side: THREE.DoubleSide, metalness: 0.05, roughness: 0.7,
+  }));
+}
+
+function linesFromPairs(points, color) {
+  const geo = new THREE.BufferGeometry();
+  const pos = [];
+  for (let i = 0; i + 1 < points.length; i += 2) pos.push(...points[i], ...points[i + 1]);
+  if (points.length >= 2 && points.length % 2 === 1) {
+    for (let i = 0; i + 1 < points.length; i++) pos.push(...points[i], ...points[i + 1]);
+  }
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos.length ? pos : points.flat(), 3));
+  return new THREE.LineSegments(geo, new THREE.LineBasicMaterial({ color }));
+}
+
+function polyline(points, color) {
+  const geo = new THREE.BufferGeometry().setFromPoints(points.map((p) => new THREE.Vector3(...p)));
+  return new THREE.Line(geo, new THREE.LineBasicMaterial({ color }));
+}
+
+function openingIds() {
+  const fromOpen = (view.openings || []).map((o) => o.id);
+  if (fromOpen.length) return fromOpen;
+  return (view.patches || []).filter((p) => p.kind === 'curved' && !p.acceptedGeometry).map((p) => p.id);
+}
+
+function patchSortKey(id) {
+  const n = Number(String(id).replace(/^S/i, ''));
+  return Number.isFinite(n) ? n : 1e9;
+}
+
+function fillPatchSelect() {
+  const prev = selectedId || patchSelect.value;
+  const openings = new Set(openingIds());
+  const patches = [...(view.patches || [])].sort((a, b) => patchSortKey(a.id) - patchSortKey(b.id));
+  const groupsSpec = {
+    opening: { label: 'Unresolved openings', items: [] },
+    fitted: { label: 'Fitted carriers', items: [] },
+    curved: { label: 'Other curved', items: [] },
+    planar: { label: 'Planar / exterior', items: [] },
+  };
+  for (const p of patches) {
+    const bucket = p.kind === 'curved'
+      ? (openings.has(p.id) ? 'opening' : (p.acceptedGeometry ? 'fitted' : 'curved'))
+      : 'planar';
+    groupsSpec[bucket].items.push({
+      id: p.id,
+      text: `${p.id} · piece ${p.piece} · ${p.kind === 'curved' ? p.family : p.kind}`,
+    });
+  }
+  patchSelect.innerHTML = '<option value="">Select a patch…</option>' + Object.values(groupsSpec)
+    .filter((g) => g.items.length)
+    .map((g) => `<optgroup label="${g.label}">${g.items.map((it) =>
+      `<option value="${it.id}">${it.text}</option>`).join('')}</optgroup>`)
+    .join('');
+  if (prev && [...patchSelect.options].some((o) => o.value === prev)) patchSelect.value = prev;
+}
+
+function relatedTo(id, data) {
+  if (!id || !data) return false;
+  return data.id === id || data.a === id || data.b === id || data.patch === id
+    || (data.openings || []).includes(id);
+}
+
+function applySelection(frame) {
+  if (!view) return;
+  const matches = pickables.filter((obj) => relatedTo(selectedId, obj.userData));
+  for (const obj of pickables) {
+    const on = !!(selectedId && relatedTo(selectedId, obj.userData));
+    if (!obj.material) continue;
+    if ('emissive' in obj.material) {
+      obj.material.emissive = new THREE.Color(on ? 0xffee88 : 0x000000);
+      obj.material.emissiveIntensity = on ? 0.85 : 0;
+    }
+    if (obj.userData.kind === 'opening') obj.material.color.set(on ? 0xfff3c4 : 0xffcc80);
+    if (obj.userData.kind === 'openEdge') obj.material.color.set(on ? 0xff8a80 : 0xff5252);
+    if (obj.userData.kind === 'trim') obj.material.color.set(on ? 0xe0f7fa : 0x80cbc4);
+  }
+  const patch = (view.patches || []).find((p) => p.id === selectedId);
+  const st = (view.summary?.carrierStatus || []).find((c) => c.patch === selectedId);
+  const hit = document.getElementById('selectedHit');
+  if (hit) {
+    hit.textContent = selectedId
+      ? `${selectedId}${patch ? ` · piece ${patch.piece} · ${patch.family || patch.kind}` : ''}${st ? ` · geometry=${st.acceptedGeometry} trimComplete=${st.trimComplete}` : ''}`
+      : '';
+  }
+  if (frame && matches[0]) focusObject(matches[0], patch);
+}
+
+function focusObject(obj, rec) {
+  const box = new THREE.Box3().setFromObject(obj);
+  if (box.isEmpty() && rec?.origin) box.expandByPoint(new THREE.Vector3(...rec.origin));
+  if (box.isEmpty()) return;
+  const center = box.getCenter(new THREE.Vector3());
+  const size = Math.max(0.25, box.getSize(new THREE.Vector3()).length());
+  controls.target.copy(center);
+  const dir = camera.position.clone().sub(controls.target);
+  if (dir.lengthSq() < 1e-8) dir.set(1, 0.8, 1.4);
+  camera.position.copy(center).add(dir.normalize().multiplyScalar(size * 2.6));
+  controls.update();
+}
+
+function selectPatch(id, { frame = true } = {}) {
+  selectedId = id || null;
+  if (patchSelect.value !== (id || '')) patchSelect.value = id || '';
+  applySelection(frame);
+}
+
+function stepOpening(dir) {
+  const ids = openingIds();
+  if (!ids.length) return;
+  let i = ids.indexOf(selectedId);
+  if (i < 0) i = dir > 0 ? -1 : 0;
+  selectPatch(ids[(i + dir + ids.length) % ids.length], { frame: false });
+}
+
+function showAssembly(rec) {
+  const mode = assemblyMode();
+  const asm = rec.assembly || 'A';
+  if (mode === 'both') return true;
+  return asm === mode;
+}
+
+function relayout(retarget = false) {
+  for (const g of Object.values(groups)) {
+    for (const obj of g.children) {
+      if (obj.userData) place(obj, obj.userData);
+      if (obj.userData) obj.visible = showAssembly(obj.userData);
+    }
+  }
+  syncLayerVisibility();
+  if (!retarget) return;
+  const mode = assemblyMode();
+  const gap = bOffset();
+  let target;
+  let minDist;
+  if (mode === 'B') {
+    target = gap.clone().add(new THREE.Vector3(0.5, 0.5, 0.5));
+    minDist = 2.0;
+  } else if (mode === 'both') {
+    target = new THREE.Vector3(0.5 + gap.x * 0.5, 0.5, 0.5);
+    minDist = Math.max(3.2, gap.x * 1.15);
+  } else {
+    target = new THREE.Vector3(0.5, 0.5, 0.5);
+    minDist = 2.0;
+  }
+  controls.target.copy(target);
+  const offset = camera.position.clone().sub(controls.target);
+  if (offset.lengthSq() < 1e-8) offset.set(0.6, 0.4, 1.7);
+  if (offset.length() < minDist) offset.setLength(minDist);
+  camera.position.copy(controls.target).add(offset);
+  controls.update();
+}
+
+function rebuild() {
+  centroidCache.clear();
+  Object.values(groups).forEach(clearGroup);
+  pickables.length = 0;
+  if (!view) return;
+  const box = new THREE.BoxGeometry(0.92 / view.N, 0.92 / view.N, 0.92 / view.N);
+  const opacity = voxelOpacity();
+  for (const v of view.voxels) {
+    const m = new THREE.Mesh(box, new THREE.MeshStandardMaterial({
+      color: view.colors.pieces[(v.piece - 1) % 8],
+      transparent: opacity < 1, opacity, depthWrite: opacity >= 1,
+    }));
+    m.userData = { kind: 'voxel', piece: v.piece, cell: v.cell, assembly: v.assembly || 'A', rest: v.position };
+    place(m, m.userData);
+    groups.voxels.add(m);
+  }
+  for (const c of view.carriers) {
+    if (!c.positions?.length) continue;
+    const m = meshFromPositions(c.positions, c.color, 0.55);
+    m.userData = { kind: 'carrier', id: c.id, piece: c.piece, type: c.type, patch: c.id, assembly: 'A', rest: [0, 0, 0] };
+    place(m, m.userData);
+    groups.analytic.add(m);
+    pickables.push(m);
+  }
+  for (const t of view.resolvedTrims) {
+    if (!t.points?.length) continue;
+    const ln = polyline(t.points, 0x80cbc4);
+    ln.userData = { kind: 'trim', ...t, patch: t.a, assembly: 'A', rest: [0, 0, 0] };
+    place(ln, ln.userData);
+    groups.resolvedTrims.add(ln);
+    pickables.push(ln);
+  }
+  for (const e of view.openEdges) {
+    if (!e.points?.length) continue;
+    const ln = linesFromPairs(e.points, 0xff5252);
+    ln.userData = { kind: 'openEdge', ...e, patch: e.a, assembly: 'A', rest: [0, 0, 0] };
+    place(ln, ln.userData);
+    groups.openEdges.add(ln);
+    pickables.push(ln);
+  }
+  for (const o of view.openings) {
+    if (!o.points?.length) continue;
+    const ln = polyline(o.points, 0xffcc80);
+    ln.material.transparent = true;
+    ln.material.opacity = 0.7;
+    ln.userData = { kind: 'opening', ...o, patch: o.id, assembly: 'A', rest: [0, 0, 0] };
+    place(ln, ln.userData);
+    groups.openings.add(ln);
+    pickables.push(ln);
+  }
+  for (const r of view.residualVectors || []) {
+    const origin = new THREE.Vector3(...(r.origin || [0, 0, 0]));
+    const arrow = new THREE.ArrowHelper(new THREE.Vector3(0, 1, 0), origin, Math.max(0.03, r.magnitude || 0.03), 0xfff176);
+    arrow.userData = { kind: 'residual', ...r, assembly: 'A', rest: [0, 0, 0] };
+    place(arrow, arrow.userData);
+    groups.residuals.add(arrow);
+  }
+  const s = view.summary;
+  const nOpen = openingIds().length;
+  document.getElementById('summary').innerHTML = s ? `
+    <p id="selectedHit" class="hit"></p>
+    <p>Open edges <b>${s.openEdges}</b> · unresolved ${s.explainedByUnresolvedOpening} · fitted-untrimmed ${s.explainedByFittedUntrimmed} · unexplained ${s.unexplainedCount}</p>
+    <p>Nonmanifold ${s.nonmanifold} · openings in menu ${nOpen}</p>
+    ${(s.pieces || []).map((p) => `<div>Piece ${p.piece}: ${p.shells} shell(s), ${p.openEdges} open, ${p.connectedSolid ? 'solid' : 'open'}</div>`).join('')}
+  ` : '';
+  fillPatchSelect();
+  relayout(true);
+  applySelection(false);
+}
+
+function syncLayerVisibility() {
+  for (const id of Object.keys(groups)) {
+    groups[id].visible = document.getElementById(id)?.checked !== false;
+  }
+}
+
+['voxels', 'analytic', 'resolvedTrims', 'openEdges', 'openings', 'residuals'].forEach((id) => {
+  document.getElementById(id).addEventListener('change', syncLayerVisibility);
+});
+['explodePieces', 'explodeShells'].forEach((id) => {
+  document.getElementById(id).addEventListener('change', () => relayout(false));
+});
+document.getElementById('explodeDistance').addEventListener('input', () => {
+  document.getElementById('explodeDistanceVal').textContent = explodeDistance().toFixed(2);
+  if (document.getElementById('explodePieces').checked) relayout(false);
+});
+document.getElementById('voxelOpacity').addEventListener('input', applyVoxelOpacity);
+document.querySelectorAll('input[name="asm"]').forEach((el) => {
+  el.addEventListener('change', () => relayout(true));
+});
+
+async function loadView(data) {
+  view = data;
+  rebuild();
+}
+
+async function loadUrl(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`failed to load ${url}`);
+  await loadView(await res.json());
+}
+
+function currentSnapshot() {
+  return SNAPSHOTS.find((s) => s.id === snapshotSelect.value) || SNAPSHOTS[0];
+}
+
+document.getElementById('reload').addEventListener('click', (ev) => {
+  ev.preventDefault();
+  loadUrl(currentSnapshot().url).catch((err) => {
+    document.getElementById('summary').textContent = err.message;
+  });
+});
+snapshotSelect.addEventListener('change', () => {
+  loadUrl(currentSnapshot().url).catch((err) => {
+    document.getElementById('summary').textContent = err.message;
+  });
+});
+patchSelect.addEventListener('change', () => selectPatch(patchSelect.value || null));
+document.getElementById('prevOpening').addEventListener('click', (ev) => {
+  ev.preventDefault();
+  stepOpening(-1);
+});
+document.getElementById('nextOpening').addEventListener('click', (ev) => {
+  ev.preventDefault();
+  stepOpening(1);
+});
+document.getElementById('file').addEventListener('change', (ev) => {
+  const f = ev.target.files?.[0];
+  if (!f) return;
+  const reader = new FileReader();
+  reader.onload = () => loadView(JSON.parse(reader.result));
+  reader.readAsText(f);
+});
+
+canvas.addEventListener('pointerdown', (ev) => {
+  pointer = { x: ev.clientX, y: ev.clientY, moved: false };
+});
+canvas.addEventListener('pointermove', (ev) => {
+  if (!pointer) return;
+  if (Math.hypot(ev.clientX - pointer.x, ev.clientY - pointer.y) > 6) pointer.moved = true;
+});
+canvas.addEventListener('pointerup', (ev) => {
+  const tap = pointer && !pointer.moved;
+  pointer = null;
+  if (!tap) return;
+  const rect = canvas.getBoundingClientRect();
+  const mouse = new THREE.Vector2(
+    ((ev.clientX - rect.left) / rect.width) * 2 - 1,
+    -((ev.clientY - rect.top) / rect.height) * 2 + 1,
+  );
+  const ray = new THREE.Raycaster();
+  ray.setFromCamera(mouse, camera);
+  const hits = ray.intersectObjects(pickables, true);
+  if (!hits[0] || !view) return;
+  const data = hits[0].object.userData;
+  const id = data.patch || data.id || data.a;
+  if (id && (view.patches || []).some((p) => p.id === id)) selectPatch(id, { frame: false });
+});
+canvas.addEventListener('pointercancel', () => { pointer = null; });
+
+function resize() {
+  const w = canvas.clientWidth;
+  const h = canvas.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / Math.max(1, h);
+  camera.updateProjectionMatrix();
+}
+window.addEventListener('resize', resize);
+resize();
+function frame() {
+  controls.update();
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+frame();
+loadUrl(currentSnapshot().url).catch((err) => {
+  document.getElementById('summary').textContent = err.message + ' — use the file picker if fetch is blocked.';
+});
+  </script>
+</body>
+</html>

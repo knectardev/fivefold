@@ -1,0 +1,14 @@
+{
+  "schema": "dual-cube-trim-overrides",
+  "version": 1,
+  "overrides": {
+    "S2|S6": "S6__plane_S2__generator_0__forward__aabb_clip",
+    "S3|S6": "S6__plane_S3__seed_polyline__forward__none",
+    "S5|S6": "S6__plane_S5__numerical__forward__none",
+    "S6|S8": "S6__plane_S8__generator_1__forward__aabb_clip",
+    "S15|S6": "S6__plane_S15__seed_polyline__forward__none",
+    "S14|S6": "S6__plane_S14__seed_polyline__forward__none",
+    "S93|S96": "S96__plane_S93__seed_polyline__forward__none",
+    "S94|S96": "S96__plane_S94__numerical__forward__none"
+  }
+}

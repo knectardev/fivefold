@@ -1,0 +1,51 @@
+{
+  "name": "cell-puzzle",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "bench:dual-cube": "node solvers/dual_cube/bench_phase0.mjs",
+    "bench:dual-cube:quick": "node solvers/dual_cube/bench_phase0.mjs --quick",
+    "bench:dual-cube:workers": "node solvers/dual_cube/bench_workers.mjs",
+    "build:wasm": "node solvers/dual_cube/build_wasm.mjs",
+    "cad:scaffold": "node solvers/dual_cube/planar_scaffold.mjs",
+    "cad:correspondence": "node solvers/dual_cube/physical_correspondence.mjs",
+    "cad:closure": "node solvers/dual_cube/physical_correspondence.mjs",
+    "bench:dual-cube:wasm": "node solvers/dual_cube/bench_wasm.mjs",
+    "test:dual-cube": "node --test solvers/dual_cube/*.test.mjs",
+    "search:connected-n6": "node solvers/dual_cube/search_connected.mjs",
+    "search:connected-n8": "node solvers/dual_cube/search_connected.mjs --N 8 --sets 800 --workers 8 --seed 20260822",
+    "search:connected-n8:volume": "node solvers/dual_cube/search_connected.mjs --N 8 --sets 2000 --workers 14 --seed 20260824 --mode volume",
+    "search:repair-n8": "node solvers/dual_cube/volume_repair.mjs",
+    "cad:gpu-fit": "node solvers/dual_cube/gpu_fit.mjs",
+    "cad:gpu-fit:unresolved": "node solvers/dual_cube/gpu_fit.mjs solvers/dual_cube/results/candidate_N6_P8_connected.json --unresolved",
+    "cad:insert-proposals": "node solvers/dual_cube/insert_proposals.mjs solvers/dual_cube/results/candidate_N6_P8_connected.json",
+    "cad:gpu-opt": "node solvers/dual_cube/gpu_opt.mjs solvers/dual_cube/results/candidate_N6_P8_connected.json",
+    "cad:gpu-opt:continue": "node solvers/dual_cube/gpu_opt.mjs solvers/dual_cube/results/candidate_N6_P8_connected.json --continue",
+    "cad:gpu-opt:unlock": "node solvers/dual_cube/gpu_opt.mjs solvers/dual_cube/results/candidate_N6_P8_connected.json --unlock",
+    "cad:split-n6": "node solvers/dual_cube/carrier_split.mjs",
+    "cad:n8-preflight": "node solvers/dual_cube/n8_preflight.mjs",
+    "cad:n8-triage": "node solvers/dual_cube/n8_triage.mjs",
+    "cad:closure-view": "node solvers/dual_cube/physical_correspondence.mjs solvers/dual_cube/results/candidate_N6_P8_connected.json",
+    "refine:n8-diagonal": "node solvers/dual_cube/diagonal_refine.mjs",
+    "search:n8-product": "node solvers/dual_cube/diagonal_refine.mjs --product",
+    "search:n8-native": "node solvers/dual_cube/diagonal_refine.mjs --native"
+  },
+  "devDependencies": {
+    "@types/three": "^0.185.1",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.1",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "lil-gui": "^0.21.0",
+    "three": "^0.185.1",
+    "three-bvh-csg": "^0.0.18",
+    "three-mesh-bvh": "^0.9.13"
+  }
+}

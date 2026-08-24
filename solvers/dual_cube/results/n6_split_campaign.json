@@ -1,0 +1,658 @@
+{
+  "schema": "dual-cube-n6-split-campaign",
+  "version": 1,
+  "seedBefore": 16,
+  "baselineOpenEdges": 94,
+  "attempts": [
+    {
+      "label": "A-paired-S6-S96-primary",
+      "spec": "A",
+      "split": {
+        "ok": true,
+        "reason": null,
+        "newCarriers": 3,
+        "groupsA": [
+          7,
+          6
+        ],
+        "groupsB": [
+          4,
+          0
+        ]
+      },
+      "evaluation": {
+        "ok": true,
+        "seedTrims": 5,
+        "progress": 11,
+        "proof": false,
+        "gate": {
+          "shells": false,
+          "openEdges": false,
+          "seedTrims": false,
+          "provisional": true,
+          "complexityBudget": false,
+          "connectedPositive": true,
+          "vanishingFaces": true,
+          "minThickness": true
+        },
+        "volumes": [
+          {
+            "piece": 1,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.1388888888888889,
+            "failure": null
+          },
+          {
+            "piece": 2,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.16666666666666666,
+            "failure": null
+          },
+          {
+            "piece": 3,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.06944444444444445,
+            "failure": null
+          },
+          {
+            "piece": 4,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.1388888888888889,
+            "failure": null
+          },
+          {
+            "piece": 5,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.125,
+            "failure": null
+          },
+          {
+            "piece": 6,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.14814814814814814,
+            "failure": null
+          },
+          {
+            "piece": 7,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.10648148148148148,
+            "failure": null
+          },
+          {
+            "piece": 8,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.10648148148148148,
+            "failure": null
+          }
+        ],
+        "topology": {
+          "openEdges": 66,
+          "shells": 18,
+          "nonmanifold": 1
+        },
+        "complexity": {
+          "newCarriers": 3,
+          "maxNewCarriers": 8,
+          "tinyChildren": 0,
+          "generalQuadricBefore": 6,
+          "generalQuadricAfter": 15,
+          "generalQuadricIncreased": true,
+          "overBudget": false
+        },
+        "families": [
+          {
+            "patch": "S6c1",
+            "parent": "S6",
+            "faces": 7,
+            "family": "generalQuadric",
+            "rms": 0.0006006346074783831
+          },
+          {
+            "patch": "S6c2",
+            "parent": "S6",
+            "faces": 6,
+            "family": "generalQuadric",
+            "rms": 0.009282213998571705
+          },
+          {
+            "patch": "S96c1",
+            "parent": "S96",
+            "faces": 4,
+            "family": "cylinder",
+            "rms": 2.7864603673044552e-8
+          }
+        ],
+        "budgetHeld": false,
+        "diagnostics": [
+          {
+            "patch": "S6c1",
+            "family": "generalQuadric",
+            "incidentPlanarIds": [
+              "S2",
+              "S3",
+              "S5",
+              "S15"
+            ],
+            "missing": [],
+            "seed": []
+          },
+          {
+            "patch": "S6c2",
+            "family": "generalQuadric",
+            "incidentPlanarIds": [
+              "S8",
+              "S14",
+              "S20"
+            ],
+            "missing": [],
+            "seed": []
+          },
+          {
+            "patch": "S96c1",
+            "family": "cylinder",
+            "incidentPlanarIds": [
+              "S88",
+              "S93",
+              "S94",
+              "S97",
+              "S98",
+              "S100"
+            ],
+            "missing": [],
+            "seed": [
+              "S88",
+              "S93",
+              "S94",
+              "S97",
+              "S100"
+            ]
+          }
+        ],
+        "insertion": {
+          "accepted": 16,
+          "rejected": 0,
+          "openEdges": 71
+        }
+      },
+      "pass": false
+    },
+    {
+      "label": "B-paired-S6-S96-alternate",
+      "spec": "B",
+      "split": {
+        "ok": true,
+        "reason": null,
+        "newCarriers": 3,
+        "groupsA": [
+          5,
+          8
+        ],
+        "groupsB": [
+          4,
+          0
+        ]
+      },
+      "evaluation": {
+        "ok": true,
+        "seedTrims": 0,
+        "progress": 16,
+        "proof": false,
+        "gate": {
+          "shells": false,
+          "openEdges": false,
+          "seedTrims": true,
+          "provisional": true,
+          "complexityBudget": false,
+          "connectedPositive": true,
+          "vanishingFaces": true,
+          "minThickness": true
+        },
+        "volumes": [
+          {
+            "piece": 1,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.1388888888888889,
+            "failure": null
+          },
+          {
+            "piece": 2,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.16666666666666666,
+            "failure": null
+          },
+          {
+            "piece": 3,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.06944444444444445,
+            "failure": null
+          },
+          {
+            "piece": 4,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.1388888888888889,
+            "failure": null
+          },
+          {
+            "piece": 5,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.125,
+            "failure": null
+          },
+          {
+            "piece": 6,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.14814814814814814,
+            "failure": null
+          },
+          {
+            "piece": 7,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.10648148148148148,
+            "failure": null
+          },
+          {
+            "piece": 8,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.10648148148148148,
+            "failure": null
+          }
+        ],
+        "topology": {
+          "openEdges": 66,
+          "shells": 18,
+          "nonmanifold": 0
+        },
+        "complexity": {
+          "newCarriers": 3,
+          "maxNewCarriers": 8,
+          "tinyChildren": 0,
+          "generalQuadricBefore": 6,
+          "generalQuadricAfter": 16,
+          "generalQuadricIncreased": true,
+          "overBudget": false
+        },
+        "families": [
+          {
+            "patch": "S6c1",
+            "parent": "S6",
+            "faces": 5,
+            "family": "generalQuadric",
+            "rms": 0.0005970343755140007
+          },
+          {
+            "patch": "S6c2",
+            "parent": "S6",
+            "faces": 8,
+            "family": "generalQuadric",
+            "rms": 0.021473523143569602
+          },
+          {
+            "patch": "S96c1",
+            "parent": "S96",
+            "faces": 4,
+            "family": "generalQuadric",
+            "rms": 0.0017080016662472158
+          }
+        ],
+        "budgetHeld": false,
+        "diagnostics": [
+          {
+            "patch": "S6c1",
+            "family": "generalQuadric",
+            "incidentPlanarIds": [
+              "S2",
+              "S3",
+              "S5"
+            ],
+            "missing": [],
+            "seed": []
+          },
+          {
+            "patch": "S6c2",
+            "family": "generalQuadric",
+            "incidentPlanarIds": [
+              "S8",
+              "S14",
+              "S15",
+              "S20"
+            ],
+            "missing": [],
+            "seed": []
+          },
+          {
+            "patch": "S96c1",
+            "family": "generalQuadric",
+            "incidentPlanarIds": [
+              "S88",
+              "S93",
+              "S94",
+              "S97",
+              "S98",
+              "S100"
+            ],
+            "missing": [],
+            "seed": []
+          }
+        ],
+        "insertion": {
+          "accepted": 16,
+          "rejected": 0,
+          "openEdges": 66
+        }
+      },
+      "pass": false
+    },
+    {
+      "label": "C-paired-S50-S21-split",
+      "spec": "C",
+      "split": {
+        "ok": true,
+        "reason": null,
+        "newCarriers": 2,
+        "groupsA": [
+          10
+        ],
+        "groupsB": [
+          10
+        ]
+      },
+      "evaluation": {
+        "ok": true,
+        "seedTrims": 10,
+        "progress": 6,
+        "proof": false,
+        "gate": {
+          "shells": false,
+          "openEdges": false,
+          "seedTrims": false,
+          "provisional": true,
+          "complexityBudget": false,
+          "connectedPositive": true,
+          "vanishingFaces": true,
+          "minThickness": true
+        },
+        "volumes": [
+          {
+            "piece": 1,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.1388888888888889,
+            "failure": null
+          },
+          {
+            "piece": 2,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.16666666666666666,
+            "failure": null
+          },
+          {
+            "piece": 3,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.06944444444444445,
+            "failure": null
+          },
+          {
+            "piece": 4,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.1388888888888889,
+            "failure": null
+          },
+          {
+            "piece": 5,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.125,
+            "failure": null
+          },
+          {
+            "piece": 6,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.14814814814814814,
+            "failure": null
+          },
+          {
+            "piece": 7,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.10648148148148148,
+            "failure": null
+          },
+          {
+            "piece": 8,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.10648148148148148,
+            "failure": null
+          }
+        ],
+        "topology": {
+          "openEdges": 76,
+          "shells": 19,
+          "nonmanifold": 0
+        },
+        "complexity": {
+          "newCarriers": 2,
+          "maxNewCarriers": 8,
+          "tinyChildren": 0,
+          "generalQuadricBefore": 6,
+          "generalQuadricAfter": 13,
+          "generalQuadricIncreased": true,
+          "overBudget": false
+        },
+        "families": [
+          {
+            "patch": "S50c1",
+            "parent": "S50",
+            "faces": 10,
+            "family": null,
+            "rms": null
+          },
+          {
+            "patch": "S21c1",
+            "parent": "S21",
+            "faces": 10,
+            "family": null,
+            "rms": null
+          }
+        ],
+        "budgetHeld": false,
+        "diagnostics": [
+          {
+            "patch": "S50c1",
+            "family": null,
+            "incidentPlanarIds": [
+              "S46",
+              "S51",
+              "S52",
+              "S54"
+            ],
+            "missing": [
+              "S46",
+              "S51",
+              "S52",
+              "S54"
+            ],
+            "seed": []
+          },
+          {
+            "patch": "S21c1",
+            "family": null,
+            "incidentPlanarIds": [
+              "S22",
+              "S23",
+              "S24",
+              "S25",
+              "S26",
+              "S27"
+            ],
+            "missing": [
+              "S22",
+              "S23",
+              "S24",
+              "S25",
+              "S26",
+              "S27"
+            ],
+            "seed": []
+          }
+        ],
+        "insertion": {
+          "accepted": 15,
+          "rejected": 0,
+          "openEdges": 76
+        }
+      },
+      "pass": false
+    },
+    {
+      "label": "D-S50-S21-correspondence-revision",
+      "spec": "D",
+      "split": {
+        "ok": true,
+        "reason": null,
+        "newCarriers": 0
+      },
+      "evaluation": {
+        "ok": true,
+        "seedTrims": 10,
+        "progress": 6,
+        "proof": false,
+        "gate": {
+          "shells": false,
+          "openEdges": false,
+          "seedTrims": false,
+          "provisional": true,
+          "complexityBudget": false,
+          "connectedPositive": true,
+          "vanishingFaces": true,
+          "minThickness": true
+        },
+        "volumes": [
+          {
+            "piece": 1,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.1388888888888889,
+            "failure": null
+          },
+          {
+            "piece": 2,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.16666666666666666,
+            "failure": null
+          },
+          {
+            "piece": 3,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.06944444444444445,
+            "failure": null
+          },
+          {
+            "piece": 4,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.1388888888888889,
+            "failure": null
+          },
+          {
+            "piece": 5,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.125,
+            "failure": null
+          },
+          {
+            "piece": 6,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.14814814814814814,
+            "failure": null
+          },
+          {
+            "piece": 7,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.10648148148148148,
+            "failure": null
+          },
+          {
+            "piece": 8,
+            "voxelComponents": 1,
+            "sourceVoxelVolume": 0.10648148148148148,
+            "failure": null
+          }
+        ],
+        "topology": {
+          "openEdges": 76,
+          "shells": 19,
+          "nonmanifold": 0
+        },
+        "complexity": {
+          "newCarriers": 0,
+          "maxNewCarriers": 8,
+          "tinyChildren": 0,
+          "generalQuadricBefore": 6,
+          "generalQuadricAfter": 13,
+          "generalQuadricIncreased": true,
+          "overBudget": false
+        },
+        "families": [
+          {
+            "patch": "S50",
+            "faces": 10,
+            "family": null,
+            "rms": null
+          },
+          {
+            "patch": "S21",
+            "faces": 10,
+            "family": null,
+            "rms": null
+          }
+        ],
+        "budgetHeld": false,
+        "diagnostics": [
+          {
+            "patch": "S50",
+            "family": null,
+            "incidentPlanarIds": [
+              "S46",
+              "S51",
+              "S52",
+              "S54"
+            ],
+            "missing": [
+              "S46",
+              "S51",
+              "S52",
+              "S54"
+            ],
+            "seed": []
+          },
+          {
+            "patch": "S21",
+            "family": null,
+            "incidentPlanarIds": [
+              "S22",
+              "S23",
+              "S24",
+              "S25",
+              "S26",
+              "S27"
+            ],
+            "missing": [
+              "S22",
+              "S23",
+              "S24",
+              "S25",
+              "S26",
+              "S27"
+            ],
+            "seed": []
+          }
+        ],
+        "insertion": {
+          "accepted": 15,
+          "rejected": 0,
+          "openEdges": 76
+        }
+      },
+      "pass": false
+    }
+  ],
+  "stop": true,
+  "abandonOccupancy": true,
+  "conclusion": "A–D failed: transfer CAD-proof effort to N=8",
+  "note": "Default analyzePhysicalCorrespondence is unchanged. Splits are opt-in and bounded."
+}

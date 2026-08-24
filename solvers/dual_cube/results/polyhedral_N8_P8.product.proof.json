@@ -1,0 +1,198 @@
+{
+  "schema": "dual-cube-polyhedral-candidate",
+  "version": 1,
+  "phase": "product-search",
+  "halt": "keep-phase1",
+  "reason": "no connected SAT assignment beat the one-split Phase 1 fixture",
+  "fixture": {
+    "exactCover": 1,
+    "manifoldPieces": 1,
+    "geometryGates": 1,
+    "mergedDiagonalArea": 2.8284271247461903,
+    "boundaryEdgeCount": 0,
+    "faceCount": 242,
+    "splitCellCount": 1,
+    "minFaceArea": 0.5,
+    "maxDiagonalFace": 1.4142135623730951
+  },
+  "log": [
+    {
+      "iter": 0,
+      "stage": "dual-interface",
+      "splits": 16,
+      "disconnected": 5,
+      "fragmented": 1
+    },
+    {
+      "iter": 1,
+      "stage": "dual-interface",
+      "splits": 16,
+      "disconnected": 4,
+      "fragmented": 2
+    },
+    {
+      "iter": 2,
+      "stage": "dual-interface",
+      "splits": 16,
+      "disconnected": 6,
+      "fragmented": 3
+    },
+    {
+      "iter": 3,
+      "stage": "dual-interface",
+      "splits": 16,
+      "disconnected": 8,
+      "fragmented": 4
+    },
+    {
+      "iter": 4,
+      "stage": "dual-interface",
+      "splits": 16,
+      "disconnected": 7,
+      "fragmented": 5
+    },
+    {
+      "iter": 5,
+      "stage": "dual-interface",
+      "splits": 16,
+      "disconnected": 2,
+      "fragmented": 6
+    },
+    {
+      "iter": 6,
+      "stage": "dual-interface",
+      "splits": 16,
+      "disconnected": 6,
+      "fragmented": 7
+    },
+    {
+      "iter": 7,
+      "stage": "dual-interface",
+      "splits": 16,
+      "disconnected": 10,
+      "fragmented": 8
+    },
+    {
+      "iter": 8,
+      "stage": "dual-interface",
+      "splits": 16,
+      "disconnected": 10,
+      "fragmented": 9
+    },
+    {
+      "iter": 9,
+      "stage": "dual-interface",
+      "splits": 16,
+      "disconnected": 5,
+      "fragmented": 10
+    },
+    {
+      "iter": 10,
+      "stage": "dual-interface",
+      "splits": 16,
+      "disconnected": 7,
+      "fragmented": 11
+    },
+    {
+      "iter": 11,
+      "stage": "dual-interface",
+      "splits": 16,
+      "disconnected": 7,
+      "fragmented": 12
+    },
+    {
+      "iter": 11,
+      "stage": "dual-interface",
+      "note": "stop-fragmented"
+    },
+    {
+      "iter": 0,
+      "stage": "halo",
+      "splits": 16,
+      "disconnected": 5,
+      "fragmented": 1
+    },
+    {
+      "iter": 1,
+      "stage": "halo",
+      "splits": 16,
+      "disconnected": 6,
+      "fragmented": 2
+    },
+    {
+      "iter": 2,
+      "stage": "halo",
+      "splits": 16,
+      "disconnected": 8,
+      "fragmented": 3
+    },
+    {
+      "iter": 3,
+      "stage": "halo",
+      "splits": 16,
+      "disconnected": 10,
+      "fragmented": 4
+    },
+    {
+      "iter": 4,
+      "stage": "halo",
+      "splits": 16,
+      "disconnected": 8,
+      "fragmented": 5
+    },
+    {
+      "iter": 5,
+      "stage": "halo",
+      "splits": 16,
+      "disconnected": 10,
+      "fragmented": 6
+    },
+    {
+      "iter": 6,
+      "stage": "halo",
+      "splits": 16,
+      "disconnected": 3,
+      "fragmented": 7
+    },
+    {
+      "iter": 7,
+      "stage": "halo",
+      "splits": 16,
+      "disconnected": 9,
+      "fragmented": 8
+    },
+    {
+      "iter": 8,
+      "stage": "halo",
+      "splits": 16,
+      "disconnected": 7,
+      "fragmented": 9
+    },
+    {
+      "iter": 9,
+      "stage": "halo",
+      "splits": 16,
+      "disconnected": 8,
+      "fragmented": 10
+    },
+    {
+      "iter": 10,
+      "stage": "halo",
+      "splits": 16,
+      "disconnected": 6,
+      "fragmented": 11
+    },
+    {
+      "iter": 11,
+      "stage": "halo",
+      "splits": 16,
+      "disconnected": 8,
+      "fragmented": 12
+    },
+    {
+      "iter": 11,
+      "stage": "halo",
+      "note": "stop-fragmented"
+    }
+  ]
+}

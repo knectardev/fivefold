@@ -1,0 +1,1276 @@
+{
+  "schema": "dual-cube-two-tier-insertion",
+  "version": 1,
+  "note": "Tier-1 residual-pass carriers are accepted geometry. Tier-2 Cube B failures are provisional topology probes and do not receive CAD closure credit. Global GPU optimization waits until this pass finishes.",
+  "baseline": {
+    "openEdges": 86,
+    "shells": 22,
+    "nonmanifold": 0,
+    "unexplained": 0
+  },
+  "final": {
+    "openEdges": 1,
+    "shells": 8,
+    "nonmanifold": 0,
+    "unexplained": 0,
+    "fittedUntrimmed": 1,
+    "unresolved": 0
+  },
+  "openEdges": {
+    "openEdges": 1,
+    "explainedByUnresolvedOpening": 0,
+    "explainedByFittedUntrimmed": 1,
+    "unexplainedCount": 0,
+    "byOpening": {},
+    "byFittedUntrimmed": {
+      "S74": 1
+    },
+    "unexplained": [],
+    "fittedUntrimmed": [
+      {
+        "piece": 6,
+        "key": "S74|S78",
+        "a": "S74",
+        "b": "S78",
+        "kinds": [
+          "curved",
+          "planar-mate"
+        ],
+        "openings": [],
+        "fitted": [
+          "S74"
+        ]
+      }
+    ]
+  },
+  "piece5": {
+    "shells": 1,
+    "openEdges": 0,
+    "closed": true
+  },
+  "tier1": {
+    "attempted": 4,
+    "kept": 4,
+    "rolledBack": 0
+  },
+  "tier2": {
+    "attempted": 10,
+    "provisional": 10,
+    "rolledBack": 0,
+    "usable": [
+      "S4",
+      "S91",
+      "S19",
+      "S7",
+      "S21",
+      "S9",
+      "S45",
+      "S50",
+      "S74",
+      "S41"
+    ]
+  },
+  "optimizerReady": true,
+  "unresolved": [],
+  "piecesCloserToOneShell": [
+    {
+      "piece": 1,
+      "shellsBefore": 5,
+      "shellsAfter": 1,
+      "openEdgesBefore": 29,
+      "openEdgesAfter": 0,
+      "closerToOneShell": true
+    },
+    {
+      "piece": 2,
+      "shellsBefore": 2,
+      "shellsAfter": 1,
+      "openEdgesBefore": 6,
+      "openEdgesAfter": 0,
+      "closerToOneShell": true
+    },
+    {
+      "piece": 3,
+      "shellsBefore": 3,
+      "shellsAfter": 1,
+      "openEdgesBefore": 12,
+      "openEdgesAfter": 0,
+      "closerToOneShell": true
+    },
+    {
+      "piece": 4,
+      "shellsBefore": 3,
+      "shellsAfter": 1,
+      "openEdgesBefore": 11,
+      "openEdgesAfter": 0,
+      "closerToOneShell": true
+    },
+    {
+      "piece": 6,
+      "shellsBefore": 2,
+      "shellsAfter": 1,
+      "openEdgesBefore": 7,
+      "openEdgesAfter": 1,
+      "closerToOneShell": true
+    },
+    {
+      "piece": 7,
+      "shellsBefore": 2,
+      "shellsAfter": 1,
+      "openEdgesBefore": 7,
+      "openEdgesAfter": 0,
+      "closerToOneShell": true
+    },
+    {
+      "piece": 8,
+      "shellsBefore": 4,
+      "shellsAfter": 1,
+      "openEdgesBefore": 14,
+      "openEdgesAfter": 0,
+      "closerToOneShell": true
+    }
+  ],
+  "carrierStatus": [
+    {
+      "patch": "S4",
+      "piece": 1,
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S6",
+      "piece": 1,
+      "type": "cylinder",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S7",
+      "piece": 1,
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S9",
+      "piece": 1,
+      "type": "cylinder",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S13",
+      "piece": 1,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S19",
+      "piece": 1,
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S21",
+      "piece": 2,
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S35",
+      "piece": 3,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S41",
+      "piece": 3,
+      "type": "cylinder",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S45",
+      "piece": 4,
+      "type": "sphere",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S49",
+      "piece": 4,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S50",
+      "piece": 4,
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S56",
+      "piece": 5,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S59",
+      "piece": 5,
+      "type": "cylinder",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S66",
+      "piece": 6,
+      "type": "cone",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S70",
+      "piece": 6,
+      "type": "cylinder",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S71",
+      "piece": 6,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S74",
+      "piece": 6,
+      "type": "sphere",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": false,
+      "unmatchedCount": 1
+    },
+    {
+      "patch": "S80",
+      "piece": 7,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S81",
+      "piece": 7,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S84",
+      "piece": 7,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S91",
+      "piece": 8,
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S92",
+      "piece": 8,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S96",
+      "piece": 8,
+      "type": "cylinder",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    },
+    {
+      "patch": "S99",
+      "piece": 8,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "trimComplete": true,
+      "unmatchedCount": 0
+    }
+  ],
+  "branchOverrides": {
+    "S2|S6": "S6__plane_S2__generator_0__forward__aabb_clip",
+    "S3|S6": "S6__plane_S3__seed_polyline__forward__none",
+    "S5|S6": "S6__plane_S5__numerical__forward__none",
+    "S6|S8": "S6__plane_S8__generator_1__forward__aabb_clip",
+    "S15|S6": "S6__plane_S15__seed_polyline__forward__none",
+    "S14|S6": "S6__plane_S14__seed_polyline__forward__none",
+    "S93|S96": "S96__plane_S93__seed_polyline__forward__none",
+    "S94|S96": "S96__plane_S94__numerical__forward__none"
+  },
+  "fits": [
+    {
+      "patch": "S4",
+      "piece": 1,
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.002756625924856785,
+      "mateARms": 0.002756625924856785,
+      "mateBRms": 0.056451682650260286
+    },
+    {
+      "patch": "S6",
+      "piece": 1,
+      "type": "cylinder",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.036738594969371076,
+      "mateARms": 0.036738594969371076,
+      "mateBRms": 0.036738594969371076
+    },
+    {
+      "patch": "S7",
+      "piece": 1,
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.0006340716021659235,
+      "mateARms": 0.0006340716021659235,
+      "mateBRms": 0.08872465648859454
+    },
+    {
+      "patch": "S9",
+      "piece": 1,
+      "type": "cylinder",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.010694826587714163,
+      "mateARms": 0.010694826587714163,
+      "mateBRms": 0.10385085927701042
+    },
+    {
+      "patch": "S13",
+      "piece": 1,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.029271706499525922,
+      "mateARms": 0.029271706499525922,
+      "mateBRms": 0.04921319684879797
+    },
+    {
+      "patch": "S19",
+      "piece": 1,
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.03043615633693947,
+      "mateARms": 0.03043615633693947,
+      "mateBRms": 0.07633609515858908
+    },
+    {
+      "patch": "S21",
+      "piece": 2,
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.017630316013440367,
+      "mateARms": 0.017630316013440367,
+      "mateBRms": 0.0977600457545748
+    },
+    {
+      "patch": "S35",
+      "piece": 3,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.0011910743136299517,
+      "mateARms": 0.0011910743136299517,
+      "mateBRms": 0.0013761770922484818
+    },
+    {
+      "patch": "S41",
+      "piece": 3,
+      "type": "cylinder",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.012888839688992555,
+      "mateARms": 0.012888839688992555,
+      "mateBRms": 0.16058819043900782
+    },
+    {
+      "patch": "S45",
+      "piece": 4,
+      "type": "sphere",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.02890477017176171,
+      "mateARms": 0.02890477017176171,
+      "mateBRms": 0.11513897764039124
+    },
+    {
+      "patch": "S49",
+      "piece": 4,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.0012207573308967029,
+      "mateARms": 0.0012207573308967029,
+      "mateBRms": 0.010830830667063359
+    },
+    {
+      "patch": "S50",
+      "piece": 4,
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.020581926339643838,
+      "mateARms": 0.020581926339643838,
+      "mateBRms": 0.12557307800680972
+    },
+    {
+      "patch": "S56",
+      "piece": 5,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.03356692513610045,
+      "mateARms": 0.03356692513610045,
+      "mateBRms": 0.03356692513610045
+    },
+    {
+      "patch": "S59",
+      "piece": 5,
+      "type": "cylinder",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.02508805071728511,
+      "mateARms": 0.02508805071728511,
+      "mateBRms": 0.02508805071728511
+    },
+    {
+      "patch": "S66",
+      "piece": 6,
+      "type": "cone",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.025978569086284407,
+      "mateARms": 0.025978569086284407,
+      "mateBRms": 0.04337955652139244
+    },
+    {
+      "patch": "S70",
+      "piece": 6,
+      "type": "cylinder",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.010414027674602927,
+      "mateARms": 0.010414027674602927,
+      "mateBRms": 0.014865388139770688
+    },
+    {
+      "patch": "S71",
+      "piece": 6,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.008556718630563634,
+      "mateARms": 0.008556718630563634,
+      "mateBRms": 0.007301368942592035
+    },
+    {
+      "patch": "S74",
+      "piece": 6,
+      "type": "sphere",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 1.1720882122957026e-8,
+      "mateARms": 1.1720882122957026e-8,
+      "mateBRms": 0.1302386530806509
+    },
+    {
+      "patch": "S80",
+      "piece": 7,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.01697635115745369,
+      "mateARms": 0.01697635115745369,
+      "mateBRms": 0.014933323333112423
+    },
+    {
+      "patch": "S81",
+      "piece": 7,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.0236732791937636,
+      "mateARms": 0.0236732791937636,
+      "mateBRms": 0.026281006302519578
+    },
+    {
+      "patch": "S84",
+      "piece": 7,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.030370917612105044,
+      "mateARms": 0.030370917612105044,
+      "mateBRms": 0.04574690958158731
+    },
+    {
+      "patch": "S91",
+      "piece": 8,
+      "type": "generalQuadric",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "residualGate": "mateB",
+      "rms": 0.01882786636540972,
+      "mateARms": 0.01882786636540972,
+      "mateBRms": 0.07048603523197094
+    },
+    {
+      "patch": "S92",
+      "piece": 8,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.00009378205329456153,
+      "mateARms": 0.00009378205329456153,
+      "mateBRms": 0.00009319348611295759
+    },
+    {
+      "patch": "S96",
+      "piece": 8,
+      "type": "cylinder",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.0226810065812712,
+      "mateARms": 0.0226810065812712,
+      "mateBRms": 0.0226810065812712
+    },
+    {
+      "patch": "S99",
+      "piece": 8,
+      "type": "generalQuadric",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "residualGate": "pass",
+      "rms": 0.0026048444274903134,
+      "mateARms": 0.0026048444274903134,
+      "mateBRms": 0.002146518032187679
+    }
+  ],
+  "log": [
+    {
+      "opening": "S35",
+      "family": "generalQuadric",
+      "branchId": null,
+      "branchIds": [],
+      "before": {
+        "openEdges": 86,
+        "shells": 22,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "after": {
+        "openEdges": 80,
+        "shells": 21,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "trimComplete": true,
+      "cubeAResidual": 0.0011910743136299517,
+      "cubeBResidual": 0.0013761770922484818,
+      "decision": "keep",
+      "reason": "open-edges-decreased",
+      "notes": {
+        "closesIntendedOpening": true,
+        "validLoopsBothAssemblies": true,
+        "joinsPreviouslySeparateShells": true,
+        "seedSupportedTrims": false,
+        "impossibleGeometricTrims": false,
+        "pieceShellsBefore": 3,
+        "pieceShellsAfter": 2,
+        "pieceOpenEdgesBefore": 12,
+        "pieceOpenEdgesAfter": 6
+      },
+      "residualGate": "pass",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "delta": {
+        "openEdges": -6,
+        "shells": -1,
+        "nonmanifold": 0,
+        "unexplained": 0
+      }
+    },
+    {
+      "opening": "S84",
+      "family": "generalQuadric",
+      "branchId": null,
+      "branchIds": [],
+      "before": {
+        "openEdges": 80,
+        "shells": 21,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "after": {
+        "openEdges": 73,
+        "shells": 20,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "trimComplete": true,
+      "cubeAResidual": 0.030370917612105044,
+      "cubeBResidual": 0.04574690958158731,
+      "decision": "keep",
+      "reason": "open-edges-decreased",
+      "notes": {
+        "closesIntendedOpening": true,
+        "validLoopsBothAssemblies": true,
+        "joinsPreviouslySeparateShells": true,
+        "seedSupportedTrims": false,
+        "impossibleGeometricTrims": false,
+        "pieceShellsBefore": 2,
+        "pieceShellsAfter": 1,
+        "pieceOpenEdgesBefore": 7,
+        "pieceOpenEdgesAfter": 0
+      },
+      "residualGate": "pass",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "delta": {
+        "openEdges": -7,
+        "shells": -1,
+        "nonmanifold": 0,
+        "unexplained": 0
+      }
+    },
+    {
+      "opening": "S92",
+      "family": "generalQuadric",
+      "branchId": null,
+      "branchIds": [],
+      "before": {
+        "openEdges": 73,
+        "shells": 20,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "after": {
+        "openEdges": 71,
+        "shells": 19,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "trimComplete": true,
+      "cubeAResidual": 0.00009378205329456153,
+      "cubeBResidual": 0.00009319348611295759,
+      "decision": "keep",
+      "reason": "open-edges-decreased",
+      "notes": {
+        "closesIntendedOpening": true,
+        "validLoopsBothAssemblies": true,
+        "joinsPreviouslySeparateShells": true,
+        "seedSupportedTrims": false,
+        "impossibleGeometricTrims": false,
+        "pieceShellsBefore": 4,
+        "pieceShellsAfter": 3,
+        "pieceOpenEdgesBefore": 14,
+        "pieceOpenEdgesAfter": 12
+      },
+      "residualGate": "pass",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "delta": {
+        "openEdges": -2,
+        "shells": -1,
+        "nonmanifold": 0,
+        "unexplained": 0
+      }
+    },
+    {
+      "opening": "S99",
+      "family": "generalQuadric",
+      "branchId": null,
+      "branchIds": [],
+      "before": {
+        "openEdges": 71,
+        "shells": 19,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "after": {
+        "openEdges": 65,
+        "shells": 18,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "trimComplete": true,
+      "cubeAResidual": 0.0026048444274903134,
+      "cubeBResidual": 0.002146518032187679,
+      "decision": "keep",
+      "reason": "open-edges-decreased",
+      "notes": {
+        "closesIntendedOpening": true,
+        "validLoopsBothAssemblies": true,
+        "joinsPreviouslySeparateShells": true,
+        "seedSupportedTrims": false,
+        "impossibleGeometricTrims": false,
+        "pieceShellsBefore": 3,
+        "pieceShellsAfter": 2,
+        "pieceOpenEdgesBefore": 12,
+        "pieceOpenEdgesAfter": 6
+      },
+      "residualGate": "pass",
+      "acceptedGeometry": true,
+      "topologyProbe": false,
+      "delta": {
+        "openEdges": -6,
+        "shells": -1,
+        "nonmanifold": 0,
+        "unexplained": 0
+      }
+    },
+    {
+      "opening": "S4",
+      "family": "generalQuadric",
+      "branchId": null,
+      "branchIds": [],
+      "before": {
+        "openEdges": 65,
+        "shells": 18,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "after": {
+        "openEdges": 58,
+        "shells": 17,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "trimComplete": true,
+      "cubeAResidual": 0.002756625924856785,
+      "cubeBResidual": 0.056451682650260286,
+      "decision": "provisional",
+      "reason": "open-edges-decreased",
+      "notes": {
+        "closesIntendedOpening": true,
+        "validLoopsBothAssemblies": true,
+        "joinsPreviouslySeparateShells": true,
+        "seedSupportedTrims": false,
+        "impossibleGeometricTrims": false,
+        "pieceShellsBefore": 5,
+        "pieceShellsAfter": 4,
+        "pieceOpenEdgesBefore": 29,
+        "pieceOpenEdgesAfter": 22
+      },
+      "residualGate": "mateB",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "delta": {
+        "openEdges": -7,
+        "shells": -1,
+        "nonmanifold": 0,
+        "unexplained": 0
+      }
+    },
+    {
+      "opening": "S91",
+      "family": "generalQuadric",
+      "branchId": null,
+      "branchIds": [],
+      "before": {
+        "openEdges": 58,
+        "shells": 17,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "after": {
+        "openEdges": 52,
+        "shells": 16,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "trimComplete": true,
+      "cubeAResidual": 0.01882786636540972,
+      "cubeBResidual": 0.07048603523197094,
+      "decision": "provisional",
+      "reason": "open-edges-decreased",
+      "notes": {
+        "closesIntendedOpening": true,
+        "validLoopsBothAssemblies": true,
+        "joinsPreviouslySeparateShells": true,
+        "seedSupportedTrims": false,
+        "impossibleGeometricTrims": false,
+        "pieceShellsBefore": 2,
+        "pieceShellsAfter": 1,
+        "pieceOpenEdgesBefore": 6,
+        "pieceOpenEdgesAfter": 0
+      },
+      "residualGate": "mateB",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "delta": {
+        "openEdges": -6,
+        "shells": -1,
+        "nonmanifold": 0,
+        "unexplained": 0
+      }
+    },
+    {
+      "opening": "S19",
+      "family": "generalQuadric",
+      "branchId": null,
+      "branchIds": [],
+      "before": {
+        "openEdges": 52,
+        "shells": 16,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "after": {
+        "openEdges": 46,
+        "shells": 15,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "trimComplete": true,
+      "cubeAResidual": 0.03043615633693947,
+      "cubeBResidual": 0.07633609515858908,
+      "decision": "provisional",
+      "reason": "open-edges-decreased",
+      "notes": {
+        "closesIntendedOpening": true,
+        "validLoopsBothAssemblies": true,
+        "joinsPreviouslySeparateShells": true,
+        "seedSupportedTrims": false,
+        "impossibleGeometricTrims": false,
+        "pieceShellsBefore": 4,
+        "pieceShellsAfter": 3,
+        "pieceOpenEdgesBefore": 22,
+        "pieceOpenEdgesAfter": 16
+      },
+      "residualGate": "mateB",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "delta": {
+        "openEdges": -6,
+        "shells": -1,
+        "nonmanifold": 0,
+        "unexplained": 0
+      }
+    },
+    {
+      "opening": "S7",
+      "family": "generalQuadric",
+      "branchId": null,
+      "branchIds": [],
+      "before": {
+        "openEdges": 46,
+        "shells": 15,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "after": {
+        "openEdges": 37,
+        "shells": 14,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "trimComplete": true,
+      "cubeAResidual": 0.0006340716021659235,
+      "cubeBResidual": 0.08872465648859454,
+      "decision": "provisional",
+      "reason": "open-edges-decreased",
+      "notes": {
+        "closesIntendedOpening": true,
+        "validLoopsBothAssemblies": true,
+        "joinsPreviouslySeparateShells": true,
+        "seedSupportedTrims": false,
+        "impossibleGeometricTrims": false,
+        "pieceShellsBefore": 3,
+        "pieceShellsAfter": 2,
+        "pieceOpenEdgesBefore": 16,
+        "pieceOpenEdgesAfter": 7
+      },
+      "residualGate": "mateB",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "delta": {
+        "openEdges": -9,
+        "shells": -1,
+        "nonmanifold": 0,
+        "unexplained": 0
+      }
+    },
+    {
+      "opening": "S21",
+      "family": "generalQuadric",
+      "branchId": null,
+      "branchIds": [],
+      "before": {
+        "openEdges": 37,
+        "shells": 14,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "after": {
+        "openEdges": 31,
+        "shells": 13,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "trimComplete": true,
+      "cubeAResidual": 0.017630316013440367,
+      "cubeBResidual": 0.0977600457545748,
+      "decision": "provisional",
+      "reason": "open-edges-decreased",
+      "notes": {
+        "closesIntendedOpening": true,
+        "validLoopsBothAssemblies": true,
+        "joinsPreviouslySeparateShells": true,
+        "seedSupportedTrims": false,
+        "impossibleGeometricTrims": false,
+        "pieceShellsBefore": 2,
+        "pieceShellsAfter": 1,
+        "pieceOpenEdgesBefore": 6,
+        "pieceOpenEdgesAfter": 0
+      },
+      "residualGate": "mateB",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "delta": {
+        "openEdges": -6,
+        "shells": -1,
+        "nonmanifold": 0,
+        "unexplained": 0
+      }
+    },
+    {
+      "opening": "S9",
+      "family": "cylinder",
+      "branchId": null,
+      "branchIds": [],
+      "before": {
+        "openEdges": 31,
+        "shells": 13,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "after": {
+        "openEdges": 24,
+        "shells": 12,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "trimComplete": true,
+      "cubeAResidual": 0.010694826587714163,
+      "cubeBResidual": 0.10385085927701042,
+      "decision": "provisional",
+      "reason": "open-edges-decreased",
+      "notes": {
+        "closesIntendedOpening": true,
+        "validLoopsBothAssemblies": true,
+        "joinsPreviouslySeparateShells": true,
+        "seedSupportedTrims": true,
+        "impossibleGeometricTrims": false,
+        "pieceShellsBefore": 2,
+        "pieceShellsAfter": 1,
+        "pieceOpenEdgesBefore": 7,
+        "pieceOpenEdgesAfter": 0
+      },
+      "residualGate": "mateB",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "delta": {
+        "openEdges": -7,
+        "shells": -1,
+        "nonmanifold": 0,
+        "unexplained": 0
+      }
+    },
+    {
+      "opening": "S45",
+      "family": "sphere",
+      "branchId": null,
+      "branchIds": [],
+      "before": {
+        "openEdges": 24,
+        "shells": 12,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "after": {
+        "openEdges": 19,
+        "shells": 11,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "trimComplete": true,
+      "cubeAResidual": 0.02890477017176171,
+      "cubeBResidual": 0.11513897764039124,
+      "decision": "provisional",
+      "reason": "open-edges-decreased",
+      "notes": {
+        "closesIntendedOpening": true,
+        "validLoopsBothAssemblies": true,
+        "joinsPreviouslySeparateShells": true,
+        "seedSupportedTrims": false,
+        "impossibleGeometricTrims": false,
+        "pieceShellsBefore": 3,
+        "pieceShellsAfter": 2,
+        "pieceOpenEdgesBefore": 11,
+        "pieceOpenEdgesAfter": 6
+      },
+      "residualGate": "mateB",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "delta": {
+        "openEdges": -5,
+        "shells": -1,
+        "nonmanifold": 0,
+        "unexplained": 0
+      }
+    },
+    {
+      "opening": "S50",
+      "family": "generalQuadric",
+      "branchId": null,
+      "branchIds": [],
+      "before": {
+        "openEdges": 19,
+        "shells": 11,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "after": {
+        "openEdges": 13,
+        "shells": 10,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "trimComplete": true,
+      "cubeAResidual": 0.020581926339643838,
+      "cubeBResidual": 0.12557307800680972,
+      "decision": "provisional",
+      "reason": "open-edges-decreased",
+      "notes": {
+        "closesIntendedOpening": true,
+        "validLoopsBothAssemblies": true,
+        "joinsPreviouslySeparateShells": true,
+        "seedSupportedTrims": false,
+        "impossibleGeometricTrims": false,
+        "pieceShellsBefore": 2,
+        "pieceShellsAfter": 1,
+        "pieceOpenEdgesBefore": 6,
+        "pieceOpenEdgesAfter": 0
+      },
+      "residualGate": "mateB",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "delta": {
+        "openEdges": -6,
+        "shells": -1,
+        "nonmanifold": 0,
+        "unexplained": 0
+      }
+    },
+    {
+      "opening": "S74",
+      "family": "sphere",
+      "branchId": null,
+      "branchIds": [],
+      "before": {
+        "openEdges": 13,
+        "shells": 10,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "after": {
+        "openEdges": 7,
+        "shells": 9,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "trimComplete": false,
+      "cubeAResidual": 1.1720882122957026e-8,
+      "cubeBResidual": 0.1302386530806509,
+      "decision": "provisional",
+      "reason": "open-edges-decreased",
+      "notes": {
+        "closesIntendedOpening": false,
+        "validLoopsBothAssemblies": false,
+        "joinsPreviouslySeparateShells": true,
+        "seedSupportedTrims": false,
+        "impossibleGeometricTrims": true,
+        "pieceShellsBefore": 2,
+        "pieceShellsAfter": 1,
+        "pieceOpenEdgesBefore": 7,
+        "pieceOpenEdgesAfter": 1
+      },
+      "residualGate": "mateB",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "delta": {
+        "openEdges": -6,
+        "shells": -1,
+        "nonmanifold": 0,
+        "unexplained": 0
+      }
+    },
+    {
+      "opening": "S41",
+      "family": "cylinder",
+      "branchId": null,
+      "branchIds": [],
+      "before": {
+        "openEdges": 7,
+        "shells": 9,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "after": {
+        "openEdges": 1,
+        "shells": 8,
+        "nonmanifold": 0,
+        "unexplained": 0
+      },
+      "trimComplete": true,
+      "cubeAResidual": 0.012888839688992555,
+      "cubeBResidual": 0.16058819043900782,
+      "decision": "provisional",
+      "reason": "open-edges-decreased",
+      "notes": {
+        "closesIntendedOpening": true,
+        "validLoopsBothAssemblies": true,
+        "joinsPreviouslySeparateShells": true,
+        "seedSupportedTrims": false,
+        "impossibleGeometricTrims": false,
+        "pieceShellsBefore": 2,
+        "pieceShellsAfter": 1,
+        "pieceOpenEdgesBefore": 6,
+        "pieceOpenEdgesAfter": 0
+      },
+      "residualGate": "mateB",
+      "acceptedGeometry": false,
+      "topologyProbe": true,
+      "delta": {
+        "openEdges": -6,
+        "shells": -1,
+        "nonmanifold": 0,
+        "unexplained": 0
+      }
+    }
+  ]
+}
