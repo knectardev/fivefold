@@ -1,10 +1,30 @@
 import { fileURLToPath } from 'node:url';
+import { readdirSync, readFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
-import { defineConfig } from 'vitest/config';
+import { defineConfig, type Plugin } from 'vitest/config';
 
 const rootDir = dirname(fileURLToPath(import.meta.url));
 
+/** Runtime-fetched orbit dumps live next to the HTML; Vite does not copy them unless emitted. */
+function emitSolverOrbitJson(): Plugin {
+  const solversDir = resolve(rootDir, 'solvers');
+  return {
+    name: 'emit-solver-orbit-json',
+    generateBundle() {
+      for (const name of readdirSync(solversDir)) {
+        if (!name.endsWith('.json')) continue;
+        this.emitFile({
+          type: 'asset',
+          fileName: `solvers/${name}`,
+          source: readFileSync(resolve(solversDir, name)),
+        });
+      }
+    },
+  };
+}
+
 export default defineConfig({
+  plugins: [emitSolverOrbitJson()],
   build: {
     rollupOptions: {
       input: {
